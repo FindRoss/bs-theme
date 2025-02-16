@@ -13,7 +13,7 @@
 ?>
 
 <?php if ( $query->have_posts() ) : ?>  
-  <div class="container mt-5 pt-4">
+  <div class="container mt-4 pt-4">
     <section>
     <?php chaser_styled_sub_heading(array(
       'heading' => 'Read More'
