@@ -30,9 +30,8 @@
     <!-- TITLE -->
     <div class="row">
       <div class="col-12 col-lg-8">
-        <h1 class="main--title mb-4"><?php the_title(); ?></h1>
-        <?php if (has_excerpt()) : ?><div class="main--excerpt mb-4"><?php the_excerpt(); ?></div><?php endif; ?>
-        <?php require locate_template('components/article/meta.php'); ?>
+        <?php get_template_part( 'template-parts/content/content-title' ); ?>
+        <?php get_template_part( 'template-parts/content/content-meta' ); ?>
       </div>
     </div>
 

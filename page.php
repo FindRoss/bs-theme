@@ -19,7 +19,7 @@
           <h1 class="main--title"><?php the_title(); ?></h1>
           <div class="mb-4">
             <!-- meta --> 
-            <?php require locate_template('components/article/meta.php'); ?>
+            <?php get_template_part( 'template-parts/content/content-meta' ); ?>
           </div>
         </div>
         <div class="col-12 col-lg-8">
