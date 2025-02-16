@@ -1,0 +1,166 @@
+@import 'breakpoints';
+
+// Outside here so I can use it on bonuses
+.info-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 90px;
+  padding-left: var(--size-100);
+  padding-right: var(--size-100);
+  // border: 1px solid var(--color-muted-200);
+  background: var(--color-bg-400);
+  font-size: 14px;
+  gap: 4px;
+
+  svg {
+    height: 16px;
+    width: 16px;
+    fill: var(--color-muted-700);
+  }
+
+  &.timer.hours {
+    background-color: #FFF3CD;
+    /* Light yellow for hours */
+  }
+
+  &.timer.days,
+  &.timer.weeks {
+    background-color: #BBF7D0;
+    /* Light green for days and weeks */
+  }
+
+  &.timer.months {
+    background-color: #ceecfa;
+    /* Light blue for months */
+  }
+
+  &.timer.expired {
+    background-color: #F8D7DA;
+    /* Light red for expired */
+  }
+} 
+
+
+
+.single-bonus {
+
+  main {
+    margin-top: -1.5rem;
+  }
+
+  .bonus-header-wrapper {
+    background: var(--color-bg-200);
+    padding: var(--size-100) 0;
+
+    @media screen and (min-width: $breakpoint-medium) {
+      padding: var(--size-300) 0;
+    }
+  }
+
+  .bonus-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+
+    @media screen and (min-width: $breakpoint-medium) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    &__brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      width: 100px;
+      height: 100px;
+      border-radius: var(--border-radius);
+
+      @media screen and (min-width: $breakpoint-small) {
+        width: 125px;
+        height: 125px;
+      }
+
+      @media screen and (min-width: $breakpoint-medium) {
+        height: 150px;
+        width: 150px;
+      }
+      
+     img {
+        height: auto;
+        width: 100%;
+     }
+   
+    }
+
+    &__content {
+      flex: 1;
+
+      h1 { 
+        margin: 0;
+        font-weight: 500;
+        font-size: var(--size-400);
+        max-width: auto;
+      
+        @media screen and (min-width: $breakpoint-small) {
+          font-size: var(--size-500);
+        }
+
+        @media screen and (min-width: $breakpoint-medium) {
+          font-size: var(--size-600);
+        }
+
+        @media screen and (min-width: $breakpoint-large) {
+          max-width: 28ch;
+        }
+   
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 10px;
+
+      @media screen and (min-width: $breakpoint-small) {
+        margin-top: var(--size-500);
+      }
+
+      .button {
+        @media screen and (max-width: $breakpoint-small) {
+          padding: var(--size-100) var(--size-200);
+        }
+
+        .bonus-code__label {
+          display: none; 
+
+          @media screen and (min-width: $breakpoint-medium) {
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+
+  .bonus-body {
+    font-size: var(--font-size-body-lg);
+
+    &__table {
+      margin-top: var(--size-600);
+    }
+    
+    &__content {
+      margin-top: var(--size-600);
+
+      p:first-child {
+        margin-top: 0;
+      }
+    }
+
+  }
+
+  .bonus-details-card {
+    background-color: var(--color-primary-50);
+  }
+}

@@ -1,0 +1,22 @@
+.cat-pill {
+  width: auto;
+  font-size: var(--size-300);
+  background: var(--color-bg-400);
+  font-family: var(--font-family-heading);
+  padding: var(--size-100) var(--size-200);
+  border-radius: 2rem;
+  border: 1px solid var(--color-muted-200);
+}
+
+.taxonomy-featued-sites {
+  margin-top: var(--size-900);
+  
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.featured-sidebar h2 {
+  font-size: 18px;
+}

@@ -1,0 +1,41 @@
+/*
+*
+* PAGINATION
+*
+*
+*/
+.custom-pagination {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: semi-bold;
+  font-family: var(--font-family-heading);
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+  }
+
+  .page-numbers {
+    background: var(--color-bg-600);
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 0.75em;
+    margin: 6px 0;
+    border-radius: 3px;
+    color: rgba(0, 0, 0, 0.7);
+    min-width: 30px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: var(--color-primary-700);
+      color: #fff;
+    }
+  }
+
+  .page-numbers.current {
+    background: var(--color-primary-700);
+    color: #fff;
+  }
+}

@@ -1,0 +1,23 @@
+.sidebar {
+
+  &__widget {
+    background: var(--color-bg-100);
+    border-radius: var(--border-radius);
+    padding: var(--size-400) var(--size-200);
+    border-top: 6px solid var(--color-bg-800);
+    
+    &:not(:first-child) {
+      margin-top: var(--size-400);
+    }
+
+    &--title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: var(--size-400);
+    }
+
+    figure, .wp-block-image {
+      margin: 0;
+    }
+  }
+}

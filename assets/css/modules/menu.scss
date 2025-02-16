@@ -1,0 +1,219 @@
+@import 'breakpoints';
+
+
+.nav-link {
+  color: var(--color-link);
+}
+
+.nav-link:hover, 
+.nav-link:active {
+  color: var(--color-link-hover);
+}
+
+header.sticky-top {
+  z-index: 1020;
+  /* Adjust as needed */
+}
+
+/* Adjust the overlay to start below the header */
+.page-overlay {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+
+.page-overlay.active {
+  display: block;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+header {
+  position: relative;
+  /* Ensure it stays in place */
+  z-index: 1000;
+  /* Higher than the overlay's z-index */
+}
+
+// Primary Nav
+// menu-primary-nav-container > ul#menu-primary-nav
+.navbar {
+  padding: 0em !important;
+
+  a.nav-link {
+    font-size: var(--size-400);
+    font-family: var(--font-family-heading);
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--color-primary-900) !important;
+
+    &.active {
+      color: black !important;
+    }
+  }
+
+  ul#menu-primary-nav>li:first-child {
+    padding-left: 0px;
+  }
+
+  .featured-navbar-item {
+    display: inline-block;
+    margin-left: 1rem;
+
+    a {
+      color: #ffffff !important;
+      background: indianred;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding-right: 1rem !important;
+      padding-left: 1rem !important;
+    }
+  }
+
+  .featured-navbar-item a:hover,
+  .featured-navbar-item a:focus,
+  .featured-navbar-item a:active {
+    filter: brightness(0.8);
+  }
+}
+
+@media screen and (min-width: 720px) {
+  ul.desktop-menu ul.dropdown-menu.show {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+ul.desktop-menu>li.menu-item {
+  position: inherit;
+}
+
+
+
+/*
+* SIDEBAR MENU
+**/
+
+.admin-bar .background-drawer {
+  top: 94px;
+}
+
+.background-drawer {
+  position: fixed;
+  display: block;
+  bottom: 0px;
+  background-color: rgb(255, 255, 255);
+  visibility: hidden;
+  z-index: 3000;
+  transition: transform 0.1s ease-in-out;
+  top: 67px;
+  left: 0px;
+  transform: translateX(-100%);
+  padding: var(--size-400) 0;
+  overflow-y: scroll;
+
+  @media screen and (min-width: $breakpoint-medium) {
+    right: auto;
+    width: 320px;
+  }
+
+  &.show {
+    visibility: unset;
+    transform: translateX(0);
+  }
+
+  #menu-sidebar-nav {
+    list-style-type: none;
+    padding-left: 0;
+    user-select: none;
+
+    a {
+      display: block;
+      padding-top: var(--size-300);
+      padding-bottom: var(--size-300);
+      padding-left: var(--size-100);
+      padding-right: var(--size-200);
+      font-size: 14px;
+
+      &:hover {
+        background-color: var(--color-muted-100);
+      } 
+    }
+
+    & > li {
+      &:not(:first-child) {
+        border-top: 1px solid var(--color-muted-100);
+      }
+
+      & > a {
+        font-size: 18px;
+      }
+    }
+
+    
+    .menu-item-has-children {
+      cursor: pointer; 
+
+      & > a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--color-primary-900);
+        
+
+        &::after {
+          content: '';
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z\'/%3E%3C/svg%3E') no-repeat center center;
+          background-size: contain;
+          transition: transform 0.1s;
+        }
+
+        &.rotate { 
+          &::after {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      .sub-menu {
+        display: none;
+        visibility: hidden;
+        height: 0px;
+        list-style-type: none;
+        padding: 0;
+        
+        // Second level
+        a {
+          padding-left: var(--size-400);
+          padding-right: var(--size-500);
+        }
+        // Third level
+        ul>li>a {
+          padding-left: var(--size-600);
+        }
+
+
+        &.active {
+          display: block;
+          visibility: visible;
+          height: auto;
+        }
+      }
+    }
+  }
+}

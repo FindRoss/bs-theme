@@ -1,0 +1,21 @@
+{
+  "name": "bs-theme",
+  "version": "1.0.0",
+  "description": "A WordPress theme for BitcoinChaser",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "dev": "wp-scripts start",
+    "devFast": "wp-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ross Findlay",
+  "license": "ISC",
+  "dependencies": {
+    "@wordpress/scripts": "^27.8.0",
+    "axios": "^1.7.9",
+    "bootstrap-icons": "^1.11.3",
+    "swiper": "^11.1.9"
+  }
+}
