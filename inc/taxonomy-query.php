@@ -28,7 +28,7 @@ function taxonomyMainQuery($query, $taxonomy) {
       </div><!-- .row --> 
       
       <div class="mt-4">   
-        <?php require locate_template( 'components/pagination.php' )?>
+        <?php get_template_part('template-parts/content/content', 'pagination', array('query' => $query)); ?>
       </div> 
     </div><!-- .container -->
   </div>

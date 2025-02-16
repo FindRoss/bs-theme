@@ -47,6 +47,7 @@
           <!-- FAQS -->
           <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
         </div>
+
       </div><!-- .col --> 
 
       <!-- SIDEBAR -->

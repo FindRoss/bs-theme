@@ -1,5 +1,8 @@
 <div class="custom-pagination py-3">
-<?php     
+<?php 
+// Get the query variable from the passed arguments
+$query = $args['query'];
+
 echo paginate_links( array(
   'prev_text' => __( '<', 'textdomain' ),
   'next_text' => __( '>', 'textdomain' ),
@@ -8,4 +11,4 @@ echo paginate_links( array(
   )
 );
 ?>
-</div><!-- .custom-pagination --> 
+</div><!-- .custom-pagination -->

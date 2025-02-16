@@ -73,9 +73,9 @@ if ($review_query_foundPosts >= 1) { ?>
   $blog_section_slug = '/category/promotions/';
   $blog_section_description = 'Get involved in the latest events and promotions running at crypto gambling sites.';
   $blog_section_link_text = 'All Promotions';
-  require locate_template('components/homepageSection.php'); 
+  
+  require locate_template('components/homepageSection.php');
 ?>
-
 
 <!-- BONUSES -->
 <?php 
