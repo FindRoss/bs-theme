@@ -27,7 +27,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
     </div>
 
     <div class="col-12 col-lg-4">
-      <?php render_sidebar(); ?>
+      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
     </div><!-- .col --> 
   </div><!-- .row --> 
 </div><!-- .container -->

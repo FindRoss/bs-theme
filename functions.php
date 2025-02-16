@@ -116,11 +116,6 @@ require get_theme_file_path('/inc/acf-blocks.php');
 require get_theme_file_path('/inc/bonuses-by-review.php');
 
 /**
- * Render Sidebar
- */
-require get_theme_file_path('/inc/render-sidebar.php');
-
-/**
  * Featured Articles Homepage
  */
 require get_theme_file_path('/inc/featured-articles.php');

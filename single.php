@@ -20,25 +20,14 @@
   }
 ?>
 
- <?php if($expiry_date_has_passed || $promo_marked_as_expired) { ?>
-    <div class="message warning">
-      <div class="container">
-        <div class="message__body">
-          <div class="message__content">
-            <h3 class="title">This promotion has expired.</h2>
-            <p>Discover more promotions now running.</p>
-          </div>
-          <div class="message__cta">
-            <a class="button button__primary" href="/category/promotions/">View More</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  <?php } ?>
+<?php if($expiry_date_has_passed || $promo_marked_as_expired) { ?>
+  <?php get_template_part( 'template-parts/message/message-expired' ); ?>
+<?php } ?>
 
 <article class="mt-4">
   <div class="container"> 
     
+    <!-- TITLE -->
     <div class="row">
       <div class="col-12 col-lg-8">
         <h1 class="main--title mb-4"><?php the_title(); ?></h1>
@@ -47,9 +36,9 @@
       </div>
     </div>
 
+  
     <div class="row mb-5">
-      <!-- CONTENT --> 
-      <div class="col-12 col-lg-8 content-area mb-5 mb-lg-0">
+      <div class="col-12 col-lg-8">
 
         <?php if (has_post_thumbnail()) : ?>
           <picture>
@@ -65,18 +54,25 @@
           </picture>
         <?php endif; ?>
 
+        <!-- CONTENT --> 
         <div class="main--content">
           <?php the_content(); ?>
-          <?php if (get_field('faqs')) { 
-            require locate_template('components/article/faqs.php'); 
-          }; ?>
+
+          <?php 
+          // Check if the template is 'applications'
+          if (is_page_template('applications.php')) {
+            // Add your specific code for 'applications' template here
+          }
+          ?>
+
+          <?php if (get_field('faqs')) { require locate_template('components/article/faqs.php'); }; ?>
         </div>
+
       </div><!-- .col --> 
 
-      <!-- Sidebar -->
+      <!-- SIDEBAR -->
       <div class="col-12 col-lg-4 d-flex flex-column">
-        <!-- <div class="ad-col pt-4 mt-2 mt-lg-0"></div> -->
-        <?php render_sidebar(); ?>
+        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
       </div>
 
     </div><!-- .row --> 

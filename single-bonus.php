@@ -106,19 +106,7 @@
     ?>  
 
     <?php if($bonus_has_expired) { ?>
-      <div class="message warning">
-        <div class="container">
-          <div class="message__body">
-            <div class="message__content">
-              <h3 class="title">This bonus is no longer available.</h2>
-              <p>Why not explore the other bonuses available.</p>
-            </div>
-            <div class="message__cta">
-              <a class="button button__primary" href="/bonuses/">View More</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php get_template_part( 'template-parts/message/message-expired' ); ?>
     <?php } ?>
 
     <article>

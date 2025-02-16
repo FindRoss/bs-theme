@@ -320,20 +320,12 @@ blockquote {
   }
 }
 
-@media screen and (max-width: 991px) {
-  .ad-col {
-    border-top: 3px solid var(--color-muted-200);
-  }
-}
-
-
 /*
 *
 *
 * Fix for legacy small images on posts 
 * 
 */
-
 .single-inline-img {
   display: inline;
 

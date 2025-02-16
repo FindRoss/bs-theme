@@ -106,8 +106,8 @@ if (!empty($merged_bonuses)) {
     </article>
 
     <aside class="col-12 col-lg-4 d-flex flex-column">
-      <div class="ad-col pt-4 mt-2 mt-lg-0">
-        <?php render_sidebar(); ?>
+      <div class="pt-4 mt-2 mt-lg-0">
+        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
       </div>
     </aside><!-- .aside -->
 

@@ -21,7 +21,7 @@
     </div><!-- .row -->
 
     <div class="row justify-content-center mb-5">
-      <div class="col-12 col-lg-8 content-area">
+      <div class="col-12 col-lg-8">
         <?php if (has_excerpt()) { ?>
             <div class="fs-xlarge text-muted fst-italic"><?php the_excerpt(); ?></div>
           <?php }; ?>
@@ -46,7 +46,7 @@
 <?php if ($further_reading_posts) { ?>
   <div class="container">
     <div class="row justify-content-center pb-5 mb-5">
-      <div class="col-12 col-lg-8 content-area pb-5 mb-5 pb-lg-0 mb-lg-0">
+      <div class="col-12 col-lg-8 pb-5 mb-5 pb-lg-0 mb-lg-0">
         <h3 class="border-top pt-3">Further Reading</h3>
         <ul class="">
           <?php foreach ($further_reading_posts as $p) : ?>

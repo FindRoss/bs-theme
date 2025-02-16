@@ -75,7 +75,7 @@ Template Post Type: post, page
     </div><!-- .col --> 
 
     <div class="col-12 col-lg-4">
-      <?php render_sidebar(); ?>
+      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
     </div>
 
   </div><!-- .row -->
