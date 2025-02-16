@@ -27,9 +27,7 @@
           <?php }; ?>
         <div class="main--content">
           <?php the_content(); ?>
-          <?php if (get_field('faqs')) { 
-            require locate_template('components/article/faqs.php'); 
-          }; ?>
+          <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
         </div>
       </div><!-- .col --> 
     </div><!-- .row --> 

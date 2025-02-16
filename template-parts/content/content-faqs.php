@@ -1,8 +1,6 @@
 <?php 
-if (get_field('faqs')) {
-
-
-if (is_tax(array('cryptocurrency', 'game', 'provider'))) {
+if (is_tax()) {
+  $term = get_queried_object();
   $faqs             = get_field('faqs', $term); 
   $faqs_heading     = get_field('faqs_heading', $term);
   $faqs_description = get_field('faqs_description', $term);
@@ -28,6 +26,4 @@ if (is_tax(array('cryptocurrency', 'game', 'provider'))) {
     <?php }; ?>
 
   </div><!-- .faqs__wrapper -->
-<?php };
-
-};
+<?php }; ?>

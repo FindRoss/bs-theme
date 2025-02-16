@@ -199,10 +199,6 @@
         ?>
       </section>
     </div>
-  <?php endif; ?> 
-
-
-<!-- require locate_template('components/article/featured-posts.php'); --> 
- 
+  <?php endif; ?>  
 
 <?php get_footer(); ?>

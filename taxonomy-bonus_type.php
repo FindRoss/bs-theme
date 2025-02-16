@@ -98,7 +98,7 @@ if (!empty($merged_bonuses)) {
         <?php echo $main_content; ?>
         <!-- FAQS -->
         <?php if (get_field('faqs', $term)) { 
-          require locate_template('components/article/faqs.php'); 
+          require locate_template('components/.php'); 
         }; ?>
 
       </div>

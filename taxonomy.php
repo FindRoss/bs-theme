@@ -126,17 +126,12 @@ endif; ?>
         <div class="col-12 col-lg-8"> 
           <?php echo $main_content; ?>
           <!-- FAQS -->
-          <?php if (get_field('faqs', $term)) { 
-            require locate_template('components/article/faqs.php'); 
-          }; ?>
+          <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
         </div>
       </div>
     </div>
 
-
-
   <?php 
-  
   $args = array(
     'post_type' => 'post',    
     'posts_per_page' => 8,   
