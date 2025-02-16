@@ -142,6 +142,7 @@ endif; ?>
         'terms'    => $term_id,       // The term slug (or ID if 'field' is set to 'term_id')
       ),
     ),
+    'meta_query'     => bonus_expired_meta_query()
   );
 
   

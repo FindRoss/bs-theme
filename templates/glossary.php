@@ -47,7 +47,9 @@ $glossary_query = new WP_Query($glossary_args);
     <?php endif; ?>
     <?php wp_reset_postdata(); ?>
 
-  </div><!-- .container --> 
+    </div><!-- .container --> 
+  
+
 </div>
 <?php get_footer(); ?>
 

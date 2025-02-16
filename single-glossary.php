@@ -56,4 +56,7 @@
   </div>
 <?php }; ?>
 
+<!-- MORE -->
+<?php get_template_part( 'template-parts/section/articles' ); ?>
+
 <?php get_footer(); ?>

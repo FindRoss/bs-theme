@@ -108,7 +108,7 @@ $postRelQuery = new WP_Query(array(
         'compare' => 'LIKE'
       )
     )
-  )
+    ),
 ); 
 
 // More Sites
