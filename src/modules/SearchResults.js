@@ -295,10 +295,9 @@ class SearchResultsNew {
   }
 
   paintNoResults() {
-    const note = `<div style = "text-align: center;" > No results found for the query < strong > ${this.query}</strong ></div> `;
+    const note = `<div style = "text-align: center;"> No results found for the query <strong> ${this.query}</strong></div>`;
     const fragment = document.createRange().createContextualFragment(note);
     this.resultsCountEl.replaceChildren(fragment);
-
   }
 
   paintCount(totalPosts) {
