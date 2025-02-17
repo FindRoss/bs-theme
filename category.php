@@ -76,8 +76,8 @@ $wp_query   = $query; ?>
   </div><!-- .container --> 
 
   <?php if ($total > 10) { ?>
-    <div class="container mt-4 text-center">
-      <?php require locate_template('components/pagination.php'); ?>
+    <div class="container mt-4">
+      <?php get_template_part('template-parts/content/content', 'pagination', array('query' => $query)); ?>
     </div><!-- container -->
   <?php }; ?>
 
@@ -92,7 +92,10 @@ $wp_query   = $query; ?>
   </div>
 <?php endif; ?>
 
-
+<?php 
+// Restore original query
+$wp_query = $temp_query;
+?>
 
 <?php get_footer(); ?>
 

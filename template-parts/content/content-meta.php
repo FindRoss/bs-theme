@@ -42,9 +42,11 @@
 
     <!-- Author -->
     <div class="main--meta__section">
-      <span class="icon">
-        <img src="<?php echo $get_avatar_url; ?>" width="20" height="20" alt="Author profile picture of <?php the_author(); ?>" /> 
-      </span>
+      <?php if ($get_avatar_url) { ?>
+        <span class="icon">
+          <img src="<?php echo $get_avatar_url; ?>" width="20" height="20" alt="Author profile picture of <?php the_author(); ?>" /> 
+        </span>
+      <?php }; ?>
       <span>By <?php the_author(); ?></span>
     </div>
     <?php }; ?>

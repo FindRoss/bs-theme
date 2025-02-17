@@ -108,7 +108,7 @@ $postRelQuery = new WP_Query(array(
         'compare' => 'LIKE'
       )
     )
-  )
+    ),
 ); 
 
 // More Sites
@@ -303,7 +303,7 @@ if (!empty($reviewFaqs)) {
     </div>
     <div class="review-header__title">
       <h1 class="main--title title"><?php the_title(); ?> Review</h1>
-      <?php require locate_template('components/article/meta.php'); ?>
+      <?php get_template_part( 'template-parts/content/content-meta' ); ?>
     </div>
 
     <!-- BUTTON -->  

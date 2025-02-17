@@ -43,7 +43,7 @@ $wp_query   = $query;
 
       <!-- pagination -->
       <div class="mb-4">   
-        <?php require locate_template( 'components/pagination.php' )?>
+        <?php get_template_part('template-parts/content/content', 'pagination', array('query' => $query)); ?>
       </div>  
 
     <?php endif; ?>

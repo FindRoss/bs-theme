@@ -200,9 +200,7 @@
       </section>
     </div>
   <?php endif; ?> 
-
-
-<!-- require locate_template('components/article/featured-posts.php'); --> 
- 
+  
+  <?php get_template_part( 'template-parts/section/articles' ); ?>
 
 <?php get_footer(); ?>

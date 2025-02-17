@@ -30,9 +30,8 @@
     <!-- TITLE -->
     <div class="row">
       <div class="col-12 col-lg-8">
-        <h1 class="main--title mb-4"><?php the_title(); ?></h1>
-        <?php if (has_excerpt()) : ?><div class="main--excerpt mb-4"><?php the_excerpt(); ?></div><?php endif; ?>
-        <?php require locate_template('components/article/meta.php'); ?>
+        <?php get_template_part( 'template-parts/content/content-title' ); ?>
+        <?php get_template_part( 'template-parts/content/content-meta' ); ?>
       </div>
     </div>
 
@@ -40,32 +39,13 @@
     <div class="row mb-5">
       <div class="col-12 col-lg-8">
 
-        <?php if (has_post_thumbnail()) : ?>
-          <picture>
-            <!-- Large image for desktop -->
-            <source media="(min-width: 768px)" srcset="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'large'); ?>">
-            <!-- Medium image for mobile -->
-            <source media="(max-width: 767px)" srcset="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium'); ?>">
-            <!-- Fallback for browsers that don't support <picture> -->
-            <img class="w-100 h-auto border box-shadow-sm my-4 rounded-corners" 
-                src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium'); ?>" 
-                alt="<?php the_title_attribute(); ?>" 
-                title="<?php the_title_attribute(); ?>" />
-          </picture>
-        <?php endif; ?>
+       <?php get_template_part( 'template-parts/content/content-thumbnail' ); ?>
 
         <!-- CONTENT --> 
         <div class="main--content">
           <?php the_content(); ?>
-
-          <?php 
-          // Check if the template is 'applications'
-          if (is_page_template('applications.php')) {
-            // Add your specific code for 'applications' template here
-          }
-          ?>
-
-          <?php if (get_field('faqs')) { require locate_template('components/article/faqs.php'); }; ?>
+          <!-- FAQS -->
+          <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
         </div>
 
       </div><!-- .col --> 
@@ -88,6 +68,7 @@
     'post__not_in'   => array($current_post_id),
     'posts_per_page' => 8, 
     'cat'            => $single_category_id,
+    'meta_query'     => bonus_expired_meta_query()
     
   ); 
   $latest_query = new WP_Query( $args );

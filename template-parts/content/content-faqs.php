@@ -1,5 +1,6 @@
 <?php 
-if (is_tax(array('cryptocurrency', 'game', 'provider'))) {
+if (is_tax()) {
+  $term = get_queried_object();
   $faqs             = get_field('faqs', $term); 
   $faqs_heading     = get_field('faqs_heading', $term);
   $faqs_description = get_field('faqs_description', $term);
@@ -10,7 +11,7 @@ if (is_tax(array('cryptocurrency', 'game', 'provider'))) {
 }
 ?>
 <?php if ($faqs) { ?> 
-  <div class="bg-cus-light mt-5 p-3 rounded">
+  <div class="faqs mt-4 pt-4">
     <h2 class="mt-2 mb-4">FAQs</h2>
     <?php if ($faqs_description) { echo '<p>' . $faqs_description . '</p>'; }; ?>
 

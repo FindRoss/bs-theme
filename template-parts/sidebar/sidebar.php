@@ -6,11 +6,12 @@ $top_bonuses = get_field('top_bonus', 'options');
 echo '<aside class="sidebar mt-4">';
 
 // if it isnt the homepage, show the ads
-if(!is_front_page()) {
+if (!is_front_page() && is_active_sidebar( 'sidebar-ad' )) { 
   echo '<section class="sidebar__widget">';
-  require locate_template('components/ads/sidebar.php');
+    dynamic_sidebar('sidebar-ad');
   echo '</section>';
 };
+
 
 
 if(!empty($top_sites)) { 

@@ -100,9 +100,8 @@ Template Post Type: page
       <div class="row main--content">
         <div class="col-12 col-lg-8">
           <?php the_content(); ?>
-          <?php if (get_field('faqs')) { 
-            require locate_template('components/article/faqs.php'); 
-          }; ?>
+          <!-- FAQS -->
+          <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
         </div><!-- .col --> 
       </div>
     </div>
