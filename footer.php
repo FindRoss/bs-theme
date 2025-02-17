@@ -1,4 +1,4 @@
-    <?php require locate_template('components/ads/bottom.php'); ?>
+  <?php get_template_part( 'template-parts/ad/ad-bottom' ); ?>
   </main>
   <footer class="border-top"> 
     <div style="background: #FAFAFA;">

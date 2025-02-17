@@ -4,7 +4,6 @@
   
   $args = array(
     'post_type'      => 'post', 
-    // Exclude the current post from the query
     'post__not_in'   => array($current_post_id),
     'posts_per_page' => 8, 
     'meta_query'     => bonus_expired_meta_query()
@@ -22,7 +21,6 @@
       <?php while ( $query->have_posts() ) : $query->the_post() ?>
         <div class="col-12 col-md-6 col-lg-3 mt-3">
           <?php require locate_template('components/card/article.php'); ?>
-          <?php $used_posts[] = get_the_ID(); ?>
         </div>
       <?php endwhile; ?>
     </section>

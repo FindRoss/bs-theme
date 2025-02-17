@@ -11,7 +11,7 @@ if (is_tax()) {
 }
 ?>
 <?php if ($faqs) { ?> 
-  <div class="bg-cus-light mt-5 p-3 rounded">
+  <div class="faqs mt-4 pt-4">
     <h2 class="mt-2 mb-4">FAQs</h2>
     <?php if ($faqs_description) { echo '<p>' . $faqs_description . '</p>'; }; ?>
 
