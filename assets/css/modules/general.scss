@@ -179,7 +179,7 @@ blockquote {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--size-200);
 
   @media screen and (min-width: $breakpoint-medium) {
     font-size: var(--size-400);
