@@ -93,7 +93,8 @@
       $relatedBonusArgs = array(
         'post_type'      => 'bonus',
         'posts_per_page' => 8,
-        'meta_query'     => bonus_expired_meta_query()
+        'meta_query'     => bonus_expired_meta_query(),
+        'post__not_in'   => array($current_id)
       );
       
       if (!empty($options_bonuses)) {
@@ -101,6 +102,21 @@
         $relatedBonusArgs['orderby'] = 'post__in'; 
       };
       $relatedBonus = new WP_Query($relatedBonusArgs);
+
+      $sameSiteBonusArgs = array(
+        'post_type'      => 'bonus',
+        'posts_per_page' => 8,
+        'meta_query'     => bonus_expired_meta_query(),
+        'post__not_in'   => array($current_id),
+        'meta_query'     => array(
+          array(
+              'key'     => 'single_bonus_casino', 
+              'value'   => '"' . $casino_id . '"', 
+              'compare' => 'LIKE'
+            )
+          )
+        );
+      $sameSiteBonus = new WP_Query($sameSiteBonusArgs);
 
       $bonus_has_expired = $bonus_marked_as_expired || $expiry_date_has_passed;
     ?>  
@@ -185,7 +201,19 @@
       </div><!-- .container --> 
     </article>
 
-
+  <?php if ($sameSiteBonus->have_posts()) : ?>
+    <div class="container mt-5">
+      <section>
+        <?php 
+          $sameSiteTitle = 'More ' . $name . ' Bonuses';
+          outputNewSlideHTML(array(
+            'query'   => $sameSiteBonus,
+            'heading' => $sameSiteTitle
+          ));
+        ?>
+      </section>
+    </div>
+  <?php endif; ?> 
 
   <?php if ($relatedBonus->have_posts()) : ?>
     <div class="container mt-5">
