@@ -126,7 +126,7 @@
     <?php } ?>
 
     <article>
-      <div class="bonus-header-wrapper <?php if (!$bonus_has_expired) { echo 'sticky-top'; } ?>">
+      <div class="bonus-header-wrapper">
         <div class="container">
           <div class="bonus-header">
             <div class="bonus-header__brand" style="background: <?php echo $theme_color; ?>">
@@ -144,24 +144,26 @@
 
               <h1><?php the_title(); ?></h1>
 
-              <?php if (!$bonus_has_expired) : ?>
-              <div class="buttons">
-                <a href="<?php echo $output_link; ?>" class="button button__primary button--small" rel="nofollow" target="_blank">Get Bonus</a>
-                <?php if ($code) { ?>
-                  <div class="button button__outline button--small bonus-code">
-                    <span class="bonus-code__label">Code: </span>
-                    <span class="bonus-code__code mx-1"><?php echo $code; ?></span>
-                    <span class="bonus-code__icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                      </svg>
-                    </span>
-                  </div>
-                <?php }; ?>
-              </div><!-- buttons -->
-              <?php endif; ?>
-
+            </div><!-- .bonus-header__content -->
+            
+            <?php if (!$bonus_has_expired) : ?> 
+            <div class="bonus-header__cta">
+               
+              <?php if ($code) { ?>
+                <div class="button button__outline bonus-code">
+                  <span class="bonus-code__label">Code: </span>
+                  <span class="bonus-code__code mx-1"><?php echo $code; ?></span>
+                  <span class="bonus-code__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                    </svg>
+                  </span>
+                </div>
+              <?php }; ?>
+              <a href="<?php echo $output_link; ?>" class="button button__primary" rel="nofollow" target="_blank">Get Bonus</a>
             </div>
+            <?php endif; ?>
+            
           </div><!-- .bonus-header -->
         </div><!-- .container --> 
       </div><!-- .sticky --> 
