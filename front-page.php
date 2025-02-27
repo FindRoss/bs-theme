@@ -112,14 +112,14 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 
 <?php }; ?>
 
-<!-- CASINO NEWS -->
+<!-- GAMBLING NEWS -->
 <?php 
   $latest_casino_news_query = new WP_Query(array( 
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
     'category_name'  => 'news', 
-    'meta_query'     => bonus_expired_meta_query()
+    // 'meta_query'     => bonus_expired_meta_query()
   )); 
   
   $latest_casino_news_foundPosts = $latest_casino_news_query->found_posts;
@@ -131,7 +131,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
       <?php 
          outputNewSlideHTML(array(
           'query' => $latest_casino_news_query,
-          'heading' => 'News', 
+          'heading' => 'Gambling News', 
           'link' => '/category/news/'
         )); 
       ?>
@@ -150,10 +150,10 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'cat'            => 25058,
+    'category_name'  => 'sports', 
     'meta_query'     => bonus_expired_meta_query()
   )); 
-  
+
   $latest_sports_foundPosts = $latest_sports_query->found_posts;
 
   if ($latest_sports_foundPosts >= 8) { ?>
@@ -178,7 +178,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'cat'            => 25170,
+    'category_name'  => 'esports',
     'meta_query'     => bonus_expired_meta_query()
   )); 
   
@@ -200,14 +200,14 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 
 <?php }; ?>
 
-<!-- Best Games -->
+<!-- Casino Games -->
 <?php 
   $latest_games_query = new WP_Query(array( 
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'cat'            => 25168,
-    'meta_query'     => bonus_expired_meta_query()
+    'category_name'  => 'best-games', 
+    //  'meta_query'     => bonus_expired_meta_query()
   )); 
   
   $latest_games_foundPosts = $latest_games_query->found_posts;
@@ -219,8 +219,64 @@ if ($featured_bonus_foundPosts >= 1) { ?>
       <?php 
         outputNewSlideHTML(array(
           'query' => $latest_games_query,
-          'heading' => 'Games', 
+          'heading' => 'Casino Games', 
           'link' => '/category/best-games/'
+        ));
+      ?>
+    </section>
+  </div>
+
+<?php }; ?>
+
+<!-- ALTERNATIVES -->
+<?php 
+  $alternatives_query = new WP_Query(array( 
+    'post_type'      => 'post', 
+    'post_status'    => 'publish',
+    'posts_per_page' => 8,
+    'category_name'  => 'alternatives',
+    // 'meta_query'     => bonus_expired_meta_query()
+  )); 
+  
+  $alternatives_foundPosts = $alternatives_query->found_posts;
+
+  if ($alternatives_foundPosts >= 8) { ?>
+
+  <div class="container mt-5 pt-4">
+    <section>
+      <?php 
+        outputNewSlideHTML(array(
+          'query' => $alternatives_query,
+          'heading' => 'Alternatives', 
+          'link' => '/category/alternatives/'
+        ));
+      ?>
+    </section>
+  </div>
+
+<?php }; ?>
+
+<!-- Big Wins -->
+<?php 
+  $big_wins_query = new WP_Query(array( 
+    'post_type'      => 'post', 
+    'post_status'    => 'publish',
+    'posts_per_page' => 8,
+    'category_name'  => 'big-wins',
+    // 'meta_query'     => bonus_expired_meta_query()
+  )); 
+  
+  $big_wins_foundPosts = $big_wins_query->found_posts;
+
+  if ($big_wins_foundPosts >= 8) { ?>
+
+  <div class="container mt-5 pt-4">
+    <section>
+      <?php 
+        outputNewSlideHTML(array(
+          'query' => $big_wins_query,
+          'heading' => 'Big Wins', 
+          'link' => '/category/big-wins/'
         ));
       ?>
     </section>
