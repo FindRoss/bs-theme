@@ -1,19 +1,17 @@
 @import 'breakpoints';
 
-
-.nav-link {
-  color: var(--color-link);
-}
-
-.nav-link:hover, 
-.nav-link:active {
-  color: var(--color-link-hover);
+// Header
+header {
+  position: relative;
+  z-index: 1000;
 }
 
 header.sticky-top {
   z-index: 1020;
   /* Adjust as needed */
+
 }
+
 
 /* Adjust the overlay to start below the header */
 .page-overlay {
@@ -25,81 +23,102 @@ header.sticky-top {
   height: calc(100% - 60px);
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-}
 
-
-.page-overlay.active {
-  display: block;
+  &.active {
+    display: block;
+  }
 }
 
 body.no-scroll {
   overflow: hidden;
 }
 
-header {
-  position: relative;
-  /* Ensure it stays in place */
-  z-index: 1000;
-  /* Higher than the overlay's z-index */
+.desktop-menu {
+  display: none;
 }
 
-// Primary Nav
-// menu-primary-nav-container > ul#menu-primary-nav
-.navbar {
-  padding: 0em !important;
+// nav
+.nav {
+  height: 55px;
+  padding: 0rem;
+  display: grid;
+  grid-template-columns: 1fr 6fr 1fr;
 
-  a.nav-link {
-    font-size: var(--size-400);
-    font-family: var(--font-family-heading);
-    text-transform: uppercase;
-    font-weight: 500;
-    cursor: pointer;
-    color: var(--color-primary-900) !important;
+  // &__logo {
+    
+  // }
 
-    &.active {
-      color: black !important;
+
+
+  &__menu {
+    display: none;
+
+    .desktop-menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 0px !important;
+      margin: 0;
+      list-style-type: none;
+
+      li {
+        padding: var(--size-200) 0;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--size-200);
+
+        a {
+          font-weight: 500;
+          font-size: 1rem;
+          text-transform: capitalize;
+          color: var(--color-muted-600);
+          letter-spacing: 0.01rem;
+
+          &:hover,
+          &:active {
+            color: var(--color-muted-900);
+          }
+        }
+      }
     }
   }
 
-  ul#menu-primary-nav>li:first-child {
-    padding-left: 0px;
-  }
+  // &__search {
+  //   // duno
+  // }
+  
+}
 
-  .featured-navbar-item {
-    display: inline-block;
-    margin-left: 1rem;
+// I dont understand this
+// @media screen and (min-width: 720px) {
+//   ul.desktop-menu ul.dropdown-menu.show {
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     display: grid;
+//     grid-template-columns: 1fr 1fr;
+//   }
+// }
 
-    a {
-      color: #ffffff !important;
-      background: indianred;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding-right: 1rem !important;
-      padding-left: 1rem !important;
+.featured-navbar-item {
+  display: inline-block;
+  margin-left: 1rem;
+
+  a {
+    color: #ffffff !important;
+    background: indianred;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      filter: brightness(0.8);
     }
   }
-
-  .featured-navbar-item a:hover,
-  .featured-navbar-item a:focus,
-  .featured-navbar-item a:active {
-    filter: brightness(0.8);
-  }
 }
-
-@media screen and (min-width: 720px) {
-  ul.desktop-menu ul.dropdown-menu.show {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-ul.desktop-menu>li.menu-item {
-  position: inherit;
-}
-
 
 
 /*
