@@ -31,6 +31,20 @@ body.no-scroll {
   overflow: hidden;
 }
 
+// This should be global for desktop and mobile menu;
+.menu-item a {
+  color: var(--color-muted-400);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.01rem;
+        
+  &:hover,
+  &:active {
+    color: var(--color-muted-900);
+  }
+}
+
 // nav
 .nav-layout {
   height: 55px;
@@ -98,18 +112,6 @@ body.no-scroll {
           display: none;
         }
 
-        a {
-          font-weight: 500;
-          font-size: 1rem;
-          text-transform: capitalize;
-          color: var(--color-muted-600);
-          letter-spacing: 0.01rem;
-
-          &:hover,
-          &:active {
-            color: var(--color-muted-900);
-          }
-        }
       }
 
       > li {
@@ -118,18 +120,15 @@ body.no-scroll {
         align-items: center;
 
         a {
-          font-size: 1rem;
           height: 100%;
           display: flex;
           align-items: center;
           padding-left: var(--size-200);
           padding-right: var(--size-200);
-          border-bottom: 3px solid transparent;
-          border-top: 3px solid transparent;
         }
 
         &:hover {
-          background: #F6F6F6;
+          background: var(--color-bg-50);
         }
       }
 
@@ -291,7 +290,6 @@ body.no-scroll {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        color: var(--color-muted-500);
 
         &.rotate {
           &::after {
@@ -307,16 +305,11 @@ body.no-scroll {
         list-style-type: none;
         padding: 0;
 
-        // Second level
-        a {
-          padding-left: var(--size-400);
-          padding-right: var(--size-500);
-        }
-
-        // Third level
-        ul>li>a {
-          padding-left: var(--size-600);
-        }
+        // // Second level
+        // a {
+        //   padding-left: var(--size-400);
+        //   padding-right: var(--size-500);
+        // }
 
         &.active {
           display: block;
@@ -344,10 +337,5 @@ body.no-scroll {
   }
 }
 
-// This should be global for desktop and mobile menu;
-a {
-  color: #000;
-  text-decoration: none;
-}
 
 
