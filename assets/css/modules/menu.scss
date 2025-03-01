@@ -84,7 +84,7 @@ body.no-scroll {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-left: 0px !important;
+      padding: 0;
       margin: 0;
       list-style-type: none;
       flex: 1;
@@ -101,25 +101,13 @@ body.no-scroll {
       }
 
       li {
-        padding: var(--size-200) 0;
         display: flex;
         align-items: center;
-        
-        &.has-sub-menu {
-          .sub-menu {
-            max-height: 0;
-            overflow: hidden;
-          
-            transition: max-height 0.3s ease;
-            display: none;
-          }
-        }
-      }
-
-      > li {
         height: 100%;
-        display: flex;
-        align-items: center;
+        
+        &:hover {
+          background: var(--color-bg-50);
+        }
 
         a {
           height: 100%;
@@ -128,26 +116,38 @@ body.no-scroll {
           padding-left: var(--size-400);
           padding-right: var(--size-400);
         }
+        
+        
+        &.has-sub-menu {
+          .sub-menu-wrapper {
+            max-height: 0;
+            overflow: hidden;
+          
+            transition: max-height 0.3s ease;
+            display: none;
+          }
 
-        &:hover {
-          background: var(--color-bg-50);
+          &:hover {
+            .sub-menu-wrapper {
+              display: block;
+              max-height: 500px;
+            }
+          }
         }
       }
 
-      > li.has-sub-menu:hover>.sub-menu {
-        display: grid;
-        max-height: 1000px;
-      }
+  
+
 
       .sub-menu {
+        display: grid;
         z-index: 999;
-        display: none;
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        border-bottom: 3px solid #F6F6F6;
-        background: #FAFAFA;
+        border-bottom: 3px solid var(--color-muted-400);
+        background-color: var(--color-bg-50);
         padding: var(--size-900) var(--size-400);
         gap: var(--size-400);
 
@@ -171,21 +171,9 @@ body.no-scroll {
   }
 }
 
-// I dont understand this
-// @media screen and (min-width: 720px) {
-//   ul.desktop-menu ul.dropdown-menu.show {
-//     position: absolute;
-//     left: 0;
-//     right: 0;
-//     display: grid;
-//     grid-template-columns: 1fr 1fr;
-//   }
-// }
-
 .featured-navbar-item {
   display: inline-block;
   margin-left: 1rem;
-
   a {
     color: #ffffff !important;
     background: indianred;
@@ -193,7 +181,6 @@ body.no-scroll {
     box-shadow: var(--shadow);
     padding-right: 1rem !important;
     padding-left: 1rem !important;
-
     &:hover,
     &:focus,
     &:active {
@@ -307,21 +294,15 @@ body.no-scroll {
         list-style-type: none;
         padding: 0;
 
-        // // Second level
-        // a {
-        //   padding-left: var(--size-400);
-        //   padding-right: var(--size-500);
-        // }
-
         &.active {
           display: block;
           visibility: visible;
           height: auto;
           flex-basis: 100%;
           padding: 1rem 0;
-          background-color: var(--color-muted-100);
-          border-top: 1px solid #E5E5E5;
-          border-bottom: 1px solid #E5E5E5;
+          background-color: var(--color-bg-50);
+          border-top: 1px solid var(--color-bg-600);
+          border-bottom: 1px solid var(--color-bg-600);
         }
       }
     }
