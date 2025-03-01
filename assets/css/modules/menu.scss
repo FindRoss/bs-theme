@@ -34,7 +34,7 @@ body.no-scroll {
 }
 
 // nav
-.nav {
+.nav-layout {
   height: 55px;
   padding: 0rem;
   display: flex;
@@ -255,3 +255,87 @@ body.no-scroll {
     }
   }
 }
+
+
+
+
+// New
+.desktop-navigation {
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+// This should be global for desktop and mobile menu;
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+ul.desktop-menu {
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    visibility: visible;
+    display: flex;
+    align-items: center;
+    gap: var(--size-200);
+    font-size: var(--size-500);
+    font-weight: 700;
+    font-family: "Lexend", sans-serif;
+  }
+
+  >li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
+    a {
+        font-size: 1rem;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: var(--size-200);
+        padding-right: var(--size-200);
+        border-bottom: 5px solid transparent;
+        border-top: 5px solid transparent;
+      }
+
+      &:hover {
+        background: #F6F6F6;
+      }
+  }
+
+
+
+  >li.has-sub-menu:hover>.sub-menu {
+    display: grid;
+  }
+
+  .sub-menu {
+    z-index: 999;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border-bottom: 5px solid #000;
+    background: #FAFAFA;
+    padding: var(--size-900) var(--size-400);
+    gap: var(--size-400);
+
+    grid-template-columns: repeat(2, 1fr);
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (min-width: 992px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+

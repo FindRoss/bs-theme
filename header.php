@@ -29,9 +29,9 @@
 
 <header class="mb-4 bg-white"><!-- sticky-top -->
   <div class="container">
-    <nav class="nav">
+    <nav class="nav-layout">
 
-      <div class="nav__logo">
+      <div class="nav-layout__logo">
         <div class="d-flex align-items-center">
           <button type="button" id="nav-toggle" class="button button__icon me-2 d-lg-none" aria-expanded="false" aria-label="Open menu">
              <?php echo get_svg_icon('hamburger'); ?>
@@ -42,7 +42,7 @@
         </div>
       </div><!-- .col -->
 
-      <div class="nav__menu">
+      <nav class="nav-layout__menu desktop-navigation">
         <?php 
           wp_nav_menu( array(
             'theme_location'  => 'primary',
@@ -50,9 +50,9 @@
             'menu_class'      => 'desktop-menu',
           )); 
         ?>
-      </div><!--.col -->
+      </nav><!--.col -->
 
-      <div class="nav__search">
+      <div class="nav-layout__search">
         <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
           <?php echo get_svg_icon('search'); ?>
         </button>
@@ -73,13 +73,12 @@
   
   <?php wp_nav_menu( array(
     'theme_location'  => 'sidebar',
-    'depth'           => 4,
+    'depth'           => 2,
     'container'       => 'div',
     'container_class' => '',
     'container_id'    => '',
-    'menu_class'      => '',
-    'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-    // 'walker'          => new WP_Bootstrap_Navwalker(),
+    'menu_class'      => 'menu-sidebar-nav',
+    'menu_id'         => 'menu-sidebar-nav'
   )); ?>
   
 </div>
