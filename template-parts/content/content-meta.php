@@ -1,7 +1,7 @@
 <?php 
     // author
     $author_id = get_the_author_meta('ID'); 
-    // $get_avatar_url = get_avatar_url($author_id);
+    $get_avatar_url = get_avatar_url($author_id);
 
     // Get the category - empty if it isnt a post.
     $categories = get_the_category(); 
@@ -21,8 +21,7 @@
     if ( !empty( $last_updated_by ) ) {
       $last_editor = get_userdata( $last_updated_by );
       $last_editor_name = $last_editor->display_name;
-      // $last_editor_avatar_url = get_avatar_url( $last_updated_by );
-      // print_r($last_editor);
+      $last_editor_avatar_url = get_avatar_url( $last_updated_by );
     }
 ?>
 
@@ -30,16 +29,21 @@
   
   <!-- FIFE Section -->
   <div class="main--meta__section">
-    <div class="meta-icon">
-      <span class="icon"><?php echo get_svg_icon('calendar'); ?></span>
+    
+    <div class="meta-media">
+      <!-- <span class="icon"><?php echo get_svg_icon('calendar'); ?></span> -->
+      <img src="<?php echo $get_avatar_url; ?>" width="24" height="24" alt="Author profile picture" />
     </div>
     
     <div class="meta-content">
+      <div class="meta-content__title">
+        Published
+      </div>
       <div class="meta-content__by">
         <span>By <?php the_author(); ?></span>
       </div>
       <div class="meta-content__date">  
-        <span>Published <time datetime="<?php echo esc_attr( get_the_date('c') ); ?>"><?php echo esc_html( $publish_date ); ?></time></span>
+        <span><time datetime="<?php echo esc_attr( get_the_date('c') ); ?>"><?php echo esc_html( $publish_date ); ?></time></span>
       </div>
     </div>
   </div>
@@ -47,16 +51,22 @@
   <!-- FIFE Section -->
   <?php if ($publish_date_str !== $update_date_str && !empty($last_editor_name)) : ?>
   <div class="main--meta__section">
-    <div class="meta-icon">
-      <span class="icon"><?php echo get_svg_icon('calendar-tick'); ?></span>
+  
+
+    <div class="meta-media">
+      <!-- <span class="icon"><?php echo get_svg_icon('calendar-tick'); ?></span> -->
+      <img src="<?php echo $last_editor_avatar_url; ?>" width="24" height="24" alt="Author profile picture of <?php echo esc_attr( $last_editor_name ); ?>" />
     </div>
     
     <div class="meta-content">
+      <div class="meta-content__title">
+        Updated
+      </div>
       <div class="meta-content__by">
         <span>By <?php echo esc_html( $last_editor_name ); ?></span>
       </div>
       <div class="meta-content__date">  
-        <span>Updated <time datetime="<?php echo esc_attr( get_the_modified_date('c') ); ?>"><?php echo esc_html( $update_date ); ?></time></span>
+        <span><time datetime="<?php echo esc_attr( get_the_modified_date('c') ); ?>"><?php echo esc_html( $update_date ); ?></time></span>
       </div>
     </div>
   </div>
