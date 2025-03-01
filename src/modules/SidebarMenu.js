@@ -18,24 +18,27 @@ class SidebarMenu {
   }
 
   createChevronElement() {
+    const chevronWrapper = document.createElement('div');
+    chevronWrapper.classList.add('chevron-wrapper');
     const chevron = document.createElement('span');
     chevron.classList.add('chevron');
-    return chevron;
+    chevronWrapper.appendChild(chevron);
+    return chevronWrapper;
   }
 
   handleChevronClick(item) {
-    console.log('clicked inside handleChevronClick');
     const subMenu = item.querySelector('.sub-menu');
+    const chevron = item.querySelector('.chevron-wrapper .chevron'); // Select the chevron
+
     if (!subMenu.classList.contains('active')) {
       subMenu.classList.add('active')
-      item.classList.add('rotate')
+      chevron.classList.add('rotate') // Rotate the chevron
+
     } else {
       subMenu.classList.remove('active');
-      item.classList.remove('rotate')
+      chevron.classList.remove('rotate') // Unrotate the chevron
     }
   }
-
-
 
   init() {
 
