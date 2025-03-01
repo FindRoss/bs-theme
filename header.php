@@ -48,6 +48,8 @@
             'theme_location'  => 'primary',
             'container'       => false,
             'menu_class'      => 'desktop-menu',
+            'menu_id'         => 'desktop-menu',
+            'depth'           => 2,
           )); 
         ?>
       </nav><!--.col -->

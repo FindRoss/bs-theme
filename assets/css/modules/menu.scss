@@ -9,9 +9,7 @@ header {
 header.sticky-top {
   z-index: 1020;
   /* Adjust as needed */
-
 }
-
 
 /* Adjust the overlay to start below the header */
 .page-overlay {
@@ -39,7 +37,7 @@ body.no-scroll {
   padding: 0rem;
   display: flex;
   gap: 1rem;
-  align-items: center;  
+  align-items: center;
   justify-self: space-between;
 
   &__logo {
@@ -50,9 +48,9 @@ body.no-scroll {
     @media screen and (min-width: $breakpoint-large) {
       flex: 0 0 80px;
     }
-    
+
     img {
-      width: 190px; 
+      width: 190px;
       height: auto;
     }
   }
@@ -67,36 +65,101 @@ body.no-scroll {
       align-items: center;
     }
 
-      .desktop-menu {
+    .desktop-menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 0px !important;
+      margin: 0;
+      list-style-type: none;
+      flex: 1;
+
+      @media screen and (min-width: $breakpoint-large) {
+        height: 100%;
+        visibility: visible;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding-left: 0px !important;
-        margin: 0;
-        list-style-type: none;
-        flex: 1;
-      
-        
-        li {
-          padding: var(--size-200) 0;
-          display: flex;
-          align-items: center;
-          padding: 0 var(--size-200);
-          
-          a {
-            font-weight: 500;
-            font-size: 1rem;
-            text-transform: capitalize;
-            color: var(--color-muted-600);
-            letter-spacing: 0.01rem;
-            
-            &:hover,
-            &:active {
-              color: var(--color-muted-900);
-            }
+        gap: var(--size-200);
+        font-size: var(--size-500);
+        font-weight: 700;
+        font-family: "Lexend", sans-serif;
+      }
+
+      li {
+        padding: var(--size-200) 0;
+        display: flex;
+        align-items: center;
+        padding: 0 var(--size-200);
+
+        &.has-sub-menu .sub-menu {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+          display: none;
+        }
+
+        a {
+          font-weight: 500;
+          font-size: 1rem;
+          text-transform: capitalize;
+          color: var(--color-muted-600);
+          letter-spacing: 0.01rem;
+
+          &:hover,
+          &:active {
+            color: var(--color-muted-900);
           }
         }
-    
+      }
+
+      > li {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        a {
+          font-size: 1rem;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          padding-left: var(--size-200);
+          padding-right: var(--size-200);
+          border-bottom: 3px solid transparent;
+          border-top: 3px solid transparent;
+        }
+
+        &:hover {
+          background: #F6F6F6;
+        }
+      }
+
+      > li.has-sub-menu:hover>.sub-menu {
+        display: grid;
+        max-height: 1000px;
+      }
+
+      .sub-menu {
+        z-index: 999;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        border-bottom: 3px solid #F6F6F6;
+        background: #FAFAFA;
+        padding: var(--size-900) var(--size-400);
+        gap: var(--size-400);
+
+        grid-template-columns: repeat(2, 1fr);
+
+        @media screen and (min-width: 768px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media screen and (min-width: 992px) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
     }
   }
 
@@ -105,7 +168,6 @@ body.no-scroll {
     justify-content: flex-end;
     align-items: center;
   }
-  
 }
 
 // I dont understand this
@@ -138,7 +200,6 @@ body.no-scroll {
     }
   }
 }
-
 
 /*
 * SIDEBAR MENU
@@ -187,7 +248,7 @@ body.no-scroll {
 
       &:hover {
         background-color: var(--color-muted-100);
-      } 
+      }
     }
 
     & > li {
@@ -200,28 +261,39 @@ body.no-scroll {
       }
     }
 
-    
     .menu-item-has-children {
-      cursor: pointer; 
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+
+      .chevron {
+        content: '';
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        width: 50px;
+        height: 18px;
+        background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z\'/%3E%3C/svg%3E') no-repeat center center;
+        background-size: contain;
+        transition: transform 0.1s;
+
+        &:hover {
+          background-color: var(--color-muted-100);
+        }
+      }
+
 
       & > a {
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        color: var(--color-primary-900);
-        
+        color: var(--color-muted-500);
 
-        &::after {
-          content: '';
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z\'/%3E%3C/svg%3E') no-repeat center center;
-          background-size: contain;
-          transition: transform 0.1s;
-        }
-
-        &.rotate { 
+        &.rotate {
           &::after {
             transform: rotate(180deg);
           }
@@ -234,36 +306,38 @@ body.no-scroll {
         height: 0px;
         list-style-type: none;
         padding: 0;
-        
+
         // Second level
         a {
           padding-left: var(--size-400);
           padding-right: var(--size-500);
         }
+
         // Third level
         ul>li>a {
           padding-left: var(--size-600);
         }
 
-
         &.active {
           display: block;
           visibility: visible;
           height: auto;
+          flex-basis: 100%;
+          padding: 1rem 0;
+          background-color: var(--color-muted-100);
+          border-top: 1px solid #E5E5E5;
+          border-bottom: 1px solid #E5E5E5;
         }
       }
     }
   }
 }
 
-
-
-
 // New
 .desktop-navigation {
   display: none;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $breakpoint-large) {
     height: 100%;
     display: flex;
     align-items: center;
@@ -276,66 +350,4 @@ a {
   text-decoration: none;
 }
 
-ul.desktop-menu {
-  @media screen and (min-width: 768px) {
-    height: 100%;
-    visibility: visible;
-    display: flex;
-    align-items: center;
-    gap: var(--size-200);
-    font-size: var(--size-500);
-    font-weight: 700;
-    font-family: "Lexend", sans-serif;
-  }
-
-  >li {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    
-    a {
-        font-size: 1rem;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding-left: var(--size-200);
-        padding-right: var(--size-200);
-        border-bottom: 5px solid transparent;
-        border-top: 5px solid transparent;
-      }
-
-      &:hover {
-        background: #F6F6F6;
-      }
-  }
-
-
-
-  >li.has-sub-menu:hover>.sub-menu {
-    display: grid;
-  }
-
-  .sub-menu {
-    z-index: 999;
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border-bottom: 5px solid #000;
-    background: #FAFAFA;
-    padding: var(--size-900) var(--size-400);
-    gap: var(--size-400);
-
-    grid-template-columns: repeat(2, 1fr);
-
-    @media screen and (min-width: 768px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media screen and (min-width: 992px) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-}
 
