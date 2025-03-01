@@ -118,20 +118,23 @@ body.no-scroll {
           padding-right: var(--size-400);
         }
         
-        
         &.has-sub-menu {
           .sub-menu-wrapper {
-            max-height: 0;
-            overflow: hidden;
-          
-            transition: max-height 0.3s ease;
-            display: none;
+            width: 100%; 
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 1s ease-out;
+            visibility: hidden;
+
+            >* {
+              overflow: hidden;
+            }
           }
 
           &:hover {
             .sub-menu-wrapper {
-              display: block;
-              max-height: 500px;
+              grid-template-rows: 1fr;
+              visibility: visible;
             }
           }
         }
