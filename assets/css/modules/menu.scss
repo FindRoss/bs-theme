@@ -100,12 +100,16 @@ body.no-scroll {
         font-family: "Lexend", sans-serif;
       }
 
-      li {
-        display: flex;
-        height: 100%;
+
+      > li {
         justify-content: center;
         align-items: center;
-        
+      }
+
+      li {
+        height: 100%;
+        display: flex;
+
 
         &:hover {
           background: var(--color-bg-50);
@@ -146,7 +150,7 @@ body.no-scroll {
       .sub-menu {
         display: grid;
         width: 100%;
-        padding: var(--size-900) 0;
+        padding: var(--size-600) 0;
         gap: var(--size-800);
         max-width: 1140px;
         padding-left: 0.75rem; 
