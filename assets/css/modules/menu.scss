@@ -33,59 +33,78 @@ body.no-scroll {
   overflow: hidden;
 }
 
-.desktop-menu {
-  display: none;
-}
-
 // nav
 .nav {
   height: 55px;
   padding: 0rem;
-  display: grid;
-  grid-template-columns: 1fr 6fr 1fr;
+  display: flex;
+  gap: 1rem;
+  align-items: center;  
+  justify-self: space-between;
 
-  // &__logo {
+  &__logo {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    @media screen and (min-width: $breakpoint-large) {
+      flex: 0 0 80px;
+    }
     
-  // }
-
-
+    img {
+      width: 190px; 
+      height: auto;
+    }
+  }
 
   &__menu {
     display: none;
 
-    .desktop-menu {
+    @media screen and (min-width: $breakpoint-large) {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      flex: 1;
       align-items: center;
-      padding-left: 0px !important;
-      margin: 0;
-      list-style-type: none;
+    }
 
-      li {
-        padding: var(--size-200) 0;
+      .desktop-menu {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        padding: 0 var(--size-200);
-
-        a {
-          font-weight: 500;
-          font-size: 1rem;
-          text-transform: capitalize;
-          color: var(--color-muted-600);
-          letter-spacing: 0.01rem;
-
-          &:hover,
-          &:active {
-            color: var(--color-muted-900);
+        padding-left: 0px !important;
+        margin: 0;
+        list-style-type: none;
+        flex: 1;
+      
+        
+        li {
+          padding: var(--size-200) 0;
+          display: flex;
+          align-items: center;
+          padding: 0 var(--size-200);
+          
+          a {
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: capitalize;
+            color: var(--color-muted-600);
+            letter-spacing: 0.01rem;
+            
+            &:hover,
+            &:active {
+              color: var(--color-muted-900);
+            }
           }
         }
-      }
+    
     }
   }
 
-  // &__search {
-  //   // duno
-  // }
+  &__search {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
   
 }
 
@@ -143,7 +162,7 @@ body.no-scroll {
   padding: var(--size-400) 0;
   overflow-y: scroll;
 
-  @media screen and (min-width: $breakpoint-medium) {
+  @media screen and (min-width: $breakpoint-large) {
     right: auto;
     width: 320px;
   }

@@ -30,38 +30,34 @@
 <header class="mb-4 bg-white"><!-- sticky-top -->
   <div class="container">
     <nav class="nav">
+
       <div class="nav__logo">
         <div class="d-flex align-items-center">
           <button type="button" id="nav-toggle" class="button button__icon me-2 d-lg-none" aria-expanded="false" aria-label="Open menu">
              <?php echo get_svg_icon('hamburger'); ?>
           </button>
-          <a class="ms-auto d-flex" href="/">
-            <img style="width: 190px; height: auto" width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
+          <a href="/">
+            <img width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
           </a>
         </div>
       </div><!-- .col -->
 
-      <div class="nav__menu d-none d-lg-block position-relative w-100">
-        
-          <?php 
-            wp_nav_menu( array(
-              'theme_location'  => 'primary',
-              'depth'           => 2,
-              'container_class' => false,
-              'menu_class'      => 'desktop-menu',
-            )); 
-          ?>
-        
-      </div>
-      <!--.col -->
+      <div class="nav__menu">
+        <?php 
+          wp_nav_menu( array(
+            'theme_location'  => 'primary',
+            'container'       => false,
+            'menu_class'      => 'desktop-menu',
+          )); 
+        ?>
+      </div><!--.col -->
 
       <div class="nav__search">
-
         <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
           <?php echo get_svg_icon('search'); ?>
         </button>
-   
-      </div>
+      </div><!-- .col -->
+      
     </nav>
   </div><!-- .container -->
 </header>
