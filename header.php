@@ -46,10 +46,11 @@
         <?php 
           wp_nav_menu( array(
             'theme_location'  => 'primary',
-            'container'       => false,
             'menu_class'      => 'desktop-menu',
             'menu_id'         => 'desktop-menu',
+            'container'       => false,
             'depth'           => 2,
+            'walker'          => new Custom_Walker_Nav_Menu(), // Use the custom walker
           )); 
         ?>
       </nav><!--.col -->
@@ -76,9 +77,7 @@
   <?php wp_nav_menu( array(
     'theme_location'  => 'sidebar',
     'depth'           => 2,
-    'container'       => 'div',
-    'container_class' => '',
-    'container_id'    => '',
+    'container'       => false,
     'menu_class'      => 'menu-sidebar-nav',
     'menu_id'         => 'menu-sidebar-nav'
   )); ?>

@@ -160,7 +160,14 @@ require get_theme_file_path('/inc/render-filter-items.php');
  */
 require get_theme_file_path('/inc/bonus-expired-meta-query.php');
 
+/**
+ * Custom Nav Walker
+ */
+require get_template_directory() . '/inc/custom-walker.php';
 
+/**
+ * Format Date
+ */
 function formatDate($date) {
   if ($date) {
     // Create a DateTime object from the string with the new format
