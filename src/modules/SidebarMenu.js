@@ -5,7 +5,9 @@ class SidebarMenu {
     this.navToggleBtn = document.querySelector('#nav-toggle')
     this.menuOpen = false
     this.drawer = document.querySelector('.background-drawer')
+
     this.sidebarMenu = document.querySelector('#menu-sidebar-nav')
+    this.menuListItems = this.sidebarMenu.querySelectorAll('.menu-item-has-children')
     this.menuParentItems = this.sidebarMenu.querySelectorAll('.menu-item-has-children > a')
     this.allMenuLinks = this.sidebarMenu.querySelectorAll('a')
 
@@ -15,25 +17,39 @@ class SidebarMenu {
     this.init()
   }
 
+  createChevronElement() {
+    const chevronWrapper = document.createElement('div');
+    chevronWrapper.classList.add('chevron-wrapper');
+    const chevron = document.createElement('span');
+    chevron.classList.add('chevron');
+    chevronWrapper.appendChild(chevron);
+    return chevronWrapper;
+  }
+
+  handleChevronClick(item) {
+    const subMenu = item.querySelector('.sub-menu');
+    const chevron = item.querySelector('.chevron-wrapper .chevron'); // Select the chevron
+
+    if (!subMenu.classList.contains('active')) {
+      subMenu.classList.add('active')
+      chevron.classList.add('rotate') // Rotate the chevron
+
+    } else {
+      subMenu.classList.remove('active');
+      chevron.classList.remove('rotate') // Unrotate the chevron
+    }
+  }
+
   init() {
 
+    this.menuListItems.forEach(item => {
+      const subMenu = item.querySelector('ul.sub-menu');
+      if (!subMenu) return;
 
+      const chevron = this.createChevronElement();
+      item.insertBefore(chevron, subMenu);
 
-    this.menuParentItems.forEach(item => {
-
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const subMenu = item.nextElementSibling;
-        if (!subMenu.classList.contains('active')) {
-          subMenu.classList.add('active')
-          item.classList.add('rotate')
-        } else {
-          subMenu.classList.remove('active');
-          item.classList.remove('rotate')
-        }
-      })
-
+      item.addEventListener('click', (e) => this.handleChevronClick(item));
     })
 
     this.searchToggleBtn.addEventListener('click', () => {

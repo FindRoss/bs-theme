@@ -25,8 +25,8 @@
               'container_class' => 'footer-list__container',
               'container_id'    => '',
               'menu_class'      => '',
-              'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-              'walker'          => new WP_Bootstrap_Navwalker(),
+              // 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+              // 'walker'          => new WP_Bootstrap_Navwalker(),
               )); 
               
               if (!empty($footer_menu_center_left)) {
@@ -45,8 +45,8 @@
               'container_class' => 'footer-list__container',
               'container_id'    => '',
               'menu_class'      => '',
-              'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-              'walker'          => new WP_Bootstrap_Navwalker(),
+              // 'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+              // 'walker'          => new WP_Bootstrap_Navwalker(),
               )); 
              
               if (!empty($footer_menu_left)) {

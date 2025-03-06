@@ -29,41 +29,39 @@
 
 <header class="mb-4 bg-white"><!-- sticky-top -->
   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light flex-wrap py-1" style="min-height: 66px;">
-      <div class="col-10 col-lg-3 d-flex">
+    <div class="nav-layout">
+
+      <div class="nav-layout__logo">
         <div class="d-flex align-items-center">
-          <button type="button" id="nav-toggle" class="button button__icon me-2" aria-expanded="false" aria-label="Open menu">
+          <button type="button" id="nav-toggle" class="button button__icon me-2 d-lg-none" aria-expanded="false" aria-label="Open menu">
              <?php echo get_svg_icon('hamburger'); ?>
           </button>
-          <a class="navbar-brand ms-auto d-flex" href="/">
-            <img style="width: 190px; height: auto" width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
+          <a href="/">
+            <img width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
           </a>
         </div>
       </div><!-- .col -->
-      <div class="col-lg-8 d-none d-lg-block">
-        <div class="d-none d-lg-block position-relative w-100">
-          <?php 
-            wp_nav_menu( array(
-              'theme_location'  => 'primary',
-              'depth'           => 2,
-              'container'       => 'div',
-              'container_class' => '',
-              'container_id'    => '',
-              'menu_class'      => 'navbar-nav desktop-menu',
-              'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-              'walker'          => new WP_Bootstrap_Navwalker(),
-            )); 
-          ?>
-        </div>
-      </div>
-      <div class="col-2 col-lg-1 d-flex justify-content-end align-items-center">
-        <!-- <div class="d-inline-block me-2 flex-shrink-0"> -->
-          <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
-            <?php echo get_svg_icon('search'); ?>
-          </button>
-        <!-- </div> -->
-      </div>
-    </nav>
+
+      <nav class="nav-layout__menu desktop-navigation">
+        <?php 
+          wp_nav_menu( array(
+            'theme_location'  => 'primary',
+            'menu_class'      => 'desktop-menu',
+            'menu_id'         => 'desktop-menu',
+            'container'       => false,
+            'depth'           => 2,
+            'walker'          => new Custom_Walker_Nav_Menu(), // Use the custom walker
+          )); 
+        ?>
+      </nav><!--.col -->
+
+      <div class="nav-layout__search">
+        <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
+          <?php echo get_svg_icon('search'); ?>
+        </button>
+      </div><!-- .col -->
+      
+    </div><!-- .nav-layout --> 
   </div><!-- .container -->
 </header>
 
@@ -78,13 +76,10 @@
   
   <?php wp_nav_menu( array(
     'theme_location'  => 'sidebar',
-    'depth'           => 4,
-    'container'       => 'div',
-    'container_class' => '',
-    'container_id'    => '',
-    'menu_class'      => '',
-    'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-    // 'walker'          => new WP_Bootstrap_Navwalker(),
+    'depth'           => 2,
+    'container'       => false,
+    'menu_class'      => 'menu-sidebar-nav',
+    'menu_id'         => 'menu-sidebar-nav'
   )); ?>
   
 </div>
