@@ -4,7 +4,9 @@
 header {
   position: relative;
   z-index: 1000;
+  border-bottom: 2px solid var(--color-muted-200);
 }
+
 
 header.sticky-top {
   z-index: 1020;
