@@ -29,7 +29,7 @@
 
 <header class="mb-4 bg-white"><!-- sticky-top -->
   <div class="container">
-    <nav class="nav-layout">
+    <div class="nav-layout">
 
       <div class="nav-layout__logo">
         <div class="d-flex align-items-center">
@@ -61,7 +61,7 @@
         </button>
       </div><!-- .col -->
       
-    </nav>
+    </div><!-- .nav-layout --> 
   </div><!-- .container -->
 </header>
 
