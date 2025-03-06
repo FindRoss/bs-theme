@@ -21,7 +21,6 @@ export function desktopMenu() {
     // Open menu on mouese enter
     menuItem.addEventListener('mouseenter', (e) => {
       const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
-      console.log('fooooooooooooo');
 
       // Close all other menus here first? 
       closeAllMenus();
