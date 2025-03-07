@@ -1,38 +1,39 @@
 .desktop-menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0;
   margin: 0;
   list-style-type: none;
   flex: 1;
-
-  @media screen and (min-width: $breakpoint-large) {
-    height: 100%;
-    visibility: visible;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    font-size: var(--size-500);
-    font-weight: 700;
-    font-family: "Lexend", sans-serif;
-  }
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  visibility: visible;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: var(--size-400);
+  font-weight: 800;
+  font-family: "Lexend", sans-serif;
+  
 
 
   >li {
     justify-content: center;
     align-items: center;
+    padding-left: var(--size-400);
+    padding-right: var(--size-400);
+    
 
     > a {
       height: 100%;
-      padding-left: var(--size-700);
-      padding-right: var(--size-700);
+
     }
   }
 
   li {
     height: 100%;
     display: flex;
+    align-items: center;
 
     a {
       display: flex;
@@ -45,27 +46,34 @@
     }
 
     &.menu-item-has-children {
+      // Chevron
+      &::after {
+        content: '';
+        width: 24px;
+        height: 14px;
+        margin-left: 0.05rem;
+        background: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z\'/%3E%3C/svg%3E') no-repeat center center;
+        background-size: contain;
+      }
 
       .sub-menu-wrapper {
+        position: absolute;
+        z-index: 999;
+        overflow: hidden;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
         width: 100%;
         max-height: 0;
-        overflow: hidden;
-        z-index: 999;
-        position: absolute;
         top: 100%;
         left: 0;
         background-color: var(--color-bg-50);
         border-bottom: 2px solid var(--color-muted-200);
-        display: flex;
-        justify-content: center;
-        transition: max-height 0.1s ease-out;
-
-        /* Adjust duration as needed */
+        transition: max-height 0.5s ease-out;
 
         &.open {
           max-height: 1000px;
-          // transition: max-height 0.5s ease-out;
-          /* Adjust the value as needed */
+          visibility: visible;
         }
       }
     }

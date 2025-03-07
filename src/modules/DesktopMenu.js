@@ -1,34 +1,43 @@
 export function desktopMenu() {
   const desktopMenu = document.querySelector('.desktop-menu');
-  const menuItems = desktopMenu.querySelectorAll('.menu-item-has-children');
+  const menuItemsWithChildren = desktopMenu.querySelectorAll('.menu-item-has-children');
   const subMenuWrappers = desktopMenu.querySelectorAll('.sub-menu-wrapper');
 
   function closeAllMenus() {
     subMenuWrappers.forEach((subMenu) => { subMenu.classList.remove('open') });
   }
 
-  menuItems.forEach((menuItem) => {
+  menuItemsWithChildren.forEach((menuItem) => {
+    let closeTimeout;
 
-    // Close first level menu when mouse leaves
-    menuItem.addEventListener('mouseleave', (e) => {
-      const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
-      closeAllMenus();
-      if (subMenuWrapper) {
-        subMenuWrapper.classList.remove('foobar');
-      }
-    });
-
-    // Open menu on mouese enter
+    // Mouseenter 
     menuItem.addEventListener('mouseenter', (e) => {
       const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
-      console.log('fooooooooooooo');
 
-      // Close all other menus here first? 
-      closeAllMenus();
+      // Cancel any pending close actions
+      clearTimeout(closeTimeout);
 
-      if (subMenuWrapper) {
-        subMenuWrapper.classList.add('open');
-      }
+      openTimeout = setTimeout(() => {
+        closeAllMenus();
+        if (subMenuWrapper) {
+          subMenuWrapper.classList.add('open');
+        }
+      }, 250);
+    });
+
+
+    // Mouseleave
+    menuItem.addEventListener('mouseleave', (e) => {
+      const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
+
+
+
+      closeTimeout = setTimeout(() => {
+        closeAllMenus();
+        if (subMenuWrapper) {
+          subMenuWrapper.classList.remove('open');
+        }
+      }, 250);
     });
 
   });

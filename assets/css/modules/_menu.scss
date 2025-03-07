@@ -4,7 +4,7 @@
 header {
   position: relative;
   z-index: 1000;
-  border-bottom: 2px solid var(--color-muted-200);
+  border-bottom: 3px solid var(--color-muted-200);
 }
 
 
@@ -53,7 +53,7 @@ body.no-scroll {
   height: 55px;
   padding: 0rem;
   display: flex;
-  gap: var(--size-800);
+  gap: var(--size-600);
   align-items: center;
   justify-self: space-between;
 
@@ -77,7 +77,7 @@ body.no-scroll {
 
     @media screen and (min-width: $breakpoint-large) {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       flex: 1;
       align-items: center;
     }
