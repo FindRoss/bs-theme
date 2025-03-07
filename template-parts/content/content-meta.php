@@ -37,11 +37,11 @@
     
     <div class="meta-content">
       <div class="meta-content__title">
-        Published
+        By <?php the_author(); ?>
       </div>
-      <div class="meta-content__by">
-        <span>By <?php the_author(); ?></span>
-      </div>
+      <!-- <div class="meta-content__by">
+        <span></span>
+      </div> -->
       <div class="meta-content__date">  
         <span><time datetime="<?php echo esc_attr( get_the_date('c') ); ?>"><?php echo esc_html( $publish_date ); ?></time></span>
       </div>
@@ -60,13 +60,13 @@
     
     <div class="meta-content">
       <div class="meta-content__title">
-        Updated
+         <?php echo esc_html( $last_editor_name ); ?>
       </div>
-      <div class="meta-content__by">
-        <span>By <?php echo esc_html( $last_editor_name ); ?></span>
-      </div>
+      <!-- <div class="meta-content__by">
+        <span></span>
+      </div> -->
       <div class="meta-content__date">  
-        <span><time datetime="<?php echo esc_attr( get_the_modified_date('c') ); ?>"><?php echo esc_html( $update_date ); ?></time></span>
+        <span>Updated <time datetime="<?php echo esc_attr( get_the_modified_date('c') ); ?>"><?php echo esc_html( $update_date ); ?></time></span>
       </div>
     </div>
   </div>
