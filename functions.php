@@ -56,10 +56,10 @@ add_action( 'after_setup_theme', function() {
 });
 
 // Still need for footer menu?
-add_action( 'after_setup_theme', 'register_navwalker' );
-function register_navwalker(){
-	require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
-}
+// add_action( 'after_setup_theme', 'register_navwalker' );
+// function register_navwalker(){
+// 	require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+// }
 
 /* Custom length for the_excerpt */
 function custom_excerpt_length( $length ) {
@@ -160,7 +160,14 @@ require get_theme_file_path('/inc/render-filter-items.php');
  */
 require get_theme_file_path('/inc/bonus-expired-meta-query.php');
 
+/**
+ * Custom Nav Walker
+ */
+require get_template_directory() . '/inc/custom-walker.php';
 
+/**
+ * Format Date
+ */
 function formatDate($date) {
   if ($date) {
     // Create a DateTime object from the string with the new format

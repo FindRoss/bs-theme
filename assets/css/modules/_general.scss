@@ -1,4 +1,27 @@
-@import 'breakpoints';
+@import '_breakpoints';
+
+@media screen and (max-width: 600px) {
+  #wpadminbar {
+    position: fixed !important;
+  }
+}
+
+.bc-light-blue-bg {
+  background: #fafafa;
+}
+
+
+body {
+  background: #fff;
+  position: relative;
+  font-family: var(--font-family-body);
+  color: rgb(28, 35, 52);
+  line-height: 1.5;
+}
+
+.border-radius {
+  border-radius: var(--border-radius);
+}
 
 .rounded-corners {
   border-radius: var(--border-radius);
@@ -81,10 +104,6 @@
     color: var(--color-muted-500);
     background: var(--color-bg-50);
   }
-}
-
-header {
-  border-bottom: 1px solid var(--color-muted-200);
 }
 
 ::selection {
