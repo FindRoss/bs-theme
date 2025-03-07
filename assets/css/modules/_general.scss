@@ -1,4 +1,27 @@
-@import 'breakpoints';
+@import '_breakpoints';
+
+@media screen and (max-width: 600px) {
+  #wpadminbar {
+    position: fixed !important;
+  }
+}
+
+.bc-light-blue-bg {
+  background: #fafafa;
+}
+
+
+body {
+  background: #fff;
+  position: relative;
+  font-family: var(--font-family-body);
+  color: rgb(28, 35, 52);
+  line-height: 1.5;
+}
+
+.border-radius {
+  border-radius: var(--border-radius);
+}
 
 .rounded-corners {
   border-radius: var(--border-radius);
@@ -83,10 +106,6 @@
   }
 }
 
-header {
-  border-bottom: 1px solid var(--color-muted-200);
-}
-
 ::selection {
   background: var(--color-primary-100);
 }
@@ -136,7 +155,6 @@ blockquote {
   }
 }
 
-
 .wp-block-columns>div>h2,
 .wp-block-columns>div>h3 {
   margin-top: 0px;
@@ -146,6 +164,10 @@ blockquote {
   .wp-block-columns {
     gap: 0;
   }
+}
+
+.main--content .wp-caption {
+  max-width: 100%;
 }
 
 .main--content blockquote+p {
@@ -168,53 +190,6 @@ blockquote {
 .main--content ol {
   margin-bottom: 0;
   margin-top: var(--size-400);
-}
-
-.main--meta {
-  font-size: 14px;
-  font-family: var(--font-family-heading);
-  color: var(--color-muted-500);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: var(--size-200);
-
-  @media screen and (min-width: $breakpoint-medium) {
-    font-size: var(--size-400);
-  }
-
-  &__section {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-
-    .icon {
-      width: 35px;
-      height: 35px;
-      border-radius: 180%;
-      background-color: #FAFAFA;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        border-radius: 180%;
-        width: 30px;
-        height: auto;
-      }
-
-      svg {
-        width: 20px;
-      }
-    }
-
-    span {
-      font-size: 14px;
-      color: var(--color-muted-500)
-    }
-  }
 }
 
 /*

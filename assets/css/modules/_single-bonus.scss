@@ -1,4 +1,4 @@
-@import 'breakpoints';
+@import '_breakpoints';
 
 // Outside here so I can use it on bonuses
 .info-pill {
@@ -60,12 +60,12 @@
   .bonus-header {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--size-300);
 
     @media screen and (min-width: $breakpoint-medium) {
-      flex-direction: row;
-      align-items: center;
+      flex-wrap: nowrap;
     }
 
     &__brand {
@@ -73,8 +73,8 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      width: 100px;
-      height: 100px;
+      width: 85px;
+      height: 85px;
       border-radius: var(--border-radius);
 
       @media screen and (min-width: $breakpoint-small) {
@@ -99,9 +99,8 @@
 
       h1 { 
         margin: 0;
-        font-weight: 500;
-        font-size: var(--size-400);
-        max-width: auto;
+        font-weight: 700;
+        font-size: 1.1rem;
       
         @media screen and (min-width: $breakpoint-small) {
           font-size: var(--size-500);
@@ -118,29 +117,40 @@
       }
     }
 
-    .buttons {
+    &__cta {
       display: flex;
-      gap: 0.5rem;
-      margin-top: 10px;
+      flex-direction: column;
+      gap: var(--size-200);
+      flex-basis: 100%;
 
-      @media screen and (min-width: $breakpoint-small) {
-        margin-top: var(--size-500);
-      }
-
-      .button {
-        @media screen and (max-width: $breakpoint-small) {
-          padding: var(--size-100) var(--size-200);
-        }
-
-        .bonus-code__label {
-          display: none; 
-
-          @media screen and (min-width: $breakpoint-medium) {
-            display: inline;
-          }
-        }
+      @media screen and (min-width: $breakpoint-medium) {
+        flex-basis: auto;
       }
     }
+
+    // .buttons {
+    //   display: flex;
+    //   gap: 0.5rem;
+    //   margin-top: 10px;
+
+    //   @media screen and (min-width: $breakpoint-small) {
+    //     margin-top: var(--size-500);
+    //   }
+
+    //   .button {
+    //     @media screen and (max-width: $breakpoint-small) {
+    //       padding: var(--size-100) var(--size-200);
+    //     }
+
+    //     .bonus-code__label {
+    //       display: none; 
+
+    //       @media screen and (min-width: $breakpoint-medium) {
+    //         display: inline;
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   .bonus-body {

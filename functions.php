@@ -8,6 +8,7 @@ function themebs_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
+// Include SVG icons
 include get_template_directory() . '/assets/svg-icons.php';
 
 function themebs_enqueue_scripts() {
@@ -49,17 +50,10 @@ add_action('admin_enqueue_scripts', 'themebs_enqueue_admin_script');
 //   return '100.255.255.255';
 // }
 
-
 // Stop linking my media file wordpress!
 add_action( 'after_setup_theme', function() {
   update_option( 'image_default_link_type', 'none' );
 });
-
-// Still need for footer menu?
-add_action( 'after_setup_theme', 'register_navwalker' );
-function register_navwalker(){
-	require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
-}
 
 /* Custom length for the_excerpt */
 function custom_excerpt_length( $length ) {
@@ -72,6 +66,8 @@ function chaser_featured_images() {
   add_image_size('site-small-logo', 200, 100, true);
 }
 add_action('after_setup_theme', 'chaser_featured_images');
+
+
 
 /**
  * Search Endpoint
@@ -160,7 +156,14 @@ require get_theme_file_path('/inc/render-filter-items.php');
  */
 require get_theme_file_path('/inc/bonus-expired-meta-query.php');
 
+/**
+ * Custom Nav Walker
+ */
+require get_template_directory() . '/inc/custom-walker.php';
 
+/**
+ * Format Date
+ */
 function formatDate($date) {
   if ($date) {
     // Create a DateTime object from the string with the new format

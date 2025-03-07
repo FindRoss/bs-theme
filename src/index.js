@@ -8,6 +8,7 @@ import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
 import ToggleFilterModal from "./modules/ToggleFilterModal";
 import ExpiryDates from "./modules/ExpiryDates";
+import { desktopMenu } from './modules/DesktopMenu';
 
 const sidebarMenu = new SidebarMenu()
 const cardFocus = new CardFocus()
@@ -32,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleFilterModal = new ToggleFilterModal()
     const searchResults = new SearchResults()
   }
+
+  desktopMenu();
 
 
   const swiper = new Swiper('.swiper-primary', {
