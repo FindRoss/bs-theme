@@ -68,6 +68,7 @@
         top: 100%;
         left: 0;
         background-color: var(--color-bg-50);
+        border-top: 2px solid var(--color-muted-200);
         border-bottom: 2px solid var(--color-muted-200);
         transition: max-height 0.5s ease-out;
 
@@ -82,11 +83,9 @@
   .sub-menu {
     display: grid;
     width: 100%;
-    padding: var(--size-600) 0;
+    padding: var(--size-800) 0.75rem;
     gap: var(--size-800);
     max-width: 960px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
     grid-template-columns: repeat(2, 1fr);
 
     @media screen and (min-width: 992px) {

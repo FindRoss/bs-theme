@@ -50,7 +50,7 @@
             'menu_id'         => 'desktop-menu',
             'container'       => false,
             'depth'           => 2,
-            'walker'          => new Custom_Walker_Nav_Menu(), // Use the custom walker
+            'walker'          => new Custom_Walker_Nav_Menu(),
           )); 
         ?>
       </nav><!--.col -->
