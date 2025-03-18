@@ -8,13 +8,15 @@ class ShowMore {
   event() {
     this.showMoreLists.forEach((list) => {
       const btn = list.querySelector('#expand-review-list');
-      const items = list.querySelectorAll('.term-list-item');
+      const items = list.querySelectorAll('li.list-item-hidden');
+      let isOpen = false;
 
       btn.addEventListener('click', () => {
+        isOpen = !isOpen;
         items.forEach((item) => {
-          item.classList.remove('visually-hidden');
-          btn.classList.add('visually-hidden');
+          item.classList.toggle('reveal');
         });
+        btn.textContent = isOpen ? '-' : '+';
       });
     });
   }

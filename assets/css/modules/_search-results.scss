@@ -1,6 +1,16 @@
 @import '_breakpoints';
 
 body.search {
+
+  .subtitle {
+    color: var(--color-muted-400);
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+  }
+
   h1 {
     font-size: 14px; 
     font-weight: 600;

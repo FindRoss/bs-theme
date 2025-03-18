@@ -1095,3 +1095,75 @@
 .slot-card-link:hover .card {
   border-top: 3px solid #000;
 }
+
+/**
+  * Card Shanghai
+  */
+
+.card-shanghai {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: var(--size-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-200);
+  height: 100%;
+
+  &__media {
+    display: flex;
+    align-items: center;
+    gap: var(--size-200);
+
+    .img-wrapper {
+      height: 34px;
+      width: 34px; 
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+
+    .title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-muted-400);
+    }
+  }
+
+  &__content {
+    h3 {
+      line-height: 1.5;
+    }
+
+    .title { 
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-muted-400);
+    }
+
+    .bonus {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-primary-800);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-muted-400);
+    }
+
+  }
+
+  &__ctas {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--size-200);
+
+    .button {
+      flex: 1;
+    }
+  }
+}

@@ -11,7 +11,7 @@ function get_bonuses_by_review_query($id) {
   $query = new WP_Query(
     array (
       'post_type'      => 'bonus',
-      'posts_per_page' => 4,
+      'posts_per_page' => 10,
       'meta_query'     => array(
         'relation' => 'AND', 
         array(

@@ -1,11 +1,11 @@
-
 <?php get_header(); ?>
 
 <?php 
 $review_id = get_the_ID();
 
-// Array to fill with contet parts
-$contet = array();
+// Array to fill with content parts
+$content = array();
+$images = array();
 
 // TAXONOMIES
 $crypto_terms   = get_the_terms( $review_id, 'cryptocurrency' );
@@ -17,17 +17,15 @@ $country_terms  = get_the_terms( $review_id, 'country' );
 function terms_to_box($terms, $title) {
   if (!is_array($terms)) return;
   
-  if (count($terms) > 8) $terms = array_slice($terms, 0, 10);
-  
   ob_start(); ?>
   
-  <div class="box">
-    <h3 class="title"><?php echo $title; ?></h2>
+  <div class="box <?php echo (count($terms) > 10) ? 'show-more-list' : ''; ?>">
+    <h3 class="title"><?php echo $title; ?></h3>
     <ul>
-      <?php foreach ($terms as $term): 
+      <?php foreach ($terms as $index => $term): 
         $icon = get_field('icon', $term); ?>
 
-        <li>
+        <li class="<?php echo ($index > 10) ? 'list-item-hidden' : ''; ?>">
           <?php if (isset($icon['sizes']['site-small-logo'])) { ?>
             <img src="<?php echo $icon['sizes']['site-small-logo']; ?>" width="25" height="25">
           <?php } ?>
@@ -35,11 +33,15 @@ function terms_to_box($terms, $title) {
         </li>
       <?php endforeach; ?>
     </ul>
+
+    <?php if (count($terms) > 10) { ?>
+      <div class="box__footer">
+        <button class="button button__outline" id="expand-review-list">+</button>
+      </div>
+    <?php }; ?>
   </div>
-
-
   <?php return ob_get_clean(); 
-};
+}
 
 
 // ACF FIELDS
@@ -56,6 +58,12 @@ $theme_color  = $media['theme_color'];
 $homepageImg  = $media['homepage'];
 $gamesImg     = $media['games'];
 $bettingImg   = $media['betting'];
+
+$images[] = $homepageImg;
+$images[] = $gamesImg;
+$images[] = $bettingImg;
+$images[] = 'https://bitcoin-chaser.local/wp-content/uploads/2019/06/Stake-Casino-Games..jpg';
+$images[] = 'https://bitcoin-chaser.local/wp-content/uploads/2019/06/FortuneJack-Live-Casino-Games..jpg';
 
 /* Introduction */
 $introduction = get_field('introduction');
@@ -128,64 +136,74 @@ if ($conclusion) $content['Conclusion'] = $conclusion;
     </div>
     <div class="review-header__cta">
       <div class="cta-box">
-        <p><?php echo $bonus; ?></p>
+        <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
         <a href="<?php echo $link; ?>" class="button button__primary">Sign Up</a>
       </div>
     </div>
   </div>
 
   <!-- Details -->
-  <section style="margin-top: 2rem;">
-    <h2>Details</h2>
+  <section style="margin-top: 3rem;">
     <div class="details-section__boxes">
-
-      <?php echo terms_to_box($crypto_terms, 'Crypto'); ?> 
-
-      <div class="box">
-        <h3 class="title">Cryptocurrency</h3>
-        <ul>
-          <li>Bitcoin</li>
-          <li>Ethereum</li>
-          <li>Litecoin</li>
-          <li>Bitcoin Cash</li>
-          <li>Cardano</li>
-          <li>Stellar</li>
-          <li>Chainlink</li>
-          <li>Uniswap</li>
-        </ul>
-      </div><!-- .box -->
-
-      <div class="box">
-        <h3 class="title">Games</h3>
-        <ul>
-          <li>Blackjack</li>
-          <li>Slots</li>
-          <li>Plinko</li>
-          <li>Crash</li>
-          <li>Baccarat</li>
-          <li>Lottery</li>
-          <li>Poker</li>
-          <li>Mines</li>
-        </ul>
-      </div><!-- .box -->
-
-
+      <?php echo terms_to_box($crypto_terms, 'Cryptocurrency'); ?> 
+      <?php echo terms_to_box($game_terms, 'Games'); ?> 
+      <?php echo terms_to_box($provider_terms, 'Providers'); ?> 
+      <?php echo terms_to_box($payment_terms, 'Payments'); ?> 
     </div>
   </section>
 
-  <!-- Screenshots -->
-  <section style="margin-top: 2rem;">
-    <?php 
-      if ($introduction) echo $introduction; 
-      foreach($content as $key => $value) {
-        echo '<h2>' . $key . '</h2>';
-        echo $value;  
-      }
+  <!-- Bonuses -->
+  <?php
+  $bonus_query = get_bonuses_by_review_query(get_the_ID()); 
+  if ( $bonus_query->have_posts() ) :
     
-    ?>
-    
+    echo '<section style="margin-top: 3rem;">';
+      echo '<h2>Bonuses</h2>';
+      echo '<div class="row">';
+        while ( $bonus_query->have_posts() ) : $bonus_query->the_post();  
+          echo '<div class="col-12 col-md-6 col-lg-3 mt-3">';
+          get_template_part('template-parts/card/card', 'shanghai');
+          echo '</div>';
+        endwhile;
+      echo '</div>';
+    echo '</section>';
+  endif; ?>
+
+  <!-- Content -->
+  <section style="margin-top: 3rem;">
+    <h2>Review</h2>
+    <div class="row">
+      <div class="col-12 col-md-8">
+      <?php 
+        if ($introduction) echo $introduction; 
+        foreach($content as $key => $value) { ?>
+          <div class="content-dropdown">
+            <div class="content-dropdown__controls">
+              <h3 class="h4 title"><?php echo $key; ?></h3>
+              <span><?php echo get_svg_icon('chevron-down'); ?></span>
+            </div>
+            <div class="content-dropdown__content">
+              <?php echo $value; ?>
+            </div>
+          </div>
+        <?php }
+      ?>
+      </div>
+    </div><!-- .row -->
   </section>
-  <!-- Bottom -->
+  
+  
+  <!-- Screenshots -->
+   <section style="margin-top: 3rem;">
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <?php foreach($images as $image) { ?>
+          <div class="gallery-item">
+            <img src="<?php echo $image; ?>" style="width: 100%; height: auto;" />
+          </div>
+        <?php } ?>
+      </div>
+   </section>
 
 
  

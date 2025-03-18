@@ -9,6 +9,7 @@ import SearchResults from "./modules/SearchResults";
 import ToggleFilterModal from "./modules/ToggleFilterModal";
 import ExpiryDates from "./modules/ExpiryDates";
 import { desktopMenu } from './modules/DesktopMenu';
+import { singleReview } from "./modules/SingleReview";
 
 const sidebarMenu = new SidebarMenu()
 const cardFocus = new CardFocus()
@@ -32,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('body.search')) {
     const toggleFilterModal = new ToggleFilterModal()
     const searchResults = new SearchResults()
+  }
+
+  if (document.querySelector('body.single-review')) {
+    singleReview()
   }
 
   desktopMenu();
