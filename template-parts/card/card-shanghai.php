@@ -30,8 +30,8 @@
   <div class="card-shanghai">
     
     <div class="card-shanghai__media">
-      <span class="img-wrapper" style="background-color: <?php echo $siteColor; ?>"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
-      <div class="title"><?php echo $siteName; ?></div>
+      <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
+      <!-- <div class="title"><?php echo $siteName; ?></div> -->
     </div>
     
     <div class="card-shanghai__content">

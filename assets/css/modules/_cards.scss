@@ -1115,13 +1115,11 @@
     gap: var(--size-200);
 
     .img-wrapper {
-      height: 34px;
-      width: 34px; 
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
+      img {
+        height: 35px;
+        width: auto;
+        border-radius: var(--border-radius);
+      }
     }
 
     .title {

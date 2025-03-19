@@ -4,6 +4,7 @@ function outputNewSlideHTML($args) {
   $query = $args['query'] ?? NULL;
   $heading = esc_html($args['heading'] ?? '');
   $link = esc_url($args['link'] ?? '');
+  $cardType = $args['card_type'] ?? '';
   
   if ($query->have_posts()): 
     $postType = $query->query_vars['post_type'];
@@ -39,19 +40,15 @@ function outputNewSlideHTML($args) {
           <div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="<?php the_title_attribute(); ?>">
             <?php
 
-              if ($postType == 'post') {
+              if ($cardType == 'shanghai') {
+                get_template_part('template-parts/card/card', 'shanghai');
+              } else if ($postType == 'post') {
                 require locate_template('components/card/article.php');
-              }
-              
-              if ($postType == 'review') {
+              } else if ($postType == 'review') {
                 require locate_template('components/card/review-excerpt.php');
-              } 
-              
-              if ($postType == 'bonus') {
+              } else if ($postType == 'bonus') {
                 require locate_template('components/card/bonus-cover.php');
-              }
-
-              if ($postType == 'streamer') {
+              } else if ($postType == 'streamer') {
                 require locate_template('components/card/streamer.php');
               }
               
