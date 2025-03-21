@@ -111,14 +111,18 @@ function terms_to_box($terms, $title) {
     <div class="box__content">
       <h3 class="title"><?php echo $title; ?></h3>
       <ul>
-        <?php foreach ($terms as $index => $term): 
-          $icon = get_field('icon', $term); ?>
+       <?php foreach ($terms as $index => $term):
+          // Determine the term name based on the data type.
+          $term_name = is_object($term) ? $term->name : $term;
+          // Only attempt to retrieve an icon if we have a WP_Term object.
+          $icon = is_object($term) ? get_field('icon', $term) : null;
+        ?>
 
           <li class="<?php echo ($index > 10) ? 'list-item-hidden' : ''; ?>">
-            <?php if (isset($icon['sizes']['site-small-logo'])) { ?>
+            <?php if ($icon && isset($icon['sizes']['site-small-logo'])) { ?>
               <img src="<?php echo $icon['sizes']['site-small-logo']; ?>" width="25" height="25">
             <?php } ?>
-            <?php echo $term->name; ?>
+            <?php echo esc_html($term_name); ?>
           </li>
         <?php endforeach; ?>
       </ul>
@@ -126,14 +130,14 @@ function terms_to_box($terms, $title) {
 
     <?php if (count($terms) > 10) { ?>
       
-      <div class="box__footer" id="expand-review-list">
-        <span>+</span>
+      <div class="box__footer">
+        <span id="expand-review-list">+</span>
       </div>
       
     <?php }; ?>
   </div>
   <?php return ob_get_clean(); 
-}
+};
 
 ?>
 
@@ -191,6 +195,8 @@ function terms_to_box($terms, $title) {
         <?php echo terms_to_box($game_terms, 'Games'); ?> 
         <?php echo terms_to_box($provider_terms, 'Providers'); ?> 
         <?php echo terms_to_box($payment_terms, 'Payments'); ?> 
+        <?php echo terms_to_box($languages, 'languages'); ?> 
+        <?php echo terms_to_box($support_channels, 'Support'); ?> 
       </div>
     </div>
 
@@ -236,9 +242,7 @@ function terms_to_box($terms, $title) {
             <div 
               class="gallery-item overlay" 
               style="background-image: url('<?php echo $image; ?>');" 
-              data-source="<?php echo $image; ?>"
-              
-              ></div>
+              data-source="<?php echo $image; ?>"></div>
           <?php } ?>
         </div>
       </section>
