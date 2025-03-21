@@ -32,7 +32,7 @@ Template Post Type: page
  
   <?php
   $all_posts = new WP_Query(array(
-    'post_type'      => 'post',
+    'post_type'      => array('bonus', 'review', 'glossary', 'post'),
     'posts_per_page' => -1,
     'post_status'    => 'publish',
     'fields'         => 'ids',  // Retrieve only the post IDs

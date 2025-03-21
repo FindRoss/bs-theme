@@ -106,22 +106,6 @@ function my_acf_init_block_types() {
       'icon'              => 'star-filled'
     ));
     /**
-    * Note
-    */
-    acf_register_block_type(array(
-      'name'              => 'note',
-      'title'             => __('Note'),
-      'description'       => __('A custom block displaying a note.'),
-      'render_template'   => 'blocks/note/note.php',
-      // 'enqueue_style'     => get_template_directory_uri() . '/blocks/note/note-main.css',
-      'mode'              => 'edit',
-      'category'          => 'layout',
-      'align'             => 'full',
-      'keywords'          => array( 'note', 'warning', 'important', 'fact' ),
-      'post_types'        => array( 'post', 'page', 'glossary', 'review' ),
-      'icon'              => 'lightbulb'
-    ));
-    /**
     * Recommended Article
     */
     acf_register_block_type(array(
