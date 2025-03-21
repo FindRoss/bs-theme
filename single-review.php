@@ -127,13 +127,7 @@ function terms_to_box($terms, $title) {
     <?php if (count($terms) > 10) { ?>
       
       <div class="box__footer" id="expand-review-list">
-        <span style="cursor: pointer; text-decoration: none; color: #0074b3;">
-          +
-          <!-- Show more 
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-          </svg> -->
-        </span>
+        <span>+</span>
       </div>
       
     <?php }; ?>
@@ -142,6 +136,31 @@ function terms_to_box($terms, $title) {
 }
 
 ?>
+
+<!-- Image overlay --> 
+<div class="gallery-overlay" id="gallery-overlay">
+  <div class="container">
+    <div class="gallery-overlay__layout">
+      <div class="gallery-overlay-header">
+        <span class="close-overlay" id="close-overlay"><?php echo get_svg_icon('close'); ?></span>
+      </div>
+      <div class="gallery-overlay-content">
+        <img src="https://bitcoin-chaser.local/wp-content/uploads/2023/02/BC.Game-Casino-Games.jpg" alt="" id="gallery-overlay-image">
+      </div>
+      <div class="gallery-overlay-footer">
+        <div class="gallery">
+          <?php foreach($images as $image) { ?>
+          <div 
+            class="gallery-item overlay" 
+            style="background-image: url('<?php echo $image; ?>');" 
+            data-source="<?php echo $image; ?>"
+            ></div>
+          <?php } ?>
+        </div><!-- .gallery --> 
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   
@@ -192,9 +211,9 @@ function terms_to_box($terms, $title) {
 
       <!-- Content -->
       <section style="margin-top: 3rem;">
-        <h2>Review</h2>
+        <h2 class="h4" style="font-weight: bold;">Review</h2>
         <?php 
-          if ($introduction) echo $introduction; 
+          if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
           foreach($content as $key => $value) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
@@ -209,14 +228,29 @@ function terms_to_box($terms, $title) {
         ?>
       </section>
 
-      <!-- Bonuses -->
+      <!-- Screenshots -->
+      <section style="margin-top: 3rem;">
+        <h2 class="h4" style="font-weight: bold;">Gallery</h2>
+        <div class="gallery">
+          <?php foreach($images as $image) { ?>
+            <div 
+              class="gallery-item overlay" 
+              style="background-image: url('<?php echo $image; ?>');" 
+              data-source="<?php echo $image; ?>"
+              
+              ></div>
+          <?php } ?>
+        </div>
+      </section>
+
+      <!-- Articles -->
       <?php
       $bonus_query = get_bonuses_by_review_query(get_the_ID()); 
       if ( $bonus_query->have_posts() ) :
         echo '<section style="margin-top: 2rem;">';
           outputNewSlideHTML(array(
             'query'   => $same_site_posts_query,
-            'heading' => 'Read More',
+            'heading' => 'News and Promos',
             // 'card_type' => 'shanghai'
           )); 
         echo '</section>';
@@ -224,25 +258,8 @@ function terms_to_box($terms, $title) {
 
     </div><!-- .col -->
   </div><!-- .row -->
-
-
-
- 
-
-
   
-  
-  <!-- Screenshots -->
-   <section style="margin-top: 3rem;">
-      <h2>Gallery</h2>
-      <div class="gallery">
-        <?php foreach($images as $image) { ?>
-          <div class="gallery-item">
-            <img src="<?php echo $image; ?>" style="width: 100%; height: auto;" />
-          </div>
-        <?php } ?>
-      </div>
-   </section>
+
 
 
  
