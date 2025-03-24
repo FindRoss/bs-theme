@@ -5,6 +5,7 @@
 
   .introduction {
     font-size: 18px;
+    margin-bottom: var(--size-600);
   }
 
   .gallery {
@@ -115,9 +116,29 @@
 
       .gallery-overlay-footer {
         padding: 1rem 0;
+      
 
-        .gallery-item.active {
-          border: 1px solid var(--color-primary-400);
+        .gallery-item {
+          
+          &::before {
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 1;
+          }
+
+          &:hover {
+            &::before {
+              background-color: rgba(0, 0, 0, 0);
+            }
+          }
+          
+          &.active {
+         
+            border: 1px solid var(--color-primary-400);
+
+            &::before {
+              background-color: rgba(0, 0, 0, 0);
+            }
+          }
         }
       }
     }

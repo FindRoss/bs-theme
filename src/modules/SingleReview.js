@@ -17,7 +17,6 @@ export function singleReview() {
   const galleryImages = document.querySelectorAll('.gallery-item');
   const mainGalleryImage = document.querySelector('#gallery-overlay-image');
   const bodyEl = document.querySelector('body');
-
   const overlayGalleryImages = galleryOverlay.querySelectorAll('.gallery-item');
 
   galleryImages.forEach((image) => {
@@ -39,7 +38,22 @@ export function singleReview() {
     });
   });
 
-  closeOverlay.addEventListener('click', () => {
+
+  galleryOverlay.addEventListener('click', function (e) {
+    // Check if the clicked element or its parents are NOT the content or footer
+    const clickedContent = e.target.closest('.gallery-overlay-content');
+    const clickedFooter = e.target.closest('.gallery-overlay-footer');
+
+    // If neither content nor footer was clicked, close the overlay
+    if (!clickedContent && !clickedFooter) {
+      // Close the overlay
+      galleryOverlay.classList.remove('active');
+    }
+  });
+
+
+  closeOverlay.addEventListener('click', (e) => {
+    e.stopPropagation(); // Stop the event from bubbling up to the overlay
     galleryOverlay.classList.remove('active');
     bodyEl.classList.remove('no-scroll');
   });

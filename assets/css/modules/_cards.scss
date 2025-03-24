@@ -6,20 +6,6 @@
   color: inherit;
 }
 
-// .custom-card-link .card,
-// .custom-card-link img {
-//   transition: var(--transition);
-// }
-
-// .custom-card-link:hover,
-// .custom-card-link:active {
-//   text-decoration-color: var(--color-primary-500);
-//   text-decoration-thickness: 2px;
-// }
-
-
-
-
 .details-card {
   margin-top: var(--size-800);
   padding-bottom: var(--size-400);
@@ -286,51 +272,6 @@
     }
   }
 }
-
-
-/**
- * Article long
- */
- .article-long {
-  position: relative; 
-  display: flex;
-  align-items: center;
-  padding-bottom: var(--size-300);
-  border-bottom: 1px solid var(--color-muted-200);
-  gap: 1rem;
-
-  &__media {
-    img {
-      width: 85px;
-      height: 85px;
-      border-radius: 180%;
-      border: 1px solid var(--color-muted-200)
-    }
-  }
-
-  &__title {
-
-    h3 {
-      font-size: var(--font-size-body-lg);
-      font-weight: 400;
-    }
-    
-    a {
-      color: inherit;
-      font-weight: 400;
-    }
-
-    a::before {
-      position: absolute;
-      content: "";
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: 50;
-    }
-  }
- }
 
 /*
  * Streamer card

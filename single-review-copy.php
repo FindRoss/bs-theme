@@ -506,12 +506,7 @@ if (!empty($reviewFaqs)) {
           <div class="main--content">
             <h2 class="m-0">Read more</h2>
           </div>
-        
-          <?php while ($postRelQuery->have_posts()) : $postRelQuery->the_post(); ?>
-            <div class="mt-4">
-              <?php require locate_template('components/card/article-long.php'); ?>
-            </div>
-          <?php endwhile; ?>
+      
           <?php wp_reset_postdata(); ?>
           
         </section><!-- .read more query --> 

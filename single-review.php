@@ -8,7 +8,7 @@ $content = array();
 $images = array();
 
 
-// Post rel query
+// Post From Same Site Query
 $same_site_posts_query = new WP_Query(array(
   'post_type'      => 'post', 
   'posts_per_page' => 6, 
@@ -21,6 +21,18 @@ $same_site_posts_query = new WP_Query(array(
     )
   ),
 ); 
+
+// More Sites Query
+$topSites = get_field('sites', 'option');
+$filteredTopSites = array_diff($topSites, array($review_id)); 
+
+$more_sites_args = array(
+  'post_type'      => 'review',
+  'post__in'       => $filteredTopSites,
+  'posts_per_page' => 8, 
+  'orderby'        => 'post__in'  
+);     
+$more_sites = new WP_Query($more_sites_args); 
 
 
 // ACF FIELDS
@@ -105,9 +117,12 @@ $support_channels = $support_group['channels'];
 function terms_to_box($terms, $title) {
   if (!is_array($terms)) return;
   
+  // Define a consistent threshold
+  $threshold = 10;
+  
   ob_start(); ?>
   
-  <div class="box <?php echo (count($terms) > 10) ? 'show-more-list' : ''; ?>">
+  <div class="box <?php echo (count($terms) > $threshold) ? 'show-more-list' : ''; ?>">
     <div class="box__content">
       <h3 class="title"><?php echo $title; ?></h3>
       <ul>
@@ -118,7 +133,7 @@ function terms_to_box($terms, $title) {
           $icon = is_object($term) ? get_field('icon', $term) : null;
         ?>
 
-          <li class="<?php echo ($index > 10) ? 'list-item-hidden' : ''; ?>">
+          <li class="<?php echo ($index >= $threshold) ? 'list-item-hidden' : ''; ?>">
             <?php if ($icon && isset($icon['sizes']['site-small-logo'])) { ?>
               <img src="<?php echo $icon['sizes']['site-small-logo']; ?>" width="25" height="25">
             <?php } ?>
@@ -128,7 +143,8 @@ function terms_to_box($terms, $title) {
       </ul>
     </div><!-- .box__content -->
 
-    <?php if (count($terms) > 10) { ?>
+
+    <?php if (count($terms) > $threshold) { ?>
       
       <div class="box__footer">
         <span id="expand-review-list">+</span>
@@ -265,6 +281,18 @@ function terms_to_box($terms, $title) {
   
 
 
+   <?php if (!$closed) { 
+    if ( $more_sites->have_posts() ) : ?>
+      <section class="mt-5 pt-4">
+        <?php 
+          outputNewSlideHTML(array(
+            'query'   => $more_sites,
+            'heading' => 'Top Sites'
+          ));
+        ?>
+      </section>
+    <?php endif; 
+  }; ?> 
 
  
 </div><!-- .container -->

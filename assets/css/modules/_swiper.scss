@@ -1,6 +1,18 @@
 @import '_breakpoints';
 
 .swiper { 
+  visibility: hidden;
+  opacity: 0;
+  animation: reveal 0.5s ease-in-out forwards;
+  animation-delay: 0.7s; // Adjust time as needed
+
+  @keyframes reveal {
+    to {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
   .swiper-controls {
     display: flex;
     justify-content: flex-end;
@@ -53,7 +65,7 @@
 
   .swiper-wrapper {
     padding-bottom: 2.6rem;
-    justify-content: space-between;
+    justify-content: flex-start;
     
     .swiper-slide {
       // Need proper math here
