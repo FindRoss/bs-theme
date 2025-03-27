@@ -395,7 +395,6 @@
   background: #ffffff;
   user-select: none;
   -webkit-user-drag: none;
-  
   transition: transform 0.075s;
   
   .excerpt-review-cover__media--logo img {
@@ -1043,6 +1042,7 @@
 
 .card-shanghai {
   background-color: #fff;
+  border: 1px solid var(--color-muted-200);
   border-radius: var(--border-radius);
   padding: var(--size-200);
   display: flex;
@@ -1053,13 +1053,14 @@
   &__media {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--size-200);
 
     .img-wrapper {
       img {
         height: 35px;
         width: auto;
-        border-radius: var(--border-radius);
+        border-radius: 3px;
       }
     }
 
@@ -1073,26 +1074,32 @@
   &__content {
     h3 {
       line-height: 1.5;
-    }
 
-    .title { 
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-muted-400);
-    }
+      .title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-muted-400);
+      }
 
-    .bonus {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--color-primary-800);
-    }
+      .bonus {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-primary-800);
+      }
 
-    .subtitle {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-muted-400);
-    }
+      .subtitle {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-muted-400);
+      }
 
+      a:hover, 
+      a:active {
+        .bonus {
+          color: var(--color-muted-400);
+        }
+      }
+    }
   }
 
   &__ctas {

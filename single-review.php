@@ -11,7 +11,7 @@ $images = array();
 // Post From Same Site Query
 $same_site_posts_query = new WP_Query(array(
   'post_type'      => 'post', 
-  'posts_per_page' => 6, 
+  'posts_per_page' => 8, 
   'meta_query'     => array(
     array(
       'key'     => 'post-review-relationship', 
@@ -50,11 +50,9 @@ $homepageImg  = $media['homepage'];
 $gamesImg     = $media['games'];
 $bettingImg   = $media['betting'];
 
-$images[] = $homepageImg;
-$images[] = $gamesImg;
-$images[] = $bettingImg;
-// $images[] = 'https://bitcoin-chaser.local/wp-content/uploads/2019/06/Stake-Casino-Games..jpg';
-// $images[] = 'https://bitcoin-chaser.local/wp-content/uploads/2019/06/FortuneJack-Live-Casino-Games..jpg';
+if ($homepageImg) $images[] = $homepageImg;
+if ($gamesImg) $images[] = $gamesImg;
+if ($bettingImg) $images[] = $bettingImg; 
 
 /* Introduction */
 $introduction = get_field('introduction');
@@ -158,6 +156,7 @@ function terms_to_box($terms, $title) {
 ?>
 
 <!-- Image overlay --> 
+<?php if (count($images) > 0) : ?>
 <div class="gallery-overlay" id="gallery-overlay">
   <div class="container">
     <div class="gallery-overlay__layout">
@@ -181,6 +180,7 @@ function terms_to_box($terms, $title) {
     </div>
   </div>
 </div>
+<?php endif; ?>
 
 <div class="container">
   
@@ -211,13 +211,12 @@ function terms_to_box($terms, $title) {
         <?php echo terms_to_box($game_terms, 'Games'); ?> 
         <?php echo terms_to_box($provider_terms, 'Providers'); ?> 
         <?php echo terms_to_box($payment_terms, 'Payments'); ?> 
-        <?php echo terms_to_box($languages, 'languages'); ?> 
+        <?php echo terms_to_box($languages, 'Languages'); ?> 
         <?php echo terms_to_box($support_channels, 'Support'); ?> 
       </div>
     </div>
 
     <div class="col-12 col-lg-8">
-
       <!-- Bonuses -->
       <?php
       $bonus_query = get_bonuses_by_review_query(get_the_ID()); 
@@ -232,7 +231,7 @@ function terms_to_box($terms, $title) {
       endif; ?>
 
       <!-- Content -->
-      <section style="margin-top: 3rem;">
+      <section style="margin-top: 2rem;">
         <h2 class="h4" style="font-weight: bold;">Review</h2>
         <?php 
           if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
@@ -250,8 +249,9 @@ function terms_to_box($terms, $title) {
         ?>
       </section>
 
+      <?php if (count($images) > 0) : ?>
       <!-- Screenshots -->
-      <section style="margin-top: 3rem;">
+      <section style="margin-top: 2rem;">
         <h2 class="h4" style="font-weight: bold;">Gallery</h2>
         <div class="gallery">
           <?php foreach($images as $image) { ?>
@@ -262,6 +262,7 @@ function terms_to_box($terms, $title) {
           <?php } ?>
         </div>
       </section>
+      <?php endif; ?>
 
       <!-- Articles -->
       <?php
@@ -279,9 +280,7 @@ function terms_to_box($terms, $title) {
     </div><!-- .col -->
   </div><!-- .row -->
   
-
-
-   <?php if (!$closed) { 
+  <?php if (!$closed) { 
     if ( $more_sites->have_posts() ) : ?>
       <section class="mt-5 pt-4">
         <?php 

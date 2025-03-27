@@ -9,8 +9,10 @@
   $site        = get_field('single_bonus_casino', $bonus_id)[0];
   $exclusive   = get_field('exclusive', $bonus_id);
 
+  $exclusive   = get_field('exclusive', $bonus_id);
   $expiry_date = get_field('expiry_date', $bonus_id);
   $marked_expired = get_field('bonus_expired', $bonus_id); 
+  
 
   $detailsGroup = get_field('details_group', $site);
   $siteName = $detailsGroup['name'];
@@ -32,21 +34,40 @@
     <div class="card-shanghai__media">
       <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
       <!-- <div class="title"><?php echo $siteName; ?></div> -->
+
+      <?php if ($expiry_date || $exclusive || $marked_expired) { ?>
+        <div class="card-shanghai-pills">      
+          
+          <?php if ($expiry_date || $marked_expired) : ?>
+          <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_date ? esc_attr($expiry_date) : 'Expired'; ?>">
+            <?php echo get_svg_icon('stopwatch'); ?>
+            <span class="ends-in-text"></span>
+          </span>
+          <?php endif; ?>
+          
+          <?php if ($exclusive) : ?>
+            <span class="info-pill exclusive">
+              <?php echo get_svg_icon('star'); ?>
+              <span>Exclusive</span>
+            </span>
+          <?php endif; ?>
+          
+        </div>
+      <?php }; ?>
     </div>
-    
+
     <div class="card-shanghai__content">
       <h3>
         <a href="<?php echo get_the_permalink(); ?>">
           <?php if ($title) { ?><div class="title"><?php echo $title; ?></div><?php }; ?>
-          <div class="bonus"><?php echo $bonus; ?></div>
+          <?php if ($bonus) { ?><div class="bonus"><?php echo $bonus; ?></div><?php }; ?>
           <?php if ($plus) { ?><div class="subtitle"><?php echo $plus; ?></div><?php }; ?>
         </a>
       </h3>
     </div>
       
     <div class="card-shanghai__ctas">
-      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank">Get Bonus</a>
-      
+       
       <?php if ($code) { ?>
         <a class="button button--small button__outline bonus-code" type="button">
           <span class="bonus-code__code"><?php echo $code; ?></span>
@@ -58,7 +79,8 @@
         </a>
       <?php }; ?>
 
-      
+      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank">Get Bonus</a>
+
     </div>
   </div>
 

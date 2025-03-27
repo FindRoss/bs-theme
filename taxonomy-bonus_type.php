@@ -58,7 +58,7 @@ if (!empty($merged_bonuses)) {
   <div class="row">
     
     <!-- INTRODUCTION -->
-    <article class="col-12 col-lg-8">
+    <div class="col-12 col-lg-8">
       <h1><?php echo $term_name == 'Crypto' ? '' : 'Crypto '?><?php echo $term_name; ?> Bonuses</h1>
       <div class="main--content"><?php echo term_description($term); ?></div>
         
@@ -69,13 +69,17 @@ if (!empty($merged_bonuses)) {
         </div>
       </div>
       <?php }; ?>
+    </div>
 
-      <!-- MAIN QUERY -->
+    <!-- MAIN QUERY -->
+    <div class="col-12">
+      <div class="row">
       <?php 
         if ($query && $query->have_posts()) : 
           while ($query->have_posts()) : $query->the_post();   
-            $bid = get_the_ID(); 
-            require locate_template('components/card/bonus-long.php'); 
+            echo '<div class="col-12 col-md-6 col-lg-4 mt-4">';
+            get_template_part('template-parts/card/card', 'shanghai');
+            echo '</div>';
           endwhile; 
           wp_reset_postdata();
         else : ?>
@@ -89,28 +93,31 @@ if (!empty($merged_bonuses)) {
         get_template_part('template-parts/content/content', 'pagination', array('query' => $query));
       }; ?>
 
+      </div><!-- .row --> 
+    </div><!-- .col --> 
 
-      <!-- MAIN CONTENT -->
-      <?php if ($paged == 1) : ?>
+
+    <!-- MAIN CONTENT -->
+    <?php if ($paged == 1) : ?>
+    <div class="col-12 col-lg-8">
       <?php $main_content = get_field('main_content', $term); ?>
       <div class="main--content">
-        
+      
         <?php echo $main_content; ?>
         <!-- FAQS -->
         <?php if (get_field('faqs', $term)) { 
-          require locate_template('components/.php'); 
+          get_template_part( 'template-parts/content/conent', 'faqs' );
         }; ?>
-
       </div>
-      <?php endif; ?>
-    </article>
+    </div>
 
     <aside class="col-12 col-lg-4 d-flex flex-column">
       <div class="pt-4 mt-2 mt-lg-0">
         <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
       </div>
-    </aside><!-- .aside -->
-
+    </aside>
+    <?php endif; ?>
+  
   </div><!-- .row --> 
 </div><!-- .container --> 
 

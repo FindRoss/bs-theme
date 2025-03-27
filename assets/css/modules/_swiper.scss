@@ -1,18 +1,6 @@
 @import '_breakpoints';
 
 .swiper { 
-  visibility: hidden;
-  opacity: 0;
-  animation: reveal 0.5s ease-in-out forwards;
-  animation-delay: 0.7s; // Adjust time as needed
-
-  @keyframes reveal {
-    to {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
   .swiper-controls {
     display: flex;
     justify-content: flex-end;
@@ -29,16 +17,6 @@
       &:after {
         content: none;
       }
-    
-      // &:not(:disabled) {
-        // color: var(--color-primary-900);
-        // cursor: pointer;
-      // }
-
-      // &:after {
-      //   display: none;
-      //   visibility: hidden;
-      // }
     }
 
     .swiper-button-prev svg,
@@ -49,8 +27,18 @@
   }
 
   .swiper-wrapper {
-    // padding-top: 4px;
     margin-top: var(--size-300);
+    visibility: hidden;
+    opacity: 0;
+    animation: reveal 0.5s ease-in-out forwards;
+    animation-delay: 0.7s;
+    
+    @keyframes reveal {
+      to {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 
   .swiper-pagination-bullet-active {
@@ -61,14 +49,12 @@
 .swiper-primary {
   width: 100%;
   height: auto;
-  // margin-top: -22px;
 
   .swiper-wrapper {
     padding-bottom: 2.6rem;
     justify-content: flex-start;
     
     .swiper-slide {
-      // Need proper math here
       width: calc(50% - 10px);
       height: auto;
       
@@ -92,7 +78,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-    /* Reset the transform for smooth transition */
   }
 }
 
