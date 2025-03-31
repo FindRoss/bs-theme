@@ -4,7 +4,6 @@
   list-style-type: none;
   flex: 1;
   display: flex;
-  // justify-content: space-between;
   align-items: center;
   height: 100%;
   visibility: visible;
@@ -13,32 +12,24 @@
   gap: 0;
   font-size: var(--size-400);
   font-weight: 800;
-  font-family: "Lexend", sans-serif;
   
-
-
-  >li {
+  > li {
     justify-content: center;
     align-items: center;
     padding-left: var(--size-400);
     padding-right: var(--size-400);
     
-
-    > a {
-      height: 100%;
-
-    }
-  }
-
-  li {
     height: 100%;
     display: flex;
     align-items: center;
 
-    a {
+    > a {
+      height: 100%;
+
       display: flex;
       align-items: center;
     }
+  
 
 
  
@@ -91,6 +82,7 @@
     gap: var(--size-800);
     max-width: 960px;
     grid-template-columns: repeat(2, 1fr);
+    list-style-type: none;
 
     @media screen and (min-width: 992px) {
       grid-template-columns: repeat(4, 1fr);
@@ -102,6 +94,7 @@
 
     a {
       padding: 0;
+      display: block;
     }
   }
 }

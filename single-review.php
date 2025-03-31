@@ -164,15 +164,15 @@ function terms_to_box($terms, $title) {
         <span class="close-overlay" id="close-overlay"><?php echo get_svg_icon('close'); ?></span>
       </div>
       <div class="gallery-overlay-content">
-        <img src="https://bitcoin-chaser.local/wp-content/uploads/2023/02/BC.Game-Casino-Games.jpg" alt="" id="gallery-overlay-image">
+        <img src="" alt="" id="gallery-overlay-image" width="900" height="450">
       </div>
       <div class="gallery-overlay-footer">
         <div class="gallery">
           <?php foreach($images as $image) { ?>
           <div 
             class="gallery-item overlay" 
-            style="background-image: url('<?php echo $image; ?>');" 
-            data-source="<?php echo $image; ?>"
+            style="background-image: url('<?php echo $image['sizes']['medium']; ?>');" 
+            data-source="<?php echo $image['sizes']['large']; ?>"
             ></div>
           <?php } ?>
         </div><!-- .gallery --> 
@@ -249,16 +249,16 @@ function terms_to_box($terms, $title) {
         ?>
       </section>
 
-      <?php if (count($images) > 0) : ?>
       <!-- Screenshots -->
+      <?php if (count($images) > 0) : ?>
       <section style="margin-top: 2rem;">
         <h2 class="h4" style="font-weight: bold;">Gallery</h2>
         <div class="gallery">
           <?php foreach($images as $image) { ?>
             <div 
               class="gallery-item overlay" 
-              style="background-image: url('<?php echo $image; ?>');" 
-              data-source="<?php echo $image; ?>"></div>
+              style="background-image: url('<?php echo $image['sizes']['medium']; ?>');" 
+              data-source="<?php echo $image['sizes']['large']; ?>"></div>
           <?php } ?>
         </div>
       </section>

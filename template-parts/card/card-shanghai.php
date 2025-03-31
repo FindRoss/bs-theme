@@ -23,9 +23,6 @@
   
   $siteColorOutput = $siteColor ? $siteColor : '#eeeeee';
   $outputLink = $bonusLink ? $bonusLink : $siteLink;
-
-  // If there is no bonus, there is no need to display the card
-  if ( !$bonus ) return;
   ?>
 
 
