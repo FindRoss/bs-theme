@@ -8,6 +8,7 @@ class ShowMore {
   event() {
     this.showMoreLists.forEach((list) => {
       const btn = list.querySelector('#expand-review-list');
+      const chevron = btn.querySelector('svg');
       const items = list.querySelectorAll('li.list-item-hidden');
       let isOpen = false;
 
@@ -16,7 +17,8 @@ class ShowMore {
         items.forEach((item) => {
           item.classList.toggle('reveal');
         });
-        btn.textContent = isOpen ? '-' : '+';
+
+        isOpen ? chevron.classList.add('rotate') : chevron.classList.remove('rotate');
       });
     });
   }

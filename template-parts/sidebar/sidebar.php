@@ -5,14 +5,21 @@ $top_bonuses = get_field('top_bonus', 'options');
 
 echo '<aside class="sidebar mt-4">';
 
-// if it isnt the homepage, show the ads
-if (!is_front_page() && is_active_sidebar( 'sidebar-ad' )) { 
-  echo '<section class="sidebar__widget">';
-    dynamic_sidebar('sidebar-ad');
-  echo '</section>';
-};
-
-
+if (!is_front_page()) { 
+  if (function_exists('geot_target') && geot_target( 'US' )) { 
+    if (is_active_sidebar( 'us-sidebar-ad' )) { 
+      echo '<section class="sidebar__widget banner-sidebar">';
+        dynamic_sidebar('us-sidebar-ad');
+      echo '</section>';
+    }
+  } else {
+    if (is_active_sidebar( 'sidebar-ad' )) { 
+      echo '<section class="sidebar__widget banner-sidebar">';
+        dynamic_sidebar('sidebar-ad');
+      echo '</section>';
+    }
+  }
+}
 
 if(!empty($top_sites)) { 
 

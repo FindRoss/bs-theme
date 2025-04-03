@@ -48,6 +48,7 @@ export function singleReview() {
     if (!clickedContent && !clickedFooter) {
       // Close the overlay
       galleryOverlay.classList.remove('active');
+      bodyEl.classList.remove('no-scroll');
     }
   });
 

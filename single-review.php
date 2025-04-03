@@ -133,7 +133,7 @@ function terms_to_box($terms, $title) {
 
           <li class="<?php echo ($index >= $threshold) ? 'list-item-hidden' : ''; ?>">
             <?php if ($icon && isset($icon['sizes']['site-small-logo'])) { ?>
-              <img src="<?php echo $icon['sizes']['site-small-logo']; ?>" width="25" height="25">
+              <img src="<?php echo $icon['sizes']['site-small-logo']; ?>" width="25" height="25" alt="<?php echo $icon['alt']; ?>">
             <?php } ?>
             <?php echo esc_html($term_name); ?>
           </li>
@@ -145,7 +145,8 @@ function terms_to_box($terms, $title) {
     <?php if (count($terms) > $threshold) { ?>
       
       <div class="box__footer">
-        <span id="expand-review-list">+</span>
+        <!-- <button id="expand-review-list">+</button> -->
+        <button id="expand-review-list"><?php echo get_svg_icon('chevron-down'); ?></button>
       </div>
       
     <?php }; ?>
@@ -157,11 +158,13 @@ function terms_to_box($terms, $title) {
 
 <!-- Image overlay --> 
 <?php if (count($images) > 0) : ?>
-<div class="gallery-overlay" id="gallery-overlay">
+<div class="gallery-overlay" id="gallery-overlay" aria-hidden="true">
   <div class="container">
     <div class="gallery-overlay__layout">
       <div class="gallery-overlay-header">
-        <span class="close-overlay" id="close-overlay"><?php echo get_svg_icon('close'); ?></span>
+        <span class="close-overlay" id="close-overlay" aria-label="Close overlay">
+          <?php echo get_svg_icon('close'); ?>
+        </span>
       </div>
       <div class="gallery-overlay-content">
         <img src="" alt="" id="gallery-overlay-image" width="900" height="450">
@@ -173,6 +176,9 @@ function terms_to_box($terms, $title) {
             class="gallery-item overlay" 
             style="background-image: url('<?php echo $image['sizes']['medium']; ?>');" 
             data-source="<?php echo $image['sizes']['large']; ?>"
+            tabindex="0"
+            role="button"
+            aria-label="View larger image"
             ></div>
           <?php } ?>
         </div><!-- .gallery --> 
@@ -221,7 +227,7 @@ function terms_to_box($terms, $title) {
       <?php
       $bonus_query = get_bonuses_by_review_query(get_the_ID()); 
       if ( $bonus_query->have_posts() ) :
-        echo '<section style="margin-top: 2rem;">';
+        echo '<section style="margin-top: 3rem;">';
           outputNewSlideHTML(array(
             'query'   => $bonus_query,
             'heading' => 'Bonuses',
@@ -231,7 +237,7 @@ function terms_to_box($terms, $title) {
       endif; ?>
 
       <!-- Content -->
-      <section style="margin-top: 2rem;">
+      <section class="content" style="margin-top: 2rem;">
         <h2 class="h4" style="font-weight: bold;">Review</h2>
         <?php 
           if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
@@ -239,7 +245,7 @@ function terms_to_box($terms, $title) {
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
                 <h3 class="h4 title"><?php echo $key; ?></h3>
-                <span><?php echo get_svg_icon('chevron-down'); ?></span>
+                <button><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
                 <?php echo $value; ?>
@@ -258,7 +264,11 @@ function terms_to_box($terms, $title) {
             <div 
               class="gallery-item overlay" 
               style="background-image: url('<?php echo $image['sizes']['medium']; ?>');" 
-              data-source="<?php echo $image['sizes']['large']; ?>"></div>
+              data-source="<?php echo $image['sizes']['large']; ?>"
+              tabindex="0"
+              role="button"
+              aria-label="View larger image"
+              ></div>
           <?php } ?>
         </div>
       </section>
