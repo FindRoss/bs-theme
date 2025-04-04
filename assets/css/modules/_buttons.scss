@@ -13,13 +13,9 @@
   justify-content: center;
 
   &--small {
-    padding: var(--size-300) var(--size-200);
-    font-size: 0.8rem;
+    padding: var(--size-200);
+    font-size: 14px;
     line-height: 1;
-
-    @media screen and (min-width: $breakpoint-medium) {
-      font-size: 0.9rem;
-    }
   }
 
   &--square {

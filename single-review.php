@@ -189,6 +189,19 @@ function terms_to_box($terms, $title) {
 <?php endif; ?>
 
 <div class="container">
+
+  <!-- CLOSED --> 
+  <?php if ($closed) { ?>
+    <div class="my-4">
+      <div class="p-2 rounded-corners" style="background: #FAFAFA">
+        <h2 class="h2"><?php echo $name; ?> is now closed</h2>
+        <p class="fs-large">Explore our reviews of <a href="https://bitcoinchaser.com/sites/casino/"> popular crypto casinos</a> or <a href="https://bitcoinchaser.com/sites/sports/">sports betting sites</a> you might enjoy.</p>
+        <?php if ($more_sites->have_posts()) :
+           outputNewSlideHTML(array('query' => $more_sites)); 
+          endif; ?>
+      </div>
+    </div>
+  <?php } ?>
   
   <!-- Header -->
   <div class="review-header">
