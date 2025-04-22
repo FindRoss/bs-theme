@@ -6,20 +6,6 @@
   color: inherit;
 }
 
-// .custom-card-link .card,
-// .custom-card-link img {
-//   transition: var(--transition);
-// }
-
-// .custom-card-link:hover,
-// .custom-card-link:active {
-//   text-decoration-color: var(--color-primary-500);
-//   text-decoration-thickness: 2px;
-// }
-
-
-
-
 .details-card {
   margin-top: var(--size-800);
   padding-bottom: var(--size-400);
@@ -287,51 +273,6 @@
   }
 }
 
-
-/**
- * Article long
- */
- .article-long {
-  position: relative; 
-  display: flex;
-  align-items: center;
-  padding-bottom: var(--size-300);
-  border-bottom: 1px solid var(--color-muted-200);
-  gap: 1rem;
-
-  &__media {
-    img {
-      width: 85px;
-      height: 85px;
-      border-radius: 180%;
-      border: 1px solid var(--color-muted-200)
-    }
-  }
-
-  &__title {
-
-    h3 {
-      font-size: var(--font-size-body-lg);
-      font-weight: 400;
-    }
-    
-    a {
-      color: inherit;
-      font-weight: 400;
-    }
-
-    a::before {
-      position: absolute;
-      content: "";
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: 50;
-    }
-  }
- }
-
 /*
  * Streamer card
  **/
@@ -454,7 +395,6 @@
   background: #ffffff;
   user-select: none;
   -webkit-user-drag: none;
-  
   transition: transform 0.075s;
   
   .excerpt-review-cover__media--logo img {
@@ -1094,4 +1034,83 @@
 
 .slot-card-link:hover .card {
   border-top: 3px solid #000;
+}
+
+/**
+  * Card Shanghai
+  */
+
+.card-shanghai {
+  background-color: #fff;
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--border-radius);
+  padding: var(--size-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-200);
+  height: 100%;
+
+  &__media {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--size-200);
+
+    .img-wrapper {
+      img {
+        height: 35px;
+        width: auto;
+        border-radius: 3px;
+      }
+    }
+
+    .title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-muted-400);
+    }
+  }
+
+  &__content {
+    h3 {
+      line-height: 1.5;
+
+      .title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-muted-400);
+      }
+
+      .bonus {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-primary-800);
+      }
+
+      .subtitle {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-muted-400);
+      }
+
+      a:hover, 
+      a:active {
+        .bonus {
+          color: var(--color-muted-400);
+        }
+      }
+    }
+  }
+
+  &__ctas {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--size-200);
+    flex-wrap: wrap;
+
+    .button {
+      flex: 1;
+    }
+  }
 }

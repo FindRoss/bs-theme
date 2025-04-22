@@ -5,18 +5,18 @@
       <div class="container py-5">
         <div class="row" style="font-size:1em">
           
-          <div class="col-12 col-md-6 py-2 mb-4 mb-md-0">
-            <h2 class="h6">Socials</h2>
+          <div class="col-12 col-md-6 mb-4">
+            <h2 class="h4">Socials</h2>
             <div class="footer-list__container">
               <ul>
-                <li class="menu-item"><a class="nav-link" target="_blank" href="https://twitter.com/intent/follow?screen_name=bitcoinchaser" aria-label="Follow BitcoinChaser on X">Twitter</a></li>
-                <li class="menu-item"><a class="nav-link" target="_blank" href="https://www.facebook.com/BitcoinChaser/" aria-label="Follow BitcoinChaser on Facebook">Facebook</a></li>
-                <li class="menu-item"><a class="nav-link" target="_blank" href="https://bitcoinchaser.com/feed/" aria-label="Join our RSS Feed">RSS Feed</a></li>
+                <li class="menu-item"><a target="_blank" href="https://twitter.com/intent/follow?screen_name=bitcoinchaser" aria-label="Follow BitcoinChaser on X">Twitter</a></li>
+                <li class="menu-item"><a target="_blank" href="https://www.facebook.com/BitcoinChaser/" aria-label="Follow BitcoinChaser on Facebook">Facebook</a></li>
+                <li class="menu-item"><a target="_blank" href="https://bitcoinchaser.com/feed/" aria-label="Join our RSS Feed">RSS Feed</a></li>
               </ul>
             </div>
           </div><!-- .col --> 
             
-          <div class="col-12 col-md-3 py-2 mb-0">
+          <div class="col-12 col-md-3 mb-4">
             <?php $footer_menu_center_left = wp_nav_menu( array(
               'echo'            => false, 
               'menu'            => 'Footer Menu Center-Left',
@@ -30,12 +30,12 @@
               )); 
               
               if (!empty($footer_menu_center_left)) {
-                echo '<h2 class="h6">Sections</h2>'; 
+                echo '<h2 class="h4">Sections</h2>'; 
                 echo $footer_menu_center_left; 
               } ?>
           </div>
 
-          <div class="col-12 col-md-3 py-2 mb-4 mb-md-0">
+          <div class="col-12 col-md-3 mb-4">
             <!-- .footer-list__container in css --> 
             <?php $footer_menu_left = wp_nav_menu( array(
               'echo'            => false, 
@@ -50,7 +50,7 @@
               )); 
              
               if (!empty($footer_menu_left)) {
-                echo '<h2 class="h6">Site</h2>'; 
+                echo '<h2 class="h4">Site</h2>'; 
                 echo $footer_menu_left; 
               } ?>
           </div>

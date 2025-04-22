@@ -8,13 +8,17 @@ class ShowMore {
   event() {
     this.showMoreLists.forEach((list) => {
       const btn = list.querySelector('#expand-review-list');
-      const items = list.querySelectorAll('.term-list-item');
+      const chevron = btn.querySelector('svg');
+      const items = list.querySelectorAll('li.list-item-hidden');
+      let isOpen = false;
 
       btn.addEventListener('click', () => {
+        isOpen = !isOpen;
         items.forEach((item) => {
-          item.classList.remove('visually-hidden');
-          btn.classList.add('visually-hidden');
+          item.classList.toggle('reveal');
         });
+
+        isOpen ? chevron.classList.add('rotate') : chevron.classList.remove('rotate');
       });
     });
   }

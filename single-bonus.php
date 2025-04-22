@@ -106,17 +106,21 @@
       $sameSiteBonusArgs = array(
         'post_type'      => 'bonus',
         'posts_per_page' => 8,
-        'meta_query'     => bonus_expired_meta_query(),
         'post__not_in'   => array($current_id),
-        'meta_query'     => array(
+        'meta_query'     => array_merge(
+        bonus_expired_meta_query(),
           array(
+            array(
               'key'     => 'single_bonus_casino', 
               'value'   => '"' . $casino_id . '"', 
               'compare' => 'LIKE'
             )
           )
-        );
+        ),
+      );
       $sameSiteBonus = new WP_Query($sameSiteBonusArgs);
+
+  
 
       $bonus_has_expired = $bonus_marked_as_expired || $expiry_date_has_passed;
     ?>  
@@ -216,6 +220,43 @@
       </section>
     </div>
   <?php endif; ?> 
+
+  
+  <?php 
+    if ($bonusType && !is_wp_error($bonusType)) : 
+      foreach( $bonusType as $term ) {
+        $term_id = $term->term_id;
+        $term_name = $term->name;
+        $term_slug = $term->slug;
+        $term_link = get_term_link($term_id);
+
+        // Set up the query for bonuses with this bonus type.
+        $args = array(
+          'post_type'      => 'bonus',
+          'posts_per_page' => 8,
+          'meta_query'     => bonus_expired_meta_query(),
+          'tax_query'      => array(
+            array(
+              'taxonomy' => 'bonus_type',
+              'field'    => 'slug',
+              'terms'    => $term_slug,
+            )
+          ),
+          // Additional parameters like meta_query, order, etc. can be added here if needed.
+        );
+        $bonus_type_query = new WP_Query( $args );
+      }
+
+      echo '<div class="container mt-5">';
+      echo '<section>';
+        outputNewSlideHTML(array(
+          'query'   => $bonus_type_query,
+          'heading' => $term_name . ' Bonuses',
+          'link'    => $term_link
+        ));
+      echo '</section>'; 
+      echo '</div>'; 
+    endif; ?>
 
   <?php if ($relatedBonus->have_posts()) : ?>
     <div class="container mt-5">

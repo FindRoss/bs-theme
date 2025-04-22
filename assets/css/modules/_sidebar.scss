@@ -5,6 +5,11 @@
     border-radius: var(--border-radius);
     padding: var(--size-400) var(--size-200);
     border-top: 6px solid var(--color-bg-800);
+
+    &.banner-sidebar {
+      display: flex;
+      justify-content: center;
+    }
     
     &:not(:first-child) {
       margin-top: var(--size-400);

@@ -58,6 +58,16 @@ Template Post Type: page
       'title' => 'Sports Betting', 
       'permalink' => site_url('/bonuses/sports/')
     ),
+    array(
+      'id' => 25494,
+      'title' => 'Esports Betting', 
+      'permalink' => site_url('/bonuses/esports/')
+    ),
+    array(
+      'id' => 25492,
+      'title' => 'VIP', 
+      'permalink' => site_url('/bonuses/vip/')
+    )
   );
 
   // Not actually using this right now
