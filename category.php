@@ -51,7 +51,7 @@ $wp_query   = $query; ?>
         <h2 class="h4">Featured</h3>
         <?php while ( $featured_posts_query->have_posts() ) : $featured_posts_query->the_post(); ?>
           <div class="col-12 col-sm-6 col-md-4 mt-3">
-            <?php require locate_template('components/card/article.php'); ?>
+            <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
           </div>
         <?php endwhile; ?>
         </div>
@@ -67,7 +67,7 @@ $wp_query   = $query; ?>
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <?php $category = get_the_category(); ?>
         <div class="col-12 col-sm-6 col-md-4 mt-3">
-            <?php require locate_template('components/card/article.php'); ?>
+            <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
           </div><!-- .col -->
         <?php endwhile; ?>
 

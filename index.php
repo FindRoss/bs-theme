@@ -58,7 +58,7 @@ $wp_query   = $query; ?>
     
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <div class="col-6 mb-2 mb-md-4">
-          <?php require locate_template('components/card/article.php'); ?>
+          <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
         </div>
       <?php endwhile; ?>
       <?php wp_reset_postdata(); ?>

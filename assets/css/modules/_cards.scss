@@ -558,7 +558,12 @@
 
 .review-pill {
   position: relative;
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-200);
+  background-color: #FFFFFF;
   padding: 4px;
   margin-top: var(--size-100);
   border-radius: var(--border-radius);
@@ -577,77 +582,17 @@
     }
   }
 
-  &__logo {
-    border-radius: var(--border-radius);
-  }
-
-  h3 {
-    a::before {
-      position: absolute;
-      content: "";
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      z-index: 50;
-    }
-  }
-
-  .button {
-    padding: var(--size-200) var(--size-300);
-    z-index: 99;
-    position: relative;
-  }
-}
-
-/*
-* Card article
-**/
-.card-article {
-  position: relative;
-  font-family: var(--font-family-heading);
-  overflow: hidden;
-  transition: translate 0.075s;
-    
-  img {
-    opacity: 1;
-  }
-  
-  
-  &:hover {
-    img {
-      opacity: 0.9;
-    }
-  }
-  
-  &:focus-within {
-    box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
-    border-radius: var(--border-radius);
-
-    :focus {
-      outline: 0;
-      border: 0;
-    }
-  }
-
-  &__media {
-    display: block;
-    
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: var(--border-radius);
-      border: 1px solid var(--color-muted-200);
-    }
-  }
-
   &__body {
-    padding: var(--size-200) 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-200);
 
+    .logo {
+      border-radius: var(--border-radius);
+    }
+    
     h3 {
-      font-size: 20px;
-      font-weight: 600;
-      
       a::before {
         position: absolute;
         content: "";
@@ -658,12 +603,104 @@
         z-index: 50;
       }
     }
+  }
+    
+  .button {
+    padding: var(--size-200) var(--size-300);
+    z-index: 99;
+    position: relative;
+  }
+}
 
-    @media screen and (min-width: $breakpoint-small) {
-      padding-bottom: 0;
+/*
+* Card article
+**/
+
+.card {
+  border-bottom: 1px solid var(--color-muted-200);
+  margin-bottom: var(--size-400);
+
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-muted-200);
+  }
+
+  &__body {
+    padding-top: var(--size-200);
+    padding-bottom: var(--size-200);
+  }
+
+  .card-beijing {
+    h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0;
     }
   }
 }
+// .card-article {
+//   position: relative;
+//   font-family: var(--font-family-heading);
+    
+//   img {
+//     opacity: 1;
+//   }
+  
+//   &:hover {
+//     img {
+//       opacity: 0.9;
+//     }
+//   }
+  
+//   &:focus-within {
+//     box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+//     border-radius: var(--border-radius);
+
+//     :focus {
+//       outline: 0;
+//       border: 0;
+//     }
+//   }
+
+//   &__media {
+//     display: block;
+    
+//     img {
+//       width: 100%;
+//       height: auto;
+//       border-radius: var(--border-radius);
+//       border: 1px solid var(--color-muted-200);
+//     }
+//   }
+
+//   &__body {
+//     padding: var(--size-200) 0;
+
+//     h3 {
+//       font-size: 24px;
+//       font-weight: 800;
+//       padding: 0;
+//       margin: 0;
+      
+//       a::before {
+//         position: absolute;
+//         content: "";
+//         top: 0;
+//         bottom: 0;
+//         right: 0;
+//         left: 0;
+//         z-index: 50;
+//       }
+//     }
+
+//     @media screen and (min-width: $breakpoint-small) {
+//       padding-bottom: 0;
+//     }
+//   }
+// }
 
 
 
@@ -818,6 +855,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      gap: var(--size-200);
 
       .logo {
         border-radius: var(--border-radius);

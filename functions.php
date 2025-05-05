@@ -1,7 +1,7 @@
 <?php
 
 function themebs_enqueue_styles() {
-  wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css' );
+  // wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css' );
   wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'swiper-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version'));
@@ -12,7 +12,7 @@ add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 include get_template_directory() . '/assets/svg-icons.php';
 
 function themebs_enqueue_scripts() {
-  wp_deregister_script( 'jquery' );
+   wp_deregister_script( 'jquery' );
   
   wp_register_script('main-chaser', get_template_directory_uri() . '/build/index.js', [], wp_get_theme()->get('Version'), true);
   wp_enqueue_script('main-chaser');
@@ -160,6 +160,13 @@ require get_theme_file_path('/inc/bonus-expired-meta-query.php');
  * Custom Nav Walker
  */
 require get_template_directory() . '/inc/custom-walker.php';
+
+/**
+ * Taxonomy Paginated Noindex
+ * - Noindex paginated taxonomy pages
+ * - noindex, follow = "Don't index this page, but still follow the links on it."
+ */
+require get_template_directory() . '/inc/taxonomy-paginated-noindex.php';
 
 /**
  * Format Date

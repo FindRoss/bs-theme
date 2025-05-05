@@ -17,7 +17,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
         <div class="row">
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
           <div class="col-12 col-sm-6 mt-4">
-            <?php require locate_template('components/card/article.php'); ?>
+            <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
             <?php $used_posts[] = get_the_ID(); ?>
           </div>
         <?php endwhile; ?>

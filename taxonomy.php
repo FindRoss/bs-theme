@@ -166,7 +166,7 @@ endif; ?>
           setup_postdata($post); ?>
           
           <div class="col-6 col-sm-6 col-lg-3 mt-3">
-            <?php require locate_template('components/card/article.php'); ?>
+            <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
           </div>
       <?php } ?>
 

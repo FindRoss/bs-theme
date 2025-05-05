@@ -20,7 +20,7 @@
      <div class="row">
       <?php while ( $query->have_posts() ) : $query->the_post() ?>
         <div class="col-12 col-md-6 col-lg-3 mt-3">
-          <?php require locate_template('components/card/article.php'); ?>
+          <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
         </div>
       <?php endwhile; ?>
     </section>

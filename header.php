@@ -27,19 +27,17 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <?php } ?>
 
-<header class="mb-4 bg-white"><!-- sticky-top -->
+<header class="header">
   <div class="container">
     <div class="nav-layout">
 
       <div class="nav-layout__logo">
-        <div class="d-flex align-items-center">
-          <button type="button" id="nav-toggle" class="button button__icon me-2 d-lg-none" aria-expanded="false" aria-label="Open menu">
-             <?php echo get_svg_icon('hamburger'); ?>
-          </button>
-          <a href="/">
-            <img width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
-          </a>
-        </div>
+        <button type="button" id="nav-toggle" class="button button__icon" aria-expanded="false" aria-label="Open menu">
+          <?php echo get_svg_icon('hamburger'); ?>
+        </button>
+        <a href="/">
+          <img width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
+        </a>
       </div><!-- .col -->
 
       <nav class="nav-layout__menu desktop-navigation">
@@ -64,6 +62,8 @@
     </div><!-- .nav-layout --> 
   </div><!-- .container -->
 </header>
+
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
 
 
 <div class="background-drawer">

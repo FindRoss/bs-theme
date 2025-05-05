@@ -1,9 +1,10 @@
 @import '_breakpoints';
 
 // Header
-header {
+.header {
   position: relative;
-  z-index: 1000
+  z-index: 1000;
+  border-bottom: 1px solid var(--color-muted-200);
 }
 
 
@@ -34,16 +35,16 @@ body.no-scroll {
 
 // This should be global for desktop and mobile menu;
 .menu-item a {
-  color: var(--color-muted-400);
+  color: var(--color-primary-900);
   text-decoration: none;
   font-weight: 700;
   font-size: 16px;
-  letter-spacing: 0.01rem;
+  letter-spacing: 4%;
   user-select: none;
         
   &:hover,
   &:active {
-    color: var(--color-muted-900);
+    color: var(--color-primary-500);
   }
 }
 
@@ -60,6 +61,15 @@ body.no-scroll {
     display: flex;
     align-items: center;
     flex: 1;
+
+    button {
+      display: block;
+      margin-right: 8px;
+
+      @media screen and (min-width: $breakpoint-large) {
+        display: none;
+      }
+    }
 
     @media screen and (min-width: $breakpoint-large) {
       flex: 0 0 80px;

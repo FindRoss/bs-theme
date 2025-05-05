@@ -1,5 +1,9 @@
 <?php get_header(); ?>
 
+<!-- Adding cards -->
+<!-- https://bitcoinchaser.com/how-we-review/ -->
+<!-- https://bitcoinchaser.com/why-casinos-ask-for-your-kyc-data/  -->
+
 <?php 
 $review_id = get_the_ID();
 
@@ -216,15 +220,16 @@ function terms_to_box($terms, $title) {
     </div>
     <div class="review-header__cta">
       <div class="cta-box">
-        <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
-        <a href="<?php echo $link; ?>" class="button button__primary">Sign Up</a>
+        <?php if ($bonus) { ?>
+          <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
+        <?php } ?>
+        <a href="<?php echo $link; ?>" class="button button__primary" target="_blank">Sign Up</a>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-12 col-lg-4">
-
       <div class="details-section__boxes" style="margin-top: 3rem;">
         <?php echo terms_to_box($crypto_terms, 'Cryptocurrency'); ?> 
         <?php echo terms_to_box($game_terms, 'Games'); ?> 

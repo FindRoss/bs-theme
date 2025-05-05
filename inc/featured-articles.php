@@ -30,7 +30,7 @@ function featured_articles() {
       <?php if ( $featured_query->have_posts() ) : 
         while ( $featured_query->have_posts() ) : $featured_query->the_post();
           echo '<div class="col-12 col-md-6 mt-3">'; 
-            require locate_template('components/card/article.php'); 
+             get_template_part('template-parts/card/card', 'beijing'); 
           echo '</div>';
         endwhile; 
         wp_reset_postdata(); 

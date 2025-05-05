@@ -9,13 +9,11 @@
  $review_link   = get_the_permalink($id);
 ?>
 
-<div class="review-pill sort-focus d-flex justify-content-between align-items-center">
-  <div class="review-pill__body d-flex align-items-center">
-    <img class="review-pill__logo me-2" src="<?php echo get_the_post_thumbnail_url($id, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
-    <h3 class="h6 m-0">
-      <a href="<?php echo $review_link; ?>">
-        <?php echo $name; ?>
-      </a>
+<div class="review-pill sort-focus">
+  <div class="review-pill__body">
+    <img class="logo" src="<?php echo get_the_post_thumbnail_url($id, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
+    <h3 class="h6">
+      <a href="<?php echo $review_link; ?>"><?php echo $name; ?></a>
     </h3>
   </div>
   <div class="review-pill__cta">

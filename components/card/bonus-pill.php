@@ -31,8 +31,8 @@
   <div class="bonus-pill sort-focus"> 
 
     <div class="bonus-pill__content">
-      <img class="logo me-2" src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
-      <h3 class="h6 m-0"><a href="<?php echo $permalink; ?>"><?php echo $truncate_title; ?></a></h2>
+      <img class="logo" src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
+      <h3 class="h6"><a href="<?php echo $permalink; ?>"><?php echo $truncate_title; ?></a></h2>
     </div>
 
     <div class="bonus-pill__cta">

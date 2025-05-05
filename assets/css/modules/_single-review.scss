@@ -312,10 +312,11 @@
     img {
       border: 1px solid var(--color-muted-200);
       border-radius: var(--border-radius);
+      max-width: 100%;
+      height: auto;
     }
 
     .wp-caption {
-
       background-color: #f9f9f9;
       .wp-caption-text {
         margin-top: var(--size-200);

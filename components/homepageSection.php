@@ -22,7 +22,7 @@
           <div class="row">
             <?php while ( $blog_section_query->have_posts() ) : $blog_section_query->the_post() ?>
               <div class="col-12 col-md-6 col-lg-3 mt-3">
-                <?php require locate_template('components/card/article.php'); ?>
+                <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
                 <?php $used_posts[] = get_the_ID(); ?>
               </div>
             <?php endwhile; ?>

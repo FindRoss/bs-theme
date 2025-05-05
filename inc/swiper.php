@@ -43,7 +43,7 @@ function outputNewSlideHTML($args) {
               if ($cardType == 'shanghai') {
                 get_template_part('template-parts/card/card', 'shanghai');
               } else if ($postType == 'post') {
-                require locate_template('components/card/article.php');
+                 get_template_part('template-parts/card/card', 'beijing');
               } else if ($postType == 'review') {
                 require locate_template('components/card/review-excerpt.php');
               } else if ($postType == 'bonus') {
@@ -80,7 +80,7 @@ function outputNewSlideHTML($args) {
               if ($cardType == 'shanghai') {
                 get_template_part('template-parts/card/card', 'shanghai');
               } else if ($postType == 'post') {
-                require locate_template('components/card/article.php');
+                 get_template_part('template-parts/card/card', 'beijing');
               } else if ($postType == 'review') {
                 require locate_template('components/card/review-excerpt.php');
               } else if ($postType == 'bonus') {
