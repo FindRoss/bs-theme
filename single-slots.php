@@ -115,7 +115,7 @@ $play_at_query = new WP_Query( $play_at_args );
           <div class="row">
             <?php while ( $play_at_query->have_posts() ) : $play_at_query->the_post(); ?> 
               <div class="col-12 col-sm-6 mt-3">
-                <?php require locate_template('components/card/review-excerpt.php'); ?>
+                <?php get_template_part('template-parts/card/card', 'hong-kong'); ?>
               </div>
             <?php endwhile; ?>
           </div>

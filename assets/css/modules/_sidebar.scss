@@ -9,6 +9,13 @@
     &.banner-sidebar {
       display: flex;
       justify-content: center;
+
+      img {
+        border-radius: var(--border-radius);
+        border: 1px solid var(--color-muted-200);
+        width: 100%;
+        height: auto;
+      }
     }
     
     &:not(:first-child) {

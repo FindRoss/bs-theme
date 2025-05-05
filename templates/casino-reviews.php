@@ -39,7 +39,7 @@ $wp_query   = $query;
 
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>
       <div class="col-12 col-sm-6 col-lg-3 mt-4">
-        <?php require locate_template( 'components/card/review-excerpt.php' ); ?>
+        <?php get_template_part('template-parts/card/card', 'hong-kong'); ?>
       </div>
     <?php endwhile; 
     wp_reset_postdata(); ?>

@@ -85,7 +85,7 @@
             <div class="row" id="review-container">
             <?php while ($query->have_posts()) : $query->the_post(); ?>
               <div class="col-12 col-md-4 mt-3">
-                <?php require locate_template('components/card/review-excerpt.php'); ?>  
+                <?php get_template_part('template-parts/card/card', 'hong-kong'); ?>
               </div>
             <?php endwhile; ?>
             </div>

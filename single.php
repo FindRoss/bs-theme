@@ -24,7 +24,7 @@
   <?php get_template_part( 'template-parts/message/message-expired' ); ?>
 <?php } ?>
 
-<article class="mt-4">
+<article>
   <div class="container"> 
     
     <!-- TITLE -->

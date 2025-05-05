@@ -13,7 +13,7 @@ function outputNewSlideHTML($args) {
 
 
     <div class="swiper swiper-primary" aria-label="Carousel of <?php echo esc_attr($postType); ?> posts">
-      <div class="section-heading d-flex justify-content-between align-items-center">
+      <div class="section-heading">
 
         <?php if ($heading) { ?>
         <h2 class="section-heading__title h4">
@@ -45,11 +45,11 @@ function outputNewSlideHTML($args) {
               } else if ($postType == 'post') {
                  get_template_part('template-parts/card/card', 'beijing');
               } else if ($postType == 'review') {
-                require locate_template('components/card/review-excerpt.php');
+                get_template_part('template-parts/card/card', 'hong-kong');
               } else if ($postType == 'bonus') {
                 get_template_part('template-parts/card/card', 'shanghai');
               } else if ($postType == 'streamer') {
-                require locate_template('components/card/streamer.php');
+                get_template_part('template-parts/card/card', 'streamer');
               }  
             ?>
           </div>
@@ -62,7 +62,7 @@ function outputNewSlideHTML($args) {
     <?php elseif ($query->have_posts() AND $postCount <= 3) :  ?>
       
       <?php if ($heading) { ?>
-        <div class="section-heading d-flex justify-content-between align-items-center">
+        <div class="section-heading">
           <h2 class="section-heading__title h4">
             <?php 
               if ($link) { echo '<a href="' . $link . '">'; } 
@@ -73,23 +73,21 @@ function outputNewSlideHTML($args) {
         </div>
       <?php }; ?>  
 
-      <div class="row">
+      <div>
         <?php while ($query->have_posts()) : $query->the_post(); ?>
-          <div class="col-12 col-md-6 col-lg-4 mt-3">
-            <?php
-              if ($cardType == 'shanghai') {
-                get_template_part('template-parts/card/card', 'shanghai');
-              } else if ($postType == 'post') {
-                 get_template_part('template-parts/card/card', 'beijing');
-              } else if ($postType == 'review') {
-                require locate_template('components/card/review-excerpt.php');
-              } else if ($postType == 'bonus') {
-                get_template_part('template-parts/card/card', 'shanghai');
-              } else if ($postType == 'streamer') {
-                require locate_template('components/card/streamer.php');
-              }  
-            ?>
-          </div>
+          <?php
+            if ($cardType == 'shanghai') {
+              get_template_part('template-parts/card/card', 'shanghai');
+            } else if ($postType == 'post') {
+                get_template_part('template-parts/card/card', 'beijing');
+            } else if ($postType == 'review') {
+              get_template_part('template-parts/card/card', 'hong-kong');
+            } else if ($postType == 'bonus') {
+              get_template_part('template-parts/card/card', 'shanghai');
+            } else if ($postType == 'streamer') {
+              get_template_part('template-parts/card/card', 'streamer'); 
+            }  
+          ?>
         <?php endwhile; ?>
       </div>
 

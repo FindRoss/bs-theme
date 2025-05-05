@@ -1,3 +1,7 @@
-<div>
-  <a href="#">Lorem</a><span>></span><a href="#">Ipsum</a>
-</div>
+<nav class="breadcrumbs container" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="#">Lorem</a></li>
+    <li><a href="#">Ipsum</a></li>
+    <li aria-current="page">Dolor</li>
+  </ol>
+</nav>

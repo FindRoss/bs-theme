@@ -125,30 +125,6 @@
         flex-basis: auto;
       }
     }
-
-    // .buttons {
-    //   display: flex;
-    //   gap: 0.5rem;
-    //   margin-top: 10px;
-
-    //   @media screen and (min-width: $breakpoint-small) {
-    //     margin-top: var(--size-500);
-    //   }
-
-    //   .button {
-    //     @media screen and (max-width: $breakpoint-small) {
-    //       padding: var(--size-100) var(--size-200);
-    //     }
-
-    //     .bonus-code__label {
-    //       display: none; 
-
-    //       @media screen and (min-width: $breakpoint-medium) {
-    //         display: inline;
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   .bonus-body {

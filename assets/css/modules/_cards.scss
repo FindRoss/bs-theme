@@ -302,24 +302,23 @@
   }
   
   h3 {
-    font-weight: 600;
+    font-weight: 800;
     margin-top: var(--size-300);
+    
+    a {
+      text-decoration: none;
+      
+    }
+    a::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 50;
+    }
   }
-
-  a {
-    color: inherit;
-  }
-
-  a::before {
-    position: absolute;
-    content: "";
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 50;
-  }
-  
 }
 
 .bonus-cover {
@@ -384,7 +383,7 @@
   }
 }
 
-.excerpt-review-cover {
+.hong-kong-card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -397,12 +396,12 @@
   -webkit-user-drag: none;
   transition: transform 0.075s;
   
-  .excerpt-review-cover__media--logo img {
+  .hong-kong-card__media--logo img {
     transition: transform 0.3s ease; // Add transition for smooth zoom effect
   }
 
   &:hover {
-    .excerpt-review-cover__media--logo img {
+    .hong-kong-card__media--logo img {
       transform: scale(1.05); // Slight zoom effect
     }
   }
@@ -457,6 +456,10 @@
       p {
         margin: 0;
       }
+    }
+
+    .crypto-icons {
+      display: flex;
     }
   }
 
@@ -638,72 +641,13 @@
       font-size: 20px;
       font-weight: 800;
       margin: 0;
+      
+      a {
+        text-decoration: none;;
+      }
     }
   }
 }
-// .card-article {
-//   position: relative;
-//   font-family: var(--font-family-heading);
-    
-//   img {
-//     opacity: 1;
-//   }
-  
-//   &:hover {
-//     img {
-//       opacity: 0.9;
-//     }
-//   }
-  
-//   &:focus-within {
-//     box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
-//     border-radius: var(--border-radius);
-
-//     :focus {
-//       outline: 0;
-//       border: 0;
-//     }
-//   }
-
-//   &__media {
-//     display: block;
-    
-//     img {
-//       width: 100%;
-//       height: auto;
-//       border-radius: var(--border-radius);
-//       border: 1px solid var(--color-muted-200);
-//     }
-//   }
-
-//   &__body {
-//     padding: var(--size-200) 0;
-
-//     h3 {
-//       font-size: 24px;
-//       font-weight: 800;
-//       padding: 0;
-//       margin: 0;
-      
-//       a::before {
-//         position: absolute;
-//         content: "";
-//         top: 0;
-//         bottom: 0;
-//         right: 0;
-//         left: 0;
-//         z-index: 50;
-//       }
-//     }
-
-//     @media screen and (min-width: $breakpoint-small) {
-//       padding-bottom: 0;
-//     }
-//   }
-// }
-
-
-
 
 /**
 * 
@@ -1079,7 +1023,7 @@
   */
 
 .card-shanghai {
-  background-color: #fff;
+  background-color: #FFFFFF;
   border: 1px solid var(--color-muted-200);
   border-radius: var(--border-radius);
   padding: var(--size-200);
@@ -1111,30 +1055,36 @@
 
   &__content {
     h3 {
-      line-height: 1.5;
+      margin: 0;
+      a {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--size-50);
 
-      .title {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--color-muted-400);
-      }
-
-      .bonus {
-        font-size: 20px;
-        font-weight: 600;
-        color: var(--color-primary-800);
-      }
-
-      .subtitle {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--color-muted-400);
-      }
-
-      a:hover, 
-      a:active {
-        .bonus {
+        .title {
+          font-size: 13px;
+          font-weight: 500;
           color: var(--color-muted-400);
+        }
+
+        .bonus {
+          font-size: 20px;
+          font-weight: 600;
+          color: var(--color-primary-800);
+        }
+
+        .subtitle {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--color-muted-400);
+        }
+
+        a:hover, 
+        a:active {
+          .bonus {
+            color: var(--color-muted-400);
+          }
         }
       }
     }

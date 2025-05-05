@@ -10,8 +10,6 @@
 <!-- .card-col-row --> 
 <div class="card">
 
-  <a href="<?php the_permalink(); ?>"></a>
-
   <div class="card-beijing">
 
     <div class="card__media">
@@ -44,7 +42,7 @@
         </div>
       <?php endif; ?>
 
-      <h3><?php the_title(); ?></h3>
+      <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
     </div>
   </div>
 </div>

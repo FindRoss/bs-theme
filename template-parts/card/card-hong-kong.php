@@ -39,15 +39,15 @@
   // $custom_excerpt = mb_strimwidth( get_the_excerpt(), 0, 62, '...' );
 ?>
 
-<div class="excerpt-review-cover">
-  <div class="excerpt-review-cover__media" style="background-color: <?php echo $siteColor; ?>">
-    <div class="excerpt-review-cover__media--logo">
+<div class="hong-kong-card">
+  <div class="hong-kong-card__media" style="background-color: <?php echo $siteColor; ?>">
+    <div class="hong-kong-card__media--logo">
       <!-- <a href="<?php the_permalink(); ?>"> -->
         <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>">
       <!-- </a> -->
     </div>
   </div>
-  <div class="excerpt-review-cover__content">
+  <div class="hong-kong-card__content">
     
     <?php if (!empty($types) && !is_wp_error($types)) { ?>
     <div>
@@ -73,7 +73,7 @@
 
   </div>
   <?php if (!empty($link)) {  ?>
-    <div class="excerpt-review-cover__cta">
+    <div class="hong-kong-card__cta">
       <a href="<?php echo the_permalink(); ?>" class="button button__outline">Review</a>
       <a href="<?php echo $link; ?>" class="button button__primary" target="_blank">Play</a>
     </div>

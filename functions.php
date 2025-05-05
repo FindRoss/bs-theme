@@ -1,7 +1,6 @@
 <?php
 
 function themebs_enqueue_styles() {
-  // wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css' );
   wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'swiper-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version'));
@@ -95,11 +94,6 @@ require get_theme_file_path('/inc/styled-heading.php');
  * Schemas
  */
 require get_theme_file_path('/inc/schemas.php');
-
-/**
- * Featued site on homepage
- */
-require get_theme_file_path('/inc/featured-site.php');
 
 /**
  * Register ACF Blocks

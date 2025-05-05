@@ -10,26 +10,29 @@ $featured_post_args = array(
 $featured_post_query = new WP_Query( $featured_post_args ); 
 ?> 
 
-<div class="container mb-5">
-  <div class="row">
-    <div class="col-12 col-lg-8">
+<div class="container">
+  
+  <section class="lothian-section">
+    <h1 class="h2 m-0">Welcome to BitcoinChaser!</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur reiciendis fugit praesentium necessitatibus magnam tempore? Dolorem, magni sequi! Totam nihil accusamus tempore porro quis provident voluptates?</p>
+  </section>
+
+  <section class="fife-section">
+    <div class="grid">
       <?php if ( $featured_post_query->have_posts() ) : ?>
-        <div class="row">
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
-          <div class="col-12 col-sm-6 mt-4">
+          <div class="">
             <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
             <?php $used_posts[] = get_the_ID(); ?>
           </div>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
-      </div>
       <?php endif; ?>
     </div>
+    <!-- Sidebar -->
+    <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+  </section><!-- .fife-section -->
 
-    <div class="col-12 col-lg-4">
-      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
-    </div><!-- .col --> 
-  </div><!-- .row --> 
 </div><!-- .container -->
 
 
@@ -53,8 +56,8 @@ $review_query_foundPosts = $review_query->found_posts;
 
 if ($review_query_foundPosts >= 1) { ?>
 
-<div class="container mt-5 pt-4">
-  <section>
+<div class="container">
+  <section class="slide-section">
     <?php 
       outputNewSlideHTML(array(
         'query'   => $review_query,
@@ -73,9 +76,42 @@ if ($review_query_foundPosts >= 1) { ?>
   $blog_section_slug = '/category/promotions/';
   $blog_section_description = 'Get involved in the latest events and promotions running at crypto gambling sites.';
   $blog_section_link_text = 'All Promotions';
-  
-  require locate_template('components/homepageSection.php');
 ?>
+  
+<div class="container mt-5">
+  <section class="angus-section">
+    <?php 
+      $blog_section_query = new WP_Query(array(
+        'post_type'      => array('post'), 
+        'posts_per_page' => 4, 
+        'category_name'  => $blog_section_category,
+        'post__not_in'   => $used_posts,
+        'meta_query'     => bonus_expired_meta_query()
+      )); 
+      ?> 
+  
+      <?php if ( $blog_section_query->have_posts() ) : ?>
+
+        <?php chaser_styled_sub_heading(array(
+          'heading' => $blog_section_title,
+          'link'    => $blog_section_slug
+        )); ?>
+
+        <p><?php echo $blog_section_description; ?></p>
+
+        <div class="layout">
+          <?php while ( $blog_section_query->have_posts() ) : $blog_section_query->the_post() ?>
+            
+              <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
+              <?php $used_posts[] = get_the_ID(); ?>
+            
+          <?php endwhile; ?>
+
+        </div><!-- .row --> 
+      <?php wp_reset_postdata();
+      endif; ?>
+  </section>
+</div>
 
 <!-- BONUSES -->
 <?php 
@@ -139,10 +175,6 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 
 <?php }; ?>
-
-<?php featured_site_section(); ?>
-
-<?php featured_articles(); ?>
 
 <!-- SPORTS -->
 <?php 

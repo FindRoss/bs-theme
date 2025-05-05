@@ -3,7 +3,7 @@
 Template Name: Streamers
 Template Post Type: page
 */ 
- 
+
 
 get_header(); 
 
@@ -35,7 +35,7 @@ $wp_query   = $query;
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
         <div class="col-12 col-md-6 col-lg-3 mt-4">
-          <?php require locate_template('components/card/streamer.php'); ?>
+          <?php get_template_part('template-parts/card/card', 'streamer'); ?>
         </div><!-- .col --> 
 
       <?php endwhile; ?>

@@ -249,14 +249,19 @@ h6 > a:hover {
   margin-top: var(--size-400);
   padding-top: var(--size-100);
   border-top: 1px solid var(--color-muted-200);
+  display: flex;
 
   &__title {  
-    margin-bottom: 0;
-    font-weight: bold;
+    margin: 0;
+    font-weight: 800;
+    font-size: var(--size-400);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 
     a { 
       display: flex;
       align-items: center;
+      text-decoration: none;
 
       svg {
         // stroke: black;

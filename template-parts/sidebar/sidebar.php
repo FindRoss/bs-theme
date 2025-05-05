@@ -3,7 +3,7 @@ $top_sites = get_field('sites', 'options');
 $top_bonuses = get_field('top_bonus', 'options');
 
 
-echo '<aside class="sidebar mt-4">';
+echo '<aside class="sidebar">';
 
 if (!is_front_page()) { 
   if (function_exists('geot_target') && geot_target( 'US' )) { 
