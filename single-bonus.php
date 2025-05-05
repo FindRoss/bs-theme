@@ -129,9 +129,12 @@
       <?php get_template_part( 'template-parts/message/message-expired' ); ?>
     <?php } ?>
 
-    <article>
-      <div class="bonus-header-wrapper">
-        <div class="container">
+    <div class="container">
+      
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <article>
+
           <div class="bonus-header">
             <div class="bonus-header__brand" style="background: <?php echo $theme_color; ?>">
               <img src="<?php echo $featured_image ?>" alt="<?php $name . ' logo'; ?>" class="rounded-corners" aria-hidden="true" /> 
@@ -152,7 +155,7 @@
             
             <?php if (!$bonus_has_expired) : ?> 
             <div class="bonus-header__cta">
-               
+                
               <?php if ($code) { ?>
                 <div class="button button__outline bonus-code">
                   <span class="bonus-code__label">Code: </span>
@@ -169,47 +172,44 @@
             <?php endif; ?>
             
           </div><!-- .bonus-header -->
-        </div><!-- .container --> 
-      </div><!-- .sticky --> 
 
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-lg-8">
+          <!-- BODY -->
+          <div class="bonus-body main--content">
 
-            <!-- BODY -->
-            <div class="bonus-body main--content">
+            <?php if (get_the_content()) {  ?>
+            <div class="bonus-body__content">
+              <?php the_content(); ?>
+            </div> 
+            <?php }; ?>
+                  
+            <div class="bonus-body__table">
+              <h2>Details</h2>
+              <table class="chaser-table">
+                <tbody>
+                  <?php foreach($table_fields as $key => $value) { ?>
+                    <?php if ($value) : ?>
+                      <tr>
+                        <td><?php echo $key; ?></td>
+                        <td><?php echo $value; ?></td>
+                      </tr>  
+                    <?php endif; ?>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
+          </div><!--.bonus-body --> 
+          </article>
+        </div><!-- .col -->
 
-              <?php if (get_the_content()) {  ?>
-              <div class="bonus-body__content">
-                <?php the_content(); ?>
-              </div> 
-              <?php }; ?>
-                    
-              <div class="bonus-body__table">
-                <h2>Details</h2>
-                <table class="chaser-table">
-                  <tbody>
-                    <?php foreach($table_fields as $key => $value) { ?>
-                      <?php if ($value) : ?>
-                        <tr>
-                          <td><?php echo $key; ?></td>
-                          <td><?php echo $value; ?></td>
-                        </tr>  
-                      <?php endif; ?>
-                    <?php } ?>
-                  </tbody>
-                </table>
-              </div>
-            </div><!--.bonus-body --> 
+        <!-- SIDEBAR -->
+        <div class="col-12 col-lg-4">
+          <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+        </div>
 
-          </div><!-- .col -->
-        </div><!-- .row -->
-      </div><!-- .container --> 
-    </article>
+      </div><!-- .row -->
 
   <?php if ($sameSiteBonus->have_posts()) : ?>
-    <div class="container mt-5">
-      <section>
+      <section class="mt-5">
         <?php 
           $sameSiteTitle = 'More ' . $name . ' Bonuses';
           outputNewSlideHTML(array(
@@ -218,7 +218,6 @@
           ));
         ?>
       </section>
-    </div>
   <?php endif; ?> 
 
   
@@ -247,30 +246,28 @@
         $bonus_type_query = new WP_Query( $args );
       }
 
-      echo '<div class="container mt-5">';
-      echo '<section>';
+      echo '<section class="mt-5">';
         outputNewSlideHTML(array(
           'query'   => $bonus_type_query,
           'heading' => $term_name . ' Bonuses',
           'link'    => $term_link
         ));
       echo '</section>'; 
-      echo '</div>'; 
     endif; ?>
 
   <?php if ($relatedBonus->have_posts()) : ?>
-    <div class="container mt-5">
-      <section>
-        <?php 
-          outputNewSlideHTML(array(
-            'query'   => $relatedBonus,
-            'heading' => 'Bonuses',
-            'link'    => '/bonuses/'
-          ));
-        ?>
-      </section>
-    </div>
+    <section class="mt-5">
+      <?php 
+        outputNewSlideHTML(array(
+          'query'   => $relatedBonus,
+          'heading' => 'Bonuses',
+          'link'    => '/bonuses/'
+        ));
+      ?>
+    </section>
   <?php endif; ?> 
+
+  </div><!-- .container -->
   
   <?php get_template_part( 'template-parts/section/articles' ); ?>
 

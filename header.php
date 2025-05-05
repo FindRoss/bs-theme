@@ -63,8 +63,7 @@
   </div><!-- .container -->
 </header>
 
-<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
-
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
 <div class="background-drawer">
   <form class="form-inline w-100 p-2 bg-cus-light" role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">

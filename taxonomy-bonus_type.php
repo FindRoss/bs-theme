@@ -1,6 +1,5 @@
 <?php get_header(); 
 
-
 $term = get_queried_object(); 
 $term_id  = $term->term_id; 
 $taxonomy = $term->taxonomy;
@@ -55,31 +54,26 @@ if (!empty($merged_bonuses)) {
 ?>
 
 <div class="container">
-  <div class="row">
+ 
     
     <!-- INTRODUCTION -->
-    <div class="col-12 col-lg-8">
+    <section class="">
       <h1><?php echo $term_name == 'Crypto' ? '' : 'Crypto '?><?php echo $term_name; ?> Bonuses</h1>
       <div class="main--content"><?php echo term_description($term); ?></div>
         
       <?php if ($icon) { ?>
-      <div class="col-12 col-lg-4 d-flex justify-content-lg-center align-items-center">
-        <div class="bg-white rounded-circle mb-4 mb-lg-0">
+        <div class="">
           <img src="<?php echo $icon_thumbnail; ?>" alt="<?php echo $term_name .  " casinos" ?>" width="200" height="200" />
         </div>
-      </div>
       <?php }; ?>
-    </div>
+    </section>
 
     <!-- MAIN QUERY -->
-    <div class="col-12">
-      <div class="row">
+    <section class="perthshire-section">
       <?php 
         if ($query && $query->have_posts()) : 
-          while ($query->have_posts()) : $query->the_post();   
-            echo '<div class="col-12 col-md-6 col-lg-4 mt-4">';
+          while ($query->have_posts()) : $query->the_post();     
             get_template_part('template-parts/card/card', 'shanghai');
-            echo '</div>';
           endwhile; 
           wp_reset_postdata();
         else : ?>
@@ -88,37 +82,31 @@ if (!empty($merged_bonuses)) {
             <p>Please explore the <a href="/bonuses/">other bonuses</a> we have currently listed.</p>
           </div>
         <?php endif; ?>
+      </section><!-- .perthshire-section --> 
 
       <?php if (!empty($merged_bonuses)) {
         get_template_part('template-parts/content/content', 'pagination', array('query' => $query));
       }; ?>
 
-      </div><!-- .row --> 
-    </div><!-- .col --> 
 
 
     <!-- MAIN CONTENT -->
     <?php if ($paged == 1) : ?>
-    <div class="col-12 col-lg-8">
-      <?php $main_content = get_field('main_content', $term); ?>
-      <div class="main--content">
-      
-        <?php echo $main_content; ?>
-        <!-- FAQS -->
-        <?php if (get_field('faqs', $term)) { 
-          get_template_part( 'template-parts/content/conent', 'faqs' );
-        }; ?>
-      </div>
-    </div>
+      <section class="aberdeenshire-section">
+        <?php $main_content = get_field('main_content', $term); ?>
+        
+        <div class="main--content">
+          <?php echo $main_content; ?>
+          <!-- FAQS -->
+          <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
+        </div>
 
-    <aside class="col-12 col-lg-4 d-flex flex-column">
-      <div class="pt-4 mt-2 mt-lg-0">
-        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
-      </div>
-    </aside>
+        <aside>
+          <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+        </aside>
+      </section>
     <?php endif; ?>
   
-  </div><!-- .row --> 
 </div><!-- .container --> 
 
 <?php get_footer(); ?>

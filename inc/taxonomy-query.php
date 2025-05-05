@@ -16,16 +16,14 @@ function taxonomyMainQuery($query, $taxonomy) {
     <div class="container">
       <h2>Reviews</h2>
       <?php echo "Total reviews found: <strong>" . $total_posts . "</strong>"; ?>
-      <div class="row g-2">
+      <section class="perthshire-section">
         
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-          <div class="col-12 col-md-6 col-lg-4 mt-3">
-            <?php get_template_part('template-parts/card/card', 'hong-kong'); ?>
-          </div> 
+          <?php get_template_part('template-parts/card/card', 'hong-kong'); ?>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
 
-      </div><!-- .row --> 
+      </section>
       
       <div class="mt-4">   
         <?php get_template_part('template-parts/content/content', 'pagination', array('query' => $query)); ?>

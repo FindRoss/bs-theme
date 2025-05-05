@@ -1,5 +1,16 @@
 @import '_breakpoints';
 
+.swiper-plain-row {
+  margin-top: var(--size-300);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--size-200);
+  
+  @media screen and (min-width: $breakpoint-large) {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
 .swiper { 
   .swiper-controls {
     display: flex;
@@ -66,7 +77,9 @@
           width: calc(25% - 10px);
         }
       }
-    }
+    } 
+
+
       
   .swiper-pagination {
     bottom: 20px;

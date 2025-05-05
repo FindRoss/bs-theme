@@ -1,5 +1,9 @@
 @import '_breakpoints';
 
+* {
+  box-sizing: border-box;
+}
+
 @media screen and (max-width: 600px) {
   #wpadminbar {
     position: fixed !important;
@@ -56,10 +60,10 @@ body {
 
 
 .message {
-  margin-top: -1.5rem;
-  // margin-bottom: 1rem;
-  padding: var(--size-200) var(--size-400);
+  margin: 0;
+  padding: var(--size-500) var(--size-400);
   background: var(--color-bg-200);
+  border-radius: var(--border-radius);
 
   &.warning {
     background: #F8D7DA;
@@ -75,6 +79,7 @@ body {
   .title {
     font-size: var(--size-500);
     font-weight: bold;
+    margin: 0;
   }
 
   p {

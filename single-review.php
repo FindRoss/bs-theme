@@ -11,7 +11,6 @@ $review_id = get_the_ID();
 $content = array();
 $images = array();
 
-
 // Post From Same Site Query
 $same_site_posts_query = new WP_Query(array(
   'post_type'      => 'post', 
@@ -115,9 +114,8 @@ $country_terms  = get_the_terms( $review_id, 'country' );
 $languages = get_field('languages'); 
 $support_channels = $support_group['channels'];
 
-
 function terms_to_box($terms, $title) {
-  if (!is_array($terms)) return;
+  if (!is_array($terms) || count($terms) === 0) return;
   
   // Define a consistent threshold
   $threshold = 10;
@@ -145,7 +143,6 @@ function terms_to_box($terms, $title) {
       </ul>
     </div><!-- .box__content -->
 
-
     <?php if (count($terms) > $threshold) { ?>
       
       <div class="box__footer">
@@ -156,9 +153,7 @@ function terms_to_box($terms, $title) {
     <?php }; ?>
   </div>
   <?php return ob_get_clean(); 
-};
-
-?>
+}; ?>
 
 <!-- Image overlay --> 
 <?php if (count($images) > 0) : ?>

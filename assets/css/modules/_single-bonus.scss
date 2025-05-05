@@ -42,19 +42,6 @@
 
 
 .single-bonus {
-  main {
-    margin-top: -1.5rem;
-  }
-
-  .bonus-header-wrapper {
-    background: var(--color-bg-200);
-    padding: var(--size-100) 0;
-
-    @media screen and (min-width: $breakpoint-medium) {
-      padding: var(--size-300) 0;
-    }
-  }
-
   .bonus-header {
     display: flex;
     flex-direction: row;
@@ -98,17 +85,14 @@
       h1 { 
         margin: 0;
         font-weight: 700;
-        font-size: 1.1rem;
-      
-        @media screen and (min-width: $breakpoint-small) {
-          font-size: var(--size-500);
-        }
+        font-size: var(--size-500);
 
         @media screen and (min-width: $breakpoint-medium) {
           font-size: var(--size-600);
         }
 
         @media screen and (min-width: $breakpoint-large) {
+          font-size: var(--size-700);
           max-width: 28ch;
         }
    
@@ -142,9 +126,5 @@
       }
     }
 
-  }
-
-  .bonus-details-card {
-    background-color: var(--color-primary-50);
   }
 }

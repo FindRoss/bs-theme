@@ -30,39 +30,19 @@ $wp_query   = $query; ?>
 
 
 <div class="container mb-4">
+  
   <div class="row">
-    <div class="col-12">
-      <h1><?php echo $name; ?></h1>
+    <div class="col-12 col-md-8">
+      <h1 class="m-0"><?php echo $name; ?></h1>
+      <?php if ($paged === 1) { ?>
+        <div class="fs-large"><?php echo term_description(); ?></div>
+      <?php } ?>
     </div>
   </div>
 
-  <?php if ($paged === 1) { ?>
-    <div class="row"> 
-      <div class="col-12 col-lg-8 mb-4">
-        <?php echo term_description(); ?>
-      </div><!-- .col --> 
-    </div><!-- .row --> 
-
-    <?php 
-    if($featured_posts) { 
-      $featured_posts_query = new WP_Query(array('post__in' => $featured_posts));
-      if ( $featured_posts_query->have_posts() ) : ?>
-        <div class="row bg-cus-light p-1 pb-4 pt-4 rounded-corners">
-        <h2 class="h4">Featured</h3>
-        <?php while ( $featured_posts_query->have_posts() ) : $featured_posts_query->the_post(); ?>
-          <div class="col-12 col-sm-6 col-md-4 mt-3">
-            <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
-          </div>
-        <?php endwhile; ?>
-        </div>
-      <?php wp_reset_postdata(); ?>
-      <?php endif; ?>
-    <?php } ?>
-  <?php }; ?>
-</div><!-- .container --> 
 
 <?php if ( $query->have_posts() ) : ?>
-  <div class="container">
+
     <div class="row">
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <?php $category = get_the_category(); ?>

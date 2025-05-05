@@ -131,15 +131,12 @@ $wp_query   = $query;
 <?php if ($paged == 1) : 
   $featured_query = new WP_Query($featured_args);
 
-  if ($featured_query->have_posts()) :  
-
-  ?>
+  if ($featured_query->have_posts()) : ?>
 
   <section class="taxonomy-featued-sites">
     <div class="container">
       
-      <?php 
-      chaser_styled_sub_heading(array(
+      <?php chaser_styled_sub_heading(array(
         'heading' => 'Featured'
       )); ?>
       <?php outputBigSlideHTML($featured_query); ?>
@@ -170,7 +167,6 @@ if ($paged == 1) {
       $setup_foundPosts = $setup_query->found_posts;
 
       if ($setup_foundPosts >= 8) {
-
         $current_term = get_term_by('slug', $terms['terms'], $terms['taxonomy']);
       ?> 
 
@@ -198,31 +194,23 @@ if ($paged == 1) {
 <?php taxonomyMainQuery($query, $taxonomy); ?>
 
 
-<!-- CONTENT --> 
-<?php 
-  $main_content = get_field('main_content', $term); 
-  
-  if ($main_content && $paged == 1) : ?> 
-  <section>
-    <div class="container py-5">
-      <div class="main--content">
-        <div class="row">
-          <div class="col-12 col-lg-8"> 
-            <?php echo $main_content; ?>
-            <!-- FAQS -->
-            <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
-          
-          </div>
-        </div>
-      </div>
-    </div><!-- .container -->
+<!-- MAIN CONTENT -->
+<?php if ($paged == 1) : ?>
+  <section class="aberdeenshire-section">
+    <?php $main_content = get_field('main_content', $term); ?>
+    
+    <div class="main--content">
+      <?php echo $main_content; ?>
+      <!-- FAQS -->
+      <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
+    </div>
+
+    <aside>
+      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+    </aside>
   </section>
 <?php endif; ?>
 
 
  
-<?php 
-get_footer();
-
-
-
+<?php get_footer();

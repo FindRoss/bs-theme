@@ -73,24 +73,18 @@ $count = 1;
 <!-- INTRODUCTION -->
 <div class="pt-4">
   <div class="container">
-    <div class="row flex-column-reverse flex-lg-row">
+    <div class="row">
       <div class="col-12 col-lg-8">
+        <?php if ($hasIcon) { ?>
+          <img src="<?php echo $icon['sizes']['thumbnail']; ?>" alt="<?php echo $term_name .  " casinos" ?>" width="100" height="100" />
+        <?php }; ?>
         <h1><?php  echo $term_name; ?> Casinos and Gambling Sites</h1>
         <div class="main--content"> 
           <?php echo term_description(); ?>
         </div>
       </div><!-- .col -->
-
-      <?php if ($hasIcon) { ?>
-      <div class="col-12 col-lg-4 d-flex justify-content-lg-center align-items-center">
-        <div class="bg-white rounded-circle mb-4 mb-lg-0">
-          <img src="<?php echo $icon['sizes']['thumbnail']; ?>" alt="<?php echo $term_name .  " casinos" ?>" width="150" height="150" />
-        </div>
-      </div>
-      <?php }; ?>
-
     </div><!-- .row -->
-  </div>
+  </div><!-- .container --> 
 </div>
 
 <!-- FEATURED -->
@@ -102,8 +96,7 @@ $count = 1;
     <section class="taxonomy-featued-sites">
       <div class="container">
         
-        <?php
-        chaser_styled_sub_heading(array(
+        <?php chaser_styled_sub_heading(array(
           'heading' => 'Featured'
         )); ?>
         <?php outputBigSlideHTML($featured_query); ?>
@@ -116,20 +109,29 @@ endif; ?>
 <!-- MAIN QUERY -->
 <?php taxonomyMainQuery($query, $taxonomy); ?>
 
-
+<div class="container">
 <?php if ($paged == 1) : ?>
-  <!-- CONTENT --> 
-  <div class="container py-5">
-    <?php $main_content = get_field('main_content', $term); ?>
+
+  <?php $main_content = get_field('main_content', $term); ?>
+  
+  <!-- MAIN CONTENT -->
+  <section class="aberdeenshire-section">
+  
+    
     <div class="main--content">
-      <div class="row">
-        <div class="col-12 col-lg-8"> 
-          <?php echo $main_content; ?>
-          <!-- FAQS -->
-          <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
-        </div>
-      </div>
+      <?php echo $main_content; ?>
+      <!-- FAQS -->
+      <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
     </div>
+
+    <?php if ($main_content != '') { ?>
+      <aside>
+        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+      </aside>
+    <?php }; ?>
+  </section>
+
+
 
   <?php 
   $args = array(
@@ -137,21 +139,16 @@ endif; ?>
     'posts_per_page' => 8,   
     'tax_query' => array(
       array(
-        'taxonomy' => $taxonomy,   // Define the taxonomy
-        'field'    => 'term_id',       // Can be 'slug' or 'term_id'
-        'terms'    => $term_id,       // The term slug (or ID if 'field' is set to 'term_id')
+        'taxonomy' => $taxonomy,   
+        'field'    => 'term_id', 
+        'terms'    => $term_id, 
       ),
     ),
     'meta_query'     => bonus_expired_meta_query()
   );
-
-  
   $posts = get_posts($args);
 
-
-
   if (!empty($posts)) { ?>
-
 
   <section class="mt-5">
   <?php 
@@ -177,13 +174,8 @@ endif; ?>
 
   wp_reset_postdata();
   
-  
+  endif; 
   ?>
-
   </div><!-- .container -->
-
-<?php endif; ?>
-
  
-<?php 
-get_footer();
+<?php get_footer();

@@ -5,9 +5,8 @@
 
   if ($post_type == 'post') { $type_output = 'promotion'; } 
 ?>
- 
- <div class="message warning">
-    <div class="container">
+   <div class="container">
+    <div class="message warning">
       <div class="message__body">
         <div class="message__content">
           <h3 class="title">This <?php echo $type_output; ?> has now expired.</h2>

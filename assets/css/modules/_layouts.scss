@@ -42,3 +42,35 @@
 		}
 	}
 }
+
+.perthshire-section {
+	display: grid; 
+	gap: var(--size-500);
+	grid-template-columns: 1fr; 
+	margin-top: var(--size-600);
+
+	@media screen and (min-width: $breakpoint-medium) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (min-width: $breakpoint-large) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+}
+
+.aberdeenshire-section {
+	display: grid; 
+	gap: var(--size-500);
+	grid-template-columns: 1fr; 
+	margin-top: var(--size-600); 
+	
+
+	@media screen and (min-width: $breakpoint-medium) {
+		grid-template-columns: 2fr 1fr;
+	}
+
+	// @media screen and (min-width: $breakpoint-large) {
+	// 	grid-template-columns: 3fr 1fr;
+	// }
+}

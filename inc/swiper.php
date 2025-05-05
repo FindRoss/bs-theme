@@ -13,8 +13,8 @@ function outputNewSlideHTML($args) {
 
 
     <div class="swiper swiper-primary" aria-label="Carousel of <?php echo esc_attr($postType); ?> posts">
+      
       <div class="section-heading">
-
         <?php if ($heading) { ?>
         <h2 class="section-heading__title h4">
           <?php 
@@ -73,7 +73,7 @@ function outputNewSlideHTML($args) {
         </div>
       <?php }; ?>  
 
-      <div>
+      <div class="swiper-plain-row">
         <?php while ($query->have_posts()) : $query->the_post(); ?>
           <?php
             if ($cardType == 'shanghai') {

@@ -4,9 +4,16 @@
 
 <?php 
   $categories = get_the_category(); 
-  $single_category_id = $categories[0]->cat_ID; 
-  $single_category_name = $categories[0]->name; 
-  $single_category_link = get_category_link($single_category_id);
+
+  if ( ! empty( $categories ) && isset( $categories[0] ) ) {
+    $single_category_id = $categories[0]->cat_ID; 
+    $single_category_name = $categories[0]->name; 
+    $single_category_link = get_category_link( $single_category_id );
+  } else {
+    $single_category_id = null;
+    $single_category_name = '';
+    $single_category_link = '';
+  }
   
   $post_date = get_the_date( 'M j, Y' );
 
@@ -26,16 +33,21 @@
 
 <article>
   <div class="container"> 
+
+
     
     <!-- TITLE -->
     <div class="row">
       <div class="col-12 col-lg-8">
+        <?php if ($single_category_link != '') { ?>
+          <a href="<?php echo $single_category_link; ?>" class="cat-pill"><?php echo $single_category_name; ?></a>
+        <?php } ?>
         <?php get_template_part( 'template-parts/content/content-title' ); ?>
         <?php get_template_part( 'template-parts/content/content-meta' ); ?>
       </div>
     </div>
 
-  
+   
     <div class="row mb-5">
       <div class="col-12 col-lg-8">
 
