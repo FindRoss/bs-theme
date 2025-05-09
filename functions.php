@@ -16,6 +16,10 @@ function themebs_enqueue_styles() {
   if (get_post_type() === 'streamer') {
     wp_enqueue_style( 'streamer-styles', get_template_directory_uri() . '/build/single-streamer.css', array(), wp_get_theme()->get('Version'));
   }
+
+  if (is_search()) {
+    wp_enqueue_style( 'search-styles', get_template_directory_uri() . '/build/search-results.css', array(), wp_get_theme()->get('Version'));
+  }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 

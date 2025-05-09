@@ -1,4 +1,7 @@
-import "../assets/css/style.scss";
+// import "../assets/css/style.scss";
+// import '../assets/css/single-review.scss';
+// import '../assets/css/single-bonus.scss';
+// import '../assets/css/single-streamer.scss';
 
 
 import SidebarMenu from "./modules/SidebarMenu";

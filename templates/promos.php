@@ -47,9 +47,4 @@ Template Post Type: post, page
   </div>
 <?php endif; ?>
 
-<!-- featured posts -->
-<div class="mb-5">
-  <?php featured_articles(); ?>
-</div>
-
 <?php get_footer();

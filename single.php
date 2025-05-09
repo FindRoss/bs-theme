@@ -101,8 +101,6 @@
 <?php wp_reset_postdata(); ?>
 <?php endif; ?>
 
-<?php featured_articles(); ?>
-
 <?php endwhile; else: ?>
   <div class="container mb-5">
     <div class="alert alert-primary p-5" role="alert">

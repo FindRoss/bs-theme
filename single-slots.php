@@ -155,11 +155,6 @@ $args = array(
 </div><!-- .container --> 
 <?php endif; ?>
 
-
-<!-- featured posts -->
-<?php featured_articles(); ?>
-
-
 <?php endwhile; else: ?>
   <div class="container mb-5">
     <div class="alert alert-primary p-5" role="alert">
