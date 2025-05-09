@@ -109,8 +109,6 @@ class SearchResultsNew {
     this.filterCountEl.textContent = this.filterCount;
   }
 
-
-
   handleInputChange(event) {
     const input = event.target.value;
     if (!input) return;
@@ -170,7 +168,6 @@ class SearchResultsNew {
     return input;
   }
 
-
   async fetchSearchResults() {
     try {
       this.showLoader();
@@ -186,7 +183,6 @@ class SearchResultsNew {
       });
 
       const { terms, results, currentPage, totalPages, totalPosts } = response.data;
-
 
       this.page = currentPage;
 
@@ -208,14 +204,14 @@ class SearchResultsNew {
   }
 
   paintResults(results, terms) {
-
-    if (terms.length !== 0) {
+    if (terms.length !== 0 && this.page == 1) {
       let randomHTML = '';
       randomHTML = `
         <div class="search-topics">
           <span class="subtitle">Topics</span>
         <div class="search-topics__layout">
       `;
+
       terms.forEach(term => {
         const { title, link, image } = term;
 
@@ -254,15 +250,15 @@ class SearchResultsNew {
       const postTypeDisplay = postType == "post" ? "Article" : postType;
 
       const cardHTML = `
-        <div class= "search-card-wrapper">
-          <a class="h-100" href="${link}">
-            <div class="search-card h-100">
+        <div class="card search-card">
+          <a class="card__link" href="${link}">
+            <div class="search-card__layout">
               <div class="search-card__body">
                 <span class="subtitle">${postTypeDisplay}</span>
                 <h3 class="title">${title}</h3>
                 ${excerpt ? `<p class="excerpt">${excerpt}</p>` : ''}
               </div>
-              <div class="search-card__media">
+              <div class="card__media search-card__media">
                 ${image ? `<img src="${image}" width="135" height="135"/>` : ''}
               </div>
             </div>
@@ -310,7 +306,7 @@ class SearchResultsNew {
     if (totalPages === 0) return;
 
     const wrapper = document.createElement("div");
-    wrapper.className = "d-flex flex-column align-items-center";
+    wrapper.className = "search-pagination-wrapper";
 
     if (page < totalPages) {
       const button = document.createElement("button");

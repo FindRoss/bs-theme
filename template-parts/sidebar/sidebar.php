@@ -36,7 +36,7 @@ if(!empty($top_sites)) {
     echo '<h2 class="sidebar__widget--title">Top Sites</h2>';
 
     while ($sites_query->have_posts()) : $sites_query->the_post(); 
-      require locate_template('components/card/review-pill.php');
+      get_template_part('template-parts/card/review-pill');
     endwhile;
 
     echo '</section>';
@@ -62,7 +62,7 @@ if(!empty($top_bonuses)) {
     echo '<h2 class="sidebar__widget--title">' . $top_bonus_title . '</h2>';
 
     while ($bonus_query->have_posts()) : $bonus_query->the_post(); 
-      require locate_template('components/card/bonus-pill.php');
+      get_template_part('template-parts/card/bonus-pill');
     endwhile;
     wp_reset_postdata();
     echo '</section>';

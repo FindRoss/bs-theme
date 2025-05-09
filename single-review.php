@@ -16,12 +16,32 @@ $same_site_posts_query = new WP_Query(array(
   'post_type'      => 'post', 
   'posts_per_page' => 8, 
   'meta_query'     => array(
-    array(
-      'key'     => 'post-review-relationship', 
-      'value'   => '"' . $id . '"', 
-      'compare' => 'LIKE'
-      )
-    )
+      'relation' => 'AND', // Important to tell WP how to combine all conditions
+      array(
+          'key'     => 'post-review-relationship', 
+          'value'   => '"' . $id . '"', 
+          'compare' => 'LIKE'
+      ),
+      array(
+          'key'     => 'bonus_expired',
+          'value'   => '1',
+          'compare' => '!='
+      ),
+      array(
+          'relation' => 'OR',
+          array(
+              'key'     => 'expiry_date', 
+              'value'   => current_time('mysql'), 
+              'compare' => '>',
+              'type'    => 'DATETIME',
+          ),
+          array(
+              'key'     => 'expiry_date',
+              'value'   => '',
+              'compare' => '='
+          ),
+      ),
+    ),
   ),
 ); 
 
@@ -240,7 +260,7 @@ function terms_to_box($terms, $title) {
       <?php
       $bonus_query = get_bonuses_by_review_query(get_the_ID()); 
       if ( $bonus_query->have_posts() ) :
-        echo '<section style="margin-top: 3rem;">';
+        echo '<section class="section">';
           outputNewSlideHTML(array(
             'query'   => $bonus_query,
             'heading' => 'Bonuses',
@@ -250,7 +270,7 @@ function terms_to_box($terms, $title) {
       endif; ?>
 
       <!-- Content -->
-      <section class="content" style="margin-top: 2rem;">
+      <section class="section content">
         <h2 class="h4" style="font-weight: bold;">Review</h2>
         <?php 
           if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
@@ -270,7 +290,7 @@ function terms_to_box($terms, $title) {
 
       <!-- Screenshots -->
       <?php if (count($images) > 0) : ?>
-      <section style="margin-top: 2rem;">
+      <section class="section">
         <h2 class="h4" style="font-weight: bold;">Gallery</h2>
         <div class="gallery">
           <?php foreach($images as $image) { ?>
@@ -287,25 +307,37 @@ function terms_to_box($terms, $title) {
       </section>
       <?php endif; ?>
 
+      
       <!-- Articles -->
       <?php
-      $bonus_query = get_bonuses_by_review_query(get_the_ID()); 
-      if ( $bonus_query->have_posts() ) :
-        echo '<section style="margin-top: 2rem;">';
-          outputNewSlideHTML(array(
-            'query'   => $same_site_posts_query,
-            'heading' => 'News and Promos',
-            // 'card_type' => 'shanghai'
-          )); 
-        echo '</section>';
-      endif; ?>
+      if ($same_site_posts_query->have_posts()) : 
+      $count = 1; ?>
+        <section class="section borders-section">
+          <h2 class="h4" style="font-weight: bold;">Articles</h2>
+          <div class="layout">
+            <?php while ($same_site_posts_query->have_posts()) : $same_site_posts_query->the_post(); ?>
+            
+              <?php 
+              
+              if ($count == 1) {
+                get_template_part('template-parts/card/card', 'chengdu');
+              } else if ($count > 1) {
+                get_template_part('template-parts/card/card', 'hangzhou');  
+              };
+              
+              ?>
+              <?php $count++; ?>
+            <?php endwhile; ?>
+          </div><!-- .layout -->
+        </section>
+      <?php endif; ?>
 
     </div><!-- .col -->
   </div><!-- .row -->
   
   <?php if (!$closed) { 
     if ( $more_sites->have_posts() ) : ?>
-      <section class="mt-5 pt-4">
+      <section class="section">
         <?php 
           outputNewSlideHTML(array(
             'query'   => $more_sites,

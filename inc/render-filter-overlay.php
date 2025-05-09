@@ -18,15 +18,12 @@ function render_filter_overlay($title, $filerItems) {
     </div>
 
     <div class="filter-overlay__content">
-      <!-- Filter --> 
       <?php render_filter_items(); ?>
-    </div><!-- .filter-overlay__content --> 
+    </div>
 
     <div class="filter-overlay__footer">
-      <div class="d-flex flex-column align-items-center">
-        <button class="button button__primary" id="filterApplyBtn" aria-label="Apply selected filters">Apply</button>
-        <div class="filter-reset mt-1" id="filterResetBtn">Reset</div>
-      </div>
+      <button class="button button__primary" id="filterApplyBtn" aria-label="Apply selected filters">Apply</button>
+      <button class="button button__outline" id="filterResetBtn" aria-label="Reset all filters">Reset</button>
     </div>
   </div><!-- .filter-overlay --> 
 

@@ -3,7 +3,7 @@
 // Header
 .header {
   position: relative;
-  z-index: 1000;
+  z-index: 999;
   border-bottom: 1px solid var(--color-muted-200);
 }
 
@@ -22,7 +22,7 @@ header.sticky-top {
   width: 100%;
   height: calc(100% - 60px);
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1000;
 
   &.active {
     display: block;

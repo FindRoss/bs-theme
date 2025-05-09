@@ -71,7 +71,7 @@
       
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeIn 1s ease-out forwards;
+      animation: fadeIn 0.5s ease-out forwards;
       
         @media screen and (min-width: $breakpoint-medium) {
           width: calc(25% - 10px);

@@ -24,7 +24,7 @@ render_filter_overlay($filterTitle, $filterItems); ?>
             <div class="search">
               <!-- .form-control -->
               <input class="" id="searchInput" type="search" placeholder="" aria-label="Search" value="" name="search" type="text">
-              <button id="searchButton" type="submit"><?php echo get_svg_icon('search'); ?></button>
+              <button class="button button__outline button__icon" id="searchButton" type="submit"><?php echo get_svg_icon('search'); ?></button>
             </div>
             <div class="filter d-block d-sm-none">
               <button class="button button__outline" id="searchButtonFilter" type="button">
@@ -41,10 +41,10 @@ render_filter_overlay($filterTitle, $filterItems); ?>
 
 
 
-<section class="mb-5" style="min-height: 250px;">
+<section class="search-results-section" style="min-height: 250px;">
   <div class="container">
-    <div class="row justify-content-start">
-      <div class="d-none d-sm-block col-sm-3">
+    <div class="search-results-layout">
+      <div class="search-results-layout__filter">
         
         <div class="desktop-filter">
           <div class="py-2 d-flex align-items-center" style="height: 60px">
@@ -56,11 +56,12 @@ render_filter_overlay($filterTitle, $filterItems); ?>
           </div>
 
           <button class="button button__primary w-100 mt-3" id="filterApplyBtn">Apply</button>
-          <div class="filter-reset text-center mt-2" id="filterResetBtn">Reset</div>
+          <div class="button button__outline w-100 mt-1" id="filterResetBtn">Reset</div>
+          <!-- <div class="filter-reset text-center mt-2" id="filterResetBtn">Reset</div> -->
         </div><!-- .desktop-filter --> 
 
       </div>
-      <div class="col-12 col-sm-9">
+      <div class="search-results-layout__results">
 
         <div class="py-2 d-flex justify-content-between align-items-center" style="height: 60px">
           <div class="search-results-count" id="search-results-count-container"></div>

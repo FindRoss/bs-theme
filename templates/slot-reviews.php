@@ -33,9 +33,9 @@
 
       <?php if ( $query->have_posts() ) : ?>
       <div class="row">
-        <?php	while ( $query->have_posts() ) : $query->the_post();?>
-          <?php require locate_template( 'components/card/slot.php' ); ?>
-        <?php endwhile; ?> 
+        <?php	while ( $query->have_posts() ) : $query->the_post(); 
+         get_template_part('template-parts/card/slot-card');
+        endwhile; ?> 
       </div>
       <?php endif; ?>
       <?php wp_reset_postdata(); ?>

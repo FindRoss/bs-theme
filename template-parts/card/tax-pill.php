@@ -22,4 +22,3 @@ if (is_array($term_logo) && isset($term_logo['sizes']['thumbnail'])) {
     </h3>
   </div>
 </div>
-

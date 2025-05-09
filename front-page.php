@@ -14,7 +14,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
   
   <section class="lothian-section">
     <h1 class="h2 m-0">Welcome to BitcoinChaser!</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur reiciendis fugit praesentium necessitatibus magnam tempore? Dolorem, magni sequi! Totam nihil accusamus tempore porro quis provident voluptates?</p>
+    <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, exclusive free spin bonuses, gambling guides, and more.</p>
   </section>
 
   <section class="fife-section">
@@ -22,7 +22,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
           <div class="">
-            <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
+            <?php get_template_part('template-parts/card/card', 'beijing'); ?>
             <?php $used_posts[] = get_the_ID(); ?>
           </div>
         <?php endwhile; ?>
@@ -351,8 +351,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
         <p class="mt-2">Learn everything you need to know about cryptocurrency gambling and the best casinos where you can play with crypto.</p>
       </div>
       <div class="col-12 col-lg-9">
-        <?php $tax = 'cryptocurrency'; ?>
-        <?php require locate_template('components/card/tax-pill-loop.php'); ?>
+        <?php tax_pill_loop('cryptocurrency'); ?>
       </div>
     </div><!-- .row --> 
   </section>
@@ -367,8 +366,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
         <p class="mt-2">Discover the best crypto gambling sites to play your favorite casino games.</p>
       </div>
       <div class="col-12 col-lg-9">
-        <?php $tax = 'game'; ?>
-        <?php require locate_template('components/card/tax-pill-loop.php'); ?>
+        <?php tax_pill_loop('game'); ?>
       </div>
     </div><!-- .row --> 
   </section>

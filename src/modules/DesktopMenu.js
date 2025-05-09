@@ -22,7 +22,7 @@ export function desktopMenu() {
         if (subMenuWrapper) {
           subMenuWrapper.classList.add('open');
         }
-      }, 250);
+      }, 350);
     });
 
 

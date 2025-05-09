@@ -39,13 +39,12 @@
   // $custom_excerpt = mb_strimwidth( get_the_excerpt(), 0, 62, '...' );
 ?>
 
-<div class="hong-kong-card">
-  <div class="hong-kong-card__media" style="background-color: <?php echo $siteColor; ?>">
-    <div class="hong-kong-card__media--logo">
-      <!-- <a href="<?php the_permalink(); ?>"> -->
-        <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>">
-      <!-- </a> -->
-    </div>
+<div class="card card-absolute hong-kong-card">
+  
+  <a class="card-absolute__link" href="<?php the_permalink(); ?>"></a>
+  
+  <div class="card__media hong-kong-card__media" style="background-color: <?php echo $siteColor; ?>">
+    <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>">
   </div>
   <div class="hong-kong-card__content">
     
@@ -61,7 +60,7 @@
     </div>
     <?php } ?>
     
-    <h3><a href="<?php the_permalink(); ?>"><?php echo $name; ?></a></h3>
+    <h3><?php echo $name; ?></h3>
     <div class="excerpt"><?php the_excerpt(); ?></div>
         
     <?php if (!empty($crypto_terms) && !is_wp_error($crypto_terms)) { ?>
@@ -73,7 +72,7 @@
 
   </div>
   <?php if (!empty($link)) {  ?>
-    <div class="hong-kong-card__cta">
+    <div class="card-absolute__ctas hong-kong-card__ctas">
       <a href="<?php echo the_permalink(); ?>" class="button button__outline">Review</a>
       <a href="<?php echo $link; ?>" class="button button__primary" target="_blank">Play</a>
     </div>

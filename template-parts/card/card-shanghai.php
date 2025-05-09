@@ -26,7 +26,9 @@
   ?>
 
 
-  <div class="card-shanghai">
+  <div class="card card-absolute card-shanghai">
+
+    <a class="card-absolute__link" href="<?php the_permalink(); ?>"></a>
     
     <div class="card-shanghai__media">
       <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
@@ -53,16 +55,14 @@
     </div>
 
     <div class="card-shanghai__content">
-      <h3>
-        <a href="<?php echo get_the_permalink(); ?>">
-          <?php if ($title) { ?><div class="title"><?php echo $title; ?></div><?php }; ?>
-          <?php if ($bonus) { ?><div class="bonus"><?php echo $bonus; ?></div><?php }; ?>
-          <?php if ($plus) { ?><div class="subtitle"><?php echo $plus; ?></div><?php }; ?>
-        </a>
+      <h3>        
+        <?php if ($title) { ?><div class="title"><?php echo $title; ?></div><?php }; ?>
+        <?php if ($bonus) { ?><div class="bonus"><?php echo $bonus; ?></div><?php }; ?>
+        <?php if ($plus) { ?><div class="subtitle"><?php echo $plus; ?></div><?php }; ?>
       </h3>
     </div>
       
-    <div class="card-shanghai__ctas">
+    <div class="card-absolute__ctas card-shanghai__ctas">
        
       <?php if ($code) { ?>
         <a class="button button--small button__outline bonus-code" type="button">

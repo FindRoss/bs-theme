@@ -54,10 +54,10 @@ Template Post Type: post, page
 
         if ($count <= $date_today) { 
           $bid = get_sub_field('bonus'); 
-          echo '<div class="mt-5 pt-1" style="border-top: 2px dotted #ccc">';
-          echo '<div class="text-center mt-1">' . $christmas_emoji_col[$count] . ' <strong>December ' . $count . '</strong></div>';
-          require locate_template('components/card/bonus-long.php');
-          echo '</div>';
+          // echo '<div class="mt-5 pt-1" style="border-top: 2px dotted #ccc">';
+          // echo '<div class="text-center mt-1">' . $christmas_emoji_col[$count] . ' <strong>December ' . $count . '</strong></div>';
+          // require locate_template('components/card/bonus-long.php');
+          // echo '</div>';
         }
 
       $count++; 

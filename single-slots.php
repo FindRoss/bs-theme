@@ -148,7 +148,7 @@ $args = array(
   <nav>
     <div class="row">
       <?php while ( $latest_query->have_posts() ) : $latest_query->the_post();  
-        require locate_template( 'components/card/slot.php' ); 
+        get_template_part('template-parts/card/slot-card');
       endwhile; ?>
     </div>
   </nav>

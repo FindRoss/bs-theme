@@ -66,7 +66,10 @@ function chaser_featured_images() {
 }
 add_action('after_setup_theme', 'chaser_featured_images');
 
-
+/**
+ * Tax Pill Loop
+ */
+require get_theme_file_path('/inc/tax-pill-loop.php');
 
 /**
  * Search Endpoint
