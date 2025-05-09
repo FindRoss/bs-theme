@@ -2,8 +2,20 @@
 
 function themebs_enqueue_styles() {
   wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
-  wp_enqueue_style( 'swiper-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
+  wp_enqueue_style( 'index-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version'));
+  
+  if (get_post_type() === 'bonus') {
+    wp_enqueue_style( 'single-bonus-styles', get_template_directory_uri() . '/build/single-bonus.css', array(), wp_get_theme()->get('Version'));
+  }
+  
+  if (get_post_type() === 'review' ) {
+    wp_enqueue_style( 'single-review-styles', get_template_directory_uri() . '/build/single-review.css', array(), wp_get_theme()->get('Version'));
+  }
+  
+  if (get_post_type() === 'streamer') {
+    wp_enqueue_style( 'streamer-styles', get_template_directory_uri() . '/build/single-streamer.css', array(), wp_get_theme()->get('Version'));
+  }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 

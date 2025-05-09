@@ -196,19 +196,21 @@ if ($paged == 1) {
 
 <!-- MAIN CONTENT -->
 <?php if ($paged == 1) : ?>
-  <section class="aberdeenshire-section">
-    <?php $main_content = get_field('main_content', $term); ?>
-    
-    <div class="main--content">
-      <?php echo $main_content; ?>
-      <!-- FAQS -->
-      <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
-    </div>
+  <div class="container">
+    <section class="aberdeenshire-section">
+      <?php $main_content = get_field('main_content', $term); ?>
+      
+      <div class="main--content">
+        <?php echo $main_content; ?>
+        <!-- FAQS -->
+        <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
+      </div>
 
-    <aside>
-      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
-    </aside>
-  </section>
+      <aside>
+        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+      </aside>
+    </section>
+  </div>
 <?php endif; ?>
 
 

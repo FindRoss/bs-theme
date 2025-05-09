@@ -7,7 +7,7 @@
   gap: var(--size-200);
   
   @media screen and (min-width: $breakpoint-large) {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill);
   }
 }
 
@@ -38,6 +38,7 @@
   }
 
   .swiper-wrapper {
+    height: auto;
     margin-top: var(--size-300);
     visibility: hidden;
     opacity: 0;
