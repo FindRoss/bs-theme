@@ -7,7 +7,7 @@
 */
 
 .button {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-family-body);
   font-size: 1rem;
   padding: var(--size-300) var(--size-500);
   border: 1px solid transparent;
@@ -41,7 +41,7 @@
 
     &:hover {
       background-color: var(--color-primary-800);
-      color: inherit;
+      color: #ffffff;
     }
   }
 

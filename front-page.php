@@ -14,7 +14,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
   
   <section class="lothian-section">
     <h1 class="h2 m-0">Welcome to BitcoinChaser!</h1>
-    <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, exclusive free spin bonuses, gambling guides, and more.</p>
+    <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, no-deposit bonuses, gambling guides, and more.</p>
   </section>
 
   <section class="fife-section">

@@ -35,7 +35,7 @@
         <button type="button" id="nav-toggle" class="button button__icon" aria-expanded="false" aria-label="Open menu">
           <?php echo get_svg_icon('hamburger'); ?>
         </button>
-        <a href="/">
+        <a href="/" class="d-flex align-items-center">
           <img width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
         </a>
       </div><!-- .col -->
@@ -66,8 +66,6 @@
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
 <div class="background-drawer">
-
-  
   
   <div class="chaser-search">
     <form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">

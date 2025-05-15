@@ -2,7 +2,7 @@
 
 function get_svg_icon($icon_name) {
   $icons = [
-    'hamburger'     => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 20 16"><path stroke="currentColor" stroke-width="0.8" fill="none" d="M2 3h16M2 8h16M2 13h16"/></svg>',
+    'hamburger'     => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 20 10"><path stroke="currentColor" stroke-width="0.8" fill="none" d="M2 3h16M2 8h16M2 13h16"/></svg>',
     'close'         => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path stroke="currentColor" stroke-width="0.8" fill="none" d="M2 2l12 12M14 2L2 14"/></svg>',
     'search'        => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="0.8" fill="none" /><line x1="10.5" y1="10.5" x2="15" y2="15" stroke="currentColor" stroke-width="0.8" /></svg>',
     'star'          => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="100px" height="100px"><path d="M12 17.27L18.18 21 15.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l6.46 4.73L5.82 21z"/></svg>',

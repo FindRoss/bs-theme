@@ -1,13 +1,13 @@
 @import '_breakpoints';
 
 .swiper-plain-row {
-  margin-top: var(--size-300);
   display: grid;
+  margin-top: var(--size-300);
   grid-template-columns: 1fr;
   gap: var(--size-200);
   
   @media screen and (min-width: $breakpoint-large) {
-    grid-template-columns: repeat(auto-fill);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
 
