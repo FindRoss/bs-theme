@@ -76,15 +76,15 @@ class SearchResultsNew {
 
 
   handleFilterApply() {
-    const checkboxes = document.querySelectorAll('.checkboxes'); // Select all checkbox containers
+    const checkboxes = document.querySelectorAll('.checkboxes'); 
 
     [...checkboxes].forEach(checkbox => {
-      const type = checkbox.getAttribute('data-checkbox-type'); // Get the type (e.g., 'postType')
-      const checks = checkbox.querySelectorAll('.form-check-input'); // Select all checkboxes inside
+      const type = checkbox.getAttribute('data-checkbox-type'); 
+      const checks = checkbox.querySelectorAll('.form-check-input'); 
 
-      const allCheckedItems = [...checks] // Convert NodeList to Array
-        .filter(check => check.checked) // Filter only checked checkboxes
-        .map(check => check.value); // Map their values
+      const allCheckedItems = [...checks] 
+        .filter(check => check.checked) 
+        .map(check => check.value); 
 
       this.filterCount = allCheckedItems.length;
 

@@ -3,7 +3,6 @@
 // import '../assets/css/single-bonus.scss';
 // import '../assets/css/single-streamer.scss';
 
-
 import SidebarMenu from "./modules/SidebarMenu";
 import CardFocus from "./modules/CardFocus";
 import BonusCode from "./modules/BonusCode";
@@ -20,8 +19,6 @@ const bonusCode = new BonusCode()
 const showMore = new ShowMore()
 const expiryDates = new ExpiryDates()
 
-
-
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -29,7 +26,6 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 
 
 document.addEventListener('DOMContentLoaded', function () {
