@@ -4,41 +4,40 @@ export function desktopMenu() {
   const subMenuWrappers = desktopMenu.querySelectorAll('.sub-menu-wrapper');
 
   function closeAllMenus() {
-    subMenuWrappers.forEach((subMenu) => { subMenu.classList.remove('open') });
+    subMenuWrappers.forEach((subMenu) => {
+      subMenu.classList.remove('open');
+    });
   }
 
   menuItemsWithChildren.forEach((menuItem) => {
+    let openTimeout;   // ✅ define both timeouts here
     let closeTimeout;
 
-    // Mouseenter 
-    menuItem.addEventListener('mouseenter', (e) => {
+    menuItem.addEventListener('mouseenter', () => {
       const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
 
-      // Cancel any pending close actions
-      clearTimeout(closeTimeout);
+      clearTimeout(closeTimeout); // Cancel any closing
+      clearTimeout(openTimeout);  // ✅ Cancel previously scheduled opens
 
       openTimeout = setTimeout(() => {
         closeAllMenus();
         if (subMenuWrapper) {
           subMenuWrapper.classList.add('open');
         }
-      }, 350);
+      }, 200);
     });
 
-
-    // Mouseleave
-    menuItem.addEventListener('mouseleave', (e) => {
+    menuItem.addEventListener('mouseleave', () => {
       const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
 
-
+      clearTimeout(openTimeout); // ✅ Prevent menu from opening if not yet opened
 
       closeTimeout = setTimeout(() => {
         closeAllMenus();
         if (subMenuWrapper) {
           subMenuWrapper.classList.remove('open');
         }
-      }, 250);
+      }, 50);
     });
-
   });
-};
+}

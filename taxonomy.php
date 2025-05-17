@@ -1,5 +1,7 @@
 <?php get_header(); 
 
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+
 $term = get_queried_object(); 
 $term_id  = $term->term_id; 
 $taxonomy = $term->taxonomy;
@@ -18,32 +20,19 @@ if ($icon && is_array($icon)) {
 }
 
 // Selected sites from the taxonomy page  
-$casinos = get_field('casinos', $term);
+// $casinos = get_field('casinos', $term); 
 // Selected sites from the options page
-$selected_sites = get_field('sites', 'options');
-$featured_args = array(
-  'posts_per_page' => 8, 
-  'post_type'      => 'review',
-  'post__in'       => $casinos ? $casinos : $selected_sites,
-  'orderby'        => 'post__in',
-  'tax_query'      => array(
-    array(
-      'taxonomy' => $term->taxonomy,
-      'field'    => 'term_id',
-      'terms'    => $term->term_id
-    )
-  ),
-);
+$featured_sites = get_field('sites', 'options');
 
-$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+
 $query = new WP_Query(array( 
   'post_type'      => array('review'),  
-  'posts_per_page' => 24, 
+  'posts_per_page' => 12, 
   'paged'          => $paged,
   'orderby'        => 'meta_value_num',
   'meta_key'       => 'rank',
   'order'          => 'ASC',
-  'post__not_in'   => $casinos ? $casinos : $selected_sites,
+  // 'post__not_in'   => $casinos ? $casinos : $selected_sites,
   'tax_query'      => array(
     'relation'       => 'AND',
       array(
@@ -86,25 +75,6 @@ $count = 1;
     </div><!-- .row -->
   </div><!-- .container --> 
 </div>
-
-<!-- FEATURED -->
-<?php if ($paged == 1) : 
-  $featured_query = new WP_Query($featured_args); 
-
-  if ($featured_query->have_posts()) : ?>
-
-    <section class="taxonomy-featued-sites">
-      <div class="container">
-        
-        <?php chaser_styled_sub_heading(array(
-          'heading' => 'Featured'
-        )); ?>
-        <?php outputBigSlideHTML($featured_query); ?>
-      </div><!-- .container -->
-    </section>
-
-  <?php endif;  
-endif; ?>
 
 <!-- MAIN QUERY -->
 <?php taxonomyMainQuery($query, $taxonomy); ?>

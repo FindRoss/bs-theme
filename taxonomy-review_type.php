@@ -58,28 +58,29 @@ if ($icon && is_array($icon)) {
 }
 
 $selected_casinos = get_field('sites', 'options');
-$featured_args = array(
-'post_type'      => 'review', 
-'posts_per_page' => 8,
-'post__in'       => $selected_casinos,
-'orderby'        => 'post__in',
-'tax_query'      => array(
-    array(
-      'taxonomy' => $taxonomy,
-      'field'    => 'term_id',
-      'terms'    => $term_id
-    )
-  ),
-);
+// $featured_args = array(
+// 'post_type'      => 'review', 
+// 'posts_per_page' => 8,
+// 'post__in'       => $selected_casinos,
+// 'orderby'        => 'post__in',
+// 'tax_query'      => array(
+//     array(
+//       'taxonomy' => $taxonomy,
+//       'field'    => 'term_id',
+//       'terms'    => $term_id
+//     )
+//   ),
+// );
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 $query = new WP_Query( 
   array( 
     'post_type'      => 'review', 
-    'posts_per_page' => 24, 
+    'posts_per_page' => 12, 
     'paged'          => $paged,
-    'exclude'        => $selected_casinos,
-    'orderby'        => 'rand',
+    'orderby'        => 'meta_value_num',
+    'meta_key'       => 'rank',
+    'order'          => 'ASC',
     'tax_query'      => array(
       array(
         'taxonomy' => $taxonomy,
@@ -89,9 +90,9 @@ $query = new WP_Query(
     ),
     'meta_query' => array(
       array(
-        'key' => 'details_group_closed', // Correct field reference inside 'details_group'
-        'value' => '1',  // ACF stores true as '1'
-        'compare' => '!=' // Exclude posts where 'closed' is true
+        'key' => 'details_group_closed', 
+        'value' => '1',  
+        'compare' => '!=' 
       ),
     )
   ) 
@@ -126,25 +127,6 @@ $wp_query   = $query;
     </div><!-- .row -->
   </div>
 </section> 
-
-<!-- FEATURED -->
-<?php if ($paged == 1) : 
-  $featured_query = new WP_Query($featured_args);
-
-  if ($featured_query->have_posts()) : ?>
-
-  <section class="taxonomy-featued-sites">
-    <div class="container">
-      
-      <?php chaser_styled_sub_heading(array(
-        'heading' => 'Featured'
-      )); ?>
-      <?php outputBigSlideHTML($featured_query); ?>
-    </div><!-- .container -->
-  </section>
-
-  <?php endif;
-endif; ?>
 
 <!-- LOOP THROUGH TAXONOMIES -->
 <?php 

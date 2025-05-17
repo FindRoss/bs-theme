@@ -30,9 +30,6 @@ class SidebarMenu {
     const subMenu = item.querySelector('.sub-menu');
     const chevron = item.querySelector('.chevron-wrapper .chevron');
 
-    console.log('chevron', chevron);
-    console.log('subMenu', subMenu);
-
     if (!subMenu.classList.contains('active')) {
       subMenu.classList.add('active');
       chevron.classList.add('rotate'); 
@@ -52,10 +49,6 @@ class SidebarMenu {
       const chevron = this.createChevronElement();
       chevron.addEventListener('click', (e) => this.handleChevronClick(item));
       item.insertBefore(chevron, subMenu);
-
-      // console.log('item: ', item);
-
-      // item.addEventListener('click', (e) => this.handleChevronClick(item));
     })
 
     this.searchToggleBtn.addEventListener('click', () => {
