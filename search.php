@@ -2,16 +2,21 @@
 
 <?php 
 
-// Type
-$filterTitle = 'Type';
+
+
 $filterItems = array(
-  'post' => 'Posts',
-  'review' => 'Reviews',
-  'bonus' => 'Bonuses', 
-  'streamer' => 'Streamers'
+  array(
+    'label' => 'Type',
+    'options' => array(
+      'post' => 'Posts',
+      'review' => 'Reviews',
+      'bonus' => 'Bonuses',
+      'streamer' => 'Streamers'
+    )
+  ),
 );
 
-render_filter_overlay($filterTitle, $filterItems); ?>
+render_filter_overlay($filterItems); ?>
 
 
 <section class="search-form-section" style="margin-top: -1.5rem;">
@@ -52,12 +57,12 @@ render_filter_overlay($filterTitle, $filterItems); ?>
           </div>
           
           <div>
-            <?php render_filter_items($filterTitle, $filterItems); ?>
+            <?php render_filter_items($filterItems); ?>
           </div>
 
           <button class="button button__primary w-100 mt-3" id="filterApplyBtn">Apply</button>
           <div class="button button__outline w-100 mt-1" id="filterResetBtn">Reset</div>
-          <!-- <div class="filter-reset text-center mt-2" id="filterResetBtn">Reset</div> -->
+          
         </div><!-- .desktop-filter --> 
 
       </div>
@@ -66,8 +71,8 @@ render_filter_overlay($filterTitle, $filterItems); ?>
         <div class="py-2 d-flex justify-content-between align-items-center" style="height: 60px">
           <div class="search-results-count" id="search-results-count-container"></div>
           
-          <div class="d-flex align-items-center search-sort-by">
-            <span class="me-1 title">Sort By</span>
+          <div class="search-sort-by">
+            <span>Sort By</span>
             <select class="form-select" id="searchSelect" aria-label="Order results">
               <option value="relevance" selected>Relevance</option>
               <option value="date_desc">Newest</option>

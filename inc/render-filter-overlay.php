@@ -1,10 +1,9 @@
 <?php 
 
 
-
-function render_filter_overlay($title, $filerItems) {
+function render_filter_overlay($filerItems) {
   
-  if ($title == '') return;
+  // if ($title == '') return;
   
   ob_start(); ?>
 
@@ -18,7 +17,7 @@ function render_filter_overlay($title, $filerItems) {
     </div>
 
     <div class="filter-overlay__content">
-      <?php render_filter_items(); ?>
+      <?php render_filter_items($filerItems); ?>
     </div>
 
     <div class="filter-overlay__footer">
@@ -31,4 +30,21 @@ function render_filter_overlay($title, $filerItems) {
   <?php 
   $filter_output = ob_get_clean();
   echo $filter_output;
-} ?>
+} 
+
+
+
+function holding() {
+  return '        <?php foreach($options as $key => $value) { ?>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="<?php echo $key; ?>" id="check<?php echo ucfirst($key); ?>" aria-labelledby="check<?php echo ucfirst($key); ?>Label">
+            <label class="form-check-label" for="check<?php echo ucfirst($key); ?>" id="check<?php echo ucfirst($key); ?>Label">
+              <?php echo $value; ?>
+            </label>
+          </div>
+        <?php } ?>';
+};
+
+?>
+
+

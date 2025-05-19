@@ -27,7 +27,7 @@ add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 include get_template_directory() . '/assets/svg-icons.php';
 
 function themebs_enqueue_scripts() {
-   wp_deregister_script( 'jquery' );
+  wp_deregister_script( 'jquery' );
   
   wp_register_script('main-chaser', get_template_directory_uri() . '/build/index.js', [], wp_get_theme()->get('Version'), true);
   wp_enqueue_script('main-chaser');
@@ -38,6 +38,19 @@ function themebs_enqueue_scripts() {
       'close'     => get_svg_icon('close'),
       'search'    => get_svg_icon('search')
   ]);
+
+  if (is_tax()) {
+    global $wp_query;
+
+    $args = $wp_query->query_vars;
+    $taxonomy = get_queried_object()->taxonomy ?? null;
+
+    wp_localize_script('main-chaser', 'taxonomyData', [
+      'query_args' => $args,
+      'taxonomy'   => $taxonomy,
+    ]);
+  }
+
 };
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_scripts');
 

@@ -1,6 +1,11 @@
 <?php 
+function render_filter_items($item) {
+  
+//   $label = $item['label'];
+//   $options = $item['options'];
 
-function render_filter_items() {
+
+//   print_r($item);
 
   ob_start(); ?>
 

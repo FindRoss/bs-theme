@@ -1,23 +1,26 @@
-// import "../assets/css/style.scss";
-// import '../assets/css/single-review.scss';
-// import '../assets/css/single-bonus.scss';
-// import '../assets/css/single-streamer.scss';
+import "../assets/css/style.scss";
+import '../assets/css/single-review.scss';
+import '../assets/css/single-bonus.scss';
+import '../assets/css/single-streamer.scss';
+import '../assets/css/search-results.scss';
 
 import SidebarMenu from "./modules/SidebarMenu";
 import CardFocus from "./modules/CardFocus";
 import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
-import ToggleFilterModal from "./modules/ToggleFilterModal";
+import FilterModal from "./modules/FilterModal";
 import ExpiryDates from "./modules/ExpiryDates";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
+import Taxonomy from "./modules/Taxonomy";
 
 const sidebarMenu = new SidebarMenu()
 const cardFocus = new CardFocus()
 const bonusCode = new BonusCode()
 const showMore = new ShowMore()
 const expiryDates = new ExpiryDates()
+const taxonomy = new Taxonomy()
 
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
@@ -30,7 +33,7 @@ import 'swiper/css/pagination';
 
 document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('body.search')) {
-    const toggleFilterModal = new ToggleFilterModal()
+    const filterModal = new FilterModal()
     const searchResults = new SearchResults()
   }
 
@@ -39,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   desktopMenu();
-
 
   const swiper = new Swiper('.swiper-primary', {
     // Optional parameters

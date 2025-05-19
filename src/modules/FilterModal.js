@@ -1,4 +1,4 @@
-class ToggleFilterModal {
+class FilterModal {
   constructor() {
     this.filterOverlay = document.getElementById('filterOverlay');
     this.fitlerOverlayClose = document.getElementById('filterOverlayClose');
@@ -47,4 +47,4 @@ class ToggleFilterModal {
 
 }
 
-export default ToggleFilterModal; 
+export default FilterModal; 
