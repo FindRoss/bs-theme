@@ -1,0 +1,323 @@
+@use "_breakpoints" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+  #wpadminbar {
+    position: fixed !important;
+  }
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-family: var(--font-family-body);
+  color: rgb(28, 35, 52);
+  line-height: 1.5;
+}
+
+.border-radius {
+  border-radius: var(--border-radius);
+}
+
+.rounded-corners {
+  border-radius: var(--border-radius);
+}
+
+// App page
+.app-row {
+  align-items: start;
+  
+  .app-image-col {
+    padding: var(--size-300);
+    display: flex;
+    justify-content: center;
+    background: var(--color-bg-200);
+    border-top: 2px solid var(--color-bg-600);
+
+    .app-image {
+      width: 40%;
+      border: 1px solid var(--color-bg-600);
+  
+      @include breakpoint(large) {
+        width: 100%;
+      }
+    }
+  }
+
+  .app-content-col {
+    border-top: 2px solid var(--color-bg-600);
+  }
+}
+
+.chaser-search {
+  width: 100%;
+  padding: var(--size-200) var(--size-200);
+
+  &__layout {
+    display: flex;
+    gap: var(--size-200);
+    align-items: center;
+
+    input {
+      flex: 1;
+      border-radius: var(--border-radius); 
+      border: 1px solid var(--color-muted-400);
+      // font-size: 1.25rem;
+      padding: 12px 1rem;
+    }
+  }
+}
+
+.message {
+  margin: 0;
+  padding: var(--size-500) var(--size-400);
+  background: var(--color-bg-200);
+  border-radius: var(--border-radius);
+
+  &.warning {
+    background: #F8D7DA;
+  }
+
+  &__body {
+    display: flex;
+    gap: var(--size-500);
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    font-size: var(--size-500);
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    color: var(--color-muted-700);
+    margin-bottom: 0;
+  }
+}
+
+// used on the card as well as the post
+.crypto-icons { 
+  .icon:not(:first-child) {
+    margin-left: -7px;
+  }
+
+  .icon {
+    border: 3px solid var(--color-bg-400);
+    border-radius: 100%;
+  }
+
+  .count-icon {
+    height: 35px;
+    width: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: var(--color-muted-500);
+    background: var(--color-bg-50);
+  }
+}
+
+::selection {
+  background: var(--color-primary-100);
+}
+
+.wp-block-table {
+  margin: var(--size-600) 0 0;
+}
+
+h2+.wp-block-image,
+h3+.wp-block-image {
+  margin-top: var(--size-400);
+}
+
+.wp-block-image {
+  margin-top: var(--size-800);
+
+  img {
+    border: 1px solid var(--color-muted-200);
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: auto;
+  }
+  
+  figcaption {
+    padding: var(--size-300) 0;
+    border-bottom: 1px solid var(--color-muted-200);
+    color: var(--color-muted-600);
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+blockquote {
+  border-left: 5px solid var(--color-primary);
+  background: var(--color-bg-400);
+  padding: var(--size-400) var(--size-400) var(--size-400) var(--size-600);
+  margin-top: var(--size-500);
+  margin-bottom: 0;
+  border-radius: 0.25rem;
+  
+  p:first-child {
+    margin-top: var(--size-100);
+  }
+
+  cite {
+    display: inline-block;
+    margin-top: var(--size-400);
+  }
+}
+
+.wp-block-columns>div>h2,
+.wp-block-columns>div>h3 {
+  margin-top: 0px;
+}
+
+@include breakpoint(medium) {
+  .wp-block-columns {
+    gap: 0;
+  }
+}
+
+.main--content .wp-caption {
+  max-width: 100%;
+}
+
+.main--content blockquote+p {
+  margin-top: var(--size-600);
+}
+
+.main--content li {
+  margin-top: var(--size-300);
+}
+
+.main--content img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: var(--border-radius);
+}
+
+.main--content p,
+.main--content ul,
+.main--content ol {
+  margin-bottom: 0;
+  margin-top: var(--size-400);
+}
+
+/*
+*
+* 
+* YOUTUBE BLOCK
+*
+*
+*/
+
+.wp-block-embed {
+  margin-top: var(--size-500);
+}
+
+.wp-block-embed-youtube .wp-block-embed__wrapper::before {
+  display: block;
+  content: "";
+  padding-top: 56.25%;
+}
+
+.wp-block-embed-youtube .wp-block-embed__wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.wp-block-embed-youtube .wp-block-embed__wrapper iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.wp-block-separator {
+  margin: var(--size-700) 0;
+  color: var(--color-muted-200);
+}
+
+/*
+* Spinner
+**/
+
+.spinner-wrapper {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: var(--size-900) var(--size-200);
+  
+  svg.spinner {
+    animation: spin 1s linear infinite;
+  }
+}
+
+
+
+/*
+*
+* Ads
+*
+*/
+
+.advert {
+  background: var(--color-bg-50);
+  border-top: 1px solid var(--color-muted-200);
+  padding-block: var(--size-400);
+  margin-top: var(--size-600);
+  display: flex;
+  justify-content: center;
+
+  img {
+    box-shadow: var(--box-shadow-small);
+    border-radius: var(--border-radius);
+    max-width: 100%;
+    height: auto;
+  }
+
+  a:hover img,
+  a:active img {
+    filter: brightness(80%);
+  }
+}
+
+/*
+*
+*
+* Fix for legacy small images on posts 
+* 
+*/
+.single-inline-img {
+  display: inline;
+
+  @include breakpoint(medium) {
+    display: block;
+  }
+
+  figure {
+    margin-bottom: 0.5rem;
+
+    @include breakpoint(medium) {
+      margin-bottom: 1rem;
+      margin-right: 0rem;
+      width: 100%;
+    }
+  }
+}

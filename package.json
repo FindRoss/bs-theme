@@ -1,0 +1,27 @@
+{
+  "name": "bs-theme",
+  "version": "1.0.0",
+  "description": "A custom WordPress theme for BitcoinChaser.com",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "wp-scripts build", 
+    "build:css": "npm run build:style && npm run build:single-review && npm run build:single-bonus && npm run build:single-streamer && npm run build:search-results",
+    "build:style": "sass assets/css/style.scss build/style-index.css --no-source-map --style=compressed",
+    "build:single-review": "sass assets/css/single-review.scss build/single-review.css --no-source-map --style=compressed",
+    "build:single-bonus": "sass assets/css/single-bonus.scss build/single-bonus.css --no-source-map --style=compressed",
+    "build:single-streamer": "sass assets/css/single-streamer.scss build/single-streamer.css --no-source-map --style=compressed",
+    "build:search-results": "sass assets/css/search-results.scss build/search-results.css --no-source-map --style=compressed",
+    "start": "wp-scripts start",
+    "dev": "wp-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ross Findlay",
+  "license": "ISC",
+  "dependencies": {
+    "@wordpress/scripts": "^30.19.0",
+    "axios": "^1.10.0",
+    "bootstrap-icons": "^1.13.1",
+    "swiper": "^11.2.10"
+  }
+}

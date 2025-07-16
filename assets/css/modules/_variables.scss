@@ -1,0 +1,111 @@
+:root {
+  /*
+   * Color Primary 
+   **/
+  --color-primary-50: #E9F0F6;
+  --color-primary-100: #CAD8E9;
+  --color-primary-200: #A9BFE0;
+  --color-primary-300: #89A7D7;
+  --color-primary-400: #6A8FCE;
+  --color-primary-500: #1D4877;
+  --color-primary-600: #173F6A;
+  --color-primary-700: #12375C;
+  --color-primary-800: #0D2E4F;
+  --color-primary-900: #082640;
+
+  /*
+   * Color Muted 
+   **/
+  --color-muted-100: #F7F7F7;
+  --color-muted-200: #E9E9E9;
+  --color-muted-300: #C0C0C0;
+  --color-muted-400: #797979;
+  --color-muted-500: #4D4C4C;
+  --color-muted-600: #3C3C3C;
+  --color-muted-700: #2A2A2A;
+  --color-muted-800: #1A1A1A;
+  --color-muted-900: #0A0A0A;
+
+  /*
+   * Color Link
+   **/
+  --color-link: #1075B1;
+  --color-link-hover: #0056b3;
+  /* --color-link-active: */
+
+  /*
+   * Color Background
+   **/
+  --color-bg-50: #fafafa;
+  --color-bg-100: #f9f9f9;
+  --color-bg-200: #f8f8f8;
+  --color-bg-300: #f7f7f7;
+  --color-bg-400: #f6f6f6;
+  --color-bg-500: #f4f4f4;
+  --color-bg-600: #f3f3f3;
+  --color-bg-700: #f2f2f2;
+  --color-bg-800: #f1f1f1;
+
+  /*
+   * Border
+   **/
+  --border-radius: 8px;
+
+  /* 
+   * Box Shadow
+   **/
+  --box-shadow-large: 0 2rem 4rem rgba(0, 0, 0, 0.3);
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --box-shadow-small: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
+  /* 
+   * Transition
+   **/
+  --transition: all 0.075s ease-in-out;
+
+  /*
+   * Spacing & Font Size
+   * Perfect fourth ratio
+   **/
+  --size-50: 0.316rem;
+  --size-100: 0.422rem;
+  --size-200: 0.563rem;
+  --size-300: 0.75rem;
+  --size-400: 1rem;
+  --size-500: 1.33rem;
+  --size-600: 1.77rem;
+  --size-700: 2.369rem;
+  --size-800: 3.157rem;
+  --size-900: 4.209rem;
+  --size-1000: 5.61rem;
+
+  /* 
+   * Font Family
+   **/
+  --font-family-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-body: Tahoma, sans-serif;
+
+  /**
+  * Font Weight
+  */
+  --font-weight-light: 600;
+  --font-weight-normal: 700 --font-weight-bold: 800;
+
+  /* 
+   * Font Size
+   **/
+  --font-size-heading-sm: clamp(var(--size-300), 2vw + 1rem, var(--size-500));
+  --font-size-heading-md: clamp(var(--size-400), 2vw + 1rem, var(--size-600));
+  --font-size-heading-lg: clamp(var(--size-500), 3vw + 1rem, var(--size-800));
+  --font-size-heading-xl: clamp(var(--size-600), 5vw + 1rem, var(--size-900));
+  --font-size-heading-xxl: clamp(var(--size-900), 6vw + 1rem, var(--size-1000));
+
+
+  --font-size-body-sm: var(--size-300);
+  --font-size-body-md: var(--size-400);
+  --font-size-body-lg: var(--size-500);
+  --font-size-body-xl: var(--size-600);
+
+  --focus-width: 3px;
+  --focus-color: var(--color-primary-200);
+}

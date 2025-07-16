@@ -1,0 +1,89 @@
+@import 'modules/_breakpoints';
+
+.single-bonus {
+  .bonus-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--size-300);
+
+    @include breakpoint(medium) {
+      flex-wrap: nowrap;
+    }
+
+    &__brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      width: 85px;
+      height: 85px;
+      border-radius: var(--border-radius);
+
+      @include breakpoint(small) {
+        width: 125px;
+        height: 125px;
+      }
+
+      @include breakpoint(medium) {
+        height: 150px;
+        width: 150px;
+      }
+      
+     img {
+        height: auto;
+        width: 100%;
+     }
+   
+    }
+
+    &__content {
+      flex: 1;
+
+      h1 { 
+        margin: 0;
+        font-weight: 700;
+        font-size: var(--size-500);
+
+        @include breakpoint(medium) {
+          font-size: var(--size-600);
+        }
+
+        @include breakpoint(large) {
+          font-size: var(--size-700);
+          max-width: 28ch;
+        }
+   
+      }
+    }
+
+    &__cta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-200);
+      flex-basis: 100%;
+
+      @include breakpoint(medium) {
+        flex-basis: auto;
+      }
+    }
+  }
+
+  .bonus-body {
+    font-size: var(--font-size-body-lg);
+
+    &__table {
+      margin-top: var(--size-600);
+    }
+    
+    &__content {
+      margin-top: var(--size-600);
+
+      p:first-child {
+        margin-top: 0;
+      }
+    }
+
+  }
+}

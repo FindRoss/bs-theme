@@ -1,0 +1,144 @@
+@use "_breakpoints" as *;
+
+.sidebar {
+	margin-top: var(--size-600);
+	width: 100%;
+}
+
+.fife-section {
+	display: grid; 
+	gap: 2rem;
+	grid-template-columns: 1fr;
+
+	@include breakpoint(large) {
+		grid-template-columns: 2fr 1fr;	
+	}
+
+	.grid {
+    margin-top: var(--size-600);
+    display: grid;
+    gap: var(--size-400);
+    grid-template-columns: 1fr;
+
+    @include breakpoint(large) {
+			grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-item {
+			.card-beijing {
+				picture {
+					display: none;
+				}
+			}
+    }
+
+    // Show only the first image on mobile
+    .grid-item:first-child .card-beijing picture {
+			display: block;
+    }
+
+    // Show all images at large breakpoint and up
+    @include breakpoint(large) {
+			.grid-item .card-beijing picture {
+				display: block;
+			}
+    }
+	}
+}
+
+.lothian-section {
+	background: var(--color-bg-100); 
+	border-radius: var(--border-radius);
+	padding: var(--size-400);
+}
+
+.slide-section {
+	margin-top: var(--size-800);
+}
+
+.angus-section {
+	.layout {
+		display: grid;
+		gap: var(--size-400);
+		grid-template-columns: 1fr;
+
+		@include breakpoint(large) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.grid-item {
+			.card-beijing {
+				picture {
+					display: none;
+				}
+			}
+    }
+
+    // Show only the first image on mobile
+    .grid-item:first-child .card-beijing picture {
+			display: block;
+    }
+
+    // Show all images at large breakpoint and up
+    @include breakpoint(large) {
+			.grid-item .card-beijing picture {
+				display: block;
+			}
+    }
+	}
+}
+
+.perthshire-section {
+	display: grid; 
+	gap: var(--size-500);
+	grid-template-columns: 1fr; 
+	margin-top: var(--size-600);
+
+	@include breakpoint(medium) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include breakpoint(large) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+
+.aberdeenshire-section {
+	display: grid; 
+	gap: var(--size-500);
+	grid-template-columns: 1fr; 
+	margin-top: var(--size-600); 
+	
+
+	@include breakpoint(medium) {
+		grid-template-columns: 2fr 1fr;
+	}
+
+	// @include breakpoint(large) {
+	// 	grid-template-columns: 3fr 1fr;
+	// }
+}
+
+.borders-section {
+	.layout {
+		@include breakpoint(medium) {
+			display: grid;
+			gap: var(--size-400);
+			grid-template-columns: 1fr 1fr;
+
+			.card:first-child {
+				grid-column: 1 / -1;
+			}
+		}
+	}
+}
+
+.section {
+	margin-top: var(--size-800);
+
+	h2 {
+		margin-top: 0; 
+		margin-bottom: 1rem;
+	}
+}

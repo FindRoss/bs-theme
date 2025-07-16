@@ -1,0 +1,168 @@
+@use "_breakpoints" as *;
+
+.swiper-plain-row {
+  display: grid;
+  margin-top: var(--size-300);
+  grid-template-columns: 1fr;
+  gap: var(--size-200);
+  
+  @include breakpoint(large) {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 50%));
+  }
+}
+
+.swiper { 
+  .swiper-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-left: auto;
+  
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: static;
+      width: 35px;
+      margin: 0;
+      height: 35px;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .swiper-button-prev svg,
+    .swiper-button-next svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .swiper-wrapper {
+    height: auto;
+    margin-top: var(--size-300);
+    visibility: hidden;
+    opacity: 0;
+    animation: reveal 0.5s ease-in-out forwards;
+    animation-delay: 0.7s;
+    
+    @keyframes reveal {
+      to {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: var(--color-primary-800);
+  }
+}
+
+.swiper-primary {
+  width: 100%;
+  height: auto;
+
+  .swiper-wrapper {
+    padding-bottom: 2.6rem;
+    justify-content: flex-start;
+    
+    .swiper-slide {
+      width: calc(50% - 10px);
+      height: auto;
+      
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s ease-out forwards;
+      
+        @include breakpoint(medium) {
+          width: calc(25% - 10px);
+        }
+      }
+    } 
+      
+  .swiper-pagination {
+    bottom: 20px;
+  }
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.swiper-big {
+  .swiper-wrapper {
+      padding-bottom: 2.6rem;
+      justify-content: space-between;
+    }
+
+  .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; 
+    height: auto;
+    border-radius: var(--border-radius);
+    padding: var(--size-600) var(--size-400);
+
+    &__light {
+      
+      h3, p, div {
+        color: #000;
+      }
+    }
+  
+    &__dark {
+      h3, p, div {
+        color: #FFF;
+      }
+    }
+
+    &__content-left {
+      p {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      img {
+        border-radius: var(--border-radius); 
+      }
+
+      // @include breakpoint(large) {}
+    }
+
+    &__content-right {
+      height: 100%;
+      display: flex; 
+      flex-direction: column;
+      justify-content: space-around;
+    }
+
+    &__button-group {
+      margin-top: auto;
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-start;
+
+      .button {
+        flex: 1;
+      }
+    }
+
+    &__homepage-image {
+      display: none;
+      visibility: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow-large);
+
+      @include breakpoint(large) {
+        display: block;
+        visibility: visible;
+      }
+    }
+  }
+}
+

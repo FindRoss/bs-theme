@@ -1,0 +1,116 @@
+@use "_breakpoints" as *;
+
+// Header
+.header {
+  position: relative;
+  z-index: 999;
+  border-bottom: 1px solid var(--color-muted-200);
+}
+
+
+header.sticky-top {
+  z-index: 1020;
+  /* Adjust as needed */
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+// This should be global for desktop and mobile menu;
+.menu-item a {
+  color: var(--color-primary-900);
+  text-decoration: none;
+  font-weight: 500;
+  // font-size: 16px;
+  user-select: none;
+        
+  &:hover,
+  &:active {
+    color: var(--color-primary-400);
+  }
+}
+
+// nav
+.nav-layout {
+  height: 55px;
+  padding: 0rem;
+  display: flex;
+  gap: var(--size-600);
+  align-items: center;
+  justify-self: space-between;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    button {
+      display: block;
+      margin-right: 8px;
+
+      @include breakpoint(large) {
+        display: none;
+      }
+    }
+
+    @include breakpoint(large) {
+      flex: 0 0 80px;
+    }
+
+    img {
+      width: 190px;
+      height: auto;
+    }
+  }
+
+  &__menu {
+    display: none;
+
+    @include breakpoint(large) {
+      display: flex;
+      justify-content: flex-start;
+      flex: 1;
+      align-items: center;
+    }
+  }
+
+  &__search {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+/*
+* Featured Navbar Item
+**/
+
+.featured-navbar-item {
+  display: inline-block;
+  margin-left: 1rem;
+  a {
+    color: #ffffff !important;
+    background: indianred;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+    &:hover,
+    &:focus,
+    &:active {
+      filter: brightness(0.8);
+    }
+  }
+}
+
+// New
+.desktop-navigation {
+  display: none;
+
+  @include breakpoint(large) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}

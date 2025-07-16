@@ -1,0 +1,1009 @@
+@use "_breakpoints" as *;
+
+.card { 
+
+  &__link {
+    display: block;
+    // height: 100%; 
+    text-decoration: none;
+    color: inherit;
+
+    &:hover, 
+    &:active {
+      color: inherit;
+
+      h3, 
+      h4 {
+        text-decoration: underline;
+      }
+
+      img {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  &__media {
+    img {
+      margin: 0;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-muted-200);
+      width: 100%;
+      height: auto;
+      transition: opacity 0.1s ease-in-out;
+    }
+  }
+
+  h2, h3, h4 {
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.card-absolute {
+  position: relative;
+  z-index: 1;
+
+  &__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none; 
+  }
+
+  &:hover &__link,
+  &:focus-within &__link {
+    pointer-events: auto;
+  }
+
+  &__ctas {
+    z-index: 999;
+    position: relative
+  }
+
+  &:hover, 
+  &:active {
+    h2, h3 {
+      text-decoration: underline;
+    }
+
+    .card__media img {
+      opacity: 0.5;
+    }
+  }
+}
+
+.details-card {
+  margin-top: var(--size-800);
+  padding-bottom: var(--size-400);
+  border-top: 2px dashed var(--color-muted-200);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-direction: column;
+
+    @include breakpoint(medium) { 
+      flex-direction: row;
+    }
+
+    .logo-wrapper {
+      width: 100%; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--border-radius);
+          
+      @include breakpoint(medium) {
+        width: auto;
+      }
+      
+      img {
+        width: 135px; 
+        height: auto;
+        
+        @include breakpoint(medium) {
+          width: 200px;
+        }
+      }
+    }
+
+    .title-wrapper {
+      width: 100%;
+
+      h2, h3 {
+        margin-top: var(--size-200);
+        font-size: 20px;
+
+        @include breakpoint(small) {
+          margin-top: 0;
+          font-size: 24px;
+        }
+      }
+
+      .bonus {
+        display: flex; 
+        align-items: center; 
+        gap: 0.35rem;
+
+        span {
+          display: flex;
+          align-items: center;
+        }
+        
+        svg {
+          height: 25px; 
+          width: auto;
+          fill: var(--color-primary-500);
+        }
+      }
+    }
+  }
+
+  &__ctas {
+    margin-top: var(--size-500);
+    display: flex;
+    // display: flex;
+    gap: 0.5rem;
+
+    .button {
+      flex-grow: 1;
+    }
+  }
+}
+
+/**
+  * Site card
+  */
+
+.site-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-100);
+  border-radius: var(--border-radius);
+  margin-top: var(--size-300);
+  gap: var(--size-400);
+  padding: var(--size-400);
+  font-family: var(--font-family-heading);
+
+  @include breakpoint(large) {
+    flex-direction: row;
+  }
+
+  &__media {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 15px;
+   
+
+    @include breakpoint(large) {
+      border-radius: 100%;
+    }
+    
+    img {
+      vertical-align: middle;
+      width: 80px;
+      height: 40px;
+    }
+  }
+
+  &__name {
+    min-width: 150px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+
+    .name {
+      h2, h3 {
+        font-size: var(--font-size-body-lg);
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__bonus {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title {
+      color: var(--color-muted-400);
+      font-size: var(--font-size-body-sm);
+    }
+
+    .bonus {
+      font-size: var(--font-size-body-lg);
+    }
+
+  }
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 150px;
+    margin-top: var(--size-800);
+
+    @include breakpoint(large) {
+      margin-top: 0;
+    }
+
+    a:not(.button) {
+      margin-top: var(--size-100);
+      font-size: 14px;
+      text-align: center;
+      text-decoration: underline;
+    }
+  }
+}
+
+/*
+ * Streamer card
+ **/
+.streamer-card {
+  background-color: #fff;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  transition: transform 0.15s;
+  
+  h3 {
+    margin-top: var(--size-300);
+    
+    a::before {
+      position: absolute;
+      content: "";
+      inset: 0;
+      z-index: 50;
+    }
+  }
+}
+
+.hong-kong-card {
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: #ffffff;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  &__media {
+    background-color: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    img {
+      height: 85px;
+      width: auto;
+      border: none;
+      transition: transform 0.3s ease; // Add transition for smooth zoom effect
+    }
+  }
+
+  &__content {
+    flex-grow: 1;
+    padding: var(--size-400) var(--size-300) 0;
+    display: flex; 
+    flex-direction: column;
+    gap: 0.65rem;
+
+    h3 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 20px;      
+    }
+    
+    .excerpt {
+      font-size: 14px;
+      
+      p {
+        margin: 0;
+      }
+    }
+
+    .crypto-icons {
+      display: flex;
+    }
+  }
+
+  &__ctas {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--size-200);
+    gap: var(--size-100);
+    margin-top: var(--size-300);
+    
+
+    .button {
+      flex-basis: 50%;
+      padding-left: var(--size-100);
+      padding-right: var(--size-100);
+      font-size: 14px;
+      z-index: 99;
+
+      @include breakpoint(small) {
+        font-size: 16px;
+        padding-left: var(--size-200);
+        padding-right: var(--size-200);
+      }
+    }
+  }
+}
+
+/**
+ *  Tax Pill 
+ */
+.tax-pill {
+  position: relative;
+  background: #fff;
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-heading); 
+  margin-bottom: var(--size-300);
+  border: 1px solid var(--color-muted-200);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  &:focus-within {
+    box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+
+    :focus {
+      outline: 0;
+      border: 0;
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.9rem;
+    
+    &::before {
+      position: absolute;
+      content: "";
+      inset: 0;
+      z-index: 50;
+    }
+  }
+
+  &__media {
+    background-color: var(--color-primary-500);
+    padding: var(--size-100);
+    height: 100%;
+
+    img {
+      margin-top: 0 !important;
+      width: 30px;
+      height: 30px;
+
+      @include breakpoint(medium) {
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--size-100);
+    
+    h3 {
+      font-weight: 600;
+    }
+  }
+}
+
+/**
+ *  Review pill
+ */
+
+.review-pill {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-200);
+  background-color: #FFFFFF;
+  padding: 4px;
+  margin-top: var(--size-100);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family-heading);
+  border: 1px solid var(--color-muted-200);
+  overflow: hidden;
+  transition: translate 0.15s;
+  
+  // &:focus-within {
+  //   box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+  //   border-radius: var(--border-radius);
+
+  //   :focus {
+  //     outline: 0;
+  //     border: 0;
+  //   }
+  // }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-200);
+
+    .logo {
+      border-radius: var(--border-radius);
+    }
+  }
+    
+  .button {
+    padding: var(--size-200) var(--size-300);
+    z-index: 99;
+    position: relative;
+  }
+}
+
+/*
+* Card Beijing
+**/
+
+.card-beijing {
+  height: 100%;
+  margin-bottom: var(--size-400);
+  border-bottom: 1px solid var(--color-muted-200);
+
+  &__body {
+    padding-top: var(--size-200);
+    padding-bottom: var(--size-200);
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+}
+
+.card-hangzhou {
+  border-bottom: 1px solid var(--color-muted-200);
+  margin-bottom: var(--size-300);
+  padding-bottom: var(--size-300);
+  // height: 100%;
+
+  &__body {
+    padding-top: var(--size-400);
+    padding-bottom: var(--size-400);
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+}
+
+.card-chengdu {
+  border-bottom: 1px solid var(--color-muted-200);
+  margin-bottom: var(--size-300);
+  padding-bottom: var(--size-300);
+  // height: 100%;
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+
+    @include breakpoint(medium) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--size-300);    
+    }
+  }
+
+
+  &__body {
+    padding-top: var(--size-200);
+    padding-bottom: var(--size-200);
+
+    @include breakpoint(medium) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+}
+
+/**
+* 
+* Bonus long
+* Bonus long is used for bonus card and also bonus block, they have separate HTML.
+*/
+
+.bonus-long-wrapper {
+  margin-top: var(--size-400);
+  background: var(--color-bg-400);
+  border-radius: var(--border-radius);
+
+  .bonus-long {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    gap: var(--size-400);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-heading);
+    overflow: hidden;
+    border: 1px solid var(--color-muted-200);
+    padding: var(--size-100) var(--size-200);
+    transition: translate 0.15s;
+
+    @include breakpoint(small) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &:focus-within {
+    box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+    border-radius: var(--border-radius);
+
+      &:focus {
+        outline: 0;
+        border: 0;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--size-400);
+
+
+      @include breakpoint(small) {
+        flex-direction: row;
+      }
+
+      img {
+        margin-top: 0;
+        width: 100px;
+        height: auto;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--color-muted-200);
+
+        @include breakpoint(small) {
+          width: 135px; 
+        }
+      }
+    }
+
+    h2 {
+      margin: 0;
+      text-align: center;
+      font-size: 18px;
+      
+      @include breakpoint(small) {
+        text-align: left;
+      }
+
+      a {
+        &::before {
+          position: absolute;
+          content: "";
+          inset: 0;
+          z-index: 50;
+        }
+      }
+    }
+    &__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include breakpoint(small) {
+        flex-direction: row;
+      }
+
+      .button {
+        padding: var(--size-300) var(--size-300); 
+        z-index: 99;
+
+        @include breakpoint(medium) {
+          padding: var(--size-300) var(--size-600);
+        }
+      }
+
+    }
+  }
+  
+  .bonus-long--bonus-code {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    padding: var(--size-100);
+
+    @include breakpoint(small) {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.bonus-pill-wrapper {
+  margin-top: var(--size-200); 
+  background: var(--color-bg-600);
+  border-radius: var(--border-radius);  
+
+  .bonus-pill {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    gap: var(--size-400);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-muted-200);
+    padding: 4px;
+
+    &:focus-within {
+      box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
+      border-radius: var(--border-radius);
+
+      :focus {
+        outline: 0;
+        border: 0;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--size-200);
+
+      .logo {
+        border-radius: var(--border-radius);
+      }
+
+      @include breakpoint(medium) {
+        flex-direction: row;
+      }
+    }
+
+    h3 {
+      margin: 0;
+
+      a {
+        text-decoration: none;
+      
+        &::before {
+          position: absolute;
+          content: "";
+          inset: 0;
+          z-index: 50;
+        }
+      }
+    }
+
+    &__cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include breakpoint(medium) {
+        flex-direction: row;
+      }
+
+      .button {
+        padding: var(--size-200) var(--size-300);
+        z-index: 99;
+        position: relative;
+      }
+
+    }
+  }
+
+  .bonus-pill--bonus-code {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    padding: 0.1rem var(--size-100) 0.1rem;
+  }
+}
+
+.no-focus-within {
+  box-shadow: none !important;
+}
+
+
+/**
+* Casino Card Block
+*/
+
+.casino-card {
+  margin-top: var(--size-200);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-muted-200);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(medium) {
+    flex-direction: row;
+  }
+
+  .casino-card__media {
+    padding: var(--size-100) var(--size-400);
+    min-height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.3;
+    }
+
+    a {
+      z-index: 20;
+      border-bottom: 0px !important;
+    }
+  }
+
+  .casino-card__content {
+    padding: var(--size-200);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include breakpoint(medium) {
+      flex: 1;
+      display: block;
+      // flex-direction: row;
+    }
+    p {
+      font-size: 16px;
+      margin-top: 0;
+
+      @include breakpoint(medium) {
+            font-size: 17px;
+        }
+    }
+
+    .casino-card__content-bonus { 
+      font-size: 18px;
+
+      @include breakpoint(medium) {
+          font-size: 20px;
+        }
+    }
+  }
+
+  .casino-card__cta {
+    padding: var(--size-100);
+    display: flex;
+    justify-content: center;
+
+      @include breakpoint(medium) {
+        flex-direction: column;
+      }
+  }
+}
+
+
+
+.search-card {
+  padding-top: var(--size-200);
+  border-top: 1px solid var(--color-muted-200);
+
+  &:not(:first-child) {
+    margin-top: var(--size-400);
+  }
+
+  &__layout {
+      display: grid;
+      gap: var(--size-300);  
+      grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  &__body {
+    flex: 1;
+
+    .subtitle {
+      font-size: 12px;
+    }
+    .title {
+      color: var(--color-primary-900);
+    }
+    .excerpt {
+      color: var(--color-muted-500);
+    }
+  }
+
+  &__media {
+
+    img {
+      width: 120px;
+      height: auto;
+
+      @include breakpoint(medium) {
+        width: 150px;
+      }
+    }
+  }
+}
+
+/*
+*
+* Glossary Card 
+*
+*/
+
+.glossary__card p {
+  margin: 0;
+}
+
+.glossary__card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glossary__card-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.glossary__card-link:hover .glossary__card {
+  text-decoration: none;
+  color: inherit;
+  background: var(--color-bg-400);
+  transition: all 0.5s ease-in-out;
+}
+
+/*
+* Slot Card
+**/
+.slot-card-link .card {
+  border-top: 3px solid #f9f9f9;
+}
+
+.slot-card-link:hover .card {
+  border-top: 3px solid #000;
+}
+
+
+.info-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 90px;
+  padding-left: var(--size-100);
+  padding-right: var(--size-100);
+  background: var(--color-bg-400);
+  font-size: 13px;
+  gap: 4px;
+  color: inherit;
+
+  svg {
+    height: 16px;
+    width: 16px;
+    fill: var(--color-muted-700);
+  }
+
+  &.timer.hours {
+    background-color: #FFF3CD;
+    /* Light yellow for hours */
+  }
+
+  &.timer.days,
+  &.timer.weeks {
+    background-color: #BBF7D0;
+    /* Light green for days and weeks */
+  }
+
+  &.timer.months {
+    background-color: #ceecfa;
+    /* Light blue for months */
+  }
+
+  &.timer.expired {
+    background-color: #F8D7DA;
+    /* Light red for expired */
+  }
+} 
+
+
+/**
+  * Card Shanghai
+  */
+
+.card-shanghai {
+  height: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--border-radius);
+  padding: var(--size-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-200);
+
+  &__media {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--size-200);
+
+    .img-wrapper {
+      img {
+        height: 35px;
+        width: auto;
+        border-radius: 3px;
+      }
+    }
+  }
+
+  &__content {
+    flex: 1; 
+
+    h3 {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-50);
+
+      .title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-muted-400);
+      }
+
+      .bonus {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-primary-800);
+      }
+
+      .subtitle {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-muted-400);
+      }
+    }
+  }
+
+  &__ctas {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--size-200);
+    flex-wrap: wrap;
+
+    .button {
+      flex: 1;
+    }
+  }
+}
