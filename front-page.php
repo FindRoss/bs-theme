@@ -344,5 +344,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </section>
 </div> -->
 
+<!-- Spacer -->
+<div style="margin-top:3rem"></div>
 
 <?php get_footer(); ?>

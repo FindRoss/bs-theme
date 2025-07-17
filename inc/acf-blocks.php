@@ -121,5 +121,21 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page', 'review' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * Site latest
+    */
+    acf_register_block_type(array(
+      'name'              => 'site-latest',
+      'title'             => __('Site Latest'),
+      'description'       => __('A custom block displaying the latest articles or bonuses from a gambling site.'),
+      'render_template'   => 'blocks/site-latest/site-latest.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/site-latest/site-latest-main.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'bonuses', 'posts', 'promos', 'latest', 'site', 'casino', 'gambling', 'news' ),
+      'post_types'        => array( 'post', 'page', 'review' ),
+      'icon'              => 'star-filled'
+    ));
   }
 };

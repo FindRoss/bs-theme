@@ -1,0 +1,19 @@
+.site-latest-block { 
+  background: #f9f9f9;
+  border-left: 6px solid #f1f1f1;
+  border-radius: 8px;
+  margin-bottom: 1.33rem;
+  margin-top: 1.33rem;
+  padding: .75rem;
+}
+
+.site-latest-block__title {
+  margin: 0!important;
+  padding: 0!important;
+  align-items: center;
+  display: flex;
+  gap: .35rem;
+  font-size: 18px!important;
+  color: #082640!important;
+  font-weight: 600!important;
+}

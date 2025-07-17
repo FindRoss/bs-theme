@@ -5,10 +5,18 @@
   margin-top: var(--size-300);
   grid-template-columns: 1fr;
   gap: var(--size-200);
+
+  @include breakpoint(medium) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
   
   @include breakpoint(large) {
-    grid-template-columns: repeat(auto-fit, minmax(230px, 50%));
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+
+  // @include breakpoint(xl) {
+  //   grid-template-columns: 1fr 1fr 1fr 1fr;
+  // }
 }
 
 .swiper { 
