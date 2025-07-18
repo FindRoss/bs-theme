@@ -74,13 +74,15 @@ body {
 }
 
 .message {
-  margin: 0;
+  margin: 0 0 var(--size-500);
   padding: var(--size-500) var(--size-400);
-  background: var(--color-bg-200);
+  background: var(--color-bg-100);
   border-radius: var(--border-radius);
 
   &.warning {
-    background: #F8D7DA;
+   // background: #F8D7DA;
+    background: var(--color-bg-100);
+    border: 1px solid var(--color-muted-200);
   }
 
   &__body {

@@ -1,8 +1,8 @@
 import "../assets/css/style.scss";
-import '../assets/css/single-review.scss';
-import '../assets/css/single-bonus.scss';
-import '../assets/css/single-streamer.scss';
-import '../assets/css/search-results.scss';
+// import '../assets/css/single-review.scss';
+// import '../assets/css/single-bonus.scss';
+// import '../assets/css/single-streamer.scss';
+// import '../assets/css/search-results.scss';
 
 import SidebarMenu from "./modules/SidebarMenu";
 import CardFocus from "./modules/CardFocus";
@@ -13,7 +13,7 @@ import ExpiryDates from "./modules/ExpiryDates";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
 import Taxonomy from "./modules/Taxonomy";
-import ReviewArchive from "./modules/ReviewArchive";
+// import ReviewArchive from "./modules/ReviewArchive";
 
 const sidebarMenu = new SidebarMenu()
 const cardFocus = new CardFocus()
@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchResults = new SearchResults()
   }
 
-  if (document.querySelector('body.tax-review_type') || document.querySelector('body.post-type-archive-review')) {
-    const reviewArchive = new ReviewArchive();
-  }
+  // if (document.querySelector('body.tax-review_type') || document.querySelector('body.post-type-archive-review')) {
+  //   const reviewArchive = new ReviewArchive();
+  // }
   
   if (document.querySelector('body.single-review')) {
     singleReview();

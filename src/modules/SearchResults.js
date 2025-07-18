@@ -10,26 +10,22 @@ class SearchResultsNew {
     this.postType = 'all';
     this.page = 1;
     this.websiteUrl = new URL(window.location.href);
-
     this.resultsCount = 0;
     this.resultsCountEl = document.getElementById('search-results-count-container');
     this.resultsContainer = document.getElementById('search-results-container');
     this.paginationContainer = document.getElementById('search-pagination-container');
-    this.spinner = document.getElementById('spinner-wrapper');
+    this.spinner = document.getElementById('spinner');
     this.form = document.getElementById('searchForm');
     this.input = this.form.querySelector('input[id="searchInput"]');
     this.select = document.getElementById('searchSelect');
-    this.allCheckboxes = document.querySelectorAll('.checkbox-input');
-    
-    this.pageOverlay = document.getElementById('page-overlay');
-    this.filterOverlay = document.getElementById('filter-overlay');
-    this.filterOverlayOpenBtn = document.getElementById('open-filter-overlay');
-    this.filterOverlayCloseBtn = document.getElementById('filter-overlay-close');
-    this.applyFilterBtns = document.querySelectorAll('#filter-apply-btn');
-    this.filterResetBtns = document.querySelectorAll('#filter-reset-btn');
+    this.allCheckboxes = document.querySelectorAll('.form-check-input');
+
+    this.applyFilterBtns = document.querySelectorAll('#filterApplyBtn');
+    this.filterResetBtns = document.querySelectorAll('#filterResetBtn');
     this.filterCountEl = document.querySelector('.filter-count');
     this.filterCount = 0;
-    this.sortResultsWrapper = document.querySelector('.sort-by');
+    this.filterDesktopWrapper = document.querySelector('.desktop-filter');
+    this.sortResultsWrapper = document.querySelector('.search-sort-by');
     this.init();
   }
 
@@ -55,32 +51,12 @@ class SearchResultsNew {
     [...this.applyFilterBtns].map(btn => btn.addEventListener('click', () => this.handleFilterApply()));
     [...this.filterResetBtns].map(btn => btn.addEventListener('click', () => this.resetAllFilters()));
     [...this.allCheckboxes].map(checkbox => checkbox.addEventListener('change', () => this.syncCheckboxes(checkbox)));
-    this.filterOverlayOpenBtn.addEventListener('click', () => this.openFilterModal());
-    this.filterOverlayCloseBtn.addEventListener('click', () => this.closeFilterModal());
-    this.filterOverlay.addEventListener('click', (event) => this.handleFilterOverlayClick(event));
-  }
-
-  handleFilterOverlayClick(event) {
-    if (event.target === this.filterOverlay) {
-      this.closeFilterModal();
-    }
-  }
-
-  openFilterModal() {
-    this.pageOverlay.classList.add('active');
-    this.filterOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; 
-  }
-
-  closeFilterModal() {
-    this.pageOverlay.classList.remove('active');
-    this.filterOverlay.classList.remove('active');
-    document.body.style.overflow = 'auto';
   }
 
   syncCheckboxes(changedCheckbox) {
+
     // Find all checkboxes with the same value
-    const checkboxesToSync = document.querySelectorAll(`.checkbox-input[value="${changedCheckbox.value}"]`);
+    const checkboxesToSync = document.querySelectorAll(`.form-check-input[value="${changedCheckbox.value}"]`);
 
     // Update their state to match the changed checkbox
     checkboxesToSync.forEach(checkbox => {
@@ -90,36 +66,37 @@ class SearchResultsNew {
     });
   }
 
+
   resetAllFilters() {
-    const checkboxes = document.querySelectorAll('.checkbox-input');
+    const checkboxes = document.querySelectorAll('.form-check-input');
     checkboxes.forEach(checkbox => checkbox.checked = false);
     this.filterCount = 0;
     this.updateFilterCount();
   }
 
+
   handleFilterApply() {
-    const checkboxes = document.querySelectorAll('.checkboxes'); 
+    const checkboxes = document.querySelectorAll('.checkboxes'); // Select all checkbox containers
 
     [...checkboxes].forEach(checkbox => {
-      const type = checkbox.getAttribute('data-checkbox-type'); 
-      const checks = checkbox.querySelectorAll('.checkbox-input'); 
+      const type = checkbox.getAttribute('data-checkbox-type'); // Get the type (e.g., 'postType')
+      const checks = checkbox.querySelectorAll('.form-check-input'); // Select all checkboxes inside
 
-      const allCheckedItems = [...checks] 
-        .filter(check => check.checked) 
-        .map(check => check.value); 
+      const allCheckedItems = [...checks] // Convert NodeList to Array
+        .filter(check => check.checked) // Filter only checked checkboxes
+        .map(check => check.value); // Map their values
 
       this.filterCount = allCheckedItems.length;
 
       if (type === 'postType') {
         this.type = allCheckedItems.length > 0 ? `[${allCheckedItems.map(item => `"${item}"`).join(', ')}]` : 'all'; // Add checked items or default to 'all'
-      }
+      } // else if (type == 'crypto')
     });
 
     this.page = 1;
     this.clearResults();
     this.fetchSearchResults();
     this.updateFilterCount();
-    this.closeFilterModal();
   }
 
   updateFilterCount() {
@@ -131,6 +108,8 @@ class SearchResultsNew {
 
     this.filterCountEl.textContent = this.filterCount;
   }
+
+
 
   handleInputChange(event) {
     const input = event.target.value;
@@ -191,6 +170,7 @@ class SearchResultsNew {
     return input;
   }
 
+
   async fetchSearchResults() {
     try {
       this.showLoader();
@@ -205,9 +185,8 @@ class SearchResultsNew {
         }
       });
 
-      console.log(response.data);
-
       const { terms, results, currentPage, totalPages, totalPosts } = response.data;
+
 
       this.page = currentPage;
 
@@ -229,14 +208,14 @@ class SearchResultsNew {
   }
 
   paintResults(results, terms) {
-    if (terms.length !== 0 && this.page == 1) {
+
+    if (terms.length !== 0) {
       let randomHTML = '';
       randomHTML = `
         <div class="search-topics">
           <span class="subtitle">Topics</span>
         <div class="search-topics__layout">
       `;
-
       terms.forEach(term => {
         const { title, link, image } = term;
 
@@ -270,21 +249,18 @@ class SearchResultsNew {
     }
 
     results.forEach(r => {
-      const { title, image, link, excerpt, postType } = r;
+      const { title, link, excerpt, postType } = r;
 
       const postTypeDisplay = postType == "post" ? "Article" : postType;
 
       const cardHTML = `
-        <div class="card search-card">
-          <a class="card__link" href="${link}">
-            <div class="search-card__layout">
+        <div class= "search-card-wrapper">
+          <a class="card__link h-100" href="${link}">
+            <div class="search-card h-100">
               <div class="search-card__body">
                 <span class="subtitle">${postTypeDisplay}</span>
-                <h3 class="title">${title}</h3>
+                <h3 class="title">${title}foo</h3>
                 ${excerpt ? `<p class="excerpt">${excerpt}</p>` : ''}
-              </div>
-              <div class="card__media search-card__media">
-                ${image ? `<img src="${image}" width="135" height="135"/>` : ''}
               </div>
             </div>
           </a>
@@ -296,11 +272,13 @@ class SearchResultsNew {
   }
 
   showInputElements() {
+    // this.filterDesktopWrapper.classList.remove('d-none');
     this.sortResultsWrapper.classList.remove('d-none');
     this.sortResultsWrapper.classList.add('d-flex');
   }
 
   hideInputElements() {
+    // this.filterDesktopWrapper.classList.add('d-none');
     this.sortResultsWrapper.classList.remove('d-flex');
     this.sortResultsWrapper.classList.add('d-none');
   }
@@ -329,7 +307,7 @@ class SearchResultsNew {
     if (totalPages === 0) return;
 
     const wrapper = document.createElement("div");
-    wrapper.className = "search-pagination-wrapper";
+    wrapper.className = "d-flex flex-column align-items-center";
 
     if (page < totalPages) {
       const button = document.createElement("button");
