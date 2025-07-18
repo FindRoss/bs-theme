@@ -17,3 +17,7 @@
   color: #082640!important;
   font-weight: 600!important;
 }
+
+.site-latest-block__title .icon path {
+  fill: green;
+}
