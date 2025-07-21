@@ -259,6 +259,23 @@ blockquote {
 /*
 * Spinner
 **/
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--size-900) var(--size-200);
+}
+
+.loading-spinner circle {
+  transform-origin: 50% 50%;
+  animation: spinner-rotate 1s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 .spinner-wrapper {
   display: none;

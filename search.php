@@ -26,12 +26,12 @@ render_filter_overlay($filterTitle, $filterItems); ?>
               <input class="" id="searchInput" type="search" placeholder="" aria-label="Search" value="" name="search" type="text">
               <button class="button button__outline button__icon" id="searchButton" type="submit"><?php echo get_svg_icon('search'); ?></button>
             </div>
-            <div class="filter d-block d-sm-none">
+            <!-- <div class="filter d-block d-sm-none">
               <button class="button button__outline" id="searchButtonFilter" type="button">
                 <span class="filter-icon"><?php echo get_svg_icon('filter'); ?></span> Filter
                 <span class="filter-count d-none">1</span>
               </button>
-            </div>
+            </div> -->
           </div>
         </form>
       </div><!-- .col -->
@@ -67,7 +67,7 @@ render_filter_overlay($filterTitle, $filterItems); ?>
           <div class="search-results-count" id="search-results-count-container"></div>
           
           <div class="d-flex align-items-center search-sort-by">
-            <span class="me-1 title">Sort By</span>
+            <span class="title">Sort By</span>
             <select class="form-select" id="searchSelect" aria-label="Order results">
               <option value="relevance" selected>Relevance</option>
               <option value="date_desc">Newest</option>
@@ -76,7 +76,7 @@ render_filter_overlay($filterTitle, $filterItems); ?>
           </div>
         </div>
 
-        <div class="search-spinner" id="spinner">
+        <div class="spinner" id="spinner">
           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 100 100" class="loading-spinner">
             <circle
               cx="50"

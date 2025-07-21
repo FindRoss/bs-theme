@@ -259,7 +259,7 @@ class SearchResultsNew {
             <div class="search-card h-100">
               <div class="search-card__body">
                 <span class="subtitle">${postTypeDisplay}</span>
-                <h3 class="title">${title}foo</h3>
+                <h3 class="title">${title}</h3>
                 ${excerpt ? `<p class="excerpt">${excerpt}</p>` : ''}
               </div>
             </div>
@@ -307,7 +307,7 @@ class SearchResultsNew {
     if (totalPages === 0) return;
 
     const wrapper = document.createElement("div");
-    wrapper.className = "d-flex flex-column align-items-center";
+    wrapper.className = "d-flex justify-content-center";
 
     if (page < totalPages) {
       const button = document.createElement("button");
