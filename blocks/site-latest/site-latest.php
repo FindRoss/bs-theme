@@ -1,5 +1,6 @@
 <?php 
-// Field from block
+
+$post_id = get_the_ID();
 $site_field = get_field('site');
 $site = (is_array($site_field) && !empty($site_field)) ? $site_field[0] : null;
 $details_group = get_field('details_group', $site);
@@ -23,8 +24,9 @@ if ((is_array($type) && !empty($type)) AND $site) {
 	$query = new WP_Query(array(
 		'post_type'      => $type_values,
 		'posts_per_page' => 5,
+		'post__not_in'   => array($post_id),
 		'meta_query'     => array(
-			'relation' => 'AND',
+			'relation'   => 'AND',
 			array(
 				'relation' => 'OR',
 				array(
