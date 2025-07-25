@@ -5,8 +5,11 @@
 
 
 <?php if($recommended_query->have_posts() ) { ?>
-  <aside class="recommended-block"><!-- main--content -->
-    <h4 class="recommended-block__title">Read More</h4>
+  <aside class="recommended-block">
+    <h4 class="recommended-block__title">
+      <span class="icon"><?php echo get_svg_icon('arrow-right'); ?></span>
+      <span class="title">Read More</span>
+    </h4>
     <ul class="recommended-block__list">
     <?php while ( $recommended_query->have_posts() ) : $recommended_query->the_post(); ?>
       <li class="recommended-block__list-item">

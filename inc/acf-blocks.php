@@ -110,14 +110,14 @@ function my_acf_init_block_types() {
     */
     acf_register_block_type(array(
       'name'              => 'recommended',
-      'title'             => __('Recommended Article'),
-      'description'       => __('A custom block displaying a recommended article.'),
+      'title'             => __('Recommend Articles'),
+      'description'       => __('A custom block to display posts and bonuses on BitcoinChaser.'),
       'render_template'   => 'blocks/recommended/recommended.php',
-      // 'enqueue_style'     => get_template_directory_uri() . '/blocks/recommended/recommended-main.css',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/recommended/recommended-main.css',
       'mode'              => 'edit',
       'category'          => 'layout',
       'align'             => 'full',
-      'keywords'          => array( 'recommended', 'read', 'more', 'next', 'article' ),
+      'keywords'          => array( 'recommended', 'recommend', 'read', 'more', 'next', 'article' ),
       'post_types'        => array( 'post', 'page', 'review' ),
       'icon'              => 'star-filled'
     ));
