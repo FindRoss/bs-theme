@@ -3,6 +3,7 @@ class SidebarMenu {
     this.body = document.querySelector('body')
     this.pageOverlay = document.querySelector('.page-overlay')
     this.navToggleBtn = document.querySelector('#nav-toggle')
+    this.navToggleBtnClose = document.querySelector('#nav-toggle-close')
     this.menuOpen = false
     this.drawer = document.querySelector('.background-drawer')
 
@@ -41,7 +42,6 @@ class SidebarMenu {
   }
 
   init() {
-
     this.menuListItems.forEach(item => {
       const subMenu = item.querySelector('ul.sub-menu');
       if (!subMenu) return;
@@ -62,6 +62,12 @@ class SidebarMenu {
     })
 
     this.navToggleBtn.addEventListener('click', () => {
+      console.log('clicked');
+      this.menuOpen = !this.menuOpen
+      this.toggleMenu()
+    });
+
+    this.navToggleBtnClose.addEventListener('click', () => {
       this.menuOpen = !this.menuOpen
       this.toggleMenu()
     });

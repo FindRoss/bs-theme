@@ -49,8 +49,8 @@ if ((is_array($type) && !empty($type)) AND $site) {
 	)); ?>
 
     <aside class="site-latest-block">
-			<h4 class="site-latest-block__title">
-				<span class="icon"><?php echo get_svg_icon('newspaper'); ?></span> 
+		<h4 class="site-latest-block__title">
+		<span class="icon"><?php echo get_svg_icon('newspaper'); ?></span> 
 				Latest <?php echo $type_output; ?> From <?php echo $site_name; ?></h4>
 			<ul class="site-latest-block__list">
 				<?php if ($query->have_posts()) : ?>

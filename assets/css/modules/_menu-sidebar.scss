@@ -4,31 +4,41 @@
 **/
 
 .admin-bar .background-drawer {
-  top: 94px;
+  top: 60px;
 }
 
 .background-drawer {
   position: fixed;
   display: block;
+  top: 0px;
   bottom: 0px;
+  left: 0px;
+  right: 0px;
   background-color: rgb(255, 255, 255);
   visibility: hidden;
   z-index: 3000;
   transition: transform 0.1s ease-in-out;
-  top: 60px;
-  left: 0px;
   transform: translateX(-100%);
   padding: var(--size-400) 0;
   overflow-y: scroll;
 
-  @include breakpoint(large) {
+  @include breakpoint(medium) {
     right: auto;
-    width: 320px;
+    width: 420px;
   }
 
   &.show {
     visibility: unset;
     transform: translateX(0);
+  }
+
+  &__header {
+    padding-left: var(--size-100);
+    padding-right: var(--size-100);
+
+    .chaser-search {
+      margin-top: var(--size-300);
+    }
   }
 
   #menu-sidebar-nav {

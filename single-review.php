@@ -100,6 +100,10 @@ if ($providers_content) $content['Providers'] = $providers_content;
 $betting_content = $fields['betting'] ?? ''; 
 if ($betting_content) $content['Sports Betting'] = $betting_content;
 
+/* Poker Group */
+$poker_content = $fields['poker'] ?? '';
+if ($poker_content) $content['Poker'] = $poker_content;
+
 /* Bonuses */
 $bonus_content = $fields['bonuses'] ?? '';
 if ($bonus_content) $content['Bonuses'] = $bonus_content;

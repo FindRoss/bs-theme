@@ -8,16 +8,26 @@
 }
 
 .site-latest-block__title {
-  margin: 0!important;
-  padding: 0!important;
+  margin: 0 !important; 
   align-items: center;
   display: flex;
   gap: .35rem;
-  font-size: 18px!important;
-  color: #082640!important;
-  font-weight: 600!important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  display: flex;
+  align-items: center;
 }
 
-.site-latest-block__title .icon path {
+.site-latest-block__title .icon {
+  display: flex;
+  align-items: center;
+}
+
+.site-latest-block__title .icon svg {
+  height: 24px;
+  width: auto;
+}
+
+.site-latest-block__title .icon svg path {
   fill: green;
 }
