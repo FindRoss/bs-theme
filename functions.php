@@ -23,6 +23,18 @@ function themebs_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
+function my_theme_setup() {
+    // Remove default patterns
+    remove_theme_support( 'core-block-patterns' );
+
+    // Add other theme supports
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
+    add_image_size('site-small-logo', 200, 100, true);
+}
+add_action( 'after_setup_theme', 'my_theme_setup' );
+
+
 // Include SVG icons
 include get_template_directory() . '/assets/svg-icons.php';
 
@@ -67,10 +79,6 @@ add_action('admin_enqueue_scripts', 'themebs_enqueue_admin_script');
 // }
 
 
-// Stop linking my media file wordpress!
-add_action( 'after_setup_theme', function() {
-  update_option( 'image_default_link_type', 'none' );
-});
 
 /* Custom length for the_excerpt */
 function custom_excerpt_length( $length ) {
@@ -78,12 +86,6 @@ function custom_excerpt_length( $length ) {
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
   
-function chaser_featured_images() {
-  add_theme_support('post-thumbnails');
-  add_image_size('site-small-logo', 200, 100, true);
-}
-add_action('after_setup_theme', 'chaser_featured_images');
-
 
 /**
  * Bonus Expired Cron Job

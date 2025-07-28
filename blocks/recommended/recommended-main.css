@@ -1,6 +1,9 @@
 .recommended-block {
   background: #f9f9f9;
   border-left: 6px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
   border-radius: 8px;
   margin-bottom: 1.33rem;
   margin-top: 1.33rem;
@@ -9,15 +12,15 @@
 
 .recommended-block__title {
   margin-top: 0 !important;
-  display: flex; 
+  display: flex;
   align-items: center;
   gap: 0.65rem;
 }
 
 .recommended-block__title .icon {
   height: 24px;
-  width: auto; 
-  display: flex; 
+  width: auto;
+  display: flex;
   align-items: center;
 }
 
@@ -27,6 +30,6 @@
 
 .recommended-block__title .title {
   font-weight: 600;
-  font-size: 18px; 
+  font-size: 18px;
   font-family: var(--font-family-heading);
 }

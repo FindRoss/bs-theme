@@ -10,6 +10,7 @@ import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
 import ExpiryDates from "./modules/ExpiryDates";
+import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
 
@@ -18,6 +19,7 @@ const cardFocus = new CardFocus()
 const bonusCode = new BonusCode()
 const showMore = new ShowMore()
 const expiryDates = new ExpiryDates()
+
 
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
@@ -33,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchResults = new SearchResults()
   }
 
-  // if (document.querySelector('body.tax-review_type') || document.querySelector('body.post-type-archive-review')) {
-  //   const reviewArchive = new ReviewArchive();
-  // }
+  if (document.querySelector('.pattern')) {
+    const patterns = new Patterns();
+  }
 
   if (document.querySelector('body.single-review')) {
     singleReview();

@@ -12,46 +12,6 @@
     margin-bottom: var(--size-600);
   }
 
-  .wp-block-group {
-    padding-bottom: var(--size-200);
-    padding-top: var(--size-200);
-    border-bottom: 1px solid var(--color-muted-200);
-
-    .toggle-heading {
-      margin: 0;
-
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-
-      button {
-        svg {
-          transform: rotate(0deg);
-          transition: transform 0.1s ease-in-out;
-
-          &.rotated {
-            transform: rotate(180deg);
-          }
-        }
-      }
-    }
-  }
-
-  .toggle-heading-content {
-    max-height: 0px;
-    height: auto;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-
-    &.expanded {
-      max-height: 5000px;
-    }
-  }
-
-
-
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));

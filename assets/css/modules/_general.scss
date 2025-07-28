@@ -31,7 +31,7 @@ body {
 // App page
 .app-row {
   align-items: start;
-  
+
   .app-image-col {
     padding: var(--size-300);
     display: flex;
@@ -42,7 +42,7 @@ body {
     .app-image {
       width: 40%;
       border: 1px solid var(--color-bg-600);
-  
+
       @include breakpoint(large) {
         width: 100%;
       }
@@ -64,13 +64,54 @@ body {
 
     input {
       flex: 1;
-      border-radius: var(--border-radius); 
+      border-radius: var(--border-radius);
       border: 1px solid var(--color-muted-400);
       // font-size: 1.25rem;
       padding: 12px 1rem;
     }
   }
 }
+
+.pattern.heading-toggle {
+  padding-bottom: var(--size-200);
+  padding-top: var(--size-200);
+  border-bottom: 1px solid var(--color-muted-200);
+
+  .heading-toggle__title {
+    margin: 0;
+    max-width: 100%;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    button {
+      svg {
+        transform: rotate(0deg);
+        transition: transform 0.1s ease-in-out;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+.heading-toggle__content {
+  max-height: 0px;
+  height: auto;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.expanded {
+    max-height: 5000px;
+  }
+}
+
+
 
 .message {
   margin: 0 0 var(--size-500);
@@ -79,7 +120,7 @@ body {
   border-radius: var(--border-radius);
 
   &.warning {
-   // background: #F8D7DA;
+    // background: #F8D7DA;
     background: var(--color-bg-100);
     border: 1px solid var(--color-muted-200);
   }
@@ -104,7 +145,7 @@ body {
 }
 
 // used on the card as well as the post
-.crypto-icons { 
+.crypto-icons {
   .icon:not(:first-child) {
     margin-left: -7px;
   }
@@ -148,7 +189,7 @@ h3+.wp-block-image {
     width: 100%;
     height: auto;
   }
-  
+
   figcaption {
     padding: var(--size-300) 0;
     border-bottom: 1px solid var(--color-muted-200);
@@ -166,7 +207,7 @@ blockquote {
   margin-top: var(--size-500);
   margin-bottom: 0;
   border-radius: 0.25rem;
-  
+
   p:first-child {
     margin-top: var(--size-100);
   }
@@ -281,7 +322,7 @@ blockquote {
   justify-content: center;
   align-items: center;
   padding: var(--size-900) var(--size-200);
-  
+
   svg.spinner {
     animation: spin 1s linear infinite;
   }
