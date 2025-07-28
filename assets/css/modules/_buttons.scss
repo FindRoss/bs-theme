@@ -6,6 +6,25 @@
 *
 */
 
+button.round-icon {
+  border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary-700);
+  font-size: 22px;
+  padding: var(--size-200);
+  cursor: pointer;
+  background-color: var(--color-primary-50);
+
+  &:hover {
+    background-color: var(--color-primary-100);
+  }
+}
+
 .button {
   font-family: var(--font-family-body);
   font-size: 1rem;
@@ -78,7 +97,7 @@
   &__plain {
     font-size: 1rem;
     padding: 0;
-    margin: 0; 
+    margin: 0;
     text-decoration: underline;
     background: transparent;
     font-weight: 600;
@@ -165,8 +184,8 @@ p.p-alt-btn {
   margin-bottom: 0.4rem;
 }
 
-p.p-primary-btn > a,
-p.p-alt-btn > a {
+p.p-primary-btn>a,
+p.p-alt-btn>a {
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 8px;
@@ -179,7 +198,7 @@ p.p-alt-btn > a {
   font-family: var(--font-family-heading);
 }
 
-p.p-primary-btn > a {
+p.p-primary-btn>a {
   color: #fff !important;
   background: var(--color-primary-500);
 

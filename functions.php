@@ -34,9 +34,10 @@ function themebs_enqueue_scripts() {
 
   // Localize script to pass PHP data to JavaScript
   wp_localize_script('main-chaser', 'svgIcons', [
-      'hamburger' => get_svg_icon('hamburger'),
-      'close'     => get_svg_icon('close'),
-      'search'    => get_svg_icon('search')
+      'hamburger'   => get_svg_icon('hamburger'),
+      'close'       => get_svg_icon('close'),
+      'search'      => get_svg_icon('search'),
+      'chevronDown' => get_svg_icon('chevron-down'),
   ]);
 };
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_scripts');

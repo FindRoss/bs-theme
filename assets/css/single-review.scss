@@ -12,6 +12,46 @@
     margin-bottom: var(--size-600);
   }
 
+  .wp-block-group {
+    padding-bottom: var(--size-200);
+    padding-top: var(--size-200);
+    border-bottom: 1px solid var(--color-muted-200);
+
+    .toggle-heading {
+      margin: 0;
+
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+
+      button {
+        svg {
+          transform: rotate(0deg);
+          transition: transform 0.1s ease-in-out;
+
+          &.rotated {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+
+  .toggle-heading-content {
+    max-height: 0px;
+    height: auto;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+
+    &.expanded {
+      max-height: 5000px;
+    }
+  }
+
+
+
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -33,14 +73,14 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.6); 
+        background-color: rgba(0, 0, 0, 0.6);
         border-radius: var(--border-radius);
         opacity: 0;
         transition: opacity 0.3s ease;
       }
 
       &:hover {
-        &::before { 
+        &::before {
           opacity: 1;
         }
       }
@@ -72,10 +112,10 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      
+
 
       .gallery-overlay-header {
-        height: 100px; 
+        height: 100px;
         padding: 1rem 0;
         display: flex;
         justify-content: flex-end;
@@ -109,10 +149,10 @@
 
       .gallery-overlay-footer {
         padding: 1rem 0;
-      
+
 
         .gallery-item {
-          
+
           &::before {
             background-color: rgba(0, 0, 0, 0.4);
             opacity: 1;
@@ -123,9 +163,9 @@
               background-color: rgba(0, 0, 0, 0);
             }
           }
-          
+
           &.active {
-         
+
             border: 1px solid var(--color-primary-400);
 
             &::before {
@@ -141,7 +181,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-600);
-    
+
     @include breakpoint(medium) {
       display: grid;
       grid-template-columns: 2fr 3fr;
@@ -155,19 +195,19 @@
     @include breakpoint(large) {
       display: grid;
       grid-template-columns: 1fr 3fr 2fr;
-      grid-template-rows: 1fr; 
+      grid-template-rows: 1fr;
 
       &__cta {
-        grid-column: auto; 
+        grid-column: auto;
       }
     }
 
     &__logo {
       img {
-        width: 100%; 
+        width: 100%;
         height: auto;
         border-radius: var(--border-radius);
-        
+
         @include breakpoint(large) {
           width: 250px;
         }
@@ -183,11 +223,11 @@
 
     &__cta {
       .cta-box {
-        background: #fff; 
+        background: #fff;
         border-radius: var(--border-radius);
         border: 1px solid var(--color-muted-200);
-        padding: 1rem;   
-        
+        padding: 1rem;
+
         p {
           font-size: 14px;
           color: var(--color-muted-400);
@@ -195,12 +235,12 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          
+
           svg {
             margin-right: var(--size-200);
 
             fill: #fff;
-            
+
             path {
               stroke: var(--color-muted-500);
             }
@@ -214,9 +254,9 @@
   .details-section__boxes {
     display: flex;
     flex-direction: column;
-    gap: 1rem;  
+    gap: 1rem;
 
-    .box { 
+    .box {
       background: #fff;
       overflow: hidden;
       border-radius: var(--border-radius);
@@ -228,7 +268,7 @@
           color: var(--color-muted-500);
           font-weight: 600;
         }
-        
+
         ul {
           list-style: none;
           padding: 0;
@@ -237,7 +277,7 @@
           flex-wrap: wrap;
           gap: 0.5rem;
           margin-top: var(--size-500);
-      
+
           li {
             background-color: #f9f9f9;
             border-radius: 40px;
@@ -246,11 +286,11 @@
             display: flex;
             gap: var(--size-100);
             align-items: center;
-            
+
             &.list-item-hidden {
               display: none;
               visibility: hidden;
-      
+
               &.reveal {
                 display: flex;
                 visibility: visible;
@@ -260,34 +300,17 @@
         }
       }
 
-    
+
       &__footer {
         display: flex;
         justify-content: flex-end;
         margin-top: var(--size-200);
-        
-        button {   
-          border-radius: 50%; 
-          border: none;
-          width: 40px; 
-          height: 40px; 
-          display: flex; 
-          justify-content: center;
-          align-items: center;
-          color: var(--color-primary-700);
-          font-size: 22px; 
-          padding: var(--size-200);
-          cursor: pointer;
-          background-color: var(--color-primary-50);
 
-          &:hover {
-            background-color: var(--color-primary-100);
-          }
-          
+        button {
           svg {
             transform: rotate(0deg);
             transition: transform .1s ease-in-out;
-            
+
             &.rotate {
               transform: rotate(180deg);
             }
@@ -301,16 +324,16 @@
     h3 {
       font-size: 18px;
       font-weight: 500;
-  
+
       @include breakpoint(medium) {
         font-size: 24px;
       }
     }
-  
+
     h4 {
       font-size: 16px;
       font-weight: 600;
-  
+
       @include breakpoint(medium) {
         font-size: 20px;
       }
@@ -325,6 +348,7 @@
 
     .wp-caption {
       background-color: #f9f9f9;
+
       .wp-caption-text {
         margin-top: var(--size-200);
         font-size: 14px;
@@ -334,64 +358,27 @@
   }
 
 
-  .content-dropdown {
-    margin-top: var(--size-200);
-    margin-bottom: var(--size-200);
-    padding-bottom: var(--size-200);
-    border-bottom: 1px solid var(--color-muted-200);
+  // .content-dropdown {
+  //   margin-top: var(--size-200);
+  //   margin-bottom: var(--size-200);
+  //   padding-bottom: var(--size-200);
+  //   border-bottom: 1px solid var(--color-muted-200);
 
-    &__controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
+  //   &__controls {
+  //     display: flex;
+  //     justify-content: space-between;
+  //     align-items: center;
+  //     cursor: pointer;
 
-      .title {
-        margin: 0;
-      }
+  //     .title {
+  //       margin: 0;
+  //     }
+  //   }
 
-      button {
-        border-radius: 50%;
-        border: none;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--color-primary-700);
-        font-size: 18px;
-        font-weight: bold;
-        padding: var(--size-200);
-        background-color: var(--color-primary-50);
-
-        &:hover {
-          background-color: var(--color-primary-100);
-        }
-      
-        svg {
-          transform: rotate(0deg);
-          transition: transform 0.1s ease-in-out;
-
-          &.rotated {
-            transform: rotate(180deg);
-          }
-        }
-      }
-    }
-
-    &__content {
-      max-height: 0px; 
-      height: auto;
-      overflow: hidden;
-      transition: max-height 0.3s ease-in-out;
-
-      &.expanded {
-        max-height: 5000px;
-      }
-
-      > * {
-        margin-top: var(--size-500);
-      }
-    }
-  }
+  // &__content {
+  //   >* {
+  //     margin-top: var(--size-500);
+  //   }
+  // }
+  // }
 }

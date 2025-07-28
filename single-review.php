@@ -180,8 +180,7 @@ function terms_to_box($terms, $title) {
     <?php if (count($terms) > $threshold) { ?>
       
       <div class="box__footer">
-        <!-- <button id="expand-review-list">+</button> -->
-        <button id="expand-review-list"><?php echo get_svg_icon('chevron-down'); ?></button>
+        <button class="" id="expand-review-list"><?php echo get_svg_icon('chevron-down'); ?></button>
       </div>
       
     <?php }; ?>
@@ -285,22 +284,10 @@ function terms_to_box($terms, $title) {
 
       <!-- Content -->
       <section class="section content">
-        <h2 class="h4" style="font-weight: bold;">Review</h2>
-        <?php 
-          if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
-          foreach($content as $key => $value) { ?>
-            <div class="content-dropdown">
-              <div class="content-dropdown__controls">
-                <h3 class="h4 title"><?php echo $key; ?></h3>
-                <button><?php echo get_svg_icon('chevron-down'); ?></button>
-              </div>
-              <div class="content-dropdown__content">
-                <?php echo $value; ?>
-              </div>
-            </div>
-          <?php }
-        ?>
+        <h2>Review</h2>
+        <?php echo get_the_content(); ?>
       </section>
+
 
       <!-- Screenshots -->
       <?php if (count($images) > 0) : ?>

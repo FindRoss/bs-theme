@@ -13,15 +13,11 @@ import ExpiryDates from "./modules/ExpiryDates";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
 
-// import ReviewArchive from "./modules/ReviewArchive";
-
 const sidebarMenu = new SidebarMenu()
 const cardFocus = new CardFocus()
 const bonusCode = new BonusCode()
 const showMore = new ShowMore()
 const expiryDates = new ExpiryDates()
-const taxonomy = new Taxonomy()
-
 
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
