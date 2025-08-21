@@ -29,35 +29,29 @@ $permalink  = get_permalink($site_id);
   <div class="details-card__header">
     <?php if ($logo) { ?>
       <div class="logo-wrapper" style="background-color: <?php echo $site_color; ?>">
-        <img width="135" height="auto" src="<?php echo $logo; ?>" alt="<?php echo $name . ' logo'; ?>">
+        <img width="200" height="auto" src="<?php echo $logo; ?>" alt="<?php echo $name . ' logo'; ?>">
       </div>
     <?php }; ?>
 
     <div class="title-wrapper">
 
       <?php if($heading) { ?>
-
         <?php if ($heading_level === "h2") : ?> 
-          <h2><?php echo $name; ?>: <?php echo $heading; ?></h2>
+          <h2 class="title"><?php echo $name; ?>: <?php echo $heading; ?></h2>
         <?php elseif ($heading_level === "h3") : ?> 
-          <h3><?php echo $name; ?>: <?php echo $heading; ?></h3>
+          <h3 class="title"><?php echo $name; ?>: <?php echo $heading; ?></h3>
         <?php endif; ?>      
-
       <?php } else { ?>
-
-        <h2><?php echo $name; ?></h2>
-
+        <h2 class="title"><?php echo $name; ?></h2>
       <?php } ?>
 
-         <?php if($bonus) { 
-          echo '<div class="bonus">';
-          echo '<span>' . get_svg_icon('star') . 'Bonus:</span>';
-          echo $bonus;
-          echo '</div>';
-        } ?>
-
+         <?php if($bonus) { ?>
+          <div class="bonus">
+            <span><?php echo get_svg_icon('star'); ?> Bonus:</span>
+            <span><?php echo $bonus; ?></span>
+          </div>
+        <?php } ?>
     </div>
-
   </div>
     
   <?php if ($description) : ?><?php echo $description; ?><?php endif; ?> 

@@ -9,7 +9,6 @@ let taxes = {
 
 // Get term and send to JS. 
 const termBoxes = document.querySelectorAll('.term-checkbox');
-console.log(termBoxes)
 
 // Iterate over each select element and add an event listener
 termBoxes.forEach(function (termSelect) {
@@ -34,8 +33,6 @@ termBoxes.forEach(function (termSelect) {
 
 // Fetch review
 async function fetchData(taxes) {
-
-  console.log()
 
   try {
     // Replace these values with your actual values

@@ -27,9 +27,9 @@ class ReviewArchive {
 
     this.init();
   }
-  
 
-  init(){
+
+  init() {
     this.checkboxes.forEach(checkbox => checkbox.addEventListener('change', (event) => this.handleCheckboxClick(event)));
     this.showMoreTerms.forEach(showMore => showMore.addEventListener('click', (event) => this.handleShowMoreClick(event)));
     this.filterOverlayClose.addEventListener('click', () => this.closeFilterModal());
@@ -62,8 +62,8 @@ class ReviewArchive {
       const termValue = checkbox.value;
       const termTax = checkbox.getAttribute('data-term-tax');
       const termName = checkbox.getAttribute('data-term-name');
-      
-  
+
+
 
       // Check if the term is already in the array
       if (checkbox.checked) {
@@ -81,27 +81,25 @@ class ReviewArchive {
       this.paintResults();
       // Close the filter modal
       this.closeFilterModal();
+    });
 
-      console.log('Updated taxes:', this.taxes);
-  });
+    // Update the UI for the rest of the checkboxes
+    this.checkboxes.forEach(checkbox => {
+      const termValue = checkbox.querySelector('input[type="checkbox"]').value;
+      const termTax = checkbox.querySelector('input[type="checkbox"]').getAttribute('data-term-tax');
+      // Check if the term is already in the array
+      if (this.taxes[termTax].includes(termValue)) {
+        checkbox.querySelector('input[type="checkbox"]').checked = true;
+      } else {
+        checkbox.querySelector('input[type="checkbox"]').checked = false;
+      }
+    });
 
-  // Update the UI for the rest of the checkboxes
-  this.checkboxes.forEach(checkbox => {
-    const termValue = checkbox.querySelector('input[type="checkbox"]').value;
-    const termTax = checkbox.querySelector('input[type="checkbox"]').getAttribute('data-term-tax');
-    // Check if the term is already in the array
-    if (this.taxes[termTax].includes(termValue)) {
-      checkbox.querySelector('input[type="checkbox"]').checked = true;
-    } else {
-      checkbox.querySelector('input[type="checkbox"]').checked = false;
-    }
-  });
+    // Reorder the checkoxes based on the current state of the taxes
 
-  // Reorder the checkoxes based on the current state of the taxes
-  
-  // Fetch the data with the updated taxes
-  this.fetchData();
-}
+    // Fetch the data with the updated taxes
+    this.fetchData();
+  }
 
   handleClearFilter() {
     this.taxes = {
@@ -123,7 +121,7 @@ class ReviewArchive {
     if (event.target === this.filterOverlay) {
       this.closeFilterModal();
     }
-  } 
+  }
 
   handleCheckboxClick(event) {
     const termValue = event.target.value;
@@ -150,8 +148,8 @@ class ReviewArchive {
   }
 
   async fetchData() {
-    this.showLoader(); 
-    
+    this.showLoader();
+
     try {
       const perPage = '10';
 
@@ -168,14 +166,14 @@ class ReviewArchive {
       const data = await response.json();
       const totalResults = response.headers.get('X-WP-Total');
       // const totalPages = response.headers.get('X-WP-TotalPages');
-      
+
       this.paintResults(data);
       this.totalPostsFound.innerHTML = totalResults;
     } catch (error) {
       // Handle errors
       console.error('Error fetching data:', error);
     } finally {
-      this.hideLoader(); 
+      this.hideLoader();
     }
   }
 
@@ -187,9 +185,9 @@ class ReviewArchive {
       const response = await fetch(apiUrl);
       if (!response.ok) throw new Error('Failed to fetch terms');
       const data = await response.json();
-      
+
       const selectedTerms = this.taxes[tax];
-      
+
       const checkboxes = data.map(term => {
         const isChecked = selectedTerms.includes(String(term.id)) ? 'checked' : '';
         return `
@@ -209,20 +207,18 @@ class ReviewArchive {
 
       // Show the filter overlay
       this.openFilterModal();
-      
+
     } catch (error) {
       console.error('Error loading more terms:', error);
     }
   }
 
-  paintResults(data) {
-    // console.log('paintResults', data);
-  }
+  paintResults(data) { }
 
   openFilterModal() {
     this.pageOverlay.classList.add('active');
     this.filterOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; 
+    document.body.style.overflow = 'hidden';
   }
 
   closeFilterModal() {

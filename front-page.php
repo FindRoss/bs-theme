@@ -2,72 +2,6 @@
 
 $used_posts = array();
 
-// 75 posts needed? 
-// $all_posts_query = new WP_Query(array(
-//   'post_type'      => 'post', 
-//   'post_status'    => 'publish',
-//   'posts_per_page' => 75, 
-//   'meta_query'     => bonus_expired_meta_query()
-// ));
-
-// // COPY OF AILB FRONT PAGE CODE
-// $top_post = null; 
-// $middle_posts = array(); 
-// $rest_of_posts = array();
-
-// $all_posts = new WP_Query(array(
-//   'post_type' => 'post',
-//   'posts_per_page' => 100,
-// ));
-
-// if ($all_posts->have_posts()) {
-//   $posts = $all_posts->posts;
-
-//   $top_post = $posts[0];
-//   $middle_posts = array_slice($posts, 1, 4); 
-//   $rest_of_posts = array_slice($posts, 5); 
-
-//   // 1. Get IDs for the "rest" posts
-//   $rest_post_ids = wp_list_pluck($rest_of_posts, 'ID');
-
-//   // 2. Get all categories assigned to those posts
-//   $rest_terms = wp_get_object_terms($rest_post_ids, 'category', [
-//     'fields' => 'all_with_object_id',
-//   ]);
-
-//   $categories_by_post = [];
-//   foreach ($rest_terms as $term) {
-//     $categories_by_post[$term->object_id][] = $term;
-//   }
-
-//   // 3. Group posts by primary category slug
-//   $posts_by_cat = [];
-
-//   foreach ($rest_of_posts as $post) {
-//     $post_id = $post->ID;
-
-//     // Get Yoast Primary Category (if available)
-//     $primary_term = null;
-//     if (class_exists('WPSEO_Primary_Term')) {
-//       $yoast_primary = new WPSEO_Primary_Term('category', $post_id);
-//       $primary_term_id = $yoast_primary->get_primary_term();
-//       $primary_term = get_term($primary_term_id);
-
-//     }
-
-//     // Fallback to first assigned category
-//     if (!$primary_term || is_wp_error($primary_term)) {
-//       $primary_term = $categories_by_post[$post_id][0] ?? null;
-//     }
-
-//     // Assign post to the category group
-//     if ($primary_term) {
-//       $slug = $primary_term->slug;
-//       $posts_by_cat[$slug][] = $post;
-//     }
-//   }
-// }
-
 $featured_post_args = array(
   'post_type'      => 'post', 
   'posts_per_page' => 4, 
@@ -102,7 +36,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
 </div><!-- .container -->
 
 
-<!-- REVIEWS -->
+<!-- REVIEWS --> 
 <?php 
 $review_ids_to_include = get_field('reviews', 'options');
 
@@ -214,7 +148,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 
 <?php }; ?>
 
-<!-- GAMBLING NEWS -->
+<!-- NEWS -->
 <?php 
   $latest_casino_news_query = new WP_Query(array( 
     'post_type'      => 'post', 
@@ -237,6 +171,33 @@ if ($featured_bonus_foundPosts >= 1) { ?>
           'heading' => 'Gambling News', 
           'link' => '/category/news/'
         )); 
+      ?>
+    </section>
+  </div>
+<?php }; ?>
+
+<!-- BLOCKCHAIN -->
+<?php 
+  $blockchain_query = new WP_Query(array( 
+    'post_type'      => 'post', 
+    'post_status'    => 'publish',
+    'posts_per_page' => 8,
+    'category_name'  => 'blockchain',
+    'meta_query'     => bonus_expired_meta_query()
+  )); 
+  
+  $blockchain_foundPosts = $blockchain_query->found_posts;
+
+  if ($blockchain_foundPosts >= 4) { ?>
+
+  <div class="container mt-5 pt-4">
+    <section>
+      <?php 
+        outputNewSlideHTML(array(
+          'query' => $blockchain_query,
+          'heading' => 'Blockchain', 
+          'link' => '/category/blockchain/'
+        ));
       ?>
     </section>
   </div>
@@ -268,7 +229,6 @@ if ($featured_bonus_foundPosts >= 1) { ?>
       ?>
     </section>
   </div>
-
 <?php }; ?>
 
 <!-- ESPORTS -->
@@ -299,6 +259,33 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 
 <?php }; ?>
 
+<!-- CRYPTCURRENCY -->
+<?php 
+  $cryptocurrency_query = new WP_Query(array( 
+    'post_type'      => 'post', 
+    'post_status'    => 'publish',
+    'posts_per_page' => 8,
+    'category_name'  => 'cryptocurrency',
+    'meta_query'     => bonus_expired_meta_query()
+  )); 
+  
+  $cryptocurrency_foundPosts = $cryptocurrency_query->found_posts;
+
+  if ($cryptocurrency_foundPosts >= 4) { ?>
+
+  <div class="container mt-5 pt-4">
+    <section>
+      <?php 
+        outputNewSlideHTML(array(
+          'query' => $cryptocurrency_query,
+          'heading' => 'Cryptocurrency', 
+          'link' => '/category/cryptocurrency/'
+        ));
+      ?>
+    </section>
+  </div>
+<?php }; ?>
+
 <!-- ALTERNATIVES -->
 <?php 
   $alternatives_query = new WP_Query(array( 
@@ -326,23 +313,6 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 
 <?php }; ?>
-
-
-<!-- CRYPTOCURRENCY --> 
-<!-- <div class="container mt-5 pt-4">
-  <section class="p-3 rounded-corners bg-cus-light">
-    
-    <div class="row">
-      <div class="col-12 col-lg-3">
-        <h2 class="h4 mt-3">Cryptocurrency Gambling</h2>
-        <p class="mt-2">Learn everything you need to know about cryptocurrency gambling and the best casinos where you can play with crypto.</p>
-      </div>
-      <div class="col-12 col-lg-9">
-        tax_pill_loop('cryptocurrency');
-      </div>
-    </div> 
-  </section>
-</div> -->
 
 <!-- Spacer -->
 <div style="margin-top:3rem"></div>

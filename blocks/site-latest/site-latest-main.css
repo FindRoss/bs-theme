@@ -1,6 +1,9 @@
-.site-latest-block { 
+.site-latest-block {
   background: #f9f9f9;
   border-left: 6px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
   border-radius: 8px;
   margin-bottom: 1.33rem;
   margin-top: 1.33rem;
@@ -8,7 +11,7 @@
 }
 
 .site-latest-block__title {
-  margin: 0 !important; 
+  margin: 0 !important;
   align-items: center;
   display: flex;
   gap: .35rem;

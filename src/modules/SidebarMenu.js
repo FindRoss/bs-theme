@@ -33,11 +33,11 @@ class SidebarMenu {
 
     if (!subMenu.classList.contains('active')) {
       subMenu.classList.add('active');
-      chevron.classList.add('rotate'); 
+      chevron.classList.add('rotate');
 
     } else {
       subMenu.classList.remove('active');
-      chevron.classList.remove('rotate'); 
+      chevron.classList.remove('rotate');
     }
   }
 
@@ -62,7 +62,6 @@ class SidebarMenu {
     })
 
     this.navToggleBtn.addEventListener('click', () => {
-      console.log('clicked');
       this.menuOpen = !this.menuOpen
       this.toggleMenu()
     });

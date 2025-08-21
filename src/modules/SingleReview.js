@@ -1,5 +1,18 @@
 export function singleReview() {
-  // Gallery Overlay
+  const contentDropdowns = document.querySelectorAll('.content-dropdown');
+  console.log('this is working');
+
+  contentDropdowns.forEach((dropdown) => {
+    const control = dropdown.querySelector('.content-dropdown__controls');
+
+    control.addEventListener('click', () => {
+      const icon = control.querySelector('svg');
+      icon.classList.toggle('rotated');
+      const content = control.nextElementSibling;
+      content.classList.toggle('expanded');
+    });
+  });
+
   const galleryOverlay = document.querySelector('#gallery-overlay');
   const closeOverlay = galleryOverlay.querySelector('#close-overlay');
   const galleryImages = document.querySelectorAll('.gallery-item');

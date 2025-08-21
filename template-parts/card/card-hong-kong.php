@@ -27,7 +27,7 @@
       $icon = get_field('icon', $term);
       if (isset($icon['sizes']['thumbnail']) && !empty($icon['sizes']['thumbnail'])) {
         $thumbnail = $icon['sizes']['thumbnail'];
-        $crypto_output .= '<img src="' . $thumbnail . '" class="icon" width="35" height="35">';
+        $crypto_output .= '<img src="' . $thumbnail . '" alt="' . $term->name . ' icon" class="icon" width="35" height="35">';
       }
     }
 
@@ -35,8 +35,6 @@
       $crypto_output .= '<span class="icon count-icon">+' . ($total_terms_count - 5) . '</span>'; 
     }
   }
-
-  // $custom_excerpt = mb_strimwidth( get_the_excerpt(), 0, 62, '...' );
 ?>
 
 <div class="card card-absolute hong-kong-card">

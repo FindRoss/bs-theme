@@ -283,15 +283,11 @@ function terms_to_box($terms, $title) {
         echo '</section>';
       endif; ?>
 
-
       <!-- Content -->
       <section class="section content">
-
-        <?php the_content(); ?>
-
-
-        <!-- <h2 class="h4" style="font-weight: bold;">Review</h2> -->
-        <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
+        <h2 class="h4" style="font-weight: bold;">Review</h2>
+        <?php 
+          if ($introduction) echo '<div class="introduction">' . $introduction . '</div>'; 
           foreach($content as $key => $value) { ?>
 
             <div class="content-dropdown">
@@ -304,7 +300,8 @@ function terms_to_box($terms, $title) {
               </div>
             </div>
 
-          <?php } ?>
+          <?php }
+        ?>
       </section>
 
       <!-- Screenshots -->
