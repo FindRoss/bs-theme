@@ -173,7 +173,7 @@ if ($paged == 1) {
 <?php };  ?>
 
 <!-- MAIN QUERY -->
-<?php taxonomyMainQuery($query, $taxonomy); ?>
+<?php taxonomy_main_query($query, $taxonomy); ?>
 
 
 <!-- MAIN CONTENT -->

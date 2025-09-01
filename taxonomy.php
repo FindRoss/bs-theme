@@ -71,7 +71,7 @@
 </div>
 
 <!-- MAIN QUERY -->
-<?php taxonomyMainQuery($query, $taxonomy); // Pass $query directly ?>
+<?php taxonomy_main_query($query, $taxonomy); // Pass $query directly ?>
 
 <div class="container">
   <?php if ($paged == 1) : ?>
@@ -98,11 +98,11 @@
             'post_type' => 'post',
             'posts_per_page' => 8,
             'tax_query' => array(
-                    array(
-                            'taxonomy' => $taxonomy,
-                            'field'    => 'term_id',
-                            'terms'    => $term_id,
-                    ),
+              array(
+                'taxonomy' => $taxonomy,
+                'field'    => 'term_id',
+                'terms'    => $term_id,
+              ),
             ),
             'meta_query' => bonus_expired_meta_query()
     );

@@ -17,7 +17,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
     <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, no-deposit bonuses, gambling guides, and more.</p>
   </section>
 
-  <section class="fife-section">
+  <section class="fife-section mt-4">
     <div class="grid">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>

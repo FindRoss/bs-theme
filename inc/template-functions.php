@@ -25,7 +25,7 @@ function terms_to_box($terms, $title, $with_links = false): string  {
               }
             ?>
 
-              <li class="<?php echo esc_attr(implode(' ', $li_classes)); ?>">
+              <li class="box-item <?php echo esc_attr(implode(' ', $li_classes)); ?>">
                 <?php if ($with_links && $term_link): ?>
                   <a href="<?php echo esc_url($term_link); ?>">
                 <?php endif; ?>

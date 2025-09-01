@@ -4,8 +4,8 @@ class ShowMore {
     this.event()
   }
 
-
   event() {
+    console.log('showMoreLists', this.showMoreLists);
     this.showMoreLists.forEach((list) => {
       const btn = list.querySelector('#expand-review-list');
       const chevron = btn.querySelector('svg');

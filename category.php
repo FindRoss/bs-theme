@@ -42,7 +42,6 @@ $wp_query   = $query; ?>
     </div>
   </div>
 
-
   <?php if ($query->have_posts()) : ?>
 
     <div class="row">

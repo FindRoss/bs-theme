@@ -1,8 +1,12 @@
 @use "_breakpoints" as *;
 
 .sidebar {
-	margin-top: var(--size-600);
 	width: 100%;
+	margin-top: var(--size-600);
+}
+
+.home .sidebar {
+	margin-top: 0;
 }
 
 .fife-section {

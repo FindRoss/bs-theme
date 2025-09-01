@@ -1,30 +1,45 @@
 <?php
-function taxonomyMainQuery($query, $taxonomy): void {
+function taxonomy_main_query($query, $taxonomy): void {
+
+  $taxonomy_title = $taxonomy ? ucfirst($taxonomy) : "";
+
   if ( $query->have_posts() ) :
 
-//      $total_posts = $query->found_posts;
+//$total_posts = $query->found_posts;
 
-      $crypto_terms = get_terms(array(
+    $all_terms = ['cryptocurrency', 'review_type', 'game', 'payment'];
+
+    $crypto_terms = get_terms(array(
           'taxonomy'    => $taxonomy,
-           'hide_empty' => true,
-           'order'      => 'DESC',
-           'number'     => 35,
-           'orderby'    => 'count',
-      ));
+          'hide_empty' => true,
+          'order'      => 'DESC',
+          'number'     => 35,
+          'orderby'    => 'count',
+    ));
 
+
+    // echo '<pre>';
+    // print_r($crypto_terms);
+    // echo '</pre>';
+
+    if (!is_wp_error($crypto_terms)) {
       usort($crypto_terms, function ($a, $b) {
         return strcasecmp($a->name, $b->name);
       });
+    }
+    
+
   ?>
 
     <!-- echo "Total reviews found: <strong>" . $total_posts . "</strong>" -->
+
 
   <div class="container">
     <section class="fife-section fife-section--reverse mt-4">
 
       <aside>
-        <div class="taxonomy-terms">
-          <?php echo terms_to_box($crypto_terms, 'Cryptocurrency', true); ?>
+        <div class="term-boxes">
+          <?php echo terms_to_box($crypto_terms, $taxonomy_title, true); ?>
         </div>
       </aside>
 
@@ -48,12 +63,6 @@ function taxonomyMainQuery($query, $taxonomy): void {
 
     </section><!-- .fife-section -->
   </div><!-- .container -->
-
-
-
-
-
-
 
 
 

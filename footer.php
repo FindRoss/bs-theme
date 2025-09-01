@@ -57,18 +57,17 @@
           
         </div><!-- .row --> 
       </div><!-- .container --> 
-      </div><!-- .color --->
+      </div>
       <div class="border-top" style="background: #EFEFEF;"> 
         <div class="container">
           <div class="row">
             <div class="col-12 d-flex align-items-center py-3" style="font-size: 0.85em;">
-              <img width="22" height="22" class="mr-2" src="https://bitcoinchaser.com/wp-content/uploads/2017/08/bitcoin_chaser_small_logo.png" alt="bitcoin chaser">
               <div class="mr-2 chaser-footer-title">BitcoinChaser</div>
               <div class="text-muted mr-2">&copy; <?php echo date('Y'); ?></div>
             </div><!-- .col --> 
           </div><!-- .row --> 
         </div><!-- .container --> 
-      </div><!-- .color --->
+      </div>
     </footer>
     <!-- disabled Google fonts and Font Awesome from loading with OptinMonster --> 
     <script type="text/javascript">

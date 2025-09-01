@@ -6,51 +6,46 @@
 }
 
 .taxonomy-header {
-
-
-
   &__description {
     background: #fff;
     border-radius: var(--border-radius);
     padding: var(--size-300) var(--size-200);
 
-    & > p:first-of-type {
+    &>p:first-of-type {
       margin-top: 0;
     }
   }
 }
 
-.taxonomy-terms {
-  .box {
-    background: #fff;
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    padding: var(--size-300) var(--size-200);
+.box {
+  background: #fff;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  padding: var(--size-300) var(--size-200);
 
-    .title {
-      font-size: 1rem;
-    }
+  .title {
+    font-size: 1rem;
+  }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 
-      li {
-        padding-top: var(--size-200);
-        padding-bottom: var(--size-200);
-        border-top: 1px solid var(--color-bg-100);
+    li {
+      padding-top: var(--size-200);
+      padding-bottom: var(--size-200);
+      border-top: 1px solid var(--color-bg-100);
 
-        a {
-          display: flex;
-          gap: var(--size-200);
-          align-items: center;
-        }
+      a {
+        display: flex;
+        gap: var(--size-200);
+        align-items: center;
+      }
 
-        img {
-          width: 35px;
-          height: auto;
-        }
+      img {
+        width: 35px;
+        height: auto;
       }
     }
   }
