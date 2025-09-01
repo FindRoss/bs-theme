@@ -1,7 +1,4 @@
 <?php 
-
-
-
 function render_filter_overlay($title, $filerItems) {
   
   if ($title == '') return;
@@ -31,4 +28,4 @@ function render_filter_overlay($title, $filerItems) {
   <?php 
   $filter_output = ob_get_clean();
   echo $filter_output;
-} ?>
+};

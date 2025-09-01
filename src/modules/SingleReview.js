@@ -1,6 +1,5 @@
 export function singleReview() {
   const contentDropdowns = document.querySelectorAll('.content-dropdown');
-  console.log('this is working');
 
   contentDropdowns.forEach((dropdown) => {
     const control = dropdown.querySelector('.content-dropdown__controls');
@@ -38,7 +37,6 @@ export function singleReview() {
 
     });
   });
-
 
   galleryOverlay.addEventListener('click', function (e) {
     // Check if the clicked element or its parents are NOT the content or footer

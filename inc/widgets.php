@@ -1,5 +1,4 @@
 <?php 
-
 function widget_registration($name, $id, $description, $beforeWidget, $afterWidget, $beforeTitle, $afterTitle) {
   register_sidebar( array(
       'name' => __($name),

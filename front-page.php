@@ -28,7 +28,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
       <?php endif; ?>
-    </div>
+    </div><!-- .grid --> 
     <!-- Sidebar -->
     <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
   </section><!-- .fife-section -->

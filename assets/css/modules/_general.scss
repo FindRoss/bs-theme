@@ -86,7 +86,7 @@ body {
   .heading-toggle__title {
     margin: 0;
     max-width: 100%;
-
+    width: 100%;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -110,7 +110,6 @@ body {
   max-height: 0px;
   height: auto;
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
 
   &.expanded {
     max-height: 1000px;

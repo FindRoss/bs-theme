@@ -1,12 +1,11 @@
-<?php get_header(); ?>
+<?php get_header();
 
-<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+if ( have_posts() ) : while ( have_posts() ) : the_post();
 
-<?php 
   $categories = get_the_category(); 
 
-  if ( ! empty( $categories ) && isset( $categories[0] ) ) {
-    $single_category_id = $categories[0]->cat_ID; 
+  if ( !empty( $categories ) && isset( $categories[0] ) ) {
+    $single_category_id = $categories[0]->cat_ID ?? null;
     $single_category_name = $categories[0]->name; 
     $single_category_link = get_category_link( $single_category_id );
   } else {
@@ -25,51 +24,47 @@
     $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
     $expiry_date_has_passed = $expiry_date_timestamp < time();
   }
-?>
 
-<?php if($expiry_date_has_passed || $promo_marked_as_expired) { ?>
-  <?php get_template_part( 'template-parts/message/message-expired' ); ?>
-<?php } ?>
-
-<article>
-  <div class="container"> 
+ if($expiry_date_has_passed || $promo_marked_as_expired) { ?>
+  <?php get_template_part( 'template-parts/message/message-expired' );
+ } ?>
 
 
-    
-    <!-- TITLE -->
-    <div class="row">
-      <div class="col-12 col-lg-8">
-        <?php if ($single_category_link != '') { ?>
-          <a href="<?php echo $single_category_link; ?>" class="cat-pill"><?php echo $single_category_name; ?></a>
-        <?php } ?>
-        <?php get_template_part( 'template-parts/content/content-title' ); ?>
-        <?php get_template_part( 'template-parts/content/content-meta' ); ?>
-      </div>
-    </div>
-
-   
-    <div class="row mb-5">
-      <div class="col-12 col-lg-8">
-
-       <?php get_template_part( 'template-parts/content/content-thumbnail' ); ?>
-
-        <!-- CONTENT --> 
-        <div class="main--content">
-          <?php the_content(); ?>
-          <!-- FAQS -->
-          <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
+    <article>
+      <div class="container">
+        <!-- TITLE -->
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <?php if ($single_category_link != '') { ?>
+              <a href="<?php echo $single_category_link; ?>" class="cat-pill"><?php echo $single_category_name; ?></a>
+            <?php } ?>
+            <?php get_template_part( 'template-parts/content/content-title' ); ?>
+            <?php get_template_part( 'template-parts/content/content-meta' ); ?>
+          </div>
         </div>
 
-      </div><!-- .col --> 
+        <div class="row mb-5">
+          <div class="col-12 col-lg-8">
 
-      <!-- SIDEBAR -->
-      <div class="col-12 col-lg-4 d-flex flex-column">
-        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
-      </div>
+           <?php get_template_part( 'template-parts/content/content-thumbnail' ); ?>
 
-    </div><!-- .row --> 
-  </div><!-- .container --> 
-</main>
+            <!-- CONTENT -->
+            <div class="main--content">
+              <?php the_content(); ?>
+              <!-- FAQS -->
+              <?php get_template_part( 'template-parts/content/content-faqs' ); ?>
+            </div>
+
+          </div><!-- .col -->
+
+          <!-- SIDEBAR -->
+          <div class="col-12 col-lg-4 d-flex flex-column">
+            <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+          </div>
+
+        </div><!-- .row -->
+      </div><!-- .container -->
+    </article>
 
 
 <!-- RELATED ARTICLES --> 
@@ -87,17 +82,16 @@
 ?>
 
 <?php if ( $latest_query->have_posts() ) : ?>  
-  <div class="container mt-5 pt-4">
+  <aside class="container mt-5 pt-4">
     <section>
-      <?php 
-        outputNewSlideHTML(array(
+      <?php outputNewSlideHTML(array(
           'query'   => $latest_query,
           'heading' => $single_category_name,
           'link'    => $single_category_link
         ));
       ?>
     </section>
-  </div>
+  </aside>
 <?php wp_reset_postdata(); ?>
 <?php endif; ?>
 

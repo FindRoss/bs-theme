@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:js && npm run build:css",
     "build:js": "wp-scripts build",
-    "build:css": "npm run build:style && npm run build:single-review && npm run build:single-bonus && npm run build:single-streamer && npm run build:search-results",
+    "build:css": "npm run build:style && npm run build:single-review && npm run build:single-bonus && npm run build:single-streamer && npm run build:search-results && npm run build:admin-block-styles",
     "build:style": "sass assets/css/style.scss build/style-index.css --no-source-map --style=compressed",
     "build:single-review": "sass assets/css/single-review.scss build/single-review.css --no-source-map --style=compressed",
     "build:single-bonus": "sass assets/css/single-bonus.scss build/single-bonus.css --no-source-map --style=compressed",

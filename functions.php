@@ -179,12 +179,11 @@ function update_promo_expired_flags() {
 	}
 }
 
-
-
 /**
- * Tax Pill Loop
- */
-require get_theme_file_path('/inc/tax-pill-loop.php');
+ * Template functions
+ * - terms_to_box
+ */ 
+require get_theme_file_path('/inc/template-functions.php');
 
 /**
  * Search Endpoint
@@ -223,30 +222,11 @@ require get_theme_file_path('/inc/acf-blocks.php');
  */
 require get_theme_file_path('/inc/bonuses-by-review.php');
 
-/**
- * Featured Articles Homepage
- */
-require get_theme_file_path('/inc/featured-articles.php');
-
-/**
- * Last Update
- */
-require get_theme_file_path('/inc/last-update.php');
-
-/**
- * Language Attributes
- */
-require get_theme_file_path('/inc/language-attributes.php');
 
 /**
  * Slider HTML Output
  */
 require get_theme_file_path('/inc/swiper.php');
-
-/**
- * Big Slider HTML Output
- */
-require get_theme_file_path('/inc/swiper-big.php');
 
 /**
  * Slider HTML Output

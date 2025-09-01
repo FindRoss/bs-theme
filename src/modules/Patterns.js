@@ -25,10 +25,18 @@ class Patterns {
 		const iconButton = document.createElement('button');
 		iconButton.classList.add('round-icon');
 		iconButton.innerHTML = svgIcons.chevronDown;
-		heading.appendChild(iconButton);
 
+		// Accessibility: link button to content
 		const contentDiv = document.createElement('div');
+		const contentId = `toggle-content-${Math.random().toString(36).substr(2, 9)}`;
+		contentDiv.id = contentId;
 		contentDiv.classList.add('heading-toggle__content');
+		contentDiv.setAttribute('aria-hidden', 'true');
+
+		iconButton.setAttribute('aria-expanded', 'false');
+		iconButton.setAttribute('aria-controls', contentId);
+
+		heading.appendChild(iconButton);
 
 		let sibling = heading.nextElementSibling;
 		while (sibling) {
@@ -40,10 +48,14 @@ class Patterns {
 		group.appendChild(contentDiv);
 
 		heading.addEventListener('click', () => {
+			const expanded = iconButton.getAttribute('aria-expanded') === 'true';
+			iconButton.setAttribute('aria-expanded', String(!expanded));
+			contentDiv.setAttribute('aria-hidden', String(expanded));
 			iconButton.classList.toggle('rotated');
 			contentDiv.classList.toggle('expanded');
 		});
 	}
+
 }
 
 export default Patterns;

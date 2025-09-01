@@ -6,48 +6,54 @@
 }
 
 .fife-section {
-	display: grid; 
+	display: grid;
 	gap: 2rem;
-	grid-template-columns: 1fr;
+	grid-template-columns: 1fr; // stack on mobile
 
 	@include breakpoint(large) {
-		grid-template-columns: 2fr 1fr;	
+		grid-template-columns: 2fr 1fr; // on desktop
+	}
+
+	&--reverse {
+		@include breakpoint(large) {
+			grid-template-columns: 1fr 2fr; // swap columns on desktop 
+		}
 	}
 
 	.grid {
-    margin-top: var(--size-600);
-    display: grid;
-    gap: var(--size-400);
-    grid-template-columns: 1fr;
+		//margin-top: var(--size-600);
+		display: grid;
+		gap: var(--size-400);
+		grid-template-columns: 1fr;
 
-    @include breakpoint(large) {
+		@include breakpoint(large) {
 			grid-template-columns: 1fr 1fr;
-    }
+		}
 
-    .grid-item {
+		.grid-item {
 			.card-beijing {
 				picture {
 					display: none;
 				}
 			}
-    }
+		}
 
-    // Show only the first image on mobile
-    .grid-item:first-child .card-beijing picture {
+		// Show only the first image on mobile
+		.grid-item:first-child .card-beijing picture {
 			display: block;
-    }
+		}
 
-    // Show all images at large breakpoint and up
-    @include breakpoint(large) {
+		// Show all images at large breakpoint and up
+		@include breakpoint(large) {
 			.grid-item .card-beijing picture {
 				display: block;
 			}
-    }
+		}
 	}
 }
 
 .lothian-section {
-	background: var(--color-bg-100); 
+	background: var(--color-bg-100);
 	border-radius: var(--border-radius);
 	padding: var(--size-400);
 }
@@ -72,26 +78,26 @@
 					display: none;
 				}
 			}
-    }
+		}
 
-    // Show only the first image on mobile
-    .grid-item:first-child .card-beijing picture {
+		// Show only the first image on mobile
+		.grid-item:first-child .card-beijing picture {
 			display: block;
-    }
+		}
 
-    // Show all images at large breakpoint and up
-    @include breakpoint(large) {
+		// Show all images at large breakpoint and up
+		@include breakpoint(large) {
 			.grid-item .card-beijing picture {
 				display: block;
 			}
-    }
+		}
 	}
 }
 
 .perthshire-section {
-	display: grid; 
+	display: grid;
 	gap: var(--size-500);
-	grid-template-columns: 1fr; 
+	grid-template-columns: 1fr;
 	margin-top: var(--size-600);
 
 	@include breakpoint(medium) {
@@ -105,11 +111,11 @@
 
 
 .aberdeenshire-section {
-	display: grid; 
+	display: grid;
 	gap: var(--size-500);
-	grid-template-columns: 1fr; 
-	margin-top: var(--size-600); 
-	
+	grid-template-columns: 1fr;
+	margin-top: var(--size-600);
+
 
 	@include breakpoint(medium) {
 		grid-template-columns: 2fr 1fr;
@@ -138,7 +144,7 @@
 	margin-top: var(--size-800);
 
 	h2 {
-		margin-top: 0; 
+		margin-top: 0;
 		margin-bottom: 1rem;
 	}
 }

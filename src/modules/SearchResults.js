@@ -187,7 +187,6 @@ class SearchResultsNew {
 
       const { terms, results, currentPage, totalPages, totalPosts } = response.data;
 
-
       this.page = currentPage;
 
       if (results.length > 0) {

@@ -20,7 +20,6 @@ const bonusCode = new BonusCode()
 const showMore = new ShowMore()
 const expiryDates = new ExpiryDates()
 
-
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';

@@ -1,55 +1,111 @@
 @use "_breakpoints" as *;
 
-.tax-query {
-  margin-top: var(--size-900);
-  padding-bottom: var(--size-500); 
-  border-bottom: 1px solid var(--color-muted-200);
-  display: grid;
-  gap: var(--size-500);
-  grid-template-columns: 1fr;
 
-  @include breakpoint(medium) {
-    grid-template-columns: 1fr 2fr;
-  }
+.archive {
+  background-color: var(--color-bg-50);
+}
 
-  @include breakpoint(medium) {
-    grid-template-columns: 1fr 3fr;
-  }
-    
+.taxonomy-header {
 
-  &__header {
 
-    &--content {
-      h2 {
-        padding: 0; 
-        margin: 0;
-      }
+
+  &__description {
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: var(--size-300) var(--size-200);
+
+    & > p:first-of-type {
+      margin-top: 0;
     }
-  }
-
-  &__results {
-
-    // &--spinner {
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-    //   padding: var(--size-900) var(--size-200);
-    // }
-    
-    &--layout {
-      display: grid;
-       
-      gap: var(--size-500);
-      grid-template-columns: 1fr;
-      
-      // @include breakpoint(medium) {
-      //   grid-template-columns: repeat(2, 1fr);
-      // }
-
-      @include breakpoint(large) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
   }
 }
+
+.taxonomy-terms {
+  .box {
+    background: #fff;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    padding: var(--size-300) var(--size-200);
+
+    .title {
+      font-size: 1rem;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding-top: var(--size-200);
+        padding-bottom: var(--size-200);
+        border-top: 1px solid var(--color-bg-100);
+
+        a {
+          display: flex;
+          gap: var(--size-200);
+          align-items: center;
+        }
+
+        img {
+          width: 35px;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+//.tax-query {
+//  margin-top: var(--size-900);
+//  padding-bottom: var(--size-500);
+//  border-bottom: 1px solid var(--color-muted-200);
+//  display: grid;
+//  gap: var(--size-500);
+//  grid-template-columns: 1fr;
+//
+//  @include breakpoint(medium) {
+//    grid-template-columns: 1fr 2fr;
+//  }
+//
+//  @include breakpoint(medium) {
+//    grid-template-columns: 1fr 3fr;
+//  }
+//
+//
+//  &__header {
+//
+//    &--content {
+//      h2 {
+//        padding: 0;
+//        margin: 0;
+//      }
+//    }
+//  }
+//
+//  &__results {
+//
+//    // &--spinner {
+//    //   display: flex;
+//    //   justify-content: center;
+//    //   align-items: center;
+//    //   padding: var(--size-900) var(--size-200);
+//    // }
+//
+//    &--layout {
+//      display: grid;
+//
+//      gap: var(--size-500);
+//      grid-template-columns: 1fr;
+//
+//      // @include breakpoint(medium) {
+//      //   grid-template-columns: repeat(2, 1fr);
+//      // }
+//
+//      @include breakpoint(large) {
+//        grid-template-columns: repeat(2, 1fr);
+//      }
+//    }
+//
+//  }
+//}
