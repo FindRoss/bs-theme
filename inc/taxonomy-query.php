@@ -1,11 +1,9 @@
 <?php
 function taxonomy_main_query($query, $taxonomy): void {
 
-  $taxonomy_title = $taxonomy ? ucfirst($taxonomy) : "";
-
   if ( $query->have_posts() ) :
 
-//$total_posts = $query->found_posts;
+    //$total_posts = $query->found_posts;
 
     $all_terms = ['cryptocurrency', 'review_type', 'game', 'payment'];
 
@@ -17,22 +15,25 @@ function taxonomy_main_query($query, $taxonomy): void {
           'orderby'    => 'count',
     ));
 
-
-    // echo '<pre>';
-    // print_r($crypto_terms);
-    // echo '</pre>';
-
     if (!is_wp_error($crypto_terms)) {
       usort($crypto_terms, function ($a, $b) {
         return strcasecmp($a->name, $b->name);
       });
     }
-    
 
+    $taxonomy_titles = [
+      'cryptocurrency' => 'Cryptocurrencies',
+      'game'           => 'Games',
+      'provider'       => 'Providers',
+      'payment'        => 'Payments',
+      'country'        => 'Countries',
+      'review_type'    => 'Sites',
+    ];
+    // Use the mapped title if it exists, otherwise just ucfirst
+    $taxonomy_title = $taxonomy_titles[$taxonomy] ?? ucfirst($taxonomy);
   ?>
 
     <!-- echo "Total reviews found: <strong>" . $total_posts . "</strong>" -->
-
 
   <div class="container">
     <section class="fife-section fife-section--reverse mt-4">
@@ -63,8 +64,6 @@ function taxonomy_main_query($query, $taxonomy): void {
 
     </section><!-- .fife-section -->
   </div><!-- .container -->
-
-
 
 <?php 
   endif; 

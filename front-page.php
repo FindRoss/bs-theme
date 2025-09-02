@@ -18,7 +18,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
   </section>
 
   <section class="fife-section mt-4">
-    <div class="grid">
+    <div class="fife-section__content grid">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
           <div class="grid-item">
@@ -28,9 +28,10 @@ $featured_post_query = new WP_Query( $featured_post_args );
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
       <?php endif; ?>
-    </div><!-- .grid --> 
-    <!-- Sidebar -->
-    <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+    </div>
+    <aside class="fife-section__sidebar sidebar">
+      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+    </aside>
   </section><!-- .fife-section -->
 
 </div><!-- .container -->

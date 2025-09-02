@@ -218,8 +218,9 @@ $support_channels = $support_group['channels'];
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12 col-lg-4">
+  <div class="fife-section fife-section--reverse">
+
+    <div class="fife-section__sidebar">
       <div class="term-boxes" style="margin-top: 3rem;">
         <?php echo terms_to_box($crypto_terms, 'Cryptocurrency', true); ?>
         <?php echo terms_to_box($game_terms, 'Games', true); ?>
@@ -230,9 +231,8 @@ $support_channels = $support_group['channels'];
       </div>
     </div>
 
-    <div class="col-12 col-lg-8">
-      <!-- Bonuses -->
-      <?php
+    <div class="fife-section__content">
+    <?php
       $bonus_query = get_bonuses_by_review_query(get_the_ID());
       if ($bonus_query->have_posts()) :
         echo '<section class="section">';

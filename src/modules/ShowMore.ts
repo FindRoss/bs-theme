@@ -1,14 +1,19 @@
 class ShowMore {
+  lists: NodeListOf<Element>;
+
   constructor() {
-    this.showMoreLists = document.querySelectorAll('.show-more-list')
+    this.lists = document.querySelectorAll('.show-more-list')
     this.event()
   }
 
   event() {
-    console.log('showMoreLists', this.showMoreLists);
-    this.showMoreLists.forEach((list) => {
+    this.lists.forEach((list) => {
       const btn = list.querySelector('#expand-review-list');
+      if (!btn) return;
+
       const chevron = btn.querySelector('svg');
+      if (!chevron) return;
+
       const items = list.querySelectorAll('li.list-item-hidden');
       let isOpen = false;
 

@@ -48,7 +48,7 @@
   if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
 ?>
 
-<div class="pt-4">
+<div>
   <div class="container">
     <div class="taxonomy-header">
       <?php if ($hasIcon) { ?>
@@ -73,6 +73,7 @@
 <!-- MAIN QUERY -->
 <?php taxonomy_main_query($query, $taxonomy); // Pass $query directly ?>
 
+<!--MAIN CONTENT-->
 <div class="container">
   <?php if ($paged == 1) : ?>
 
@@ -87,7 +88,7 @@
       </div>
 
       <?php if ($main_content != '') { ?>
-        <aside>
+        <aside class="sidebar">
           <?php get_template_part('template-parts/sidebar/sidebar'); ?>
         </aside>
       <?php } ?>

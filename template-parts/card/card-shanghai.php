@@ -11,6 +11,7 @@
 
   $exclusive   = get_field('exclusive', $bonus_id);
   $expiry_date = get_field('expiry_date', $bonus_id);
+  $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
   $marked_expired = get_field('bonus_expired', $bonus_id); 
   
 
@@ -37,7 +38,7 @@
         <div class="card-shanghai-pills">      
           
           <?php if ($expiry_date || $marked_expired) : ?>
-          <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_date ? esc_attr($expiry_date) : 'Expired'; ?>">
+          <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
             <?php echo get_svg_icon('stopwatch'); ?>
             <span class="ends-in-text"></span>
           </span>

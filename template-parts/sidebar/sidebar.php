@@ -2,9 +2,6 @@
 $top_sites = get_field('sites', 'options'); 
 $top_bonuses = get_field('top_bonus', 'options');
 
-
-echo '<aside class="sidebar">';
-
 if (!is_front_page()) { 
   if (function_exists('geot_target') && geot_target( 'US' )) { 
     if (is_active_sidebar( 'us-sidebar-ad' )) { 
@@ -58,16 +55,13 @@ if(!empty($top_bonuses)) {
   
   if ($bonus_query->have_posts()) :
     echo '<section class="sidebar__widget">';
-    $top_bonus_title = count($top_bonuses) > 1 ? 'Top Bonuses' : 'Top Bonus';
-    echo '<h2 class="sidebar__widget--title">' . $top_bonus_title . '</h2>';
+      $top_bonus_title = count($top_bonuses) > 1 ? 'Top Bonuses' : 'Top Bonus';
+      echo '<h2 class="sidebar__widget--title">' . $top_bonus_title . '</h2>';
 
-    while ($bonus_query->have_posts()) : $bonus_query->the_post(); 
-      get_template_part('template-parts/card/bonus-pill');
-    endwhile;
+      while ($bonus_query->have_posts()) : $bonus_query->the_post(); 
+        get_template_part('template-parts/card/bonus-pill');
+      endwhile;
     wp_reset_postdata();
     echo '</section>';
   endif;
 }
-
-
-echo '</aside>';

@@ -188,7 +188,7 @@ if ($paged == 1) {
         <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
       </div>
 
-      <aside>
+      <aside class="sidebar>
         <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
       </aside>
     </section>

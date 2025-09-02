@@ -59,7 +59,9 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
           <!-- SIDEBAR -->
           <div class="col-12 col-lg-4 d-flex flex-column">
-            <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+            <aside class="sidebar">
+              <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+            </aside>
           </div>
 
         </div><!-- .row -->

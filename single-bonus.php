@@ -247,7 +247,9 @@
 
         <!-- SIDEBAR -->
         <div class="col-12 col-lg-4">
-          <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+          <aside class="sidebar">
+            <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
+          </aside>
         </div>
 
       </div><!-- .row -->
