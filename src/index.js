@@ -1,8 +1,8 @@
 import "../assets/css/style.scss";
-// import '../assets/css/single-review.scss';
-// import '../assets/css/single-bonus.scss';
-// import '../assets/css/single-streamer.scss';
-// import '../assets/css/search-results.scss';
+import '../assets/css/single-review.scss';
+import '../assets/css/single-bonus.scss';
+import '../assets/css/single-streamer.scss';
+import '../assets/css/search-results.scss';
 
 import SidebarMenu from "./modules/SidebarMenu";
 import CardFocus from "./modules/CardFocus";

@@ -16,10 +16,6 @@
       h4 {
         text-decoration: underline;
       }
-
-      img {
-        opacity: 0.85;
-      }
     }
   }
 
@@ -71,9 +67,9 @@
       text-decoration: underline;
     }
 
-    .card__media img {
-      opacity: 0.5;
-    }
+    // .card__media img {
+    //   opacity: 0.5;
+    // }
   }
 }
 
@@ -300,7 +296,6 @@
       height: 85px;
       width: auto;
       border: none;
-      transition: transform 0.3s ease; // Add transition for smooth zoom effect
     }
   }
 

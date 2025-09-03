@@ -12,7 +12,7 @@ $content = array();
 $images = array();
 
 // Post From Same Site Query
-$site_posts_query = new WP_Query(
+$same_site_posts_query = new WP_Query(
   array(
     'post_type'      => 'post',
     'posts_per_page' => 8,
@@ -145,18 +145,57 @@ $game_terms     = $terms_by_tax['game'] ?? [];
 $provider_terms = $terms_by_tax['provider'] ?? [];
 $payment_terms  = $terms_by_tax['payment'] ?? [];
 $country_terms  = $terms_by_tax['country'] ?? [];
-
 // ACF Fields (simple arrays eg Array ( [0] => English [1] => Français [2] => Deutsch [3] => Español [4]);
 $languages = $fields['languages'] ?? [];
 $support_channels = $support_group['channels'];
 
-// Faqs
-$review_faqs = get_review_faqs($review_id);
-
-
 ?>
 
+<!-- Image overlay -->
+<?php if (count($images) > 0) : ?>
+  <div class="gallery-overlay" id="gallery-overlay" aria-hidden="true">
+    <div class="container">
+      <div class="gallery-overlay__layout">
+        <div class="gallery-overlay-header">
+          <span class="close-overlay" id="close-overlay" aria-label="Close overlay">
+            <?php echo get_svg_icon('close'); ?>
+          </span>
+        </div>
+        <div class="gallery-overlay-content">
+          <img src="" alt="" id="gallery-overlay-image" width="900" height="450">
+        </div>
+        <div class="gallery-overlay-footer">
+          <div class="gallery">
+            <?php foreach ($images as $image) { ?>
+              <div
+                class="gallery-item overlay"
+                style="background-image: url('<?php echo $image['sizes']['medium']; ?>');"
+                data-source="<?php echo $image['sizes']['large']; ?>"
+                tabindex="0"
+                role="button"
+                aria-label="View larger image"></div>
+            <?php } ?>
+          </div><!-- .gallery -->
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
+
 <div class="container">
+
+  <!-- CLOSED -->
+  <?php if ($closed) { ?>
+    <div class="my-4">
+      <div class="p-2 rounded-corners" style="background: #FAFAFA">
+        <h2 class="h2"><?php echo $name; ?> is now closed</h2>
+        <p class="fs-large">Explore our reviews of <a href="https://bitcoinchaser.com/sites/casino/"> popular crypto casinos</a> or <a href="https://bitcoinchaser.com/sites/sports/">sports betting sites</a> you might enjoy.</p>
+        <?php if ($more_sites->have_posts()) :
+          outputNewSlideHTML(array('query' => $more_sites));
+        endif; ?>
+      </div>
+    </div>
+  <?php } ?>
 
   <!-- Header -->
   <div class="review-header">
@@ -179,8 +218,8 @@ $review_faqs = get_review_faqs($review_id);
     </div>
   </div>
 
- 
   <div class="skye-section">
+
     <aside class="skye-section__sidebar">
       <div class="term-boxes" style="margin-top: 3rem;">
         <?php echo terms_to_box($crypto_terms, 'Cryptocurrency', true); ?>
@@ -193,6 +232,18 @@ $review_faqs = get_review_faqs($review_id);
     </aside>
 
     <main class="skye-section__content">
+      <?php
+        $bonus_query = get_bonuses_by_review_query(get_the_ID());
+        if ($bonus_query->have_posts()) :
+          echo '<section class="section">';
+          outputNewSlideHTML(array(
+            'query'   => $bonus_query,
+            'heading' => 'Bonuses',
+            'card_type' => 'shanghai'
+          ));
+          echo '</section>';
+        endif;
+      ?>
 
       <!-- Content -->
       <section class="section content">
@@ -213,27 +264,47 @@ $review_faqs = get_review_faqs($review_id);
         <?php } ?>
       </section>
 
-      <!-- FAQS -->
+      <!-- Screenshots -->
+      <?php if (count($images) > 0) : ?>
+        <section class="section">
+          <h2 class="h4" style="font-weight: bold;">Gallery</h2>
+          <div class="gallery">
+            <?php foreach ($images as $image) { ?>
+              <div
+                class="gallery-item overlay"
+                style="background-image: url('<?php echo $image['sizes']['medium']; ?>');"
+                data-source="<?php echo $image['sizes']['large']; ?>"
+                tabindex="0"
+                role="button"
+                aria-label="View larger image"></div>
+            <?php } ?>
+          </div>
+        </section>
+      <?php endif; ?>
+
+      <!-- ARTICLES -->
+      <?php if ($same_site_posts_query->have_posts()) :
+        $count = 1; ?>
+        <section class="section borders-section">
+          <h2 class="h4" style="font-weight: bold;">Articles</h2>
+          <div class="layout">
+            <?php while ($same_site_posts_query->have_posts()) : $same_site_posts_query->the_post();
+              if ($count == 1) {
+                get_template_part('template-parts/card/card', 'chengdu');
+              } else {
+                get_template_part('template-parts/card/card', 'hangzhou');
+              }
+              $count++;
+            endwhile; ?>
+          </div>
+        </section>
+      <?php endif; ?>
 
     </main>
-  </div> 
 
-  <?php if ($site_posts_query->have_posts()) : ?>
-  <section class="skye-section mt-5">
-    <div class="skye-section__sidebar">
-      <h2 class="h4" style="font-weight: bold;">Articles</h2>
-    </div>
-    <div class="skye-section__content">
-      <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); 
-         get_template_part('template-parts/card/card', 'chengdu');
-      endwhile; ?>
-    </div>
-  </section>
-  <?php endif; ?>
+  </div>
 
 
-
-  
   <!-- MORE SITES -->
   <?php if (!$closed) {
     if ($more_sites->have_posts()) : ?>

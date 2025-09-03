@@ -104,29 +104,25 @@ $wp_query   = NULL;
 $wp_query   = $query;
 ?>
 
+<div class="container">
+  <header class="taxonomy-header">
+    <?php if ($hasIcon) { ?>
+      <img src="<?php echo esc_url($icon['sizes']['thumbnail']); ?>"
+            alt="<?php echo esc_attr($term_name .  ' casinos'); ?>"
+            width="100" height="100" />
+    <?php } ?>
+    <h1>Crypto <?php  echo $term_name; ?></h1>
 
-<!-- INTRODUCTION -->
-<section class="pt-4">
-  <div class="container">
-    <div class="row flex-column-reverse flex-lg-row">
-      <div class="col-12 col-lg-8">
-        <h1>Crypto <?php  echo $term_name; ?></h1>
-        <div class="main--content"> 
-          <?php echo term_description(); ?>
-        </div>
-      </div><!-- .col -->
+    <?php
+      if (term_description()) {
+    ?>
+      <div class="taxonomy-header__description main--content">
+        <?php echo term_description(); ?>
+      </div>
 
-      <?php if ($hasIcon) { ?>
-        <div class="col-12 col-lg-4 d-flex justify-content-lg-center align-items-center">
-          <div class="bg-white rounded-circle mb-4 mb-lg-0">
-            <img src="<?php echo $icon['sizes']['thumbnail']; ?>" alt="<?php echo $term_name .  " casinos" ?>" width="150" height="150" />
-          </div>
-        </div>
-      <?php }; ?>
-
-    </div><!-- .row -->
-  </div>
-</section> 
+    <?php }; ?>
+  </header>
+</div>
 
 <!-- LOOP THROUGH TAXONOMIES -->
 <?php 
@@ -154,6 +150,7 @@ if ($paged == 1) {
 
       <section class="mt-5">
         <div class="container">
+          
 
           <?php 
             $capitalized_slug = ucwords(str_replace('-', ' ', $terms['terms']));
@@ -173,7 +170,7 @@ if ($paged == 1) {
 <?php };  ?>
 
 <!-- MAIN QUERY -->
-<?php taxonomy_main_query($query, $taxonomy); ?>
+<?php taxonomy_main_query($query, $taxonomy, $term); ?>
 
 
 <!-- MAIN CONTENT -->
@@ -188,9 +185,7 @@ if ($paged == 1) {
         <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
       </div>
 
-      <aside class="sidebar>
-        <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
-      </aside>
+      
     </section>
   </div>
 <?php endif; ?>

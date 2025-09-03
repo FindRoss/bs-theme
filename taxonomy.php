@@ -35,11 +35,6 @@
     )
   ));
 
-
-
-  // ----------------------------
-  // Minimal change: pass $query to pagination/template functions instead of reassigning global $wp_query
-  // ----------------------------
   $count = 1;
 
   $title_output = $term_name . ' Casinos and Gambling Sites';
@@ -48,30 +43,29 @@
   if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
 ?>
 
-<div>
-  <div class="container">
-    <div class="taxonomy-header">
-      <?php if ($hasIcon) { ?>
-        <img src="<?php echo esc_url($icon['sizes']['thumbnail']); ?>"
-             alt="<?php echo esc_attr($term_name .  ' casinos'); ?>"
-             width="100" height="100" />
-      <?php } ?>
-      <h1><?php echo esc_html($title_output); ?></h1>
+<div class="container">
+  <header class="taxonomy-header">
+    <?php if ($hasIcon) { ?>
+      <img src="<?php echo esc_url($icon['sizes']['thumbnail']); ?>"
+            alt="<?php echo esc_attr($term_name .  ' casinos'); ?>"
+            width="100" height="100" />
+    <?php } ?>
+    <h1><?php echo esc_html($title_output); ?></h1>
 
-      <?php
-        if (term_description()) {
-      ?>
-        <div class="taxonomy-header__description main--content">
-          <?php echo term_description(); ?>
-        </div>
+    <?php
+      if (term_description()) {
+    ?>
+      <div class="taxonomy-header__description main--content">
+        <?php echo term_description(); ?>
+      </div>
 
-      <?php }; ?>
-    </div>
-  </div>
+    <?php }; ?>
+  </header>
 </div>
 
+
 <!-- MAIN QUERY -->
-<?php taxonomy_main_query($query, $taxonomy); // Pass $query directly ?>
+<?php taxonomy_main_query($query, $taxonomy, $term); // Pass $query directly ?>
 
 <!--MAIN CONTENT-->
 <div class="container">
@@ -86,26 +80,20 @@
           get_template_part('template-parts/content/content', 'faqs');
         } ?>
       </div>
-
-      <?php if ($main_content != '') { ?>
-        <aside class="sidebar">
-          <?php get_template_part('template-parts/sidebar/sidebar'); ?>
-        </aside>
-      <?php } ?>
     </section>
 
     <?php
     $args = array(
-            'post_type' => 'post',
-            'posts_per_page' => 8,
-            'tax_query' => array(
-              array(
-                'taxonomy' => $taxonomy,
-                'field'    => 'term_id',
-                'terms'    => $term_id,
-              ),
-            ),
-            'meta_query' => bonus_expired_meta_query()
+      'post_type' => 'post',
+      'posts_per_page' => 8,
+      'tax_query' => array(
+        array(
+          'taxonomy' => $taxonomy,
+          'field'    => 'term_id',
+          'terms'    => $term_id,
+        ),
+      ),
+      'meta_query' => bonus_expired_meta_query()
     );
 
     $posts = get_posts($args);

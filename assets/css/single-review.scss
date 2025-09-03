@@ -12,6 +12,15 @@
     margin-bottom: var(--size-600);
   }
 
+  .section {
+    margin-top: var(--size-800);
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -169,7 +178,7 @@
         border-radius: var(--border-radius);
 
         @include breakpoint(large) {
-          width: 250px;
+          width: 300px;
         }
       }
     }

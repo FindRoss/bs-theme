@@ -180,6 +180,13 @@ function update_promo_expired_flags() {
 }
 
 /**
+ * Helper functions
+ * get_review_faqs()
+ * 
+ */
+require get_theme_file_path('/inc/helper.php');
+
+/**
  * Template functions
  * - terms_to_box
  */ 

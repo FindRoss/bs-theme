@@ -48,36 +48,7 @@ function reviewFaqSchema() {
       "mainEntity" => array()
     );
     
-    $name = get_field('details_group', get_the_ID())['name'];
-
-    $review_faqs_col  = get_field('review_faqs'); 
- 
-    $faq_owner_q    = 'Who is the owner of the ' . $name; 
-    $faq_bitcoin_q  = 'Does the ' . $name . ' accept Bitcoin?';
-    $faq_legit_q    = 'Is ' . $name . ' legit?';
-    $faq_licensed_q = 'Is ' . $name . ' licensed?';
-
-    $faqs = array();
-    
-    $faqs[] = array(
-      'question' => $faq_owner_q,
-      'answer'   => $review_faqs_col['owner'],
-    );
-    
-    $faqs[] = array(
-      'question' => $faq_bitcoin_q,
-      'answer'   => $review_faqs_col['bitcoin'],
-    );
-    
-    $faqs[] = array(
-      'question' => $faq_legit_q,
-      'answer'   => $review_faqs_col['legit'],
-    );
-    
-    $faqs[] = array(
-      'question' => $faq_licensed_q,
-      'answer'   => $review_faqs_col['licensed'],
-    );
+    $faqs = get_review_faqs(get_the_ID());
 
     $empty_fields = true;
 

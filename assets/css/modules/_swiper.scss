@@ -9,23 +9,19 @@
   @include breakpoint(medium) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  
+
   @include breakpoint(large) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-
-  // @include breakpoint(xl) {
-  //   grid-template-columns: 1fr 1fr 1fr 1fr;
-  // }
 }
 
-.swiper { 
+.swiper {
   .swiper-controls {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
     margin-left: auto;
-  
+
     .swiper-button-prev,
     .swiper-button-next {
       position: static;
@@ -52,7 +48,7 @@
     opacity: 0;
     animation: reveal 0.5s ease-in-out forwards;
     animation-delay: 0.7s;
-    
+
     @keyframes reveal {
       to {
         visibility: visible;
@@ -73,21 +69,21 @@
   .swiper-wrapper {
     padding-bottom: 2.6rem;
     justify-content: flex-start;
-    
+
     .swiper-slide {
       width: calc(50% - 10px);
       height: auto;
-      
+
       opacity: 0;
       transform: translateY(20px);
       animation: fadeIn 0.5s ease-out forwards;
-      
-        @include breakpoint(medium) {
-          width: calc(25% - 10px);
-        }
+
+      @include breakpoint(medium) {
+        width: calc(25% - 10px);
       }
-    } 
-      
+    }
+  }
+
   .swiper-pagination {
     bottom: 20px;
   }
@@ -103,28 +99,33 @@
 
 .swiper-big {
   .swiper-wrapper {
-      padding-bottom: 2.6rem;
-      justify-content: space-between;
-    }
+    padding-bottom: 2.6rem;
+    justify-content: space-between;
+  }
 
   .swiper-slide {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; 
+    width: 100%;
     height: auto;
     border-radius: var(--border-radius);
     padding: var(--size-600) var(--size-400);
 
     &__light {
-      
-      h3, p, div {
+
+      h3,
+      p,
+      div {
         color: #000;
       }
     }
-  
+
     &__dark {
-      h3, p, div {
+
+      h3,
+      p,
+      div {
         color: #FFF;
       }
     }
@@ -136,7 +137,7 @@
       }
 
       img {
-        border-radius: var(--border-radius); 
+        border-radius: var(--border-radius);
       }
 
       // @include breakpoint(large) {}
@@ -144,7 +145,7 @@
 
     &__content-right {
       height: 100%;
-      display: flex; 
+      display: flex;
       flex-direction: column;
       justify-content: space-around;
     }
@@ -173,4 +174,3 @@
     }
   }
 }
-

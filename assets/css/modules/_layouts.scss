@@ -9,52 +9,64 @@
 	margin-top: 0;
 }
 
+// Duplicated below
+.grid {
+	display: grid;
+	gap: var(--size-400);
+	grid-template-columns: 1fr;
+
+	@include breakpoint(large) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.grid-item {
+		.card-beijing {
+			picture {
+				display: none;
+			}
+		}
+	}
+
+	// Show only the first image on mobile
+	.grid-item:first-child .card-beijing picture {
+		display: block;
+	}
+
+	// Show all images at large breakpoint and up
+	@include breakpoint(large) {
+		.grid-item .card-beijing picture {
+			display: block;
+		}
+	}
+}
+
+.skye-section {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 1rem;
+
+	@include breakpoint(large) {
+		display: grid;
+		grid-template-columns: 300px 1fr; // sidebar fixed, content flexible
+		gap: var(--size-500); // adjust as needed
+		align-items: start; // keep heights natural
+	}
+}
+
+
 .fife-section {
 	display: grid;
 	gap: 2rem;
 	grid-template-columns: 1fr; // stack on mobile
 
+	@include breakpoint(medium) {
+		grid-template-columns: 1fr 1fr;
+	}
+
 	@include breakpoint(large) {
 		grid-template-columns: 2fr 1fr; // on desktop
 	}
-
-	&--reverse {
-		@include breakpoint(large) {
-			grid-template-columns: 1fr 2fr; // swap columns on desktop 
-		}
-	}
-
-	.grid {
-		//margin-top: var(--size-600);
-		display: grid;
-		gap: var(--size-400);
-		grid-template-columns: 1fr;
-
-		@include breakpoint(large) {
-			grid-template-columns: 1fr 1fr;
-		}
-
-		.grid-item {
-			.card-beijing {
-				picture {
-					display: none;
-				}
-			}
-		}
-
-		// Show only the first image on mobile
-		.grid-item:first-child .card-beijing picture {
-			display: block;
-		}
-
-		// Show all images at large breakpoint and up
-		@include breakpoint(large) {
-			.grid-item .card-beijing picture {
-				display: block;
-			}
-		}
-	}
-};
+}
 
 .lothian-section {
 	background: var(--color-bg-100);
@@ -141,14 +153,5 @@
 				grid-column: 1 / -1;
 			}
 		}
-	}
-}
-
-.section {
-	margin-top: var(--size-800);
-
-	h2 {
-		margin-top: 0;
-		margin-bottom: 1rem;
 	}
 }
