@@ -46,11 +46,11 @@ function terms_to_box($terms, $title, $with_links = false, $current_page_url = '
             <?php if (($with_links && $term_link)) : ?>
               <a <?php echo $on_current_page ? '' : 'href="' . esc_url($term_link) . '"'; ?>>
             <?php endif; ?>
-            <?php if (!empty($icon['sizes']['site-small-logo'])): ?>
+            <?php if (!empty($icon['sizes']['thumbnail'])): ?>
               <img
-                src="<?php echo esc_url($icon['sizes']['site-small-logo']); ?>"
-                width="50"
-                height="50"
+                src="<?php echo esc_url($icon['sizes']['thumbnail']); ?>"
+                width="40"
+                height="auto"
                 alt="<?php echo esc_attr($icon['alt'] ?? $term_name); ?>"
               >
             <?php endif; ?>

@@ -23,6 +23,7 @@ function themebs_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
+
 function my_admin_block_styles() {
   wp_enqueue_style('my-admin-block-styles', get_stylesheet_directory_uri() . '/build/admin-block-styles.css', array(), wp_get_theme()->get('Version'));
 }
@@ -267,36 +268,6 @@ require get_template_directory() . '/inc/custom-walker.php';
  */
 require get_template_directory() . '/inc/taxonomy-paginated-noindex.php';
 
-/**
- * Format Date
- */
-function formatDate($date) {
-  if ($date) {
-    // Create a DateTime object from the string with the new format
-    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-    
-    // Check if the conversion was successful
-    if ($dateTime) {
-      // Format the date as "j F Y" (e.g., "12 January 2025")
-      $formattedDate = $dateTime->format('j F Y');
-      
-      return $formattedDate;
-    } else {
-      // Handle invalid input date
-      return "Invalid date format";
-    }
-  }
-  // Handle case where no date is provided
-  return null;
-}
-
-
-function truncate_text($text, $max_length = 100) {
-  if (strlen($text) > $max_length) {
-    return substr($text, 0, $max_length) . '...';
-  }
-  return $text;
-};
 
 // Change time of time picker on bonuses and posts to be in UTC format
 add_filter('acf/fields/date_time_picker/format_value', function($value, $post_id, $field) {

@@ -8,7 +8,7 @@ function taxonomy_main_query($query, $taxonomy, $term): void {
 
   $current_page_url = get_term_link($term); 
 
-  $all_term_name = ['cryptocurrency', 'game', 'provider', 'review_type'];
+  $all_term_name = ['cryptocurrency', 'game', 'provider', 'payment'];
   $all_term_results = [];
 
   foreach($all_term_name as $term_name) {
