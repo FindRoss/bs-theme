@@ -9,7 +9,7 @@
  $review_link   = get_the_permalink($id);
 ?>
 
-<div class="card card-absolute review-pill sort-focus">
+<div class="card card-absolute review-pill">
   <a class="card-absolute__link" href="<?php echo $review_link; ?>"></a>
   <div class="review-pill__body">
     <img class="logo" src="<?php echo get_the_post_thumbnail_url($id, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>

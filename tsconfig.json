@@ -1,22 +1,47 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "strict": true,
-        "jsx": "react-jsx",
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "assets/js/*"
-            ]
-        }
-    },
-    "include": [
-        "assets/js/**/*"
-    ]
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"strict": true,
+		"jsx": "react-jsx",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": "src",
+		"paths": {
+			"@/*": [
+				"*"
+			]
+		},
+	},
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }
+// {
+//     "compilerOptions": {
+//         "target": "esnext",
+//         "module": "esnext",
+//         "moduleResolution": "node",
+//         "strict": true,
+//         "jsx": "react-jsx",
+//         "esModuleInterop": true,
+//         "skipLibCheck": true,
+//         "forceConsistentCasingInFileNames": true,
+//         "allowSyntheticDefaultImports": true,
+//         "baseUrl": ".",
+//         "paths": {
+//             "@/*": [
+//                 "assets/js/*"
+//             ]
+//         }
+//     },
+//     "include": [
+//         "assets/js/**/*"
+//     ]
+// }

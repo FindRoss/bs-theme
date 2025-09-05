@@ -1,11 +1,11 @@
 import "../assets/css/style.scss";
-import '../assets/css/single-review.scss';
-import '../assets/css/single-bonus.scss';
-import '../assets/css/single-streamer.scss';
-import '../assets/css/search-results.scss';
+// import '../assets/css/single-review.scss';
+// import '../assets/css/single-bonus.scss';
+// import '../assets/css/single-streamer.scss';
+// import '../assets/css/search-results.scss';
 
+// import CardFocus from "./modules/CardFocus";
 import SidebarMenu from "./modules/SidebarMenu";
-import CardFocus from "./modules/CardFocus";
 import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
@@ -14,8 +14,8 @@ import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
 
+// const cardFocus = new CardFocus()
 const sidebarMenu = new SidebarMenu()
-const cardFocus = new CardFocus()
 const bonusCode = new BonusCode()
 const showMore = new ShowMore()
 const expiryDates = new ExpiryDates()

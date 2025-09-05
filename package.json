@@ -20,8 +20,11 @@
   "author": "Ross Findlay",
   "license": "ISC",
   "dependencies": {
+    "@wordpress/block-editor": "^15.3.0",
+    "@wordpress/blocks": "^15.3.0",
+    "@wordpress/components": "^30.3.0",
+    "@wordpress/element": "^6.30.0",
     "@wordpress/scripts": "^30.19.0",
-    "axios": "^1.10.0",
     "bootstrap-icons": "^1.13.1",
     "swiper": "^11.2.10"
   },

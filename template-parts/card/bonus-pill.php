@@ -28,7 +28,7 @@
 ?>
 
 <div class="bonus-pill-wrapper">
-  <div class="bonus-pill sort-focus"> 
+  <div class="bonus-pill"> 
 
     <div class="bonus-pill__content">
       <img class="logo" src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>

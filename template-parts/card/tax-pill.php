@@ -8,7 +8,7 @@ if (is_array($term_logo) && isset($term_logo['sizes']['thumbnail'])) {
 }
 ?>
 
-<div class="tax-pill sort-focus">
+<div class="tax-pill ">
   <?php if ($term_logo) : ?>
     <div class="tax-pill__media">
       <img src="<?php echo $term_logo_thumbnail; ?>" width="45" height="45" alt="<?php $term->name . ' icon'; ?>" aria-hidden="true">

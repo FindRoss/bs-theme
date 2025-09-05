@@ -36,7 +36,7 @@
 ?>
 
 <div class="bonus-long-wrapper">
-  <div class="bonus-long sort-focus"> 
+  <div class="bonus-long"> 
     <div class="bonus-long__content">
       <img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php $name . ' logo'?>" width="100" height="50" aria-hidden="true">
       <h2 class="h5"><a class="custom-card-link" href="<?php echo $permalink; ?>"><?php echo $title; ?></a></h2>

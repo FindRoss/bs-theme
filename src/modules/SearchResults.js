@@ -1,5 +1,4 @@
 // New York Times: https://www.nytimes.com/search?dropmab=false&query=asd&sort=best
-import axios from "axios";
 
 class SearchResultsNew {
   constructor() {
@@ -175,17 +174,18 @@ class SearchResultsNew {
     try {
       this.showLoader();
 
-      const response = await axios.get(`${this.websiteUrl.origin}/wp-json/chaser/v2/search`, {
-        params: {
-          term: this.query,
-          type: this.type,
-          page: this.page,
-          order: this.order,
-          orderby: this.orderby
-        }
+      const params = new URLSearchParams({
+        term: this.query,
+        type: this.type,
+        page: this.page,
+        order: this.order,
+        orderby: this.orderby,
       });
 
-      const { terms, results, currentPage, totalPages, totalPosts } = response.data;
+      const response = await fetch(`${this.websiteUrl.origin}/wp-json/chaser/v2/search?${params.toString()}`);
+      const data = await response.json();
+
+      const { terms, results, currentPage, totalPages, totalPosts } = data;
 
       this.page = currentPage;
 
@@ -219,7 +219,7 @@ class SearchResultsNew {
         const { title, link, image } = term;
 
         randomHTML += ` 
-          <div class="tax-pill sort-focus">
+          <div class="tax-pill">
 
             ${image ? `  
               <div class="tax-pill__media">
