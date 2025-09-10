@@ -6,7 +6,7 @@ function terms_to_box($terms, $title, $with_links = false, $current_page_url = '
   // Define a consistent threshold
   $threshold = 4;
   // Dont show count on taxonomy pages
-  $show_nums = is_tax() ? false : true;
+  $is_review = is_singular('review');
   // Set variable for tracking if is current page
   $is_active_page = false; 
 
@@ -17,8 +17,8 @@ function terms_to_box($terms, $title, $with_links = false, $current_page_url = '
 
       <h3 class="title">
         <?php echo $title; ?> 
-        <?php if ($show_nums) {  
-            '(' . count($terms) . ')'; 
+        <?php if ($is_review) {  
+            echo '<span class="">(' . count($terms) . ')</span>'; 
           };
         ?>   
       </h3>
@@ -71,8 +71,6 @@ function terms_to_box($terms, $title, $with_links = false, $current_page_url = '
     <?php if (count($terms) > $threshold) { ?>
 
       <div class="box__footer">
-        <!-- <button id="expand-review-list">+</button> -->
-
         <button class="round-icon" id="expand-review-list"><?php echo get_svg_icon('chevron-down'); ?></button>
       </div>
 

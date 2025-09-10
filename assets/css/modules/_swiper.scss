@@ -67,20 +67,21 @@
   height: auto;
 
   .swiper-wrapper {
-    padding-bottom: 2.6rem;
+    display: flex;
     justify-content: flex-start;
+    padding-bottom: 2.6rem;
 
     .swiper-slide {
-      width: calc(50% - 10px);
+      // width: calc(50% - 10px);
       height: auto;
 
       opacity: 0;
       transform: translateY(20px);
       animation: fadeIn 0.5s ease-out forwards;
 
-      @include breakpoint(medium) {
-        width: calc(25% - 10px);
-      }
+      // @include breakpoint(medium) {
+      //   width: calc(25% - 10px);
+      // }
     }
   }
 

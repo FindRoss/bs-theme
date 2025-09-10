@@ -10,52 +10,58 @@ Template Post Type: page
 <div class="container py-5">
   <h1>Testing</h1>
 
-  <!-- $published_reviews = new WP_Query(array(
-        'post_type'      => 'review', 
-        'posts_per_page' => -1,  // Still retrieving all posts
-        'post_status'    => 'publish',
-        'orderby'        => 'title',
-        'order'          => 'ASC',
-        'fields'         => 'ids',  // Retrieve only the post IDs
-        'meta_query'     => array(
-            array(
-              'key'     => 'details_group_closed',
-              'value'   => '1', 
-              'compare' => '!='
-            ),
-          )
-        )); -->
+<?php 
+  $terms_to_use = [
+    'cryptocurrency',
+    'provider',
+    'payment',
+    'game',
+    'country',
+    'review_type',
+  ];
 
+  foreach ( $terms_to_use as $taxonomy ) {
+    $terms = get_terms([
+      'taxonomy'   => $taxonomy,
+      'hide_empty' => false, // include all terms
+    ]);
 
-  <h2 class="mt-5">Note Blocks</h2>
+    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+      foreach ( $terms as $term ) {
+        $term_key = $taxonomy . '_' . $term->term_id;
 
- 
-  <?php
-  $all_posts = new WP_Query(array(
-    'post_type'      => array('bonus', 'review', 'glossary', 'post'),
-    'posts_per_page' => -1,
-    'post_status'    => 'publish',
-    'fields'         => 'ids',  // Retrieve only the post IDs
-  ));
+        $heading          = get_field( 'heading', $term_key );
+        $faqs_description = get_field( 'faqs_description', $term_key );
+        $faqs             = get_field( 'faqs', $term_key );
+        $casinos          = get_field( 'casinos', $term_key ); // relationship
 
-  if ($all_posts->have_posts()) :
-    $post_number = 1;
-    foreach ($all_posts->posts as $post_id) :
-      $post = get_post($post_id);
-      $blocks = parse_blocks($post->post_content);
-      foreach ($blocks as $block) {
-        if ($block['blockName'] === 'acf/note') {
-          echo '<div class="note-block">';
-          echo '<span>' . $post_number . '. </span>';
-          echo '<a href="' . get_permalink($post_id) . '" target="_blank">' . get_the_title($post_id) . '</a>';
-          echo '</div>';
-          $post_number++;
+        // Only output if at least one of them has a value
+        if ( ! empty( $heading ) || ! empty( $faqs_description ) || ! empty( $faqs ) || ! empty( $casinos ) ) {
+          $edit_link = get_edit_term_link( $term->term_id, $taxonomy );
+
+          echo '<p><a href="' . esc_url( $edit_link ) . '" target="_blank">'
+            . esc_html( $term->name ) . ' (' . esc_html( $taxonomy ) . ')</a>';
+
+          if ( ! empty( $heading ) ) {
+            echo ' – Heading: ' . esc_html( $heading );
+          }
+          if ( ! empty( $faqs_description ) ) {
+            echo ' – FAQs Description: ' . esc_html( wp_trim_words( $faqs_description, 15 ) );
+          }
+          if ( ! empty( $faqs ) && is_array( $faqs ) ) {
+            echo ' – FAQs Count: ' . count( $faqs );
+          }
+
+          if ( ! empty( $casinos ) && is_array( $casinos ) ) {
+            echo ' – Casinos Linked: ' . count( $casinos );
+          }
+
+          echo '</p>';
         }
       }
-    endforeach;
-  endif;
-  ?>
-  
+    }
+  }
+?>
 
 </div><!-- .container --> 
 

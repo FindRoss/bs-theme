@@ -8,7 +8,19 @@ $featured_post_args = array(
   'meta_query'     => bonus_expired_meta_query()
 );
 $featured_post_query = new WP_Query( $featured_post_args ); 
+
+
+$countries_to_show = [
+  'germany', 
+  'australia',
+  'canada',
+  'new zealand',
+  'united kingdom',
+  'norway',
+];
 ?> 
+
+
 
 <div class="container">
   

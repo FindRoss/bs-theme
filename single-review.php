@@ -75,6 +75,13 @@ $homepageImg  = $media['homepage'];
 $gamesImg     = $media['games'];
 $bettingImg   = $media['betting'];
 
+if ($homepageImg) {
+  $homepageImg_url = $homepageImg['sizes']['large'];
+  $homepageImg_alt = $homepageImg['alt'];
+  $homepageImg_cap = $homepageImg['caption'];
+  $homepageImg_name = $homepageImg['name'];
+}
+
 if ($homepageImg) $images[] = $homepageImg;
 if ($gamesImg) $images[] = $gamesImg;
 if ($bettingImg) $images[] = $bettingImg;
@@ -158,8 +165,21 @@ $review_faqs = get_review_faqs($review_id);
 
 <div class="container">
 
+  <!-- CLOSED -->
+  <?php if ($closed) { ?>
+    <section class="section-closed">
+      <div>
+        <h2 class="h3">🚩<?php echo $name; ?> is now closed</h2>
+        <p>Explore our reviews of <a href="https://bitcoinchaser.com/sites/casino/"> popular crypto casinos</a> or <a href="https://bitcoinchaser.com/sites/sports/">sports betting sites</a> you might enjoy.</p>
+        <?php if ($more_sites->have_posts()) :
+          outputNewSlideHTML(array('query' => $more_sites));
+        endif; ?>
+      </div>
+    </section>
+  <?php } ?>
+
   <!-- Header -->
-  <div class="review-header">
+  <header class="review-header">
     <div class="review-header__logo">
       <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo $name; ?>" width="500" height="250">
     </div>
@@ -170,19 +190,24 @@ $review_faqs = get_review_faqs($review_id);
       <?php } ?>
     </div>
     <div class="review-header__cta">
-      <div class="cta-box">
-        <?php if ($bonus) { ?>
-          <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
-        <?php } ?>
-        <a href="<?php echo $link; ?>" class="button button__primary" target="_blank">Sign Up</a>
-      </div>
+
+      <?php if (!$closed && $link) { ?>
+        <div class="cta-box">
+          <?php if ($bonus) { ?>
+            <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
+          <?php } ?>
+          <a href="<?php echo $link; ?>" class="button button__primary" target="_blank">Sign Up</a>
+        </div>
+      <?php }; ?>
+      
     </div>
-  </div>
+  </header>
 
  
-  <div class="skye-section">
+  <section class="skye-section">
+    
     <aside class="skye-section__sidebar">
-      <div class="term-boxes" style="margin-top: 3rem;">
+      <div class="term-boxes">
         <?php echo terms_to_box($crypto_terms, 'Cryptocurrency', true); ?>
         <?php echo terms_to_box($game_terms, 'Games', true); ?>
         <?php echo terms_to_box($provider_terms, 'Providers', true); ?>
@@ -194,34 +219,80 @@ $review_faqs = get_review_faqs($review_id);
 
     <main class="skye-section__content">
 
-      <!-- Content -->
-      <section class="section content">
-        <h2 class="h4" style="font-weight: bold;">Review</h2>
-        <?php the_content(); ?>
+      <?php
+      // Problem with this here. When I remove this section I have no problem
 
-        <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
-        foreach ($content as $key => $value) { ?>
-          <div class="content-dropdown">
-            <div class="content-dropdown__controls">
-              <h3 class="h4 title"><?php echo $key; ?></h3>
-              <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
+        // Working
+        // if (!$closed) {
+          
+        //   $bonus_query = get_bonuses_by_review_query(get_the_ID());
+        //   if ($bonus_query->have_posts()) : 
+        //     echo '<section class="section">';
+        //     echo '<h2>Bonuses</h2>';
+        //     while ($bonus_query->have_posts()) : $bonus_query->the_post();
+        //       get_template_part('template-parts/card/card', 'hangzhou');
+        //     endwhile;
+        //     echo '</section>';
+        //     wp_reset_postdata();
+        //   endif; 
+        // }; 
+
+        // Issues
+        // $bonus_query = get_bonuses_by_review_query(get_the_ID());
+        // if ($bonus_query->have_posts()) :
+        //   echo '<section class="section">';
+        //   outputNewSlideHTML(array(
+        //     'query'   => $bonus_query,
+        //     'heading' => 'Bonuses',
+        //     'card_type' => 'shanghai'
+        //   ));
+        //   echo '</section>';
+
+        //   wp_reset_postdata();
+        // endif;
+      ?>
+
+      <?php 
+        if ($homepageImg) { ?>
+          <figure class="homepage-image">
+            <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>">
+            <?php if ($homepageImg_cap): ?>
+              <figcaption><?php echo $homepageImg_cap; ?></figcaption>
+            <?php endif; ?>
+          </figure>
+          <?php
+        };
+        ?>
+
+        <section class="content mt-5">
+          <h2 class="title">Review</h2>
+          <?php the_content(); ?>
+
+          <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
+          foreach ($content as $key => $value) { ?>
+            <div class="content-dropdown">
+              <div class="content-dropdown__controls">
+                <h3 class="h4 title"><?php echo $key; ?></h3>
+                <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
+              </div>
+              <div class="content-dropdown__content">
+                <?php echo $value; ?>
+              </div>
             </div>
-            <div class="content-dropdown__content">
-              <?php echo $value; ?>
-            </div>
-          </div>
-        <?php } ?>
-      </section>
+          <?php } ?>
+
+        </section>
+      
 
       <!-- FAQS -->
 
     </main>
-  </div> 
+  </section> 
 
   <?php if ($site_posts_query->have_posts()) : ?>
-  <section class="skye-section mt-5">
+  <section class="skye-section skye-section--reverse mt-5 articles-box">
     <div class="skye-section__sidebar">
-      <h2 class="h4" style="font-weight: bold;">Articles</h2>
+      <h4 class="title">Read more about <?php echo $name; ?></h2>
     </div>
     <div class="skye-section__content">
       <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); 
@@ -235,7 +306,7 @@ $review_faqs = get_review_faqs($review_id);
 
   
   <!-- MORE SITES -->
-  <?php if (!$closed) {
+  <?php 
     if ($more_sites->have_posts()) : ?>
       <section class="section">
         <?php
@@ -245,8 +316,7 @@ $review_faqs = get_review_faqs($review_id);
         ));
         ?>
       </section>
-  <?php endif;
-  }; ?>
+  <?php endif; ?>
 
 
 </div><!-- .container -->

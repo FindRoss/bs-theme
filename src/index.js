@@ -1,8 +1,8 @@
 import "../assets/css/style.scss";
-// import '../assets/css/single-review.scss';
-// import '../assets/css/single-bonus.scss';
-// import '../assets/css/single-streamer.scss';
-// import '../assets/css/search-results.scss';
+import '../assets/css/single-review.scss';
+import '../assets/css/single-bonus.scss';
+import '../assets/css/single-streamer.scss';
+import '../assets/css/search-results.scss';
 
 // import CardFocus from "./modules/CardFocus";
 import SidebarMenu from "./modules/SidebarMenu";
@@ -75,24 +75,25 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  const anotherSwiper = new Swiper(".swiper-big", {
-    modules: [Navigation, Pagination],
-    slidesPerView: 1.06,
-    spaceBetween: 10,
-    breakpoints: {
-      768: {
-        slidesPerView: 1.025,
-        // spaceBetween: 10
-      }
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      // dynamicBullets: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    verticalClass: '.mt-4',
-  });
+  // const anotherSwiper = new Swiper(".swiper-big", {
+  //   modules: [Navigation, Pagination],
+  //   slidesPerView: 1.06,
+  //   spaceBetween: 10,
+  //   breakpoints: {
+  //     768: {
+  //       slidesPerView: 1.025,
+  //       // spaceBetween: 10
+  //     }
+  //   },
+  //   pagination: {
+  //     el: ".swiper-pagination",
+  //     // dynamicBullets: true,
+  //   },
+  //   navigation: {
+  //     nextEl: '.swiper-button-next',
+  //     prevEl: '.swiper-button-prev',
+  //   },
+  //   verticalClass: '.mt-4',
+  // });
+
 });

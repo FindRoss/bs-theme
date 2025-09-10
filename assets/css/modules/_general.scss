@@ -116,7 +116,13 @@ body {
   }
 }
 
-
+figure {
+  img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}
 
 .message {
   margin: 0 0 var(--size-500);
@@ -176,8 +182,26 @@ body {
   background: var(--color-primary-100);
 }
 
-.wp-block-table {
+figure.wp-block-table {
   margin: var(--size-600) 0 0;
+
+  table {
+
+    thead,
+    th,
+    td {
+      border: 2px solid var(--color-muted-200);
+    }
+
+    thead {
+      background-color: var(--color-bg-100);
+      font-size: 18px;
+    }
+  }
+
+  .wp-element-caption {
+    margin-top: var(--size-200);
+  }
 }
 
 h2+.wp-block-image,
@@ -412,11 +436,10 @@ iframe {
   padding: var(--size-200) 0;
 
   &__content {
-
     .title {
-      font-size: 14px;
-      color: var(--color-muted-500);
-      font-weight: 700;
+      font-size: 16px;
+      color: var(--color-primary-900);
+      font-weight: 500;
       margin: 0;
       padding: var(--size-200) var(--size-300) var(--size-400);
       user-select: none;
@@ -431,16 +454,20 @@ iframe {
 
       li {
         height: 50px;
-        padding: var(--size-200) var(--size-300);
+
         font-size: 14px;
         font-weight: 500;
         line-height: 1.2;
         display: flex;
-        cursor: pointer;
+
         color: inherit;
         user-select: none;
 
-        &:hover {
+        // &:has(a) {
+        //   cursor: pointer;
+        // }
+
+        &:has(a):hover {
           background-color: var(--color-bg-200);
           color: var(--color-link-hover);
         }
@@ -459,7 +486,8 @@ iframe {
           text-decoration: none;
           user-select: none;
           -webkit-user-drag: none;
-          pointer-events: auto;
+          cursor: pointer;
+          padding: var(--size-200) var(--size-300);
         }
 
         img {

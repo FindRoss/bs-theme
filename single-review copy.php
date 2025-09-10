@@ -218,7 +218,7 @@ $support_channels = $support_group['channels'];
     </div>
   </div>
 
-  <div class="skye-section">
+  <section class="skye-section">
 
     <aside class="skye-section__sidebar">
       <div class="term-boxes" style="margin-top: 3rem;">
@@ -278,24 +278,6 @@ $support_channels = $support_group['channels'];
                 role="button"
                 aria-label="View larger image"></div>
             <?php } ?>
-          </div>
-        </section>
-      <?php endif; ?>
-
-      <!-- ARTICLES -->
-      <?php if ($same_site_posts_query->have_posts()) :
-        $count = 1; ?>
-        <section class="section borders-section">
-          <h2 class="h4" style="font-weight: bold;">Articles</h2>
-          <div class="layout">
-            <?php while ($same_site_posts_query->have_posts()) : $same_site_posts_query->the_post();
-              if ($count == 1) {
-                get_template_part('template-parts/card/card', 'chengdu');
-              } else {
-                get_template_part('template-parts/card/card', 'hangzhou');
-              }
-              $count++;
-            endwhile; ?>
           </div>
         </section>
       <?php endif; ?>

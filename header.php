@@ -6,10 +6,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><?php wp_title('&laquo;', true, 'right'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+    <!-- WP_HEAD STARTS -->
     <?php wp_head(); ?>
+    <!-- WP_HEAD ENDS -->
     <!-- Google Tag Manager -->
     <?php if (!is_admin() && strpos(home_url(), 'https://bitcoinchaser.com') !== false && !is_user_logged_in()) { ?>
       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

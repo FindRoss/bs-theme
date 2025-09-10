@@ -1,17 +1,19 @@
 <?php 
 
 function outputNewSlideHTML($args) {
-  $query = $args['query'] ?? NULL;
-  $heading = esc_html($args['heading'] ?? '');
-  $link = esc_url($args['link'] ?? '');
+  $query    = $args['query'] ?? NULL;
+  $heading  = esc_html($args['heading'] ?? '');
+  $link     = esc_url($args['link'] ?? '');
   $cardType = $args['card_type'] ?? '';
+
+  if (!($query instanceof WP_Query)) {
+    return;
+  }
 
   $postCount = $query->found_posts; 
   $postType = $query->query_vars['post_type'];
   
   if ($query->have_posts() AND $postCount > 3): ?>
-
-
     <div class="swiper swiper-primary" aria-label="Carousel of <?php echo esc_attr($postType); ?> posts">
       
       <div class="section-heading">
@@ -58,8 +60,7 @@ function outputNewSlideHTML($args) {
       <div class="swiper-pagination"></div>
     </div>
 
-    
-    <?php elseif ($query->have_posts() AND $postCount <= 3) :  ?>
+  <?php elseif ($query->have_posts() AND $postCount <= 3) :  ?>
       
       <?php if ($heading) { ?>
         <div class="section-heading">

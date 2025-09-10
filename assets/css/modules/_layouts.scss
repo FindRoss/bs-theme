@@ -41,9 +41,15 @@
 }
 
 .skye-section {
+	max-width: 100%;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column-reverse;
 	gap: 1rem;
+
+	&--reverse {
+		flex-direction: column;
+	}
 
 	@include breakpoint(large) {
 		display: grid;

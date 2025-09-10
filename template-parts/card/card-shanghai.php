@@ -14,15 +14,10 @@
   $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
   $marked_expired = get_field('bonus_expired', $bonus_id); 
   
-
   $detailsGroup = get_field('details_group', $site);
   $siteName = $detailsGroup['name'];
   $siteLink = $detailsGroup['affiliate_link'];
-
-  $mediaGroup = get_field('media_group', $site);
-  $siteColor = $mediaGroup['theme_color'];
   
-  $siteColorOutput = $siteColor ? $siteColor : '#eeeeee';
   $outputLink = $bonusLink ? $bonusLink : $siteLink;
   ?>
 
