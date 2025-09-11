@@ -30,18 +30,18 @@
         height: 150px;
         width: 150px;
       }
-      
-     img {
+
+      img {
         height: auto;
         width: 100%;
-     }
-   
+      }
+
     }
 
     &__content {
       flex: 1;
 
-      h1 { 
+      h1 {
         margin: 0;
         font-weight: 700;
         font-size: var(--size-500);
@@ -54,7 +54,7 @@
           font-size: var(--size-700);
           max-width: 28ch;
         }
-   
+
       }
     }
 
@@ -71,12 +71,12 @@
   }
 
   .bonus-body {
-    font-size: var(--font-size-body-lg);
+    font-size: var(--size-500);
 
     &__table {
       margin-top: var(--size-600);
     }
-    
+
     &__content {
       margin-top: var(--size-600);
 

@@ -54,9 +54,7 @@
   /* 
    * Box Shadow
    **/
-  --box-shadow-large: 0 2rem 4rem rgba(0, 0, 0, 0.3);
   --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  --box-shadow-small: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 
   /* 
    * Transition
@@ -88,24 +86,13 @@
   /**
   * Font Weight
   */
-  --font-weight-light: 600;
-  --font-weight-normal: 700 --font-weight-bold: 800;
+  --fw-light: 400;
+  --fw-normal: 600;
+  --fw-bold: 800;
 
   /* 
    * Font Size
    **/
-  --font-size-heading-sm: clamp(var(--size-300), 2vw + 1rem, var(--size-500));
-  --font-size-heading-md: clamp(var(--size-400), 2vw + 1rem, var(--size-600));
-  --font-size-heading-lg: clamp(var(--size-500), 3vw + 1rem, var(--size-800));
-  --font-size-heading-xl: clamp(var(--size-600), 5vw + 1rem, var(--size-900));
-  --font-size-heading-xxl: clamp(var(--size-900), 6vw + 1rem, var(--size-1000));
-
-
-  --font-size-body-sm: var(--size-300);
-  --font-size-body-md: var(--size-400);
-  --font-size-body-lg: var(--size-500);
-  --font-size-body-xl: var(--size-600);
-
   --focus-width: 3px;
   --focus-color: var(--color-primary-200);
 }

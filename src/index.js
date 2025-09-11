@@ -1,8 +1,8 @@
 import "../assets/css/style.scss";
-import '../assets/css/single-review.scss';
-import '../assets/css/single-bonus.scss';
-import '../assets/css/single-streamer.scss';
-import '../assets/css/search-results.scss';
+// import '../assets/css/single-review.scss';
+// import '../assets/css/single-bonus.scss';
+// import '../assets/css/single-streamer.scss';
+// import '../assets/css/search-results.scss';
 
 // import CardFocus from "./modules/CardFocus";
 import SidebarMenu from "./modules/SidebarMenu";
@@ -23,7 +23,6 @@ const expiryDates = new ExpiryDates()
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';

@@ -20,7 +20,6 @@ h1,
   font-size: 26px;
   font-weight: 700;
 
-  // font-size: var(--font-size-heading-xl);
   @include breakpoint(large) {
     font-size: 36px;
   }
@@ -50,7 +49,6 @@ h3,
 h4,
 .heading-4,
 .h4 {
-  // font-size: var(--font-size-heading-sm);
   font-size: 18px;
 
   @include breakpoint(large) {
@@ -61,7 +59,6 @@ h4,
 h5,
 .heading-5,
 .h5 {
-  // font-size: var(--font-size-heading-sm);
   font-size: 16px;
 
   @include breakpoint(large) {
@@ -72,7 +69,6 @@ h5,
 h6,
 .heading-6,
 .h6 {
-  // font-size: var(--font-size-heading-sm);
   font-size: 16px;
 
   @include breakpoint(large) {
@@ -179,22 +175,22 @@ a:hover {
   color: #0056b3;
 }
 
-h1 > a,
-h2 > a,
-h3 > a,
-h4 > a,
-h5 > a,
-h6 > a {
+h1>a,
+h2>a,
+h3>a,
+h4>a,
+h5>a,
+h6>a {
   color: var(--color-primary-900);
   // transition: all 0.15s ease-in-out;
 }
 
-h1 > a:hover,
-h2 > a:hover,
-h3 > a:hover,
-h4 > a:hover,
-h5 > a:hover,
-h6 > a:hover {
+h1>a:hover,
+h2>a:hover,
+h3>a:hover,
+h4>a:hover,
+h5>a:hover,
+h6>a:hover {
   color: var(--color-muted-400);
 }
 
@@ -251,14 +247,14 @@ h6 > a:hover {
   border-top: 1px solid var(--color-muted-200);
   display: flex;
 
-  &__title {  
+  &__title {
     margin: 0;
     font-weight: 800;
     font-size: var(--size-400);
     text-transform: uppercase;
     letter-spacing: 0.4px;
 
-    a { 
+    a {
       display: flex;
       align-items: center;
       text-decoration: none;
