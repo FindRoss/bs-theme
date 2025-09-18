@@ -28,14 +28,17 @@
 ?>
 
 <div class="bonus-pill-wrapper">
-  <div class="bonus-pill"> 
+  <div class="card card-absolute bonus-pill">
+
+    <!-- aria -->
+    <a class="card-absolute__link" href="<?php echo $permalink; ?>"></a>
 
     <div class="bonus-pill__content">
       <img class="logo" src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
-      <h3 class="h6"><a href="<?php echo $permalink; ?>"><?php echo $truncate_title; ?></a></h2>
+      <h3 class="h6"><?php echo $truncate_title; ?></h2>
     </div>
 
-    <div class="bonus-pill__cta">
+    <div class="card-absolute__ctas bonus-pill__cta">
       <a class="button button__primary" href="<?php echo $bonusLink; ?>" target="_blank" rel="nofollow" aria-label="Visit <?php echo $name; ?>">
        <?php echo get_svg_icon('external-link'); ?>
       </a>

@@ -1,9 +1,31 @@
-
 /*
 *
 * CUSTOM TABLE
 *
 */
+
+figure.wp-block-table {
+  margin: var(--size-600) 0 0;
+
+  table {
+
+    thead,
+    th,
+    td {
+      border: 2px solid var(--color-muted-200);
+    }
+
+    thead {
+      background-color: var(--color-bg-100);
+      font-size: 18px;
+    }
+  }
+
+  .wp-element-caption {
+    margin-top: var(--size-200);
+  }
+}
+
 
 .custom-table-scroll {
   overflow-x: auto;
@@ -63,7 +85,7 @@
 
   tr {
     // background-color: #ffffff;
-    
+
     td {
       font-size: var(--size-400);
       padding: var(--size-400) 0;
@@ -74,13 +96,14 @@
         padding-left: var(--size-400);
       }
 
-     
+
     }
+
     &:last-child {
       td {
         border-bottom: 0px;
       }
     }
-   
+
   }
 }

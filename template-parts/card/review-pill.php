@@ -5,12 +5,12 @@
  $aff_link      = $details_group['affiliate_link']; 
  $bonus         = $details_group['bonus'];
  $media_group   = get_field('media_group', $id);
- $themeColor     = $media_group['theme_color'];
+ $themeColor    = $media_group['theme_color'];
  $review_link   = get_the_permalink($id);
 ?>
 
 <div class="card card-absolute review-pill">
-  <a class="card-absolute__link" href="<?php echo $review_link; ?>"></a>
+  <a class="card-absolute__link" href="<?php echo $review_link; ?>" aria-label="Read <?php echo $name; ?> review"></a>
   <div class="review-pill__body">
     <img class="logo" src="<?php echo get_the_post_thumbnail_url($id, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
     <h3 class="h6">

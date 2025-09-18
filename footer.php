@@ -33,7 +33,6 @@
                     </svg>
                   </a>
                 </div>
-                <!-- <li class="menu-item"><a target="_blank" href="https://www.facebook.com/BitcoinChaser/" aria-label="Follow BitcoinChaser on Facebook">Facebook</a></li> -->
               </ul>
             </div>
           </div><!-- .col --> 
@@ -84,7 +83,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 d-flex align-items-center py-3" style="font-size: 0.85em;">
-              <div class="mr-2 chaser-footer-title">BitcoinChaser</div>
+              <div class="mr-2 ff-main">BitcoinChaser</div>
               <div class="text-muted mr-2">&copy; <?php echo date('Y'); ?></div>
             </div><!-- .col --> 
           </div><!-- .row --> 

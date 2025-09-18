@@ -119,19 +119,7 @@
       if (!empty($expiry_date)) {
           $table_fields['Expires On'] = formatDate($expiry_date);
       }
-      
-      // "Bonus Code"            => $code_extended ? $code_extended : $code,
-      // "Bonus Type"            => $bonusTypeOutput,
-      // "Wagering Requirements" => $turnover, 
-      // "Minimum Deposit"       => $min_deposit, 
-      // "Maximum Bonus"         => $max_bonus,
-      // "Max Cashout"           => $max_cashout,
-      // "Eligible Game"         => $game, 
-      // "Players Eligible"      => $players_eligible,
-      // "Bonus Duration"        => $valid_for,
-      // "Valid From"            => $start_date,
-      // "Expires On"            => formatDate($expiry_date),
-
+    
       $output_link = $bonus_link ? $bonus_link : $link;
 
       $relatedBonusArgs = array(
@@ -164,8 +152,6 @@
       );
       $sameSiteBonus = new WP_Query($sameSiteBonusArgs);
 
-  
-
       $bonus_has_expired = $bonus_marked_as_expired || $expiry_date_has_passed;
     ?>  
 
@@ -179,69 +165,69 @@
         <div class="col-12 col-lg-8">
           <article>
 
-          <div class="bonus-header">
-            <div class="bonus-header__brand" style="background: <?php echo $theme_color; ?>">
-              <img src="<?php echo $featured_image ?>" alt="<?php $name . ' logo'; ?>" class="rounded-corners" aria-hidden="true" /> 
-            </div>
+            <div class="bonus-header">
+              <div class="bonus-header__brand" style="background: <?php echo $theme_color; ?>">
+                <img src="<?php echo $featured_image ?>" alt="<?php $name . ' logo'; ?>" class="rounded-corners exclude-lazyload" aria-hidden="true" fetchpriority="high" /> 
+              </div>
 
-            <div class="bonus-header__content">
+              <div class="bonus-header__content">
 
-              <?php if ($bonus_exclusive) : ?>
-                <span class="info-pill exclusive">
-                  <?php echo get_svg_icon('star'); ?>
-                  <span>Exclusive</span>
-                </span>
-              <?php endif; ?>
-
-              <h1><?php the_title(); ?></h1>
-
-            </div><!-- .bonus-header__content -->
-            
-            <?php if (!$bonus_has_expired) : ?> 
-            <div class="bonus-header__cta">
-                
-              <?php if ($code) { ?>
-                <div class="button button__outline bonus-code">
-                  <span class="bonus-code__label">Code: </span>
-                  <span class="bonus-code__code"><?php echo $code; ?></span>
-                  <span class="bonus-code__icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-                    </svg>
+                <?php if ($bonus_exclusive) : ?>
+                  <span class="info-pill exclusive">
+                    <?php echo get_svg_icon('star'); ?>
+                    <span>Exclusive</span>
                   </span>
-                </div>
-              <?php }; ?>
-              <a href="<?php echo $output_link; ?>" class="button button__primary" rel="nofollow" target="_blank">Get Bonus</a>
-            </div>
-            <?php endif; ?>
-            
-          </div><!-- .bonus-header -->
+                <?php endif; ?>
 
-          <!-- BODY -->
-          <div class="bonus-body main--content">
+                <h1><?php the_title(); ?></h1>
 
-            <?php if (get_the_content()) {  ?>
-            <div class="bonus-body__content">
-              <?php the_content(); ?>
-            </div> 
-            <?php }; ?>
+              </div><!-- .bonus-header__content -->
+              
+              <?php if (!$bonus_has_expired) : ?> 
+              <div class="bonus-header__cta">
                   
-            <div class="bonus-body__table">
-              <h2>Details</h2>
-              <table class="chaser-table">
-                <tbody>
-                  <?php foreach($table_fields as $key => $value) { ?>
-                    <?php if ($value) : ?>
-                      <tr>
-                        <td><?php echo $key; ?></td>
-                        <td><?php echo $value; ?></td>
-                      </tr>  
-                    <?php endif; ?>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
-          </div><!--.bonus-body --> 
+                <?php if ($code) { ?>
+                  <div class="button button__outline bonus-code">
+                    <span class="bonus-code__label">Code: </span>
+                    <span class="bonus-code__code"><?php echo $code; ?></span>
+                    <span class="bonus-code__icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                      </svg>
+                    </span>
+                  </div>
+                <?php }; ?>
+                <a href="<?php echo $output_link; ?>" class="button button__primary" rel="nofollow" target="_blank">Get Bonus</a>
+              </div>
+              <?php endif; ?>
+              
+            </div><!-- .bonus-header -->
+
+            <!-- BODY -->
+            <div class="bonus-body main--content">
+
+              <?php if (get_the_content()) {  ?>
+              <div class="bonus-body__content">
+                <?php the_content(); ?>
+              </div> 
+              <?php }; ?>
+                    
+              <div class="bonus-body__table">
+                <h2>Details</h2>
+                <table class="chaser-table">
+                  <tbody>
+                    <?php foreach($table_fields as $key => $value) { ?>
+                      <?php if ($value) : ?>
+                        <tr>
+                          <td><?php echo $key; ?></td>
+                          <td><?php echo $value; ?></td>
+                        </tr>  
+                      <?php endif; ?>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div><!--.bonus-body --> 
           </article>
         </div><!-- .col -->
 

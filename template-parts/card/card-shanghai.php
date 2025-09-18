@@ -24,7 +24,7 @@
 
   <div class="card card-absolute card-shanghai">
 
-    <a class="card-absolute__link" href="<?php the_permalink(); ?>"></a>
+    <a class="card-absolute__link" href="<?php the_permalink(); ?>" aria-label="Read <?php echo $name; ?> review"></a>
     
     <div class="card-shanghai__media">
       <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
@@ -61,7 +61,7 @@
     <div class="card-absolute__ctas card-shanghai__ctas">
        
       <?php if ($code) { ?>
-        <a class="button button--small button__outline bonus-code" type="button">
+        <a class="button button--small button__outline bonus-code" type="button" aria-label="Copy bonus code to clipboard">
           <span class="bonus-code__code"><?php echo $code; ?></span>
           <span class="bonus-code__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
@@ -71,7 +71,7 @@
         </a>
       <?php }; ?>
 
-      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank">Get Bonus</a>
+      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank" aria-label="Claim bonus at <?php echo $name; ?>">Get Bonus</a>
 
     </div>
   </div>

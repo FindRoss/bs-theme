@@ -24,7 +24,7 @@
 
   <div class="card card-absolute card-hangzhou">
 
-    <a class="card-absolute__link" href="<?php the_permalink(); ?>"></a>
+    <a class="card-absolute__link" href="<?php the_permalink(); ?>" aria-label="Read <?php echo $siteName; ?> review"></a>
 
     <?php if ($expiry_date || $exclusive || $marked_expired) { ?>
       <!-- <div class="card-hangzhou-pills">      

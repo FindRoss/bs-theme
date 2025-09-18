@@ -35,14 +35,18 @@
       $crypto_output .= '<span class="icon count-icon">+' . ($total_terms_count - 5) . '</span>'; 
     }
   }
+
+    $truncate_exceprt = truncate_text(get_the_excerpt(), 112);
 ?>
 
 <div class="card card-absolute hong-kong-card">
   
-  <a class="card-absolute__link" href="<?php the_permalink(); ?>"></a>
+  <a class="card-absolute__link" href="<?php the_permalink(); ?>" aria-label="Read <?php echo $name; ?> review"></a>
   
-  <div class="card__media hong-kong-card__media" style="background-color: <?php echo $siteColor; ?>">
-    <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>">
+  <div class="card__media hong-kong-card__media">
+    <div class="hk-card-bg-color" style="background-color: <?php echo $siteColor; ?>">
+      <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>">
+    </div>
   </div>
   <div class="hong-kong-card__content">
     
@@ -59,7 +63,7 @@
     <?php } ?>
     
     <h3><?php echo $name; ?></h3>
-    <div class="excerpt"><?php the_excerpt(); ?></div>
+    <div class="excerpt"><?php echo $truncate_exceprt; ?></div>
         
     <?php if (!empty($crypto_terms) && !is_wp_error($crypto_terms)) { ?>
       <div class="crypto-icons">
@@ -71,8 +75,8 @@
   </div>
   <?php if (!empty($link)) {  ?>
     <div class="card-absolute__ctas hong-kong-card__ctas">
-      <a href="<?php echo the_permalink(); ?>" class="button button__outline">Review</a>
-      <a href="<?php echo $link; ?>" class="button button__primary" target="_blank">Play</a>
+      <a href="<?php echo the_permalink(); ?>" class="button button__outline" aria-label="Read <?php echo $name; ?> review">Review</a>
+      <a href="<?php echo $link; ?>" class="button button__primary" target="_blank" aria-label="Goto <?php echo $name; ?>">Play</a>
     </div>
   <?php }; ?>
 </div>

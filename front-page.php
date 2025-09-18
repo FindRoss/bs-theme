@@ -9,7 +9,6 @@ $featured_post_args = array(
 );
 $featured_post_query = new WP_Query( $featured_post_args ); 
 
-
 $countries_to_show = [
   'germany', 
   'australia',
@@ -18,9 +17,9 @@ $countries_to_show = [
   'united kingdom',
   'norway',
 ];
+
+$first_image_bool = true;
 ?> 
-
-
 
 <div class="container">
   
@@ -33,10 +32,25 @@ $countries_to_show = [
     <div class="fife-section__content grid">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
+          
           <div class="grid-item">
-            <?php get_template_part('template-parts/card/card', 'beijing'); ?>
-            <?php $used_posts[] = get_the_ID(); ?>
+            <?php 
+              if ($first_image_bool) { 
+                // Created this one just so I can have fetchpriority and lazyload css class.
+                get_template_part('template-parts/card/card', 'beijing-lcp');
+              } else { 
+                get_template_part('template-parts/card/card', 'beijing'); 
+              }; 
+            ?>   
           </div>
+          
+          <?php 
+            $used_posts[] = get_the_ID(); 
+
+            if (count($used_posts) > 1) {
+              $first_image_bool = false; 
+            };
+          ?>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
       <?php endif; ?>

@@ -17,7 +17,7 @@ $site_posts_query = new WP_Query(
     'post_type'      => 'post',
     'posts_per_page' => 8,
     'meta_query'     => array(
-      'relation' => 'AND', // Important to tell WP how to combine all conditions
+      'relation' => 'AND',
       array(
         'key'     => 'post-review-relationship',
         'value'   => '"' . $id . '"',
@@ -141,6 +141,12 @@ if ($conclusion) $content['Conclusion'] = $conclusion;
 $taxonomies = ['cryptocurrency', 'game', 'provider', 'payment', 'country'];
 $all_terms = wp_get_object_terms($review_id, $taxonomies);
 
+if ( !empty($all_terms) && !is_wp_error($all_terms) ) {
+  usort($all_terms, function($a, $b) {
+      return $b->count <=> $a->count; // DESC
+  });
+}
+
 $terms_by_tax = [];
 foreach ($all_terms as $term) {
   $terms_by_tax[$term->taxonomy][] = $term;
@@ -181,7 +187,7 @@ $review_faqs = get_review_faqs($review_id);
   <!-- Header -->
   <header class="review-header">
     <div class="review-header__logo">
-      <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo $name; ?>" width="500" height="250">
+      <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo $name; ?>" width="500" height="250" fetchpriority="high">
     </div>
     <div class="review-header__info">
       <h1><?php echo $name; ?></h1>
@@ -219,50 +225,23 @@ $review_faqs = get_review_faqs($review_id);
 
     <main class="skye-section__content">
 
-      <?php
-      // Problem with this here. When I remove this section I have no problem
-
-        // Working
-        // if (!$closed) {
-          
-        //   $bonus_query = get_bonuses_by_review_query(get_the_ID());
-        //   if ($bonus_query->have_posts()) : 
-        //     echo '<section class="section">';
-        //     echo '<h2>Bonuses</h2>';
-        //     while ($bonus_query->have_posts()) : $bonus_query->the_post();
-        //       get_template_part('template-parts/card/card', 'hangzhou');
-        //     endwhile;
-        //     echo '</section>';
-        //     wp_reset_postdata();
-        //   endif; 
-        // }; 
-
-        // Issues
-        // $bonus_query = get_bonuses_by_review_query(get_the_ID());
-        // if ($bonus_query->have_posts()) :
-        //   echo '<section class="section">';
-        //   outputNewSlideHTML(array(
-        //     'query'   => $bonus_query,
-        //     'heading' => 'Bonuses',
-        //     'card_type' => 'shanghai'
-        //   ));
-        //   echo '</section>';
-
-        //   wp_reset_postdata();
-        // endif;
+      <?php        
+        $bonus_query = get_bonuses_by_review_query(get_the_ID());
+        if ($bonus_query->have_posts()) : ?>
+          <section class="section">
+            <h2>Bonuses</h2>
+            <div class="shanghai-row">
+              <?php 
+                while ($bonus_query->have_posts()) : $bonus_query->the_post();
+                  get_template_part('template-parts/card/card', 'shanghai');
+                endwhile;
+              ?>
+            </div>
+          </section>
+          <?php 
+          wp_reset_postdata();
+        endif; 
       ?>
-
-      <?php 
-        if ($homepageImg) { ?>
-          <figure class="homepage-image">
-            <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>">
-            <?php if ($homepageImg_cap): ?>
-              <figcaption><?php echo $homepageImg_cap; ?></figcaption>
-            <?php endif; ?>
-          </figure>
-          <?php
-        };
-        ?>
 
         <section class="content mt-5">
           <h2 class="title">Review</h2>
@@ -280,9 +259,23 @@ $review_faqs = get_review_faqs($review_id);
               </div>
             </div>
           <?php } ?>
-
         </section>
-      
+
+
+        <?php 
+        if ($homepageImg) { ?>
+          <section>
+            <figure class="homepage-image">
+              <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>">
+              <?php if ($homepageImg_cap): ?>
+                <figcaption><?php echo $homepageImg_cap; ?></figcaption>
+              <?php endif; ?>
+            </figure>
+            </section>
+          <?php
+        };
+        ?>
+    
 
       <!-- FAQS -->
 
@@ -301,9 +294,6 @@ $review_faqs = get_review_faqs($review_id);
     </div>
   </section>
   <?php endif; ?>
-
-
-
   
   <!-- MORE SITES -->
   <?php 

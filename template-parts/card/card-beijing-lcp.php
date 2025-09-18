@@ -22,7 +22,8 @@
           title="<?php the_title_attribute(); ?>" 
           width="800"
           height="480"
-          loading="lazy"
+          class="exclude-lazyload"
+          fetchpriority="high"
          />
       </picture>
     </div>

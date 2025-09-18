@@ -4,13 +4,6 @@
 <?php $featured_img = get_the_post_thumbnail_url(); ?>
 <?php $current_post_id = get_the_ID(); ?>
 
-<style>
-  .cat-pill {
-    padding: 0.3rem 0.75rem;
-    background: var(--color-bg-400);
-  }
-</style>
-
 <?php 
 // author
 $author_id = get_the_author_meta('ID'); 

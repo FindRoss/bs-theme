@@ -81,7 +81,7 @@
         <div class="col-12 col-md-9">
           <!-- Query -->
           <?php if ($query->have_posts()) : ?>
-            <div class="ff-main bg-cus-light px-3 py-2 rounded-corners" id="displayCount">Showing <strong>124</strong> out of <strong>300</strong> reviews.</div>
+            <div class="ff-main bg-light px-3 py-2 rounded-corners" id="displayCount">Showing <strong>124</strong> out of <strong>300</strong> reviews.</div>
             <div class="row" id="review-container">
             <?php while ($query->have_posts()) : $query->the_post(); ?>
               <div class="col-12 col-md-4 mt-3">

@@ -24,7 +24,7 @@ function terms_to_box($terms, $title, $with_links = false): string  {
 <div class="box <?php echo (count($terms) > $threshold) ? 'show-more-list' : ''; ?>">
     <div class="box__content">
 
-      <h3 class="title">Hi <?php echo $title; ?> <?php echo '(' . count($terms) . ')'; ?></h3>
+      <h3 class="title"><?php echo $title; ?> <?php echo '(' . count($terms) . ')'; ?></h3>
         <ul>
           <?php foreach ($terms as $index => $term):
               $is_object = is_object($term);
@@ -64,7 +64,6 @@ function terms_to_box($terms, $title, $with_links = false): string  {
     <?php if (count($terms) > $threshold) { ?>
 
       <div class="box__footer">
-        <!-- <button id="expand-review-list">+</button> -->
 
         <button class="round-icon" id="expand-review-list"><?php echo get_svg_icon('chevron-down'); ?></button>
       </div>

@@ -37,7 +37,7 @@
           <?php echo get_svg_icon('hamburger'); ?>
         </button>
         <a href="/" class="d-flex align-items-center">
-          <img width="274" height="34" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
+          <img width="274" height="34" class="exclude-lazyload" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser.com logos">
         </a>
       </div>
 

@@ -45,7 +45,6 @@
     $table_fields['Kick'] = '<a href="' . $kick . '" target="_blank">' . str_replace(array("http://", "https://"), "", $kick) . '</a>';
   }
 
-
   $moreStreamersQuery = new WP_Query(array(
     'post_type' => 'streamer',
     'posts_per_page' => 4,
@@ -66,7 +65,12 @@
           <?php }; ?>
         </div>
         <div class="col-12 col-lg-6">
-            <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="w-100 h-auto" alt="">
+          <img 
+            src="<?php echo get_the_post_thumbnail_url(); ?>" 
+            class="w-100 h-auto exclude-lazyload" 
+            alt="<?php the_title(); ?>" 
+            fetchpriority="high"
+            >
         </div>
       </div>
     </div>
@@ -74,14 +78,11 @@
     <div class="row">
       <div class="col-12 col-lg-8">
       
-
-        <!-- Site -->
         <?php if (isset($sites) && is_array($sites)) : ?>
         <div class="mt-5">
           <h2>Plays at</h2>
 
           <?php foreach($sites as $site) { 
-
               $siteDetailsGroup = get_field('details_group', $site);
               $siteMediaGroup   = get_field('media_group', $site);
               $siteColor        = $siteMediaGroup['theme_color'];
@@ -90,8 +91,7 @@
               $siteLogo         = get_the_post_thumbnail_url($site, 'site-small-logo');
               $siteBonus        = $siteDetailsGroup['bonus'];
               $siteReviewLink   = get_the_permalink($site);
-
-              ?>
+            ?>
 
             <div class="site-card">
               <div class="site-card__media" style="background-color: <?php echo $siteColor; ?>">
@@ -116,7 +116,7 @@
     
         
         <?php if (!empty($table_fields)) { ?>
-        <div class="streamer-table mt-5">
+        <div class="mt-5">
           <h2>Details</h2>
           <table class="chaser-table">
             <tbody>
@@ -134,7 +134,7 @@
         <?php }; ?>
         
         <?php if (get_the_content()) { ?>
-        <div class="streamer-content main--content mt-5">
+        <div class="main--content mt-5">
           <?php the_content(); ?>
         </div>
         <?php }; ?>
