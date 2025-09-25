@@ -64,8 +64,6 @@
   </div><!-- .container -->
 </header>
 
-<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
-
 <div class="background-drawer">
 
   <div class="background-drawer__header">

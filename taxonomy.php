@@ -13,7 +13,7 @@
 
   // Custom query
   $query = new WP_Query(array(
-    'post_type'      => array('review'),
+    'post_type'      => 'review',
     'posts_per_page' => 12,
     'paged'          => $paged,
     'orderby'        => 'meta_value_num',
@@ -35,8 +35,6 @@
     )
   ));
 
-  $count = 1;
-
   $title_output = $term_name . ' Casinos and Gambling Sites';
   if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
   if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';
@@ -44,6 +42,8 @@
   if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
   if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2025';
 ?>
+
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
 <div class="container">
   <header class="taxonomy-header">
@@ -70,7 +70,7 @@
 
 
 <!-- MAIN QUERY -->
-<?php taxonomy_main_query($query, $taxonomy, $term); // Pass $query directly ?>
+<?php taxonomy_main_query($query, $term); ?>
 
 <!--MAIN CONTENT-->
 <div class="container">

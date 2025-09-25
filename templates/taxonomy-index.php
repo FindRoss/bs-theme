@@ -41,6 +41,7 @@
   $introduction = get_field('introduction');
 ?>
 
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
 
 <div class="container pt-4 pb-5">
 
@@ -53,27 +54,15 @@
   <?php } ?>
 
   <?php if ($terms) : ?>
-    <div class="row">
+    <section class="angus-section mt-4">
+      <div class="layout">
 
       <?php foreach($terms as $key => $term) { 
+          include locate_template('template-parts/card/card-chongqing.php');
+        }; ?>
 
-          $term_icon = get_field('icon', $term->taxonomy . '_' . $term->term_id); 
-          $term_icon_thumb = $term_icon['sizes']['thumbnail'] ?? '';
-        ?>
-
-        <div class="col-6 col-md-4 col-lg-3 mt-4">
-          <div class="card h-100">
-            <div class="card-body text-center">
-              <?php echo $term_icon_thumb ? '<img src="' . esc_url($term_icon_thumb) . '" alt="" width="50" height="50" class="">' : ''; ?>
-              <h2 class="mt-4 h5"><?php echo $term->name; ?></h2>
-              <p><?php echo $term->count; ?> Reviews</p>
-              <a href="<?php echo esc_url(get_term_link($term)); ?>">See all reviews</a>
-            </div>
-          </div>
-        </div>
-      <?php }; ?>
-
-    </div><!-- .row -->
+      </div>
+    </section>
   <?php endif; ?>
 
   <?php if (!empty($page_content)) { ?>

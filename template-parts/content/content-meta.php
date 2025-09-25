@@ -2,6 +2,7 @@
     // author
     $author_id = get_the_author_meta('ID'); 
     $get_avatar_url = get_avatar_url($author_id);
+    
 
     // Get the category - empty if it isnt a post.
     $categories = get_the_category(); 
@@ -13,18 +14,6 @@
     // Get formatted dates
     $publish_date = get_the_date('M j, Y');
     $update_date  = get_the_modified_date('M j, Y');
-
-    // Get the ID of the last user who edited the post
-    // $last_updated_by = get_post_meta( get_the_ID(), '_edit_last', true );
-
-    // Get the user data for the last editor
-    // if ( !empty( $last_updated_by ) ) {
-    //   $last_editor = get_userdata( $last_updated_by );
-    //   $last_editor_name = $last_editor->display_name;
-    //   print_r('displaying last editor name: ');
-    //   print_r($last_editor_name); 
-    //   $last_editor_avatar_url = get_avatar_url( $last_updated_by );
-    // }
 ?>
 
 <div class="main--meta">
@@ -33,7 +22,7 @@
   <div class="main--meta__section">
     
     <div class="meta-media">
-      <img src="<?php echo $get_avatar_url; ?>" width="24" height="24" alt="Author profile picture" />
+      <img src="<?php echo $get_avatar_url; ?>" width="35" height="35" alt="<?php the_author(); ?> profile picture" />
     </div>
     
     <div class="meta-content">

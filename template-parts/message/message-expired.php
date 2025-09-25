@@ -2,10 +2,14 @@
  
   $post_type   = get_post_type(); 
   $type_output = 'bonus';
+  $button_link = '/bonuses/';
 
-  if ($post_type == 'post') { $type_output = 'promotion'; } 
+  if ($post_type == 'post') { 
+    $type_output = 'promotion'; 
+    $button_link = '/category/promotions/';
+  } 
 ?>
-   <div class="container">
+   <div class="container mt-4">
     <div class="message warning">
       <div class="message__body">
         <div class="message__content">
@@ -13,7 +17,7 @@
           <p>Check out other exciting opportunities available now.</p>
         </div>
         <div class="message__cta">
-          <a class="button button__primary" href="/category/promotions/">View More</a>
+          <a class="button button__primary" href="<?php echo $button_link; ?>">View More</a>
         </div>
       </div>
     </div>

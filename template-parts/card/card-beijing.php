@@ -2,6 +2,7 @@
   $expiry_date = get_field('expiry_date');
   $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
   $marked_expired = get_field('bonus_expired'); 
+  $exclude_lazyload = $args['exclude_lazyload'] ?? false;
 ?>
 
 <!-- .card-col-row --> 
@@ -22,7 +23,7 @@
           title="<?php the_title_attribute(); ?>" 
           width="800"
           height="480"
-          loading="lazy"
+          <?php echo $exclude_lazyload ? 'class="exclude-lazyload"' : ''; ?>
          />
       </picture>
     </div>

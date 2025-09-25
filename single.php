@@ -19,15 +19,30 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
   $promo_marked_as_expired = get_field('bonus_expired');
   $expiry_date = get_field('expiry_date');
   $expiry_date_has_passed = false;
+  $expiry_pill_html = '';  
       
   if ($expiry_date) {
     $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
     $expiry_date_has_passed = $expiry_date_timestamp < time();
-  }
 
- if($expiry_date_has_passed || $promo_marked_as_expired) { ?>
-  <?php get_template_part( 'template-parts/message/message-expired' );
- } ?>
+
+    if($expiry_date_has_passed || $promo_marked_as_expired) { 
+      get_template_part( 'template-parts/message/message-expired' );
+    } else {
+      $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
+
+      ob_start(); ?>
+        <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo esc_attr( $expiry_timestamp ); ?>">
+          <?php echo get_svg_icon('stopwatch'); ?>
+          <span class="ends-in-text"></span>
+        </span>
+      <?php
+      $expiry_pill_html = ob_get_clean();
+    }
+  }
+  ?>
+
+    <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
 
     <article>
@@ -35,11 +50,13 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
         <!-- TITLE -->
         <div class="row">
           <div class="col-12 col-lg-8">
-            <?php if ($single_category_link != '') { ?>
-              <a href="<?php echo $single_category_link; ?>" class="cat-pill"><?php echo $single_category_name; ?></a>
-            <?php } ?>
+           
+            <!-- <a href="echo $single_category_link" class="cat-pill">$single_category_name;</a> -->
+            
             <?php get_template_part( 'template-parts/content/content-title' ); ?>
+            <!-- <?php echo $expiry_pill_html; ?> -->
             <?php get_template_part( 'template-parts/content/content-meta' ); ?>
+            
           </div>
         </div>
 

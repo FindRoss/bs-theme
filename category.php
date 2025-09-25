@@ -30,6 +30,7 @@ $temp_query = $wp_query;
 $wp_query   = NULL;
 $wp_query   = $query; ?>
 
+<?php get_template_part( 'template-parts/breadcrumbs/breadcrumbs' ); ?> 
 
 <div class="container mb-4">
 

@@ -168,6 +168,7 @@ $review_faqs = get_review_faqs($review_id);
 
 
 ?>
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
 
 <div class="container">
 
@@ -266,7 +267,7 @@ $review_faqs = get_review_faqs($review_id);
         if ($homepageImg) { ?>
           <section>
             <figure class="homepage-image">
-              <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>">
+              <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
               <?php if ($homepageImg_cap): ?>
                 <figcaption><?php echo $homepageImg_cap; ?></figcaption>
               <?php endif; ?>

@@ -23,7 +23,7 @@ $first_image_bool = true;
 
 <div class="container">
   
-  <section class="lothian-section">
+  <section class="lothian-section mt-4">
     <h1 class="h2 m-0">Welcome to BitcoinChaser!</h1>
     <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, no-deposit bonuses, gambling guides, and more.</p>
   </section>
@@ -36,8 +36,7 @@ $first_image_bool = true;
           <div class="grid-item">
             <?php 
               if ($first_image_bool) { 
-                // Created this one just so I can have fetchpriority and lazyload css class.
-                get_template_part('template-parts/card/card', 'beijing-lcp');
+                get_template_part('template-parts/card/card', 'beijing', array('exclude_lazyload' => true));
               } else { 
                 get_template_part('template-parts/card/card', 'beijing'); 
               }; 

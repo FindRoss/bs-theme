@@ -2,13 +2,13 @@
 
 // I love this site: https://www.justetf.com/en/how-to/sp-500-etfs.html
 
-function taxonomy_main_query($query, $taxonomy, $term): void {
+function taxonomy_main_query($query, $term): void {
 
   if (!$query->have_posts()) return; 
 
   $current_page_url = get_term_link($term); 
 
-  $all_term_name = ['cryptocurrency', 'game', 'provider', 'payment'];
+  $all_term_name = ['review_type', 'cryptocurrency', 'game', 'provider', 'payment'];
   $all_term_results = [];
 
   foreach($all_term_name as $term_name) {
@@ -29,19 +29,19 @@ function taxonomy_main_query($query, $taxonomy, $term): void {
     $all_term_results[$term_name] = $terms;
   };
   
-  $crypto_terms = get_terms(array(
-    'taxonomy'    => $taxonomy,
-    'hide_empty' => true,
-    'order'      => 'DESC',
-    'number'     => 35,
-    'orderby'    => 'count',
-  ));
+  // $crypto_terms = get_terms(array(
+  //   'taxonomy'    => $taxonomy,
+  //   'hide_empty' => true,
+  //   'order'      => 'DESC',
+  //   'number'     => 35,
+  //   'orderby'    => 'count',
+  // ));
   
-  if (!is_wp_error($crypto_terms)) {
-    usort($crypto_terms, function ($a, $b) {
-      return strcasecmp($a->name, $b->name);
-    });
-  }
+  // if (!is_wp_error($crypto_terms)) {
+  //   usort($crypto_terms, function ($a, $b) {
+  //     return strcasecmp($a->name, $b->name);
+  //   });
+  // }
   
   $taxonomy_titles = [
     'cryptocurrency' => 'Cryptocurrencies',
@@ -70,11 +70,17 @@ function taxonomy_main_query($query, $taxonomy, $term): void {
     
     <main class="skye-section__content">
       <div class="grid">
-        <?php if ( $query->have_posts() ) : ?>
-          <?php while ( $query->have_posts() ) : $query->the_post() ?>
-          <div class="grid-item">
-            <?php get_template_part('template-parts/card/card', 'hong-kong'); ?>
-          </div>
+        <?php if ( $query->have_posts() ) :
+          $counter = 1; 
+          while ( $query->have_posts() ) : $query->the_post() ?>
+            <div class="grid-item">
+              <?php if ($counter < 3) {
+                get_template_part('template-parts/card/card', 'hong-kong', array('exclude_lazyload' => true));
+              } else {
+                get_template_part('template-parts/card/card', 'hong-kong');
+              } ?>
+            </div>
+            <?php $counter++; ?>
           <?php endwhile; ?>
           <?php wp_reset_postdata(); ?>
         <?php endif; ?>
@@ -90,6 +96,4 @@ function taxonomy_main_query($query, $taxonomy, $term): void {
   </div><!-- .container -->
 
 
-<?php   
-  };
-  ?>
+<?php }; ?>

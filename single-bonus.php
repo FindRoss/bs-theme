@@ -157,7 +157,9 @@
 
     <?php if($bonus_has_expired) { ?>
       <?php get_template_part( 'template-parts/message/message-expired' ); ?>
-    <?php } ?>
+    <?php } else { ?>
+      <?php get_template_part( 'template-parts/breadcrumbs/breadcrumbs' ); ?>
+    <?php }; ?>
 
     <div class="container">
       

@@ -52,6 +52,8 @@
   ));
 ?>
 
+<?php get_template_parts( 'template-parts/breadcrumbs/breadcrumbs' ); ?>
+
 <div class="container">
 
   <article class="py-3 py-lg-4">

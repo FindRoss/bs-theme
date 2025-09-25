@@ -90,6 +90,10 @@
 		gap: var(--size-400);
 		grid-template-columns: 1fr;
 
+		@include breakpoint(medium) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
 		@include breakpoint(large) {
 			grid-template-columns: repeat(4, 1fr);
 		}

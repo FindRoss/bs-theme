@@ -104,6 +104,8 @@ $wp_query   = NULL;
 $wp_query   = $query;
 ?>
 
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
+
 <div class="container">
   <header class="taxonomy-header">
     <?php if ($hasIcon) { ?>
@@ -170,7 +172,7 @@ if ($paged == 1) {
 <?php };  ?>
 
 <!-- MAIN QUERY -->
-<?php taxonomy_main_query($query, $taxonomy, $term); ?>
+<?php taxonomy_main_query($query, $term); ?>
 
 
 <!-- MAIN CONTENT -->

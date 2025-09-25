@@ -199,6 +199,13 @@ require get_theme_file_path('/inc/template-functions.php');
 require get_theme_file_path('/inc/search-endpoint.php');
 
 /**
+ * Bradcrumbs
+ * get_review_breadcrumbs()
+ * get_post_breadcrumbs()
+ */
+require get_theme_file_path('/inc/breadcrumb-getters.php');
+
+/**
  * Register widgets
  * - widgets_init
  */

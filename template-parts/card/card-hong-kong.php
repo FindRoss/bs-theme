@@ -1,4 +1,6 @@
 <?php   
+  $exclude_lazyload = $args['exclude_lazyload'] ?? false;
+
   $details_group = get_field('details_group');
   $name          = $details_group['name']; 
   $link          = $details_group['affiliate_link']; 
@@ -45,7 +47,7 @@
   
   <div class="card__media hong-kong-card__media">
     <div class="hk-card-bg-color" style="background-color: <?php echo $siteColor; ?>">
-      <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>">
+      <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo'); ?>" width="70" height="40" aria-hidden="true" alt="<?php echo $name . ' logo'; ?>" <?php echo $exclude_lazyload ? 'class="exclude-lazyload"' : ''; ?>>
     </div>
   </div>
   <div class="hong-kong-card__content">

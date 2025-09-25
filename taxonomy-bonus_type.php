@@ -44,19 +44,20 @@ if (empty($merged_bonuses)) {
     'orderby'    => 'post__in',
     'meta_query' => bonus_expired_meta_query()
   )); 
-}
+};
 
-// Pagination fix
-if (!empty($merged_bonuses)) {
-  $temp_query = $wp_query;
-  $wp_query   = NULL;
-  $wp_query   = $query;
-}
+// Pagination fix - dont need? - causing a problem with pagination
+// if (!empty($merged_bonuses)) {
+//   $temp_query = $wp_query;
+//   $wp_query   = NULL;
+//   $wp_query   = $query;
+// };
 
 ?>
 
+<?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
+
 <div class="container">
- 
     
     <!-- INTRODUCTION -->
     <section class="">
