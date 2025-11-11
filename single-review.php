@@ -164,10 +164,18 @@ $languages = $fields['languages'] ?? [];
 $support_channels = $support_group['channels'];
 
 // Faqs
-$review_faqs = get_review_faqs($review_id);
+$faqs = get_review_faqs($review_id);
+$faqs_has_answers = false;
 
+foreach ($faqs as $faq) {
+  if (!empty($faq['answer'])) {
+    $faqs_has_answers = true;
+    break; 
+  }
+};
 
 ?>
+
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
 
 <div class="container">
@@ -177,7 +185,7 @@ $review_faqs = get_review_faqs($review_id);
     <section class="section-closed">
       <div>
         <h2 class="h3">🚩<?php echo $name; ?> is now closed</h2>
-        <p>Explore our reviews of <a href="https://bitcoinchaser.com/sites/casino/"> popular crypto casinos</a> or <a href="https://bitcoinchaser.com/sites/sports/">sports betting sites</a> you might enjoy.</p>
+        <p>Explore our reviews of <a href="https://bitcoinchaser.com/sites/casino/">popular crypto casinos</a> or <a href="https://bitcoinchaser.com/sites/sports/">sports betting sites</a> you might enjoy.</p>
         <?php if ($more_sites->have_posts()) :
           outputNewSlideHTML(array('query' => $more_sites));
         endif; ?>
@@ -246,9 +254,9 @@ $review_faqs = get_review_faqs($review_id);
 
         <section class="content mt-5">
           <h2 class="title">Review</h2>
-          <?php the_content(); ?>
-
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
+          the_content();
+
           foreach ($content as $key => $value) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
@@ -260,6 +268,26 @@ $review_faqs = get_review_faqs($review_id);
               </div>
             </div>
           <?php } ?>
+
+          <?php if ($faqs_has_answers) { ?>
+            <div class="content-dropdown">
+              <div class="content-dropdown__controls">
+                <h3 class="h4 title">FAQs</h3>
+                <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
+              </div>
+              <div class="content-dropdown__content">
+                <?php foreach ($faqs as $faq) { ?>
+                  <?php if ($faq['answer']) : ?>
+                    <div>
+                      <h4><?php echo $faq['question']; ?></h4>
+                      <div><?php echo wpautop($faq['answer']); ?></div>
+                    </div>
+                  <?php endif; ?>
+                <?php } ?>
+              </div>
+            </div>
+          <?php } ?>
+
         </section>
 
 
@@ -274,12 +302,7 @@ $review_faqs = get_review_faqs($review_id);
             </figure>
             </section>
           <?php
-        };
-        ?>
-    
-
-      <!-- FAQS -->
-
+        }; ?>
     </main>
   </section> 
 

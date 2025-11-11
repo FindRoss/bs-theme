@@ -3,11 +3,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--size-300);
-} 
+}
 
 select {
   padding: var(--size-100) var(--size-200);
-  border-radius: var(--border-radius); 
+  border-radius: var(--border-radius);
   border: 1px solid var(--color-muted-200);
   font-size: var(--size-400);
   color: var(--color-muted-600)
@@ -16,8 +16,8 @@ select {
 .checkbox {
   &__input {
     cursor: pointer;
-    transform: scale(1.65); 
-    margin: 8px; 
+    transform: scale(1.65);
+    margin: 8px;
   }
 
   &__label {
@@ -48,9 +48,9 @@ ul.checkboxes {
     display: block;
     text-decoration: underline;
     margin-top: var(--size-300);
-    font-weight: bold; 
+    font-weight: bold;
     cursor: pointer;
-    
+
   }
 }
 
@@ -71,5 +71,3 @@ input[type="text"] {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
 }
-
-          

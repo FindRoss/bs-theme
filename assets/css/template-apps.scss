@@ -1,0 +1,26 @@
+@use "modules/_breakpoints" as *;
+
+.app-row {
+  align-items: start;
+
+  .app-image-col {
+    padding: var(--size-300);
+    display: flex;
+    justify-content: center;
+    background: var(--color-bg-200);
+    border-top: 2px solid var(--color-bg-600);
+
+    .app-image {
+      width: 40%;
+      border: 1px solid var(--color-bg-600);
+
+      @include breakpoint(large) {
+        width: 100%;
+      }
+    }
+  }
+
+  .app-content-col {
+    border-top: 2px solid var(--color-bg-600);
+  }
+}

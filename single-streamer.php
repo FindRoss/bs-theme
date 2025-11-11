@@ -52,7 +52,7 @@
   ));
 ?>
 
-<?php get_template_parts( 'template-parts/breadcrumbs/breadcrumbs' ); ?>
+<!-- get_template_parts( 'template-parts/breadcrumbs/breadcrumbs' ); -->
 
 <div class="container">
 

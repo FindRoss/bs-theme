@@ -61,7 +61,6 @@ $first_image_bool = true;
 
 </div><!-- .container -->
 
-
 <!-- REVIEWS --> 
 <?php 
 $review_ids_to_include = get_field('reviews', 'options');
@@ -94,6 +93,7 @@ if ($review_query_foundPosts >= 1) { ?>
 </div>
 
 <?php }; ?>
+
 
 <!-- PROMOTIONS -->
 <?php 

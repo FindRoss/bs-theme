@@ -14,7 +14,9 @@
           <h1 class="main--title mb-4"><?php the_title(); ?></h1>
           <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
             <!-- meta --> 
-            <?php get_template_part( 'template-parts/content/content-meta' ); ?>
+            <div class="main--meta">
+              <?php get_template_part( 'template-parts/content/content-author' ); ?>
+            </div>
           </div>
         </div>
       </div><!-- style --> 

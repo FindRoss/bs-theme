@@ -142,30 +142,11 @@ h6 {
       border-bottom: 1px solid #dcdcdc;
       color: #0074b3;
 
-      &:hover {
+      &:hover,
+      &:focus {
         border-bottom: 1px solid #0074b3;
       }
     }
-  }
-}
-
-.main--title {
-  font-size: var(--size-600);
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-
-  @include breakpoint(small) {
-    font-size: 36px;
-  }
-}
-
-.main--excerpt {
-  color: var(--color-muted-500);
-  font-size: 20x;
-
-  @include breakpoint(medium) {
-    font-size: 22px;
   }
 }
 
@@ -186,7 +167,8 @@ h6 {
   a {
     color: var(--color-primary-900);
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--color-muted-400);
     }
   }

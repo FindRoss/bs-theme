@@ -4,21 +4,35 @@ function themebs_enqueue_styles() {
   wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'index-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version'));
+
+	$post_type = get_post_type();
   
-  if (get_post_type() === 'bonus') {
+  if ($post_type === 'bonus') {
     wp_enqueue_style( 'single-bonus-styles', get_template_directory_uri() . '/build/single-bonus.css', array(), wp_get_theme()->get('Version'));
   }
   
-  if (get_post_type() === 'review' ) {
+  if ($post_type === 'review' ) {
     wp_enqueue_style( 'single-review-styles', get_template_directory_uri() . '/build/single-review.css', array(), wp_get_theme()->get('Version'));
   }
   
-  if (get_post_type() === 'streamer') {
+  if ($post_type === 'streamer') {
     wp_enqueue_style( 'streamer-styles', get_template_directory_uri() . '/build/single-streamer.css', array(), wp_get_theme()->get('Version'));
   }
 
   if (is_search()) {
     wp_enqueue_style( 'search-styles', get_template_directory_uri() . '/build/search-results.css', array(), wp_get_theme()->get('Version'));
+  }
+
+	if (is_page_template('templates/applications.php')) {
+    wp_enqueue_style( 'apps-styles', get_template_directory_uri() . '/build/template-apps.css', array(), wp_get_theme()->get('Version'));
+  }
+
+	if ($post_type === 'review' || $post_type === 'post' || $post_type === 'page') {
+    wp_enqueue_style( 'heading-toggle-styles', get_template_directory_uri() . '/build/heading-toggle.css', array(), wp_get_theme()->get('Version'));
+  }
+
+	if ($post_type === 'review' || $post_type === 'post' || $post_type === 'bonus') {
+    wp_enqueue_style( 'message-styles', get_template_directory_uri() . '/build/message.css', array(), wp_get_theme()->get('Version'));
   }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');

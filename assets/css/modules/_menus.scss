@@ -4,9 +4,9 @@
 .header {
   position: relative;
   z-index: 999;
+  background-color: #ffffff;
   border-bottom: 1px solid var(--color-muted-200);
 }
-
 
 header.sticky-top {
   z-index: 1020;
@@ -15,6 +15,61 @@ header.sticky-top {
 
 body.no-scroll {
   overflow: hidden;
+}
+
+/*
+* Featured Navbar Item
+**/
+
+
+.featured-navbar-item {
+  display: flex;
+  padding: 0 !important;
+
+
+  a {
+    color: #ffffff !important;
+    background-color: #E15105 !important;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    width: 100%;
+    font-weight: bold;
+
+    @include breakpoint(large) {
+      width: auto;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: #fff !important;
+      filter: brightness(0.9);
+    }
+  }
+}
+
+.menu-sidebar-nav {
+  .featured-navbar-item a {
+    width: 100% !important;
+  }
+}
+
+.chaser-search {
+  width: 100%;
+
+  &__layout {
+    display: flex;
+    gap: var(--size-200);
+    align-items: center;
+
+    input {
+      flex: 1;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-muted-400);
+      // font-size: 1.25rem;
+      padding: 12px 1rem;
+    }
+  }
 }
 
 // This should be global for desktop and mobile menu;
@@ -26,7 +81,8 @@ body.no-scroll {
   user-select: none;
 
   &:hover,
-  &:active {
+  &:active,
+  &:focus {
     color: var(--color-primary-400);
   }
 }
@@ -79,30 +135,6 @@ body.no-scroll {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-  }
-}
-
-/*
-* Featured Navbar Item
-**/
-
-.featured-navbar-item {
-  display: inline-block;
-  margin-left: 1rem;
-
-  a {
-    color: #ffffff !important;
-    background: indianred;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-    padding-right: 1rem !important;
-    padding-left: 1rem !important;
-
-    &:hover,
-    &:focus,
-    &:active {
-      filter: brightness(0.8);
-    }
   }
 }
 
@@ -271,7 +303,8 @@ body.no-scroll {
       padding-right: var(--size-200);
       font-size: 14px;
 
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: var(--color-muted-100);
       }
     }
@@ -311,7 +344,8 @@ body.no-scroll {
         justify-content: center;
         border-left: 1px solid var(--color-muted-100);
 
-        &:hover {
+        &:hover,
+        &:focus {
           background-color: var(--color-muted-100);
         }
 

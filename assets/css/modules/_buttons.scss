@@ -20,7 +20,8 @@ button.round-icon {
   cursor: pointer;
   background-color: var(--color-primary-50);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: var(--color-primary-100);
   }
 }
@@ -58,7 +59,8 @@ button.round-icon {
     background-color: var(--color-primary-500);
     color: #ffffff;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: var(--color-primary-700);
       color: #ffffff;
     }
@@ -68,7 +70,8 @@ button.round-icon {
     background-color: var(--color-primary-50);
     color: var(--color-primary-700);
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: var(--color-primary-100);
       color: inherit;
     }
@@ -130,7 +133,8 @@ button.round-icon {
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     svg:not(.bi-check-circle-fill) {
       fill: var(--color-primary-500);
     }
@@ -149,7 +153,8 @@ button.round-icon {
   border: 1px solid transparent !important;
 
   &:hover,
-  &:active {
+  &:active,
+  &:focus {
     background: var(--color-primary-700);
     color: inherit;
     border: 1px solid transparent !important;
@@ -166,7 +171,8 @@ button.round-icon {
   border: 1px solid var(--color-primary-500) !important;
 
   &:hover,
-  &:active {
+  &:active,
+  &:focus {
     background: var(--color-primary-100) !important;
     border: 1px solid var(--color-primary-500) !important;
   }
@@ -210,15 +216,4 @@ p.p-primary-btn>a {
     box-shadow: 0 0 0 var(--focus-width) var(--focus-color);
     outline: 0;
   }
-}
-
-// Cat Pill
-.cat-pill {
-  width: auto;
-  background: var(--color-bg-400);
-  font-family: var(--font-family-heading);
-  padding: var(--size-100) var(--size-200);
-  border-radius: 2rem;
-  border: 1px solid var(--color-muted-200);
-  text-decoration: none;
 }

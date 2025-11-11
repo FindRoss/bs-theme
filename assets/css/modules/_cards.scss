@@ -19,7 +19,8 @@
     }
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       color: inherit;
 
       h2,
@@ -81,7 +82,8 @@
 
   /* Normal hover for the card */
   &:hover,
-  &:active {
+  &:active,
+  &:focus-within {
     border: 1px solid var(--color-primary-300);
   }
 
@@ -225,7 +227,8 @@
         font-size: var(--size-500);
       }
 
-      &:hover {
+      &:hover,
+      &:focus {
         text-decoration: underline;
       }
     }
@@ -532,7 +535,7 @@
     }
 
     h3 {
-      font-size: 20px;
+      font-size: 22px;
     }
   }
 }
@@ -852,7 +855,8 @@
   color: inherit;
   text-decoration: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     text-decoration: none;
     color: inherit;
 
@@ -936,6 +940,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--size-200);
+  background-color: #ffffff;
+  border: 1px solid var(--color-muted-200);
 
   &__media {
     display: flex;
@@ -1070,7 +1076,8 @@
     color: inherit;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
 
       .content {
         border: 1px solid var(--color-primary-200);

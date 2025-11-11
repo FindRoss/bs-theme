@@ -11,7 +11,9 @@ Template Post Type: post, page
   <div class="row">
     <div class="col-12 col-lg-8">
       <?php get_template_part( 'template-parts/content/content-title' ); ?>
-      <?php get_template_part( 'template-parts/content/content-meta' ); ?>
+      <div class="main--meta">
+        <?php get_template_part( 'template-parts/content/content-author' ); ?>
+      </div>
     </div>
   </div>
 
