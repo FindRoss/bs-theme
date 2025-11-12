@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run build:js && npm run build:css",
-    "build:js": "wp-scripts build",
+    "build:js": "wp-scripts build --config webpack.config.js",
     "build:css": "sass assets/css:build --no-source-map --style=compressed",
     "watch:css": "sass --watch assets/css:build --no-source-map --style=compressed",
     "start": "wp-scripts start",

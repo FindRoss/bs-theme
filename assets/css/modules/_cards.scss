@@ -900,7 +900,8 @@
   font-size: 13px;
   gap: 4px;
   color: inherit;
-  text-transform: capitalize;
+
+
 
   svg {
     height: 16px;
@@ -929,7 +930,9 @@
     /* Light red for expired */
   }
 
-
+  .ends-in-text::first-letter {
+    text-transform: capitalize;
+  }
 }
 
 
