@@ -75,20 +75,15 @@ class ExpiryDateFormatter {
     const weeks = Math.floor(days / 7);
     const months = Math.floor(days / 30); // rough
 
-    if (weeks > 0 && weeks < 4) {
-      return `Ends in ${weeks} Week${weeks > 1 ? 's' : ''}`;
-    }
-    if (days > 0 && days < 30) {
-      return `Ends in ${days} Day${days > 1 ? 's' : ''}`;
-    }
-    if (hours > 0 && hours < 24) {
-      return `Ends in ${hours} Hour${hours > 1 ? 's' : ''}`;
-    }
-    if (months >= 1) {
-      return `Ends ${this.formatExactDate()}`;
-    }
+    if (weeks > 0 && weeks < 4) return `ends in ${weeks} Week${weeks > 1 ? 's' : ''}`;
 
-    return 'Ends in less than a minute';
+    if (days > 0 && days < 30) return `ends in ${days} Day${days > 1 ? 's' : ''}`;
+
+    if (hours > 0 && hours < 24) return `ends in ${hours} Hour${hours > 1 ? 's' : ''}`;
+
+    if (months >= 1) return `ends ${this.formatExactDate()}`;
+
+    return 'ends in less than a minute';
   }
 
   formatExactDate() {

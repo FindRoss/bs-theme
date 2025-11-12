@@ -26,33 +26,19 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $expiry_date_has_passed = $expiry_date_timestamp < time();
 
     if($expiry_date_has_passed || $promo_marked_as_expired) { 
-      get_template_part( 'template-parts/message/message-expired' );
+      get_template_part( 'template-parts/message/message', 'expired' );
     } else {
       $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
-
-      ob_start(); ?>
-
-        <div class="main--meta__section info-pill-expiry" data-expiry="<?php echo esc_attr( $expiry_timestamp ); ?>">
-          <div class="meta-media">
-            <?php echo get_svg_icon('stopwatch'); ?>
-          </div>
-        
-          <div class="meta-content">
-          <div class="meta-content__title">Expiry Date</div>
-            <div class="meta-content__date">  
-              <span class="ends-in-text"></span>
-            </div>
-          </div>
-        </div>
-
-      <?php $expiry_pill_html = ob_get_clean();
+      get_template_part( 'template-parts/message/message', 'active', array(
+        'timestamp' => $expiry_timestamp
+      ) );  
     }
   }
   ?>
 
     <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
-
+<!-- <div class="info-pill timer"></div> -->
     <article>
       <div class="container">
         <!-- TITLE -->
@@ -127,3 +113,19 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 <?php endif; ?>
 
 <?php get_footer(); ?>
+
+
+     
+
+        <!-- <div class="main--meta__section info-pill-expiry" data-expiry="<?php echo esc_attr( $expiry_timestamp ); ?>">
+          <div class="meta-media">
+ 
+          </div>
+        
+          <div class="meta-content">
+          <div class="meta-content__title">Expiry Date</div>
+            <div class="meta-content__date">  
+              <span class="ends-in-text"></span>
+            </div>
+          </div>
+        </div> 

@@ -9,9 +9,20 @@
     $button_link = '/category/promotions/';
   } 
 ?>
-   <div class="container mt-4">
+   <div>
     <div class="message warning">
-      <div class="message__body">
+      <div class="message__body container">
+        <div class="message__content">
+          <h3 class="title">This <?php echo $type_output; ?> has now expired.</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+     <!-- <div>
+    <div class="message warning">
+      <div class="message__body container">
         <div class="message__content">
           <h3 class="title">This <?php echo $type_output; ?> has now expired.</h2>
           <p>Check out other exciting opportunities available now.</p>
@@ -21,4 +32,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->

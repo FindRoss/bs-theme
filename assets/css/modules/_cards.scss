@@ -900,6 +900,7 @@
   font-size: 13px;
   gap: 4px;
   color: inherit;
+  text-transform: capitalize;
 
   svg {
     height: 16px;
@@ -927,6 +928,8 @@
     background-color: #F8D7DA;
     /* Light red for expired */
   }
+
+
 }
 
 
