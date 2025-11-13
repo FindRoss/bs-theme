@@ -19,14 +19,22 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
   $promo_marked_as_expired = get_field('bonus_expired');
   $expiry_date = get_field('expiry_date');
   $expiry_date_has_passed = false;
-  $expiry_pill_html = '';  
       
   if ($expiry_date) {
+    
     $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
     $expiry_date_has_passed = $expiry_date_timestamp < time();
 
     if($expiry_date_has_passed || $promo_marked_as_expired) { 
-      get_template_part( 'template-parts/message/message', 'expired' );
+      
+      // Prepare args
+      $args = array();
+      if ($expiry_date_has_passed) {
+        $args['timestamp'] = $expiry_date_timestamp;
+      }
+
+      get_template_part( 'template-parts/message/message', 'expired', $args);
+      
     } else {
       $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
       get_template_part( 'template-parts/message/message', 'active', array(
@@ -43,8 +51,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
       <div class="container">
         <!-- TITLE -->
         <div class="row">
-          <div class="col-12 col-lg-8"> 
-            <?php echo $expiry_pill_html; ?>      
+          <div class="col-12 col-lg-8">    
             <?php get_template_part( 'template-parts/content/content-title' ); ?>
             <?php get_template_part( 'template-parts/content/content-author' ); ?>
           </div>
@@ -113,19 +120,3 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 <?php endif; ?>
 
 <?php get_footer(); ?>
-
-
-     
-
-        <!-- <div class="main--meta__section info-pill-expiry" data-expiry="<?php echo esc_attr( $expiry_timestamp ); ?>">
-          <div class="meta-media">
- 
-          </div>
-        
-          <div class="meta-content">
-          <div class="meta-content__title">Expiry Date</div>
-            <div class="meta-content__date">  
-              <span class="ends-in-text"></span>
-            </div>
-          </div>
-        </div> 

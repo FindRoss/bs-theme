@@ -26,7 +26,7 @@ class ExpiryDates {
       }
 
       if (spanForText) {
-        spanForText.textContent = formattedExpiry;
+        spanForText.innerHTML = formattedExpiry;
       }
 
       this.addExpiryClass(pill, formattedExpiry);
@@ -75,13 +75,13 @@ class ExpiryDateFormatter {
     const weeks = Math.floor(days / 7);
     const months = Math.floor(days / 30); // rough
 
-    if (weeks > 0 && weeks < 4) return `ends in ${weeks} Week${weeks > 1 ? 's' : ''}`;
+    if (weeks > 0 && weeks < 4) return `<span class="text">ends in</span> <span class="time">${weeks} week${weeks > 1 ? 's' : ''}</span>`;
 
-    if (days > 0 && days < 30) return `ends in ${days} Day${days > 1 ? 's' : ''}`;
+    if (days > 0 && days < 30) return `<span class="text">ends in</span> <span class="time">${days} day${days > 1 ? 's' : ''}</span>`;
 
-    if (hours > 0 && hours < 24) return `ends in ${hours} Hour${hours > 1 ? 's' : ''}`;
+    if (hours > 0 && hours < 24) return `<span class="text">ends in</span> <span class="time">${hours} hour${hours > 1 ? 's' : ''}</span>`;
 
-    if (months >= 1) return `ends ${this.formatExactDate()}`;
+    if (months >= 1) return `<span class="text">ends</span> <span class="time">${this.formatExactDate()}</span>`;
 
     return 'ends in less than a minute';
   }
