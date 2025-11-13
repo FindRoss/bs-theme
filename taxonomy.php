@@ -35,6 +35,9 @@
     )
   ));
 
+  // $review_ids = wp_list_pluck($query->posts, 'ID');
+  // print_r($review_ids);
+
   $title_output = $term_name . ' Casinos and Gambling Sites';
   if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
   if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';
@@ -57,17 +60,13 @@
     <?php } ?>
     <h1><?php echo esc_html($title_output); ?></h1>
 
-    <?php
-      if (term_description()) {
-    ?>
+    <?php if (term_description()) { ?>
       <div class="taxonomy-header__description main--content">
         <?php echo term_description(); ?>
       </div>
-
     <?php }; ?>
   </header>
 </div>
-
 
 <!-- MAIN QUERY -->
 <?php taxonomy_main_query($query, $term); ?>
