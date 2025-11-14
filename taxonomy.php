@@ -35,9 +35,9 @@
     )
   ));
 
+  // Feature articles from these sites?
   // $review_ids = wp_list_pluck($query->posts, 'ID');
-  // print_r($review_ids);
-
+  
   $title_output = $term_name . ' Casinos and Gambling Sites';
   if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
   if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';

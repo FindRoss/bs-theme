@@ -1,14 +1,11 @@
 <?php get_header(); ?>
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="bg-light border py-5 px-2 mb-4 text-center" role="alert">
-          <h1>404 Error</h1>
-          <p>Whoops. Page not found. Please try again later.</p>
-        </div>
+  <main>
+    <div class="container">
+      <div class="message404">
+        <h1>Sorry</h1>
+        <p class="subtitle fs-large">The page you were looking for cannot be found.</p>
+        <p class="more">The page may no longer exist or may have moved to another web address.</p>
       </div>
     </div>
-  </div>
+  </main> 
 <?php get_footer(); ?>
-
-
