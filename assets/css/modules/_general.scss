@@ -10,11 +10,9 @@
   }
 }
 
-
 ::selection {
   background: var(--color-primary-100);
 }
-
 
 body {
   margin: 0;
@@ -26,10 +24,6 @@ body {
 }
 
 .border-radius {
-  border-radius: var(--border-radius);
-}
-
-.rounded-corners {
   border-radius: var(--border-radius);
 }
 
@@ -54,6 +48,16 @@ h3+.wp-block-image {
     border-radius: var(--border-radius);
     width: 100%;
     height: auto;
+  }
+
+  a {
+    border: 0 !important;
+
+    &:hover img,
+    &:active img,
+    &:focus img {
+      opacity: 0.875;
+    }
   }
 
   figcaption {

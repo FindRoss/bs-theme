@@ -2,7 +2,7 @@
 
 .message {
   margin: 0;
-  padding: var(--size-300) 0;
+  padding: var(--size-200) 0;
   background: var(--color-bg-100);
   border-bottom: 1px solid var(--color-muted-200);
 
@@ -15,54 +15,36 @@
 
   .title {
     margin: 0;
-    font-size: var(--size-400);
-    color: var(--color-muted-600);
+    font-size: 14px;
+    color: var(--color-muted-500);
     font-weight: normal;
-
+    letter-spacing: 0.5px;
 
     .time {
       font-weight: bold;
     }
-
-  }
-
-
-
-  p {
-    font-size: 14px;
-    color: var(--color-muted-400);
-    margin: var(--size-200) 0 0 0;
   }
 
   &.warning {
+    // red
     background: oklch(97.1% 0.013 17.38);
-
   }
 
   &.active {
-    // background: oklch(98.2% 0.018 155.826);
-
-    // Emerald 100
-    // background: oklch(95% 0.052 163.051);
-
-    // Emerald 200 
-    // background: oklch(90.5% 0.093 164.15);
-
     // Green 50
-    background: oklch(98.2% 0.018 155.826);
-
-    // Green 100 
-    // background: oklch(96.2% 0.044 156.743);
-
-    // Green 300 
-    // oklch(87.1% 0.15 154.449)
-
-    border-bottom: 1px solid oklch(92.5% 0.084 155.995);
-
-    // .title {
-    // color: oklch(39.3% 0.095 152.535);
-    // }
+    // background: oklch(98.2% 0.018 155.826);
+    // border-bottom: 1px solid oklch(92.5% 0.084 155.995);
+    // cyan
+    // background-color: oklch(98.4% 0.019 200.873);
+    // border-bottom: oklch(95.6% 0.045 203.388);
+    // Purple
+    // background-color: oklch(97.7% 0.014 308.299);
+    // border-bottom: 1px solid oklch(93.6% 0.061 308.486);
+    // Blue
+    background-color: oklch(97.048% 0.01429 254.737 / 0.518);
+    border-bottom: 1px solid oklch(93.2% 0.032 255.585);
   }
+
 }
 
 // .message {

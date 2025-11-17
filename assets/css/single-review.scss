@@ -3,10 +3,6 @@
 .single-review {
   background-color: var(--color-bg-50);
 
-  h1 {
-    margin-top: 0;
-  }
-
   .introduction {
     font-size: 18px;
     margin-bottom: var(--size-600);
@@ -71,9 +67,16 @@
     }
 
     &__info {
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
       .excerpt {
         font-size: 18px;
         color: var(--color-muted-500);
+        margin-top: var(--size-200);
       }
     }
 

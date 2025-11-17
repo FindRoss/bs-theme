@@ -50,7 +50,7 @@ $play_at_query = new WP_Query( $play_at_args );
         <div class="mb-4 pb-4 border-bottom">
               
           <!-- image --> 
-          <img class="w-100 h-auto mb-4 rounded-corners border" width="600" height="311" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" />
+          <img class="w-100 h-auto mb-4 border-radius border" width="600" height="311" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" />
 
           <!-- title --> 
           <h1 class="mb-4"><?php the_title(); ?></h1>

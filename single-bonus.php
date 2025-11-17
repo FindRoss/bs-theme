@@ -1,11 +1,11 @@
 <?php get_header(); ?>
 
     <?php 
-      $current_id = get_the_ID();
+      $post_id = get_the_ID();
       $options_bonuses = get_field('bonuses', 'options');
 
       // Remove the current ID from the options bonuses if it exists
-      $options_bonuses = array_diff($options_bonuses, array($current_id));
+      $options_bonuses = array_diff($options_bonuses, array($post_id));
       // Re-index the array if needed
       $options_bonuses = array_values($options_bonuses); // WARNING
 
@@ -126,7 +126,7 @@
         'post_type'      => 'bonus',
         'posts_per_page' => 8,
         'meta_query'     => bonus_expired_meta_query(),
-        'post__not_in'   => array($current_id)
+        'post__not_in'   => array($post_id)
       );
       
       if (!empty($options_bonuses)) {
@@ -138,7 +138,7 @@
       $sameSiteBonusArgs = array(
         'post_type'      => 'bonus',
         'posts_per_page' => 8,
-        'post__not_in'   => array($current_id),
+        'post__not_in'   => array($post_id),
         'meta_query'     => array_merge(
         bonus_expired_meta_query(),
           array(
@@ -153,13 +153,13 @@
       $sameSiteBonus = new WP_Query($sameSiteBonusArgs);
 
       $bonus_has_expired = $bonus_marked_as_expired || $expiry_date_has_passed;
-    ?>  
 
-    <?php if($bonus_has_expired) { ?>
-      <?php get_template_part( 'template-parts/message/message-expired' ); ?>
-    <?php } else { ?>
-      <?php get_template_part( 'template-parts/breadcrumbs/breadcrumbs' ); ?>
-    <?php }; ?>
+      
+    show_banner_message($post_id);
+    
+    get_template_part( 'template-parts/breadcrumbs/breadcrumbs' ); 
+    
+    ?>
 
     <div class="container">
       
@@ -169,7 +169,7 @@
 
             <div class="bonus-header">
               <div class="bonus-header__brand" style="background: <?php echo $theme_color; ?>">
-                <img src="<?php echo $featured_image ?>" alt="<?php $name . ' logo'; ?>" class="rounded-corners exclude-lazyload" aria-hidden="true" fetchpriority="high" /> 
+                <img src="<?php echo $featured_image ?>" alt="<?php $name . ' logo'; ?>" class="border-radius exclude-lazyload" aria-hidden="true" fetchpriority="high" /> 
               </div>
 
               <div class="bonus-header__content">

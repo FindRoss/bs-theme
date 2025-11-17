@@ -1,27 +1,28 @@
  <?php 
-  $post_type   = get_post_type(); 
-  $type_output = 'bonus';
-  $expiry_ts   = $args['timestamp'];  
+  $types = [
+    'post'  => 'promotion',
+    'bonus' => 'bonus',
+  ];
 
 
-  if ($post_type == 'post') $type_output = 'promotion';  
-
+  $type_output = $types[get_post_type()] ?? 'bonus';
   $text_output = "This " . $type_output . " has expired.";
 
-  // print_r($expiry_ts); 
-  // is equal to 1751327940
-
+  $expiry_ts   = $args['timestamp'] ?? null;  
   if ($expiry_ts) {
-    $date_string = date('M j', $expiry_ts);
-    $text_output .= " It expired on <span class='time'>" . $date_string . "</span>";
+    $date_string = date('M j, Y', $expiry_ts);
+    $text_output = "This " . $type_output . " expired on " . $date_string . ".";
   }
 ?>
-   <div>
-    <div class="message warning">
-      <div class="message__body container">
-        <div class="message__content">
-          <h3 class="title"><?php echo $text_output; ?></h3>
-        </div>
+
+<div role="status" aria-live="polite">
+  <section class="message warning">
+    <div class="message__body container">
+      <div class="message__content">
+        <p class="title">
+          <?php echo $text_output; ?>
+        </p>
       </div>
     </div>
-  </div>
+  </section>
+</div>

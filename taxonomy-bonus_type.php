@@ -80,7 +80,7 @@ if (empty($merged_bonuses)) {
           endwhile; 
           wp_reset_postdata();
         else : ?>
-          <div class="p-2 bg-white rounded-corners mt-4 border-top" style="font-size: 18px;">
+          <div class="p-2 bg-white border-radius mt-4 border-top" style="font-size: 18px;">
             <p>There are currently <strong>no <?php echo $term_name; ?> bonuses available</strong>.</p> 
             <p>Please explore the <a href="/bonuses/">other bonuses</a> we have currently listed.</p>
           </div>

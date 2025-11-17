@@ -2,6 +2,8 @@
 
 if ( have_posts() ) : while ( have_posts() ) : the_post();
 
+  $post_id = get_the_ID();
+
   $categories = get_the_category(); 
 
   if ( !empty( $categories ) && isset( $categories[0] ) ) {
@@ -14,39 +16,21 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $single_category_link = '';
   }
   
-  $post_date = get_the_date( 'M j, Y' );
 
+  // Really? 
+  // $post_date = get_the_date( 'M j, Y' );
+
+  
   $promo_marked_as_expired = get_field('bonus_expired');
   $expiry_date = get_field('expiry_date');
-  $expiry_date_has_passed = false;
-      
-  if ($expiry_date) {
-    
-    $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
-    $expiry_date_has_passed = $expiry_date_timestamp < time();
+  // $expiry_date_has_passed = false;
 
-    if($expiry_date_has_passed || $promo_marked_as_expired) { 
+  show_banner_message($post_id);
       
-      // Prepare args
-      $args = array();
-      if ($expiry_date_has_passed) {
-        $args['timestamp'] = $expiry_date_timestamp;
-      }
-
-      get_template_part( 'template-parts/message/message', 'expired', $args);
-      
-    } else {
-      $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
-      get_template_part( 'template-parts/message/message', 'active', array(
-        'timestamp' => $expiry_timestamp
-      ) );  
-    }
-  }
   ?>
 
     <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
-<!-- <div class="info-pill timer"></div> -->
     <article>
       <div class="container">
         <!-- TITLE -->
@@ -84,11 +68,10 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
 
 <!-- RELATED ARTICLES --> 
-<?php 
-  $current_post_id = get_the_ID();
+<?php
   $args = array(
     'post_type'      => 'post', 
-    'post__not_in'   => array($current_post_id),
+    'post__not_in'   => array($post_id),
     'posts_per_page' => 8, 
     'cat'            => $single_category_id,
     'meta_query'     => bonus_expired_meta_query()

@@ -203,6 +203,7 @@ foreach ($faqs as $faq) {
       <?php if (has_excerpt()) { ?>
         <p class="excerpt"><?php echo get_the_excerpt(); ?></p>
       <?php } ?>
+      <!-- get_template_part( 'template-parts/content/content-author' ); -->
     </div>
     <div class="review-header__cta">
 

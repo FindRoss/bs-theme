@@ -65,10 +65,39 @@ function formatDate($date) {
   return null;
 }
 
-
+/**
+ * Truncate Text
+ */
 function truncate_text($text, $max_length = 100) {
   if (strlen($text) > $max_length) {
     return substr($text, 0, $max_length) . '...';
   }
   return $text;
 };
+
+/**
+ * Show Message Banner for Active/Expired Promotions or Bonuses
+ */
+function show_banner_message($post_id = null) {
+  // Fall back to current post if no ID passed
+  $post_id = $post_id ?: get_the_ID();
+
+  $expiry_date = get_field('expiry_date', $post_id);
+  $promo_marked_as_expired = get_field('bonus_expired', $post_id);
+
+  if (empty($expiry_date) && !$promo_marked_as_expired) return;
+
+  $args = array(); 
+  
+  if ($expiry_date) {
+    $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
+    $expiry_ts_has_passed = ($expiry_date_timestamp < time()) ?? false;
+    $args['timestamp'] = $expiry_date_timestamp;
+
+    return get_template_part('template-parts/message/message', $expiry_ts_has_passed ? 'expired' : 'active', $args);
+  }  
+  
+  if ($promo_marked_as_expired) {
+     return get_template_part('template-parts/message/message', 'expired', $args);
+  }
+}
