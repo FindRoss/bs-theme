@@ -15,7 +15,7 @@ function themebs_enqueue_styles() {
     wp_enqueue_style( 'single-review-styles', get_template_directory_uri() . '/build/single-review.css', array(), wp_get_theme()->get('Version'));
   }
   
-  if ($post_type === 'streamer') {
+  if ($post_type === 'streamer' OR $post_type === 'profile') {
     wp_enqueue_style( 'streamer-styles', get_template_directory_uri() . '/build/single-streamer.css', array(), wp_get_theme()->get('Version'));
   }
 

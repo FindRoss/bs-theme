@@ -1,23 +1,54 @@
 /*
-*
-* CUSTOM TABLE
-*
+* DEFAULT WP TABLE
 */
 
-figure.wp-block-table {
+figure.wp-block-table,
+.main--table {
   margin: var(--size-600) 0 0;
+  border: 1px solid var(--color-muted-100);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-bg-100);
 
   table {
+    border: 1px solid var(--color-muted-100);
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background-color: #fff;
+
+    thead {
+      background-color: var(--color-bg-100);
+
+      th {
+        font-size: 16px;
+      }
+    }
 
     thead,
     th,
     td {
-      border: 2px solid var(--color-muted-200);
+      /* remove all default borders */
+      border: 0;
     }
 
-    thead {
-      background-color: var(--color-bg-100);
-      font-size: 18px;
+    th,
+    td {
+      padding: 12px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    tbody {
+      tr:not(:last-child) td {
+        border-bottom: 1px solid var(--color-muted-100);
+      }
+
+      img {
+        margin: 0;
+      }
     }
   }
 
@@ -26,57 +57,75 @@ figure.wp-block-table {
   }
 }
 
+/**
+* RANK-TABLE
+*/
 
-.custom-table-scroll {
-  overflow-x: auto;
+.rank-table {
+  tr.main-row:not(:last-of-type) td {
+    border-bottom: 1px solid var(--color-muted-100);
+  }
+}
+
+/**
+* CUSTOM-TABLE
+*/
+.custom-table-scroll,
+.table-scroll {
+  overflow-x: auto !important;
 
   table {
     min-width: 750px;
   }
 }
 
-.custom-table {
-  margin-top: var(--size-500);
-  text-align: left;
-  width: 100%;
-  border-collapse: separate !important;
-  border-spacing: 0;
-  border: 1px solid var(--color-muted-200);
-  border-radius: var(--border-radius);
-}
+// DEPRECATED IF POSSIBLE
+// .custom-table {
+//   margin-top: var(--size-500);
+//   text-align: left;
+//   width: 100%;
+//   border-collapse: separate !important;
+//   border-spacing: 0;
+//   border: 1px solid var(--color-muted-200);
+//   border-radius: var(--border-radius);
+// }
 
-.custom-table thead {
-  background: var(--color-bg-400);
-  border-bottom: 1px solid var(--color-muted-200);
-  font-size: var(--size-400);
-  font-family: var(--font-family-heading);
-}
+// .custom-table thead {
+//   background: var(--color-bg-400);
+//   border-bottom: 1px solid var(--color-muted-200);
+//   font-size: var(--size-400);
+//   font-family: var(--font-family-heading);
+// }
 
-.custom-table thead tr th {
-  padding: var(--size-200);
-}
+// .custom-table thead tr th {
+//   padding: var(--size-200);
+// }
 
-.custom-table tbody tr td {
-  padding: 0.9em 0.6em;
-  font-size: 16px;
-  border-bottom: 1px solid var(--color-muted-200);
-}
+// .custom-table tbody tr td {
+//   padding: 0.9em 0.6em;
+//   font-size: 16px;
+//   border-bottom: 1px solid var(--color-muted-200);
+// }
 
-.custom-table tbody tr:last-child td {
-  border-bottom: 0px;
-}
+// .custom-table tbody tr:last-child td {
+//   border-bottom: 0px;
+// }
 
-@media screen and (max-width: 676px) {
-  .custom-table tbody tr td {
-    font-size: 13px;
-  }
+// @media screen and (max-width: 676px) {
+//   .custom-table tbody tr td {
+//     font-size: 13px;
+//   }
 
-  .custom-table thead tr th {
-    font-size: 14px;
-  }
-}
+//   .custom-table thead tr th {
+//     font-size: 14px;
+//   }
+// }
 
-/* Used on the bonus and streamer posttypes */
+/*
+* CHASER TABLE
+* This becomes info table and moves to profile page? 
+* Used on the bonus and streamer posttypes 
+*/
 .chaser-table {
   width: 100%;
   background: var(--tps-bg-secondary-color);
@@ -84,8 +133,6 @@ figure.wp-block-table {
   border-collapse: collapse;
 
   tr {
-    // background-color: #ffffff;
-
     td {
       font-size: var(--size-400);
       padding: var(--size-400) 0;
@@ -95,8 +142,6 @@ figure.wp-block-table {
         font-weight: 600;
         padding-left: var(--size-400);
       }
-
-
     }
 
     &:last-child {
