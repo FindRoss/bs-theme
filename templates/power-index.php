@@ -9,22 +9,18 @@ Template Post Type: post, pages
 
 <?php $table_rows = get_field('power_index'); ?>
 
-
-
-
-
 <div class="container">
   <h1>Power Index</h1>
    <div class="main--content">
     
    <div class="main--table rank-table">
-    <table>
+    <table id="toggle-table">
       <thead>
         <tr>
-          <th class="center">Rank</th>
-          <th>Site</th>
-          <th>Score</th>
           <th></th>
+          <th></th>
+          <th></th>
+          <th>Score</th>
         </tr>
       </thead>
 
@@ -52,17 +48,23 @@ Template Post Type: post, pages
           // Default WordPress Fields
           $site_thumbnail = get_the_post_thumbnail_url($site_id, 'site-small-logo');
           $site_url = get_permalink($site_id);
+          $unique_id = 'row-' . $counter;
           ?>
 
-          <tr>
-            <td class="center"><?php echo '#' . $counter; ?></td>
+          <tr class="main-row" data-toggle-row="<?php echo $unique_id; ?>">
+            <td>
+              <button 
+                data-toggle-target="<?php echo $unique_id; ?>"
+                class="toggle-table-button round-icon"
+              >
+                <?php echo get_svg_icon('chevron-down'); ?>
+              </button>
+            </td>
+            <td class="rank center number-outline"><?php echo '#' . $counter; ?></td>
             <td class="brand"><img src="<?php echo $site_thumbnail; ?>" width="100" height="50" alt="<?php echo $name; ?> Logo" /></td>
             <td>1876</td>
-            <td>
-              <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
-            </td>
           </tr>
-          <tr class="d-none">
+          <tr class="sub-row hide d-none" data-toggle-content="<?php echo $unique_id; ?>">
             <td>Ahrefs Score</td>
             <td>Search Console</td>
             <td>Social Score</td>

@@ -68,6 +68,10 @@ function themebs_enqueue_scripts() {
   wp_register_script('main-chaser', get_template_directory_uri() . '/build/index.js', [], wp_get_theme()->get('Version'), true);
   wp_enqueue_script('main-chaser');
 
+	if (is_page_template('templates/power-index.php')) {
+		wp_enqueue_script('toggle-table', get_template_directory_uri() . '/build/toggle-table.js', [], wp_get_theme()->get('Version'), true); 
+	}
+
   // Localize script to pass PHP data to JavaScript
   wp_localize_script('main-chaser', 'svgIcons', [
       'hamburger'   => get_svg_icon('hamburger'),

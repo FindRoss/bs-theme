@@ -15,6 +15,7 @@ import ExpiryDates from "./modules/ExpiryDates";
 import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
+import tableToggle from "./modules/TableToggle";
 
 // const cardFocus = new CardFocus()
 const sidebarMenu = new SidebarMenu()
@@ -41,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('body.single-review')) {
     singleReview();
+  }
+
+  if (document.querySelector('.post-template-power-index')) {
+    tableToggle();
   }
 
   desktopMenu();
