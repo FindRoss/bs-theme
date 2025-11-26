@@ -54,7 +54,23 @@ function my_acf_init_block_types() {
       'category'          => 'layout',
       'align'             => 'full',
       'keywords'          => array( 'casino', 'cta', 'link', 'call to action' ),
-      'post_types'        => array( 'post', 'page', 'bonus', 'spanish' ),
+      'post_types'        => array( 'post', 'page', 'bonus' ),
+      'icon'              => 'button'
+    ));
+    /**
+    * Casino CTA 
+    */
+    acf_register_block_type(array(
+      'name'              => 'Review Call to Action',
+      'title'             => __('Review call to action'),
+      'description'       => __('Add a link to a casino.'),
+      'render_template'   => 'blocks/review-cta/review-cta.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'review', 'cta', 'link', 'call to action' ),
+      'post_types'        => array( 'post'),
       'icon'              => 'button'
     ));
     /**
