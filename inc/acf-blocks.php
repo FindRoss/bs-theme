@@ -70,7 +70,7 @@ function my_acf_init_block_types() {
       'category'          => 'layout',
       'align'             => 'full',
       'keywords'          => array( 'review', 'cta', 'link', 'call to action' ),
-      'post_types'        => array( 'post'),
+      'post_types'        => array( 'post', 'page'),
       'icon'              => 'button'
     ));
     /**
