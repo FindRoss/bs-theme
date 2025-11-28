@@ -16,15 +16,6 @@ $featured_img  = get_the_post_thumbnail_url($id, 'small-site-logo');
 
 if ($goto_link !== null): ?>
   <div class="review-cta">
-    <a rel="nofollow" href="<?php echo esc_url($goto_link); ?>" target="_blank">
-      <img src="<?php echo $featured_img; ?>" width="220" height="110" /> 
-    </a>
-    <?php if ($bonus) : ?>
-      <div class="review-cta__bonus">
-        <p>Bonus</p>
-        <p><?php echo $bonus?></p>
-      </div>
-    <?php endif; ?>
     <div class="review-cta__ctas">
       <a class="button button__outline" href="<?php echo get_the_permalink($id); ?>"><?php echo $name; ?> review</a>
       <a class="button button__primary" rel="nofollow" href="<?php echo esc_url($goto_link); ?>" target="_blank">Goto <?php echo $name; ?></a>

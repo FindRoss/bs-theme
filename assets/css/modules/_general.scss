@@ -410,3 +410,34 @@ iframe {
   //   }
   // }
 }
+
+// Writign and moving
+
+// .review-cta {
+//   border: 1px solid var(--color-primary-50);
+//   padding: var(--size-100);
+//   border-radius: var(--border-radius);
+//   margin-top: 1rem;
+//   display: block;
+
+//   @include breakpoint(small) {
+//     display: inline-block;
+//   }
+
+
+//   .review-cta__ctas {
+//     display: flex;
+//     justify-content: start;
+//     flex-direction: column;
+//     gap: var(--size-200);
+//     flex-wrap: wrap;
+
+//     @include breakpoint(small) {
+//       flex-direction: row;
+//     }
+
+//     button {
+//       flex: 1;
+//     }
+//   }
+// }
