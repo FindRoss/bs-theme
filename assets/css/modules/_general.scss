@@ -219,11 +219,11 @@ iframe {
 
 .advert {
   background: var(--color-bg-50);
-  border-top: 1px solid var(--color-muted-200);
   padding-block: var(--size-400);
-  margin-top: var(--size-600);
+
   display: flex;
   justify-content: center;
+  align-items: center;
 
   img {
     box-shadow: var(--box-shadow);
@@ -236,6 +236,15 @@ iframe {
   a:active img,
   a:focus img {
     filter: brightness(80%);
+  }
+
+  &__bottom {
+    margin-top: var(--size-600);
+    border-top: 1px solid var(--color-muted-200);
+  }
+
+  &__top {
+    border-bottom: 1px solid var(--color-muted-200);
   }
 }
 
@@ -439,5 +448,112 @@ iframe {
 //     button {
 //       flex: 1;
 //     }
+//   }
+// }
+
+.xmas-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--size-600);
+  column-gap: var(--size-400);
+  padding-bottom: var(--size-800);
+
+  @include breakpoint(small) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoint(medium) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+  &__item {
+    // border-top: 2px dotted #ccc;
+    display: flex;
+    flex-direction: column;
+
+    .placeholder-title {
+      color: var(--color-muted-400);
+    }
+
+    .xmas-card__title {
+      margin-top: var(--size-200);
+      text-align: center;
+    }
+
+    .card {
+      height: auto;
+      margin-top: var(--size-200);
+      flex: 1;
+    }
+
+
+    .xmas-card-placeholder {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      background-color: var(--color-bg-200);
+      border: 2px dotted var(--color-muted-300);
+
+      svg {
+        width: 30px;
+        height: 30px;
+
+        path {
+          stroke: var(--color-muted-300);
+
+        }
+      }
+    }
+
+    // margin-top: 2rem;
+    &__item:nth-child(23),
+    &__item:nth-child(24) {
+      @include breakpoint(medium) {
+        grid-column: 1 / -1; // take full row
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); // inner 50/50
+      }
+    }
+
+    &:nth-child(7),
+    &:nth-child(14),
+    &:nth-child(24),
+    &:nth-child(25) {
+      @include breakpoint(small) {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}
+
+
+// @include breakpoint(small) {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   row-gap: var(--size-300);
+//   column-gap: var(--size-300);
+
+//   .xmas-card:last-child {
+//     grid-column: 1 / -1;
+//   }
+// }
+
+// @include breakpoint(medium) {
+//   grid-template-columns: repeat(3, 1fr);
+
+//   .xmas-card:last-child {
+//     grid-column: 1 / -1;
+//   }
+// }
+
+// @include breakpoint(large) {
+//   grid-template-columns: repeat(4, 1fr);
+
+//   .xmas-card:last-child {
+//     grid-column: 1 / -1;
 //   }
 // }

@@ -5,13 +5,13 @@ $top_bonuses = get_field('top_bonus', 'options');
 if (!is_front_page()) { 
   if (function_exists('geot_target') && geot_target( 'US' )) { 
     if (is_active_sidebar( 'us-sidebar-ad' )) { 
-      echo '<section class="sidebar__widget banner-sidebar">';
+      echo '<section class="sidebar__widget advert">';
         dynamic_sidebar('us-sidebar-ad');
       echo '</section>';
     }
   } else {
     if (is_active_sidebar( 'sidebar-ad' )) { 
-      echo '<section class="sidebar__widget banner-sidebar">';
+      echo '<section class="sidebar__widget advert">';
         dynamic_sidebar('sidebar-ad');
       echo '</section>';
     }

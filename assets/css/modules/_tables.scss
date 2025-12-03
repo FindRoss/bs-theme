@@ -73,35 +73,33 @@ figure.wp-block-table,
   }
 
   tr {
-
     td {
       line-height: 1;
-    }
-
-    td.rank {
-      font-size: 35px;
-      color: var(--color-muted-300);
-      font-weight: bold;
     }
 
     td.brand {
       display: flex;
       align-items: center;
-      justify-content: start;
+      gap: var(--size-200);
+
+      .rank {
+        font-size: 50px;
+        min-width: 63px;
+        color: var(--color-muted-300);
+        font-weight: bold;
+      }
+
+      img {
+        width: 100px;
+        height: 50px;
+        border: 1px solid var(--color-muted-200);
+      }
     }
+
   }
 
   tr.main-row {
-
-    td:nth-child(1),
-    td:nth-child(2) {
-      width: 7.5%;
-    }
-
-    td:nth-child(3),
-    td:nth-child(4) {
-      width: auto; // Remaining space
-    }
+    cursor: pointer;
 
     &:not(:last-of-type) td {
       border-bottom: 1px solid var(--color-muted-100);
@@ -109,9 +107,7 @@ figure.wp-block-table,
   }
 
   tr.sub-row {
-    td {
-      width: 25%; // Different layout
-    }
+    background-color: var(--color-bg-50);
   }
 }
 

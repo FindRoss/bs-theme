@@ -1,35 +1,24 @@
 const tableToggle = () => {
   const tables: NodeListOf<Element> = document.querySelectorAll('#toggle-table')
+  console.log('tables is an array of 1 i am guessing', tables)
 
   Array.from(tables).map(table => {
-    const btn = table.querySelector('.toggle-table-button') as HTMLButtonElement;
+    const rows = table.querySelectorAll('.main-row') as NodeListOf<HTMLTableRowElement>;
 
-    if (btn) {
-      console.log(btn)
-      console.log(typeof btn)
+    if (!rows) return;
 
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-toggle-target');
-        const contentRow = document.querySelector(`[data-toggle-content="${targetId}"]`);
-        const chevron = btn.querySelector('svg');
+    Array.from(rows).map(row => {
 
+      row.addEventListener('click', () => {
+        const rowID = row.getAttribute('data-toggle-row');
+
+        const contentRow = document.querySelector(`[data-toggle-content="${rowID}"]`);
         if (contentRow) {
           contentRow.classList.toggle('d-none');
-          chevron?.classList.toggle('rotate');
         }
       })
-
-    }
-
+    })
   })
-
-  return (
-    console.log('returning somethin from tabletoggle')
-  )
-
-  // .toggle-table-button 
-  // its a button
-
 }
 
 export default tableToggle;

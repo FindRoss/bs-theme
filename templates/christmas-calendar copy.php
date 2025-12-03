@@ -6,14 +6,22 @@ Template Post Type: post, page
 ?>
 <?php get_header(); ?>
 
+
 <div class="container mb-3">
 
-  <!-- TITLE -->
-  <div class="row justify-content-center">
-    <div class="col-12 col-lg-8">
-      <?php get_template_part( 'template-parts/content/content-title' ); ?>
-      <div class="main--meta">
-        <?php get_template_part( 'template-parts/content/content-author' ); ?>
+  <div class="mb-0 mb-md-4 pb-4 pb-md-4 border-bottom">
+    <div class="row">
+      <div class="col-12 col-lg-4 d-flex flex-column justify-content-center">
+        <h1 class="main--title"><?php the_title(); ?></h1>
+        <div class="mb-4">
+          <!-- meta --> 
+          <div class="main--meta">
+            <?php get_template_part( 'template-parts/content/content-author' ); ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8">
+        <img class="w-100 h-auto image-border-left" width="800" height="480" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" /> 
       </div>
     </div>
   </div>
@@ -40,33 +48,25 @@ Template Post Type: post, page
   $christmas_emoji_col = Array('✨', '☃️', '🔔',  '⭐', '🧝', '🎅', '🤶', '🍷', '🥛', '🍪', '🦌', '🎄', '🔥', '🎁', '🧦', '🌠', '🎶', '🕯️', '❄️', '🔔',  '⭐', '🥛 ', '🎁', '🦌', '🍪', '🎅'); 
 
   if( have_rows('bonuses') ):
-    echo '<div class="xmas-layout">'; 
-    
+
     $count = 1;
     // Loop through rows.
 
       while( have_rows('bonuses') ) : the_row();
 
         if ($count <= $date_today) { 
-          $bid = get_sub_field('bonus') ?? null; 
-          if (!$bid) continue;
-          
-          echo '<div class="xmas-layout__item">';
-            echo '<div class="xmas-card__title">' . $christmas_emoji_col[$count] . ' <strong>December ' . $count . '</strong></div>';
-            get_template_part('template-parts/card/card', 'shanghai', array('id' => $bid));
-          echo '</div>';
-        } else {
-          echo '<div class="xmas-layout__item">';
-            echo '<div class="xmas-card__title placeholder-title">' . $christmas_emoji_col[$count] . ' <strong>December ' . $count . '</div>';
-            echo '<div class="card xmas-card-placeholder"><div class="icon">' . get_svg_icon('present') . '</div></div>';
-          echo '</div>';
+          $bid = get_sub_field('bonus'); 
+          // echo '<div class="mt-5 pt-1" style="border-top: 2px dotted #ccc">';
+          // echo '<div class="text-center mt-1">' . $christmas_emoji_col[$count] . ' <strong>December ' . $count . '</strong></div>';
+          // require locate_template('components/card/bonus-long.php');
+          // echo '</div>';
         }
 
       $count++; 
       // End loop.
       endwhile;
 
-    echo '</div>';
+
     // Do something...
     endif; 
     ?>

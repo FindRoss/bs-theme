@@ -10,8 +10,7 @@
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
     <!-- WP_HEAD STARTS -->
     <?php wp_head(); ?>
-    <!-- WP_HEAD ENDS -->
-    <!-- Google Tag Manager -->
+    <!-- GTM -->
     <?php if (!is_admin() && strpos(home_url(), 'https://bitcoinchaser.com') !== false && !is_user_logged_in()) { ?>
       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -23,7 +22,7 @@
 <body <?php body_class(); ?>>
 
 <?php if (!is_admin() && strpos(home_url(), 'https://bitcoinchaser.com') !== false && !is_user_logged_in()) { ?>
-  <!-- Google Tag Manager (noscript) -->
+  <!-- GTM (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5FRRGN"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <?php } ?>
@@ -52,17 +51,19 @@
             'walker'          => new Custom_Walker_Nav_Menu(),
           )); 
         ?>
-      </nav><!--.col -->
+      </nav>
 
       <div class="nav-layout__search">
         <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
           <?php echo get_svg_icon('search'); ?>
         </button>
-      </div><!-- .col -->
+      </div>
       
-    </div><!-- .nav-layout --> 
-  </div><!-- .container -->
+    </div>
+  </div>
 </header>
+
+<?php get_template_part( 'template-parts/ad/ad-top' ); ?>
 
 <div class="background-drawer">
 
@@ -79,7 +80,7 @@
         </div>
       </form>
     </div>
-  </div><!-- .background-drawer__header -->
+  </div>
 
   <?php wp_nav_menu( array(
     'theme_location'  => 'sidebar',

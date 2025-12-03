@@ -1,15 +1,17 @@
 <?php 
-  $bonus_id = get_the_ID();
+  $bonus_id = $args['id'] ?? get_the_ID();
+  if (!$bonus_id) return;
 
   $title       = get_field('bonus_title', $bonus_id);
   $bonus       = get_field('bonus', $bonus_id);
   $plus        = get_field('bonus_plus', $bonus_id);
   $code        = get_field('code', $bonus_id);
   $bonusLink   = get_field('bonus_link', $bonus_id);
-  $site        = get_field('single_bonus_casino', $bonus_id)[0];
   $exclusive   = get_field('exclusive', $bonus_id);
-
-  $exclusive   = get_field('exclusive', $bonus_id);
+  
+  $site        = get_field('single_bonus_casino', $bonus_id)[0] ?? null;
+  if (!$site) return;
+  
   $expiry_date = get_field('expiry_date', $bonus_id);
   $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
   $marked_expired = get_field('bonus_expired', $bonus_id); 
@@ -24,7 +26,7 @@
 
   <div class="card card-absolute card-shanghai">
 
-    <a class="card-absolute__link" href="<?php the_permalink(); ?>" aria-label="Read <?php echo $name; ?> review"></a>
+    <a class="card-absolute__link" href="<?php the_permalink($bonus_id); ?>" aria-label="Read <?php echo $name; ?> review"></a>
     
     <div class="card-shanghai__media">
       <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>

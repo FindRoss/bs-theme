@@ -19,11 +19,9 @@ Template Post Type: post, pages
       <table id="toggle-table">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Data 1</th>
-            <th>Data 2</th>
-            <th>Data 3</th>
-            <th>Data 4</th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>Score</th>
           </tr>
         </thead>
@@ -50,24 +48,28 @@ Template Post Type: post, pages
             $theme_color = get_field('theme_color', $review_id);
 
             // Default WordPress Fields
-            $thumbnail = get_the_post_thumbnail_url($review_id, 'site-small-logo');
-            $review_url = get_permalink($review_id);
+            $site_thumbnail = get_the_post_thumbnail_url($review_id, 'site-small-logo');
+            $site_url = get_permalink($review_id);
             $unique_id = 'row-' . $counter;
             ?>
 
             <tr class="main-row" data-toggle-row="<?php echo $unique_id; ?>">
-              <td class="brand center">
-                <div class="rank number-outline"><?php echo '#' . $counter; ?></div>
-                <img src="<?php echo $thumbnail; ?>" alt="<?php echo $name; ?> Logo" />
+              <td>
+                <button 
+                  data-toggle-target="<?php echo $unique_id; ?>"
+                  class="toggle-table-button round-icon"
+                >
+                  <?php echo get_svg_icon('chevron-down'); ?>
+                </button>
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td class="rank center number-outline"><?php echo '#' . $counter; ?></td>
+              <td class="brand"><img src="<?php echo $site_thumbnail; ?>" width="100" height="50" alt="<?php echo $name; ?> Logo" /></td>
               <td>1876</td>
             </tr>
             <tr class="sub-row hide d-none" data-toggle-content="<?php echo $unique_id; ?>">
-              <td colspan="6">Ahrefs, Search Console, Social Score, Votes</td>
+              <td>Ahrefs Score</td>
+              <td>Search Console</td>
+              <td>Social Score</td>
             </tr>
 
               <?php $counter++; ?>
