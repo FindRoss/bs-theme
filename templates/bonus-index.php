@@ -19,19 +19,29 @@ Template Post Type: page
   <?php 
   $bonus_types = array(
     array(
+      'id' => 25693,
+      'title' => 'Bitcoin', 
+      'permalink' => site_url('/bonuses/bitcoin/')
+    ),
+    array(
       'id' => 25488,
       'title' => 'Welcome', 
       'permalink' => site_url('/bonuses/welcome/')
     ),
     array(
-      'id' => 25489,
-      'title' => 'Cashback', 
-      'permalink' => site_url('/bonuses/cashback/')
-    ),
-    array(
       'id' => 25491,
       'title' => 'No Deposit', 
       'permalink' => site_url('/bonuses/no-deposit/')
+    ),
+    array(
+      'id' => 25490,
+      'title' => 'Wager-Free', 
+      'permalink' => site_url('/bonuses/wager-free/')
+    ),
+    array(
+      'id' => 25489,
+      'title' => 'Cashback', 
+      'permalink' => site_url('/bonuses/cashback/')
     ),
      array(
       'id' => 25486,

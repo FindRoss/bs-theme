@@ -46,12 +46,18 @@ if (empty($merged_bonuses)) {
   )); 
 };
 
-// Pagination fix - dont need? - causing a problem with pagination
-// if (!empty($merged_bonuses)) {
-//   $temp_query = $wp_query;
-//   $wp_query   = NULL;
-//   $wp_query   = $query;
-// };
+$title_output = '';
+switch($term_name) {
+  case 'Crypto': 
+    $title_output = 'Crypto Casino Bonuses';
+    break;
+  case 'Bitcoin':
+    $title_output = 'Bitcoin Casino Bonuses';
+    break;
+  default: 
+    $title_output = $term_name . ' Bonuses';
+};
+
 
 ?>
 
@@ -61,7 +67,7 @@ if (empty($merged_bonuses)) {
     
     <!-- INTRODUCTION -->
     <section class="">
-      <h1><?php echo $term_name == 'Crypto' ? '' : 'Crypto '?><?php echo $term_name; ?> Bonuses</h1>
+      <h1><?php echo $title_output; ?></h1>
       <div class="main--content"><?php echo term_description($term); ?></div>
         
       <?php if ($icon) { ?>
