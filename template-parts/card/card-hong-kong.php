@@ -13,31 +13,11 @@
 
   // Get all terms for the post in the specified taxonomy
   $crypto_terms = get_the_terms(get_the_ID(), 'cryptocurrency');
+  $crypto_output = display_review_crypto($crypto_terms); 
 
-  if (!is_wp_error($crypto_terms) && !empty($crypto_terms)) {
-    $total_terms_count = count($crypto_terms); // Total number of terms tagged to the post
 
-    usort($crypto_terms, function ($a, $b) {
-        return $b->count - $a->count;
-    });
-
-    $top_crypto_terms = array_slice($crypto_terms, 0, 5);
-
-    $crypto_output = ''; 
-
-    foreach ($top_crypto_terms as $term) {
-      $icon = get_field('icon', $term);
-      if (isset($icon['sizes']['thumbnail']) && !empty($icon['sizes']['thumbnail'])) {
-        $thumbnail = $icon['sizes']['thumbnail'];
-        $crypto_output .= '<img src="' . $thumbnail . '" alt="' . $term->name . ' icon" class="icon" width="35" height="35">';
-      }
-    }
-
-    if ($total_terms_count > 5) {
-      $crypto_output .= '<span class="icon count-icon">+' . ($total_terms_count - 5) . '</span>'; 
-    }
-  }
-
+// add function
+  
     $truncate_exceprt = truncate_text(get_the_excerpt(), 112);
 ?>
 
@@ -52,17 +32,11 @@
   </div>
   <div class="hong-kong-card__content">
     
-    <?php if (!empty($types) && !is_wp_error($types)) { ?>
-    <div>
-      <?php foreach ($types as $type) { 
-        $type_name = ($type->name === 'Casinos') ? 'Casino' : $type->name;
-      ?>
-        <span class="info-pill">
-          <span><?php echo $type_name; ?></span>
-        </span>
-      <?php } ?>
+  <?php if (!empty($types) && !is_wp_error($types)) { ?>
+    <div class="info-pills">
+      <?php echo display_review_type($types); ?>
     </div>
-    <?php } ?>
+  <?php } ?> 
     
     <h3><?php echo $name; ?></h3>
     <div class="excerpt"><?php echo $truncate_exceprt; ?></div>

@@ -2,27 +2,50 @@
 * DEFAULT WP TABLE
 */
 
+// .review--table {
+//   .col-crypto {
+// min-width: 150px;
+/* Adjust based on your icon width */
+// white-space: nowrap;
+/* Keep icons on one line */
+//   }
+// }
+
+.review--table {
+
+  .col-type,
+  .col-crypto {
+    max-width: 140px;
+  }
+
+  .bc-branding {
+    padding-inline: 12px;
+  }
+}
+
 figure.wp-block-table,
 .main--table {
   margin: var(--size-600) 0 0;
-  border: 1px solid var(--color-muted-100);
   border-radius: var(--border-radius);
   overflow: hidden;
-  background-color: var(--color-bg-100);
+  background-color: var(--color-bg-700);
+  border: 1px solid var(--color-muted-100);
+
 
   table {
-    border: 1px solid var(--color-muted-100);
+    // border: 1px solid var(--color-muted-100);
     width: 100%;
+    table-layout: auto;
     border-collapse: collapse;
     text-align: left;
     background-color: #fff;
 
     thead {
-      background-color: var(--color-bg-100);
+      background-color: var(--color-bg-700);
 
       th {
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 14px;
+        font-weight: 600;
         // color: var(--color-muted-200);
       }
     }
@@ -46,6 +69,14 @@ figure.wp-block-table,
     tbody {
       tr:not(:last-child) td {
         border-bottom: 1px solid var(--color-muted-100);
+      }
+
+      tr:nth-child(even) {
+        background-color: var(--color-bg-50); // adjust to your preferred color
+      }
+
+      td {
+        font-size: 14px;
       }
 
       img {

@@ -101,3 +101,85 @@ function show_banner_message($post_id = null) {
      return get_template_part('template-parts/message/message', 'expired', $args);
   }
 }
+
+function display_review_crypto($crypto_terms, $num_icons = 5) {
+  if (is_wp_error($crypto_terms) OR empty($crypto_terms)) return;
+
+  $total_terms_count = count($crypto_terms); // Total number of terms tagged to the post
+
+  usort($crypto_terms, function ($a, $b) {
+      return $b->count - $a->count;
+  });
+
+  $top_crypto_terms = array_slice($crypto_terms, 0, $num_icons);
+
+  $crypto_output = ''; 
+
+  foreach ($top_crypto_terms as $term) {
+    $icon = get_field('icon', $term);
+    if (isset($icon['sizes']['thumbnail']) && !empty($icon['sizes']['thumbnail'])) {
+      $thumbnail = $icon['sizes']['thumbnail'];
+      $crypto_output .= '<img src="' . $thumbnail . '" alt="' . $term->name . ' icon" class="icon" width="28" height="28">';
+    }
+  }
+
+  if ($total_terms_count > $num_icons) {
+    $crypto_output .= '<span class="icon count-icon"><span class="plus">+</span>' . ($total_terms_count - $num_icons) . '</span>'; 
+  }
+
+  return $crypto_output;
+}
+
+function display_review_type($types) { 
+    $output = '';
+
+    // if (!$types OR empty($types)) return;
+
+    foreach ($types as $type) {
+
+      switch($type->name) {
+        case 'Casinos':
+          $name = 'Casino';
+          break;
+        case 'Sports Betting':
+          $name = 'Sports'; 
+          break; 
+        case 'Esports Betting': 
+          $name = 'Esports';
+          break; 
+        default:
+          $name = $type->name;
+      } 
+
+      $output .= '<span class="info-pill"><span>' . $name . '</span></span>';
+    }
+
+    return $output;
+}
+
+function display_licenses($terms) {
+  if (empty($terms)) return;   
+  
+  $output = '';
+
+    foreach ($terms as $term) {
+
+      // switch($term->name) {
+      //   case 'Casinos':
+      //     $name = 'Casino';
+      //     break;
+      //   case 'Sports Betting':
+      //     $name = 'Sports'; 
+      //     break; 
+      //   case 'Esports Betting': 
+      //     $name = 'Esports';
+      //     break; 
+      //   default:
+      //     $name = $type->name;
+      // } 
+
+      $output .= '<span class="info-pill"><span>' . $term->name . '</span></span>';
+    }
+
+    return $output;
+}

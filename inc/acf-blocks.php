@@ -105,6 +105,22 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page' ),
       'icon'              => 'editor-ul'
     ));
+     /**
+    * Casino List
+    */
+    acf_register_block_type(array(
+      'name'              => 'review-table',
+      'title'             => __('Review Table'),
+      'description'       => __('A custom block displaying a table of reviews.'),
+      'render_template'   => 'blocks/review-table/review-table.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-table/review-table.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'review', 'table', 'list', 'casino' ),
+      'post_types'        => array( 'post' ),
+      'icon'              => 'editor-ul'
+    ));
     /**
     * Bonus
     */
