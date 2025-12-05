@@ -2,7 +2,7 @@
 <?php 
   $review_table_data = get_field('review_table');
 
-  // Have
+// Have
 // Type (casino / sports / esports)
 // Crypto accepted
 // Bonus
