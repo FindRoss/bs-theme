@@ -28,11 +28,13 @@
 .main--published {
   margin-top: var(--size-400);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 
   span {
-    margin-right: 9px;
-    font-size: 14px;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-size: 16px;
     color: var(--color-muted-400);
     letter-spacing: 0.5px;
 
@@ -42,9 +44,10 @@
     }
 
     &:not(:last-child)::after {
-      margin-left: 9px;
+      margin-left: 8px;
       content: "|";
-      color: var(--color-muted-300);
+      font-size: 20px;
+      color: var(--color-muted-200);
     }
   }
 }
