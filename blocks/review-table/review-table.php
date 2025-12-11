@@ -1,74 +1,197 @@
-
 <?php 
-  $review_table_data = get_field('review_table');
 
-// Have
-// Type (casino / sports / esports)
-// Crypto accepted
-// Bonus
+// site : Site - done
+// type : Type - done
+// cryoto : Crypto - done
+// founded : Founded - done
+// num_games : Number of Games - done
+// features : Features - done
+// token : Token - done
+// blockchain : Blockchain - done
+// vip_program: VIP Program - done
+// vip_transfer : VIP Transfer - done
+// vip_guide : VIP Guide - done
+// withdrawal_time : Withdrawal Time - done
+// withdrawal_fee: Withdrawal Fee - done
+// bonus : Bonus - done
 
-// To add to review
-// Year Founded
-// Number of games - casino_num_games
-// Min deposit (BTC) - casino_year_founded
-// Licensed
-// KYC
-// VIP Program
+// bonus_title, bonus, bonus_plus, bonus_terms
 
 $count = 1; 
+$review_table_data = get_field('review_table_rows') ?: [];
+$selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
+// $selected_columns = ['site', 'bonus', 'cta'];
+
+
+$columns = [
+  'site' => [
+    'label' => 'Site',
+    'class' => '',
+    'render' => function($review_id) {
+        $name = get_the_title($review_id);
+        $url  = get_the_permalink($review_id);
+        return $url ? '<a href="' . esc_url($url) . '" rel="noopener" target="_blank">' . esc_html($name) . '</a>' : esc_html($name);
+    },
+  ],
+  'founded' => [
+    'label' => 'Founded',
+    'class' => '',
+    'render' => function($review_id) {
+        $founded = get_field('details_group', $review_id)['year_founded'] ?? null;
+        return $founded ? esc_html($founded) : '-';
+    },
+  ],
+  'crypto' => [
+    'label' => 'Crypto',
+    'class' => 'col-crypto',
+    'render' => function($review_id) {
+      $crypto_terms = get_the_terms($review_id, 'cryptocurrency');
+      $crypto_output = display_review_crypto($crypto_terms, 3); 
+      return '<div class="crypto-icons">' . $crypto_output . '</div>';
+    }
+  ],
+  'type' => [
+    'label' => 'Type', 
+    'class' => 'col-type',
+    'render' => function($review_id) {
+      $type_terms = get_the_terms($review_id, 'review_type');
+      $type_output = display_review_type($type_terms);
+      return '<div class="info-pills">' . $type_output . '</div>';
+    }
+  ],
+  'num_games' => [
+    'label' => 'Number of Games', 
+    'class' => '',
+    'render' => function($review_id) {
+        $games = get_field('details_group', $review_id)['num_games'] ?? null;
+        return $games ? esc_html($games) : '';
+    }
+  ],
+  'features' => [
+    'label' => 'Features', 
+    'class' => '', 
+    'render' => function($review_id) {
+      $excerpt = get_the_excerpt($review_id);
+      return $excerpt ? esc_html($excerpt) : '';
+    }
+  ],
+  'cta' => [
+    'label' => '',
+    'class' => '',
+    'render' => function($review_id) {
+      $link = get_field('details_group', $review_id)['affiliate_link'] ?? null;
+      return $link ? '<a href="' . $link . '" class="button button__primary">Visit</a>' : '';
+    }
+  ],
+  'blockchain' => [
+    'label' => 'Blockchain', 
+    'class' => '',
+    'render' => function($review_id) {
+      $blockchain = get_field('details_group', $review_id)['blockchain'] ?? null;
+      return $blockchain ? $blockchain : '';
+    }
+  ],
+  'token' => [
+    'label' => 'Token', 
+    'class' => '',
+    'render' => function($review_id) {
+      $token = get_field('details_group', $review_id)['token'] ?? null;
+      return $token ? $token : '';
+    }
+  ],
+  'vip_program' => [
+    'label' => 'VIP Program', 
+    'class' => '',
+    'render' => function($review_id) {
+      $truefalse = get_field('details_group', $review_id)['vip_program'];
+      return $truefalse ? get_svg_icon('check') : get_svg_icon('minus-circle');
+    }
+  ],
+  'vip_transfer' => [
+    'label' => 'VIP Transfer', 
+    'class' => '',
+    'render' => function($review_id) {
+      $truefalse = get_field('details_group', $review_id)['vip_transfer'];
+      return $truefalse ? get_svg_icon('check') : get_svg_icon('minus-circle');
+    }
+  ],
+  'vip_guide' => [
+    'label' => 'VIP Guide', 
+    'class' => '',
+    'render' => function($review_id) {
+      $post_id = get_field('details_group', $review_id)['vip_guide'];
+      return $post_id ? '<a href="' . get_the_permalink($post_id) . '">' . get_the_title($post_id) . '</a>' : '';
+    }
+  ],
+  'withdrawal_time' => [
+    'label' => 'Withdrawal Time', 
+    'class' => '',
+    'render' => function($review_id) {
+      $time = get_field('details_group', $review_id)['withdrawal_time'];
+      return $time ? $time : '';
+    }
+  ],
+  'withdrawal_fee' => [
+    'label' => 'Withdrawal Fee', 
+    'class' => '',
+    'render' => function($review_id) {
+      $fee = get_field('details_group', $review_id)['withdrawal_fee'];
+      return $fee ? $fee : '';
+    }
+  ],
+  'bonus' => [
+    'label' => '',
+    'class' => '',
+    'render' => function($review_id) {
+      $bonus_title = get_field('details_group', $review_id)['bonus_title'];
+      $bonus = get_field('details_group', $review_id)['bonus'];
+      $bonus_plus = get_field('details_group', $review_id)['bonus_plus'];
+      if ($bonus) {
+        return 
+          '<div>' . 
+          '<div>' .
+          $bonus_title . 
+          '</div>' .
+          $bonus . ' ' . 
+          $bonus_plus . 
+          '</div>';
+      }
+    }
+  ]
+];
 ?>
 
 <div class="main--table review--table custom-table-scroll">
-  <!-- <div class="bc-branding"><img src="https://bitcoinchaser.com/wp-content/uploads/2025/12/bitcoinchaser-com-logo-icon__20x20.webp" /></div> -->
   <table>
     <thead>
       <tr>
         <th>#</th>
-        <th>Site</th>
-        <th class="col-type">Type</th>
-        <th class="col-crypto">Crypto</th>
-        <th>Year Founded</th>
-        <th>Num. Games</th>
-        <th>Min. Deposit (BTC)</th>
-        <th>License</th>
+        <?php foreach ($selected_columns as $key): ?>
+          <?php if (isset($columns[$key])): ?>
+            <th><?php echo $columns[$key]['label']; ?></th>
+          <?php endif; ?>
+        <?php endforeach; ?>
       </tr>
     </thead>
+
     <tbody> 
-
-    <?php foreach($review_table_data as $review) : 
-        $review_id = (int) $review;
-        if ($review_id <= 0) {
-            continue;
-        }
-      
-        $review_type_terms  = get_the_terms($review_id, 'review_type');
-
-        $license_terms = get_the_terms( $review_id, 'license' );
-        if ( is_wp_error( $license_terms ) ) {
-            $license_terms = [];
-        }
-
-        $crypto_terms = get_the_terms($review_id, 'cryptocurrency');
-        $crypto_output = display_review_crypto($crypto_terms, 3); 
-
-        // ACF Fields
-        $details_group = get_field('details_group', $review_id);
-        $year_founded = $details_group['year_founded'] ?? null; 
-        $num_games = $details_group['num_games'] ?? null;
-        $min_deposit_btc = $details_group['min_deposit_btc'] ?? null;
-    ?>
+      <?php foreach ($review_table_data as $review): 
+        $review_id = (int)$review;
+        if ($review_id <= 0) continue;
+      ?>
       <tr>
         <td><?php echo $count; ?></td>
-        <td><a href="<?php echo get_the_permalink($review); ?>"><?php echo get_the_title($review); ?></a></td>
-        <td class="col-type"><div class="info-pills"><?php echo display_review_type($review_type_terms); ?></td>
-        <td class="col-crypto"><div class="crypto-icons"><?php echo $crypto_output; ?></div></td>
-        <td><?php echo $year_founded; ?></td>
-        <td><?php echo $num_games; ?></td>
-        <td><?php echo $min_deposit_btc; ?></td>
-        <td><?php echo display_licenses($license_terms); ?></td>
-      </tr> 
-        <?php $count++; ?>
-      <?php endforeach; ?>
+        <?php foreach ($selected_columns as $key): ?>
+          <td <?php echo isset($key['class']) ? 'class="' . $key['class'] . '"' : ''; ?>>
+            <?php 
+              if (isset($columns[$key])) {
+                echo $columns[$key]['render']($review_id);
+              }
+            ?>
+          </td>
+        <?php endforeach; ?>
+      </tr>
+      <?php $count++; endforeach; ?>
     </tbody>
   </table>
 </div>
