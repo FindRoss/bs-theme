@@ -8,9 +8,13 @@
 // features : Features - done
 // token : Token - done
 // blockchain : Blockchain - done
+
+// VIP GROUP
 // vip_program: VIP Program - done
 // vip_transfer : VIP Transfer - done
 // vip_guide : VIP Guide - done
+
+// PAYMENTS GROUP
 // withdrawal_time : Withdrawal Time - done
 // withdrawal_fee: Withdrawal Fee - done
 // bonus : Bonus - done
@@ -19,8 +23,8 @@
 
 $count = 1; 
 $review_table_data = get_field('review_table_rows') ?: [];
-// $selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
-$selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
+$selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
+// $selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
 $show_rank = get_field('review_table_rank');
 // $selected_columns = ['site', 'bonus', 'cta'];
 
@@ -31,7 +35,7 @@ $extra_classes = isset($block['className']) ? (string) $block['className'] : '';
 $columns = [
   'site' => [
     'label' => 'Site',
-    'class' => '',
+    'class' => 'col-site',
     'render' => function($review_id) {
         $name = get_the_title($review_id);
         $url  = get_the_permalink($review_id);
