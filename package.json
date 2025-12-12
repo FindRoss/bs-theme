@@ -21,6 +21,7 @@
     "@wordpress/element": "^6.30.0",
     "@wordpress/scripts": "^30.19.0",
     "bootstrap-icons": "^1.13.1",
+    "feather-icons": "^4.29.2",
     "swiper": "^11.2.10"
   },
   "devDependencies": {

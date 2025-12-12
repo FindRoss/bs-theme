@@ -1,3 +1,8 @@
+
+
+
+
+
 import "../assets/css/style.scss";
 // import '../assets/css/single-review.scss';
 // import '../assets/css/single-bonus.scss';
@@ -5,6 +10,7 @@ import "../assets/css/style.scss";
 // import '../assets/css/search-results.scss';
 // import '../assets/css/message.scss';
 // import '../assets/css/404.scss';
+
 
 // import CardFocus from "./modules/CardFocus";
 import SidebarMenu from "./modules/SidebarMenu";
@@ -30,8 +36,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import feather from 'feather-icons';
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
+  feather.replace();
+
   if (document.querySelector('body.search')) {
     const searchResults = new SearchResults()
   }

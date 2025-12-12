@@ -18,8 +18,34 @@
     max-width: 140px;
   }
 
+  .col-logo {
+    a {
+      border-bottom: 0!important;
+    }
+  }
+
+  .col-rank {
+    font-size: 18px;
+    font-weight: 200;
+    font-style: italic;
+    color: var(--color-muted-400);
+  }
+
   .bc-branding {
     padding-inline: 12px;
+  }
+
+  .bonus-cell {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      color: var(--color-muted-400);
+    }
+    .bonus {
+      font-size: 16px;
+      font-weight: bold;
+    }
   }
 }
 

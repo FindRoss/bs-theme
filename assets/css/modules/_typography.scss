@@ -137,7 +137,7 @@ h6 {
   }
 
   a {
-    &:not(.btn):not(.button):not(.tax-pill__link):not(.custom-card-link) {
+    &:not(.btn):not(.button):not(.tax-pill__link):not(.custom-card-link):not(.img-link) {
       text-decoration: none;
       border-bottom: 1px solid #dcdcdc;
       color: #0074b3;

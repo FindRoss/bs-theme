@@ -19,8 +19,13 @@
 
 $count = 1; 
 $review_table_data = get_field('review_table_rows') ?: [];
-$selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
+// $selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
+$selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
+$show_rank = get_field('review_table_rank');
 // $selected_columns = ['site', 'bonus', 'cta'];
+
+$extra_classes = isset($block['className']) ? (string) $block['className'] : '';
+
 
 
 $columns = [
@@ -104,7 +109,7 @@ $columns = [
     'class' => '',
     'render' => function($review_id) {
       $truefalse = get_field('details_group', $review_id)['vip_program'];
-      return $truefalse ? get_svg_icon('check') : get_svg_icon('minus-circle');
+      return $truefalse ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
     }
   ],
   'vip_transfer' => [
@@ -112,7 +117,7 @@ $columns = [
     'class' => '',
     'render' => function($review_id) {
       $truefalse = get_field('details_group', $review_id)['vip_transfer'];
-      return $truefalse ? get_svg_icon('check') : get_svg_icon('minus-circle');
+      return $truefalse ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
     }
   ],
   'vip_guide' => [
@@ -140,7 +145,7 @@ $columns = [
     }
   ],
   'bonus' => [
-    'label' => '',
+    'label' => 'Bonus',
     'class' => '',
     'render' => function($review_id) {
       $bonus_title = get_field('details_group', $review_id)['bonus_title'];
@@ -148,24 +153,38 @@ $columns = [
       $bonus_plus = get_field('details_group', $review_id)['bonus_plus'];
       if ($bonus) {
         return 
-          '<div>' . 
-          '<div>' .
+          '<div class="bonus-cell">' . 
+          '<div class="title">' .
           $bonus_title . 
           '</div>' .
-          $bonus . ' ' . 
+          '<div class="bonus">' .
+          $bonus .
+          '</div>' .
+          '<div class="plus">' .
           $bonus_plus . 
+          '</div>' .
           '</div>';
       }
     }
+  ],
+  'logo' => [
+    'label' => 'site',
+    'class' => 'col-logo',
+    'render' => function($review_id) {
+      $logo = get_the_post_thumbnail_url($review_id, 'site-small-logo'); 
+      $link = get_the_permalink($review_id);
+      $title = get_the_title($review_id);
+      return '<a class="img-link" href="' . $link . '"><img width="120" height="60" class="logo" src="' . $logo . '" alt="' . $title . '" title="' . $title . '"></a>';
+    }
   ]
-];
+]
 ?>
 
-<div class="main--table review--table custom-table-scroll">
+<div class="main--table review--table <?php echo esc_attr($extra_classes); ?>">
   <table>
     <thead>
       <tr>
-        <th>#</th>
+        <?php if ($show_rank) { ?><th>#</th><?php } ?>
         <?php foreach ($selected_columns as $key): ?>
           <?php if (isset($columns[$key])): ?>
             <th><?php echo $columns[$key]['label']; ?></th>
@@ -180,7 +199,7 @@ $columns = [
         if ($review_id <= 0) continue;
       ?>
       <tr>
-        <td><?php echo $count; ?></td>
+        <?php if ($show_rank) { ?><td class="col-rank"><?php echo $count; ?></td><?php } ?>
         <?php foreach ($selected_columns as $key): ?>
           <td <?php echo isset($key['class']) ? 'class="' . $key['class'] . '"' : ''; ?>>
             <?php 

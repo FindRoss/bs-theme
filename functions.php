@@ -79,6 +79,15 @@ function themebs_enqueue_scripts() {
       'search'      => get_svg_icon('search'),
       'chevronDown' => get_svg_icon('chevron-down'),
   ]);
+
+	// FEATHER ICONS TESTING
+	// wp_enqueue_script(
+	// 	'feather-icons',
+	// 	get_stylesheet_directory_uri() . '/dist/feather.min.js',
+	// 	[],
+	// 	null,
+	// 	true
+	// );
 };
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_scripts');
 
