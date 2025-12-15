@@ -1,36 +1,11 @@
 <?php 
-
-// site : Site - done
-// type : Type - done
-// cryoto : Crypto - done
-// founded : Founded - done
-// num_games : Number of Games - done
-// features : Features - done
-// token : Token - done
-// blockchain : Blockchain - done
-
-// VIP GROUP
-// vip_program: VIP Program - done
-// vip_transfer : VIP Transfer - done
-// vip_guide : VIP Guide - done
-
-// PAYMENTS GROUP
-// withdrawal_time : Withdrawal Time - done
-// withdrawal_fee: Withdrawal Fee - done
-// bonus : Bonus - done
-
-// bonus_title, bonus, bonus_plus, bonus_terms
-
+$extra_classes = isset($block['className']) ? (string) $block['className'] : '';
 $count = 1; 
-$review_table_data = get_field('review_table_rows') ?: [];
+$review_table_rows = get_field('review_table_rows') ?: [];
 $selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
 // $selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
 $show_rank = get_field('review_table_rank');
 // $selected_columns = ['site', 'bonus', 'cta'];
-
-$extra_classes = isset($block['className']) ? (string) $block['className'] : '';
-
-
 
 $columns = [
   'site' => [
@@ -47,7 +22,15 @@ $columns = [
     'class' => '',
     'render' => function($review_id) {
         $founded = get_field('details_group', $review_id)['year_founded'] ?? null;
-        return $founded ? esc_html($founded) : '-';
+        return $founded ? esc_html($founded) : 'Unknown';
+    },
+  ],
+  'owner' => [
+    'label' => 'Owner',
+    'class' => '',
+    'render' => function($review_id) {
+        $owner = get_field('details_group', $review_id)['owner'] ?? null;
+        return $owner ? esc_html($owner) : 'Unknown';
     },
   ],
   'crypto' => [
@@ -72,7 +55,7 @@ $columns = [
     'label' => 'Number of Games', 
     'class' => '',
     'render' => function($review_id) {
-        $games = get_field('details_group', $review_id)['num_games'] ?? null;
+        $games = get_field('games_group', $review_id)['num_games'] ?? null;
         return $games ? esc_html($games) : '';
     }
   ],
@@ -89,30 +72,30 @@ $columns = [
     'class' => '',
     'render' => function($review_id) {
       $link = get_field('details_group', $review_id)['affiliate_link'] ?? null;
-      return $link ? '<a href="' . $link . '" class="button button__primary">Visit</a>' : '';
+      return $link ? '<a target="_blank" href="' . $link . '" class="button button__primary">Visit</a>' : '';
     }
   ],
   'blockchain' => [
     'label' => 'Blockchain', 
     'class' => '',
     'render' => function($review_id) {
-      $blockchain = get_field('details_group', $review_id)['blockchain'] ?? null;
-      return $blockchain ? $blockchain : '';
+      $blockchain = get_field('blockchain_group', $review_id)['blockchain'] ?? null;
+      return $blockchain ? $blockchain : 'N/A';
     }
   ],
   'token' => [
     'label' => 'Token', 
     'class' => '',
     'render' => function($review_id) {
-      $token = get_field('details_group', $review_id)['token'] ?? null;
-      return $token ? $token : '';
+      $token = get_field('blockchain_group', $review_id)['token'] ?? null;
+      return $token ? $token : 'N/A';
     }
   ],
   'vip_program' => [
     'label' => 'VIP Program', 
     'class' => '',
     'render' => function($review_id) {
-      $truefalse = get_field('details_group', $review_id)['vip_program'];
+      $truefalse = get_field('vip_group', $review_id)['has_vip_program'];
       return $truefalse ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
     }
   ],
@@ -120,7 +103,7 @@ $columns = [
     'label' => 'VIP Transfer', 
     'class' => '',
     'render' => function($review_id) {
-      $truefalse = get_field('details_group', $review_id)['vip_transfer'];
+      $truefalse = get_field('vip_group', $review_id)['has_vip_transfer'];
       return $truefalse ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
     }
   ],
@@ -128,15 +111,15 @@ $columns = [
     'label' => 'VIP Guide', 
     'class' => '',
     'render' => function($review_id) {
-      $post_id = get_field('details_group', $review_id)['vip_guide'];
-      return $post_id ? '<a href="' . get_the_permalink($post_id) . '">' . get_the_title($post_id) . '</a>' : '';
+      $post_id = get_field('vip_group', $review_id)['vip_guide'];
+      return $post_id ? '<a href="' . get_the_permalink($post_id) . '">' . get_the_title($post_id) . '</a>' : '-';
     }
   ],
   'withdrawal_time' => [
     'label' => 'Withdrawal Time', 
     'class' => '',
     'render' => function($review_id) {
-      $time = get_field('details_group', $review_id)['withdrawal_time'];
+      $time = get_field('payment_group', $review_id)['withdrawal_time'];
       return $time ? $time : '';
     }
   ],
@@ -144,7 +127,7 @@ $columns = [
     'label' => 'Withdrawal Fee', 
     'class' => '',
     'render' => function($review_id) {
-      $fee = get_field('details_group', $review_id)['withdrawal_fee'];
+      $fee = get_field('payment_group', $review_id)['withdrawal_fee'];
       return $fee ? $fee : '';
     }
   ],
@@ -152,23 +135,27 @@ $columns = [
     'label' => 'Bonus',
     'class' => '',
     'render' => function($review_id) {
-      $bonus_title = get_field('details_group', $review_id)['bonus_title'];
-      $bonus = get_field('details_group', $review_id)['bonus'];
-      $bonus_plus = get_field('details_group', $review_id)['bonus_plus'];
-      if ($bonus) {
-        return 
-          '<div class="bonus-cell">' . 
-          '<div class="title">' .
-          $bonus_title . 
-          '</div>' .
-          '<div class="bonus">' .
-          $bonus .
-          '</div>' .
-          '<div class="plus">' .
-          $bonus_plus . 
-          '</div>' .
-          '</div>';
+      $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
+      $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
+      $bonus_plus = get_field('bonus_group', $review_id)['bonus_plus'] ?? null;
+      
+      if (!$bonus) return null;
+
+      $html  = '<div class="bonus-cell">';
+
+      if ($bonus_title) {
+        $html .= '<div class="title">' . esc_html($bonus_title) . '</div>';
       }
+
+      $html .= '<div class="bonus">' . esc_html($bonus) . '</div>';
+
+      if ($bonus_plus) {
+        $html .= '<div class="plus">' . esc_html($bonus_plus) . '</div>';
+      }
+
+      $html .= '</div>';
+
+      return $html;
     }
   ],
   'logo' => [
@@ -198,7 +185,7 @@ $columns = [
     </thead>
 
     <tbody> 
-      <?php foreach ($review_table_data as $review): 
+      <?php foreach ($review_table_rows as $review): 
         $review_id = (int)$review;
         if ($review_id <= 0) continue;
       ?>

@@ -220,6 +220,10 @@ figure.wp-block-table,
 // REVIEW TABLE
 .review--table {
 
+  td svg {
+    color: var(--color-primary-500);
+  }
+
   .col-type,
   .col-crypto {
     max-width: 140px;
