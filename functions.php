@@ -41,7 +41,6 @@ function themebs_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
-
 function my_admin_block_styles() {
   wp_enqueue_style('my-admin-block-styles', get_stylesheet_directory_uri() . '/build/admin-block-styles.css', array(), wp_get_theme()->get('Version'));
 }
@@ -58,6 +57,15 @@ function my_theme_setup() {
 }
 add_action( 'after_setup_theme', 'my_theme_setup' );
 
+
+// Hide custom permalinks metabox from all post types
+add_action('admin_head', function () {
+	echo '<style>
+		#custom-permalinks-edit-box {
+				display: none !important;
+		}
+	</style>';
+});
 
 // Include SVG icons
 include get_template_directory() . '/assets/svg-icons.php';

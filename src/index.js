@@ -33,8 +33,6 @@ import 'swiper/css/pagination';
 
 import feather from 'feather-icons';
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   feather.replace();
 
@@ -85,27 +83,5 @@ document.addEventListener('DOMContentLoaded', function () {
       prevEl: '.swiper-button-prev',
     }
   });
-
-
-  // const anotherSwiper = new Swiper(".swiper-big", {
-  //   modules: [Navigation, Pagination],
-  //   slidesPerView: 1.06,
-  //   spaceBetween: 10,
-  //   breakpoints: {
-  //     768: {
-  //       slidesPerView: 1.025,
-  //       // spaceBetween: 10
-  //     }
-  //   },
-  //   pagination: {
-  //     el: ".swiper-pagination",
-  //     // dynamicBullets: true,
-  //   },
-  //   navigation: {
-  //     nextEl: '.swiper-button-next',
-  //     prevEl: '.swiper-button-prev',
-  //   },
-  //   verticalClass: '.mt-4',
-  // });
 
 });

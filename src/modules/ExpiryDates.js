@@ -60,9 +60,9 @@ class ExpiryDateFormatter {
     const currentTime = Date.now(); // number in ms
     const timeDifference = this.expiryTimestamp - currentTime;
 
-    console.log("type currentTime: " + typeof currentTime);        // number
-    console.log("type expiryTimestamp: " + typeof this.expiryTimestamp); // number
-    console.log("type timeDifference: " + typeof timeDifference);  // number
+    // console.log("type currentTime: " + typeof currentTime);        
+    // console.log("type expiryTimestamp: " + typeof this.expiryTimestamp); 
+    // console.log("type timeDifference: " + typeof timeDifference);  
 
     if (timeDifference <= 0) {
       return 'Expired';

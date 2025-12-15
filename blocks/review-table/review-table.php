@@ -159,7 +159,7 @@ $columns = [
     }
   ],
   'logo' => [
-    'label' => 'site',
+    'label' => 'Site',
     'class' => 'col-logo',
     'render' => function($review_id) {
       $logo = get_the_post_thumbnail_url($review_id, 'site-small-logo'); 
