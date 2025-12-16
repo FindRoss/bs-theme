@@ -35,6 +35,23 @@ figure {
   }
 }
 
+.wp-block-accordion-item {
+  margin-top: 1rem;
+
+  .wp-block-accordion-heading__toggle-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .wp-block-accordion-panel {
+
+    p:first-child {
+      margin-top: var(--size-300);
+
+    }
+  }
+}
+
 h2+.wp-block-image,
 h3+.wp-block-image {
   margin-top: var(--size-400);
@@ -619,5 +636,43 @@ iframe {
 
   .ends-in-text::first-letter {
     text-transform: capitalize;
+  }
+}
+
+
+
+.box-highlight {
+  margin-top: var(--size-600);
+  padding: var(--size-400) var(--size-300);
+  border-radius: var(--border-radius);
+  background-color: var(--color-bg-50);
+  border: 5px solid var(--color-muted-100);
+
+  &__primary {
+    background-color: var(--color-primary-50);
+    border-color: var(--color-primary-100);
+  }
+
+  &__green {
+    // green 50 & 100 
+    background-color: oklch(98.2% 0.018 155.826);
+    border-color: oklch(96.2% 0.044 156.743);
+  }
+
+  &__blue {
+    // blue 50 & 100
+    background-color: oklch(97% 0.014 254.604);
+    border-color: oklch(93.2% 0.032 255.585);
+  }
+
+  &__red {
+    // red 50 & 100
+    background-color: oklch(97.1% 0.013 17.38);
+    border-color: oklch(93.6% 0.032 17.717);
+  }
+
+  h2,
+  h3 {
+    margin-top: 0;
   }
 }
