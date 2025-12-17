@@ -5,12 +5,19 @@ $review_table_rows = get_field('review_table_rows') ?: [];
 $selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
 // $selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
 $show_rank = get_field('review_table_rank');
-// $selected_columns = ['site', 'bonus', 'cta'];
+$stack_on_mobile = get_field('stack_mobile');
+$overflow_scroll = get_field('overflow_scroll');
+
+$overflow_class = $overflow_scroll ? 'custom-table-scroll' : '';
+$mobile_class = $stack_on_mobile ? 'stacked-table' : '';
+
 
 $columns = [
   'site' => [
     'label' => 'Site',
-    'class' => 'col-site',
+    'mobile_label' => false,
+    'class' => 'column-site full-cell',
+    'icon' => 'globe',
     'render' => function($review_id) {
         $name = get_the_title($review_id);
         $url  = get_the_permalink($review_id);
@@ -19,7 +26,9 @@ $columns = [
   ],
   'founded' => [
     'label' => 'Founded',
-    'class' => '',
+    'mobile_label' => true,
+    'class' => 'half-cell',
+    'icon' => 'calendar',
     'render' => function($review_id) {
         $founded = get_field('details_group', $review_id)['year_founded'] ?? null;
         return $founded ? esc_html($founded) : 'Unknown';
@@ -27,7 +36,9 @@ $columns = [
   ],
   'owner' => [
     'label' => 'Owner',
-    'class' => '',
+    'mobile_label' => true,
+    'class' => 'half-cell',
+    'icon' => 'user',
     'render' => function($review_id) {
         $owner = get_field('details_group', $review_id)['owner'] ?? null;
         return $owner ? esc_html($owner) : 'Unknown';
@@ -35,7 +46,9 @@ $columns = [
   ],
   'crypto' => [
     'label' => 'Crypto',
-    'class' => 'col-crypto',
+    'mobile_label' => true,
+    'class' => 'column-crypto',
+    'icon' => 'dollar-sign',
     'render' => function($review_id) {
       $crypto_terms = get_the_terms($review_id, 'cryptocurrency');
       $crypto_output = display_review_crypto($crypto_terms, 3); 
@@ -44,7 +57,9 @@ $columns = [
   ],
   'type' => [
     'label' => 'Type', 
-    'class' => 'col-type',
+    'mobile_label' => true,
+    'class' => 'column-type',
+    'icon' => 'tag',
     'render' => function($review_id) {
       $type_terms = get_the_terms($review_id, 'review_type');
       $type_output = display_review_type($type_terms);
@@ -52,8 +67,10 @@ $columns = [
     }
   ],
   'num_games' => [
-    'label' => 'Number of Games', 
+    'label' => 'Games', 
+    'mobile_label' => true,
     'class' => '',
+    'icon' => 'grid',
     'render' => function($review_id) {
         $games = get_field('games_group', $review_id)['num_games'] ?? null;
         return $games ? esc_html($games) : '';
@@ -61,7 +78,9 @@ $columns = [
   ],
   'features' => [
     'label' => 'Features', 
+    'mobile_label' => true,
     'class' => '', 
+    'icon' => 'layers',
     'render' => function($review_id) {
       $excerpt = get_the_excerpt($review_id);
       return $excerpt ? esc_html($excerpt) : '';
@@ -69,71 +88,93 @@ $columns = [
   ],
   'cta' => [
     'label' => '',
-    'class' => '',
+    'mobile_label' => false,
+    'class' => 'column-cta ',
+    'icon' => '',
     'render' => function($review_id) {
       $link = get_field('details_group', $review_id)['affiliate_link'] ?? null;
       return $link ? '<a target="_blank" href="' . $link . '" class="button button__primary">Visit</a>' : '';
     }
   ],
   'blockchain' => [
-    'label' => 'Blockchain', 
+    'label' => 'Blockchain',
+    'mobile_label' => true, 
     'class' => '',
+    'icon' => 'hash',
     'render' => function($review_id) {
-      $blockchain = get_field('blockchain_group', $review_id)['blockchain'] ?? null;
-      return $blockchain ? $blockchain : 'N/A';
+      $blockchain_group = get_field('blockchain_group', $review_id);
+      return is_array($blockchain_group) ? ($blockchain_group['blockchain'] ?? 'N/A') : 'N/A';
     }
   ],
   'token' => [
-    'label' => 'Token', 
+    'label' => 'Token ', 
+    'mobile_label' => true,
     'class' => '',
+    'icon' => 'shield',
     'render' => function($review_id) {
-      $token = get_field('blockchain_group', $review_id)['token'] ?? null;
-      return $token ? $token : 'N/A';
+      $blockchain_group = get_field('blockchain_group', $review_id);
+      $token = is_array($blockchain_group) ? ($blockchain_group['token'] ?? null) : null;
+      return $token ?: 'N/A';
     }
   ],
   'vip_program' => [
     'label' => 'VIP Program', 
+    'mobile_label' => true,
     'class' => '',
+    'icon' => 'star',
     'render' => function($review_id) {
-      $truefalse = get_field('vip_group', $review_id)['has_vip_program'];
-      return $truefalse ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
+      $vip_group = get_field('vip_group', $review_id);
+      $has_vip = is_array($vip_group) && !empty($vip_group['has_vip_program']);
+      return $has_vip ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
     }
   ],
   'vip_transfer' => [
     'label' => 'VIP Transfer', 
-    'class' => '',
+    'mobile_label' => true,
+    'class' => 'half-cell',
+    'icon' => 'repeat',
     'render' => function($review_id) {
-      $truefalse = get_field('vip_group', $review_id)['has_vip_transfer'];
+      $vip_group = get_field('vip_group', $review_id);
+      $truefalse = is_array($vip_group) && !empty($vip_group['has_vip_transfer']);
       return $truefalse ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
     }
   ],
   'vip_guide' => [
     'label' => 'VIP Guide', 
+    'mobile_label' => true,
     'class' => '',
+    'icon' => 'book-open',
     'render' => function($review_id) {
-      $post_id = get_field('vip_group', $review_id)['vip_guide'];
+      $vip_group = get_field('vip_group', $review_id);
+      $post_id = is_array($vip_group) ? ($vip_group['vip_guide'] ?? null) : null;
       return $post_id ? '<a href="' . get_the_permalink($post_id) . '">' . get_the_title($post_id) . '</a>' : '-';
     }
   ],
   'withdrawal_time' => [
     'label' => 'Withdrawal Time', 
-    'class' => '',
+    'mobile_label' => true,
+    'class' => 'half-cell',
+    'icon' => 'clock',
     'render' => function($review_id) {
-      $time = get_field('payment_group', $review_id)['withdrawal_time'];
-      return $time ? $time : '';
+      $time = get_field('payment_group', $review_id)['withdrawal_time'] ?? null;
+      return $time ?: '';
     }
   ],
   'withdrawal_fee' => [
-    'label' => 'Withdrawal Fee', 
-    'class' => '',
+    'label' => 'Withdrawal Fee',  
+    'mobile_label' => true,
+    'class' => 'half-cell',
+    'icon' => 'dollar-sign',
     'render' => function($review_id) {
-      $fee = get_field('payment_group', $review_id)['withdrawal_fee'];
-      return $fee ? $fee : '';
+      $fee = get_field('payment_group', $review_id)['withdrawal_fee'] ?? null;
+      return $fee ?: '';
     }
   ],
   'bonus' => [
     'label' => 'Bonus',
-    'class' => '',
+    'mobile_label' => true,
+    'class' => 'column-bonus half-cell',
+    'icon' => 'gift',
     'render' => function($review_id) {
       $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
       $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
@@ -142,17 +183,13 @@ $columns = [
       if (!$bonus) return null;
 
       $html  = '<div class="bonus-cell">';
-
       if ($bonus_title) {
         $html .= '<div class="title">' . esc_html($bonus_title) . '</div>';
       }
-
       $html .= '<div class="bonus">' . esc_html($bonus) . '</div>';
-
       if ($bonus_plus) {
         $html .= '<div class="plus">' . esc_html($bonus_plus) . '</div>';
       }
-
       $html .= '</div>';
 
       return $html;
@@ -160,7 +197,9 @@ $columns = [
   ],
   'logo' => [
     'label' => 'Site',
-    'class' => 'col-logo',
+    'mobile_label' => false,
+    'class' => 'column-logo full-cell',
+    'icon' => '',
     'render' => function($review_id) {
       $logo = get_the_post_thumbnail_url($review_id, 'site-small-logo'); 
       $link = get_the_permalink($review_id);
@@ -168,17 +207,23 @@ $columns = [
       return '<a class="img-link" href="' . $link . '"><img width="120" height="60" class="logo" src="' . $logo . '" alt="' . $title . '" title="' . $title . '"></a>';
     }
   ]
-]
+];
+
 ?>
 
-<div class="main--table review--table <?php echo esc_attr($extra_classes); ?>">
+<div class="main--table review--table <?php 
+    echo esc_attr($extra_classes . ' ' . $overflow_class . ' ' . $mobile_class); 
+  ?>">
   <table>
     <thead>
       <tr>
         <?php if ($show_rank) { ?><th>#</th><?php } ?>
         <?php foreach ($selected_columns as $key): ?>
           <?php if (isset($columns[$key])): ?>
-            <th><?php echo $columns[$key]['label']; ?></th>
+            <th>
+              <span class="icon"><i data-feather="<?php echo $columns[$key]['icon']; ?>"></i></span>
+              <span class="label"><?php echo $columns[$key]['label']; ?></span>
+            </th>
           <?php endif; ?>
         <?php endforeach; ?>
       </tr>
@@ -190,13 +235,33 @@ $columns = [
         if ($review_id <= 0) continue;
       ?>
       <tr>
-        <?php if ($show_rank) { ?><td class="col-rank"><?php echo $count; ?></td><?php } ?>
+        <?php if ($show_rank) { ?><td class="column-rank"><?php echo $count; ?></td><?php } ?>
         <?php foreach ($selected_columns as $key): ?>
-          <td <?php echo isset($key['class']) ? 'class="' . $key['class'] . '"' : ''; ?>>
+          
+          <?php 
+          $td_col_class = !empty($columns[$key]['class'])
+            ? esc_attr($columns[$key]['class'])
+            : '';
+
+          $td_mobile_class = !isset($columns[$key]['mobile_label']) || $columns[$key]['mobile_label'] !== false
+            ? 'show-label'
+            : 'no-label';
+          ?>
+
+          <td data-label="<?php echo $columns[$key]['label']?>" class="<?php echo $td_col_class; ?> <?php echo $td_mobile_class; ?>">
+
             <?php 
-              if (isset($columns[$key])) {
-                echo $columns[$key]['render']($review_id);
-              }
+              if (isset($columns[$key]['icon']) && !empty($columns[$key]['icon'])) { ?>
+                <div class="mobile-label">
+                  <span class="icon-wrapper">
+                    <i data-feather="<?php echo $columns[$key]['icon']; ?>"></i>
+                  </span>
+                  <span class="label"><?php echo $columns[$key]['label']?></span>
+                </div>
+              <?php } ?>
+
+            <?php 
+              if (isset($columns[$key])) echo $columns[$key]['render']($review_id);
             ?>
           </td>
         <?php endforeach; ?>
