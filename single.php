@@ -16,14 +16,9 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $single_category_link = '';
   }
   
-
-  // Really? 
-  // $post_date = get_the_date( 'M j, Y' );
-
-  
   $promo_marked_as_expired = get_field('bonus_expired');
   $expiry_date = get_field('expiry_date');
-  // $expiry_date_has_passed = false;
+  
 
   show_banner_message($post_id);
       

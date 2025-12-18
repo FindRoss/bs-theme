@@ -267,6 +267,11 @@ figure.wp-block-table,
 
 
 
+@include breakpoint(medium) {
+  .stacked-table .mobile-label {
+    display: none;
+  }
+}
 
 
 // Stacked table
@@ -284,7 +289,13 @@ figure.wp-block-table,
       display: none;
     }
 
-    tbody,
+    // tbody {
+    //   display: grid;
+    //   grid-template-columns: 1fr 1fr;
+    //   gap: auto;
+    // }
+
+
     tr,
     td {
       display: block;
@@ -313,6 +324,7 @@ figure.wp-block-table,
       border-bottom: 1px solid var(--color-muted-100) !important;
 
       .mobile-label {
+        display: flex;
         align-items: center;
         justify-content: center;
         background-color: var(--color-primary-50);
@@ -342,24 +354,7 @@ figure.wp-block-table,
         border-bottom: 0px !important;
       }
 
-      // &.show-label {
-      //   justify-content: space-between;
-      //   gap: 1rem;
-      //   width: 100%;
-      //   max-width: 100%;
 
-      //   &::before {
-      //     content: attr(data-label);
-      //     font-weight: 600;
-      //     font-size: 14px;
-      //     color: var(--color-muted-400);
-      //     // margin-right: 1rem;
-      //   }
-
-      //   >div {
-      //     flex: 1;
-      //   }
-      // }
 
       // &.no-label,
       // &.show-label {
@@ -369,10 +364,4 @@ figure.wp-block-table,
       // }
     }
   }
-}
-
-// Show on mobile only
-
-.stacked-table .mobile-label {
-  display: none;
 }

@@ -6,7 +6,9 @@
 add_action('wp_head', 'productFaqSchema');
 
 function productFaqSchema() {
-	if(get_field('faqs')) { 
+  $faqs = get_field('faqs');
+	
+  if(is_array( $faqs ) && ! empty( $faqs )) { 
 
     $schema = array(
       "@context" => "https://schema.org",
@@ -14,7 +16,7 @@ function productFaqSchema() {
       "mainEntity" => array()
     );
 
-    $faqs = get_field('faqs');
+
 
     foreach($faqs as $faq) {
 

@@ -10,20 +10,25 @@ if (is_tax()) {
   $faqs_description = get_field('faqs_description');
 }
 ?>
-<?php if ($faqs) { ?> 
-  <div class="faqs mt-4 pt-4">
-    <h2 class="mt-2 mb-4">FAQs</h2>
+<?php if (is_array( $faqs ) && ! empty( $faqs )) { ?> 
+  <div class="faqs">
+    <h2 class="faqs__heading">FAQs</h2>
     <?php if ($faqs_description) { echo '<p>' . $faqs_description . '</p>'; }; ?>
 
-    <?php foreach ($faqs as $faq) { 
-      $question = $faq['question']; 
-      $answer   = $faq['answer']; ?>
+    <div class="faq-items">
 
-      <div class="mb-4">  
-        <h3><?php echo $question; ?></h3>
-        <p><?php echo $answer; ?></p>
-      </div>
-    <?php }; ?>
+      <?php foreach ($faqs as $faq) { 
+        $question = $faq['question']; 
+        $answer   = $faq['answer']; ?>
+
+        <div class="faq">  
+          <h3><?php echo $question; ?></h3>
+          <p><?php echo $answer; ?></p>
+        </div>
+
+      <?php }; ?>
+
+    </div>
 
   </div><!-- .faqs__wrapper -->
 <?php }; ?>

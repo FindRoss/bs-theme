@@ -243,12 +243,12 @@ $columns = [
             ? esc_attr($columns[$key]['class'])
             : '';
 
-          $td_mobile_class = !isset($columns[$key]['mobile_label']) || $columns[$key]['mobile_label'] !== false
-            ? 'show-label'
-            : 'no-label';
+          // $td_mobile_class = !isset($columns[$key]['mobile_label']) || $columns[$key]['mobile_label'] !== false
+          //   ? 'show-label'
+          //   : 'no-label';
           ?>
 
-          <td data-label="<?php echo $columns[$key]['label']?>" class="<?php echo $td_col_class; ?> <?php echo $td_mobile_class; ?>">
+          <td data-label="<?php echo $columns[$key]['label']?>" class="<?php echo $td_col_class; ?>">
 
             <?php 
               if (isset($columns[$key]['icon']) && !empty($columns[$key]['icon'])) { ?>
