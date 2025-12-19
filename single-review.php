@@ -1,9 +1,5 @@
 <?php get_header(); ?>
 
-<!-- Adding cards -->
-<!-- https://bitcoinchaser.com/how-we-review/ -->
-<!-- https://bitcoinchaser.com/why-casinos-ask-for-your-kyc-data/  -->
-
 <?php
 $review_id = get_the_ID();
 
@@ -127,7 +123,6 @@ $crypto_terms   = $terms_by_tax['cryptocurrency'] ?? [];
 $game_terms     = $terms_by_tax['game'] ?? [];
 $provider_terms = $terms_by_tax['provider'] ?? [];
 $payment_terms  = $terms_by_tax['payment'] ?? [];
-$country_terms  = $terms_by_tax['country'] ?? [];
 
 // ACF Fields (simple arrays eg Array ( [0] => English [1] => Français [2] => Deutsch [3] => Español [4]);
 $languages = $fields['languages'] ?? [];
