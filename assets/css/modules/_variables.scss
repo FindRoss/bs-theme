@@ -36,15 +36,31 @@
   /*
    * Color Background
    **/
-  --color-bg-50: #fafafa;
-  --color-bg-100: #f9f9f9;
-  --color-bg-200: #f8f8f8;
-  --color-bg-300: #f7f7f7;
-  --color-bg-400: #f6f6f6;
-  --color-bg-500: #f4f4f4;
-  --color-bg-600: #f3f3f3;
-  --color-bg-700: #f2f2f2;
-  --color-bg-800: #f1f1f1;
+  // --color-bg-50: #fafafa;
+  // --color-bg-100: #f9f9f9;
+  // --color-bg-200: #f8f8f8;
+  // --color-bg-300: #f7f7f7;
+  // --color-bg-400: #f6f6f6;
+  // --color-bg-500: #f4f4f4;
+  // --color-bg-600: #f3f3f3;
+  // --color-bg-700: #f2f2f2;
+  // --color-bg-800: #f1f1f1;
+
+  /* 
+  * Color Background Tint 8 
+  **/
+  --color-bg-50: oklch(98.6% 0.003 255);
+  --color-bg-100: oklch(98.0% 0.003 255);
+  --color-bg-200: oklch(97.3% 0.004 255);
+  --color-bg-300: oklch(96.4% 0.004 255);
+  --color-bg-400: oklch(95.4% 0.005 255);
+  --color-bg-500: oklch(94.2% 0.005 255);
+  --color-bg-600: oklch(92.8% 0.006 255);
+  --color-bg-700: oklch(91.2% 0.006 255);
+  --color-bg-800: oklch(88.9% 0.007 255);
+  --color-bg-900: oklch(85.9% 0.008 255);
+
+
 
   /*
    * Border

@@ -31,7 +31,7 @@ $columns = [
     'icon' => 'calendar',
     'render' => function($review_id) {
         $founded = get_field('details_group', $review_id)['year_founded'] ?? null;
-        return $founded ? esc_html($founded) : 'Unknown';
+        return $founded ? esc_html($founded) : '';
     },
   ],
   'owner' => [
@@ -41,7 +41,7 @@ $columns = [
     'icon' => 'user',
     'render' => function($review_id) {
         $owner = get_field('details_group', $review_id)['owner'] ?? null;
-        return $owner ? esc_html($owner) : 'Unknown';
+        return $owner ? esc_html($owner) : '';
     },
   ],
   'crypto' => [
@@ -118,7 +118,7 @@ $columns = [
     }
   ],
   'vip_program' => [
-    'label' => 'VIP Program', 
+    'label' => 'VIP Club', 
     'mobile_label' => true,
     'class' => '',
     'icon' => 'star',
@@ -196,7 +196,7 @@ $columns = [
     }
   ],
   'logo' => [
-    'label' => 'Site',
+    'label' => '',
     'mobile_label' => false,
     'class' => 'column-logo full-cell',
     'icon' => '',

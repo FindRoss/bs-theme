@@ -2,7 +2,7 @@
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-<div class="container"> 
+<div class="container mt-4"> 
   <article>
 
     <div class="row justify-content-center">

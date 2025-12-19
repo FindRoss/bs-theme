@@ -19,12 +19,11 @@ figure.wp-block-table,
   margin: var(--size-600) 0 0;
   border-radius: var(--border-radius);
   overflow: hidden;
-  background-color: var(--color-bg-700);
+  background-color: var(--color-bg-100);
   border: 1px solid var(--color-muted-100);
 
 
   table {
-    // border: 1px solid var(--color-muted-100);
     width: 100%;
     table-layout: auto;
     border-collapse: collapse;
@@ -32,7 +31,7 @@ figure.wp-block-table,
     background-color: #fff;
 
     thead {
-      background-color: var(--color-bg-700);
+      background-color: var(--color-bg-300);
 
       th {
         font-size: 14px;
@@ -63,7 +62,11 @@ figure.wp-block-table,
       }
 
       tr:nth-child(even) {
-        background-color: var(--color-bg-50); // adjust to your preferred color
+        background-color: var(--color-bg-50);
+      }
+
+      tr:hover {
+        background-color: var(--color-bg-100); // adjust to your preferred hover color
       }
 
       td {
