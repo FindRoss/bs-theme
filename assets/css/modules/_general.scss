@@ -558,6 +558,7 @@ iframe {
   img.icon {
     width: 28px;
     height: 28px;
+    margin-top: 0px !important
   }
 
   .count-icon {
@@ -639,7 +640,7 @@ iframe {
 
 .box-highlight {
   margin-top: var(--size-600);
-  padding: var(--size-400) var(--size-300);
+  padding: var(--size-500) var(--size-300);
   border-radius: var(--border-radius);
   background-color: var(--color-bg-50);
   border: 5px solid var(--color-muted-100);
@@ -649,22 +650,47 @@ iframe {
     border-color: var(--color-primary-100);
   }
 
-  &__green {
-    // green 50 & 100 
-    background-color: oklch(98.2% 0.018 155.826);
-    border-color: oklch(96.2% 0.044 156.743);
-  }
 
   &__blue {
-    // blue 50 & 100
-    background-color: oklch(97% 0.014 254.604);
-    border-color: oklch(93.2% 0.032 255.585);
+    background: linear-gradient(to bottom,
+        oklch(98% 0.010 254.6),
+        oklch(95.5% 0.020 255));
+    border-color: oklch(95.5% 0.020 255);
+  }
+
+  &__green {
+    background: linear-gradient(to bottom,
+        oklch(98.8% 0.012 155.8),
+        oklch(96% 0.022 156.5));
+    border-color: oklch(96% 0.022 156.5);
   }
 
   &__red {
-    // red 50 & 100
-    background-color: oklch(97.1% 0.013 17.38);
-    border-color: oklch(93.6% 0.032 17.717);
+    background: linear-gradient(to bottom,
+        oklch(98.2% 0.010 17.4),
+        oklch(95.8% 0.018 17.7));
+    border-color: oklch(95.8% 0.018 17.7);
+  }
+
+  &__orange {
+    background: linear-gradient(to bottom,
+        oklch(98.6% 0.012 73.7),
+        oklch(96.2% 0.020 75));
+    border-color: oklch(96.2% 0.020 75);
+  }
+
+  &__teal {
+    background: linear-gradient(to bottom,
+        oklch(98.6% 0.012 190),
+        oklch(96% 0.022 191));
+    border-color: oklch(96% 0.022 191);
+  }
+
+  &__cyan {
+    background: linear-gradient(to bottom,
+        oklch(98.8% 0.010 220),
+        oklch(96.2% 0.020 221));
+    border-color: oklch(96.2% 0.020 221);
   }
 
   h2,

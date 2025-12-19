@@ -5,11 +5,11 @@ $review_table_rows = get_field('review_table_rows') ?: [];
 $selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
 // $selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
 $show_rank = get_field('review_table_rank');
-$stack_on_mobile = get_field('stack_mobile');
+// $stack_on_mobile = get_field('stack_mobile');
 $overflow_scroll = get_field('overflow_scroll');
 
 $overflow_class = $overflow_scroll ? 'custom-table-scroll' : '';
-$mobile_class = $stack_on_mobile ? 'stacked-table' : '';
+// $mobile_class = $stack_on_mobile ? 'stacked-table' : '';
 
 
 $columns = [
@@ -212,7 +212,7 @@ $columns = [
 ?>
 
 <div class="main--table review--table <?php 
-    echo esc_attr($extra_classes . ' ' . $overflow_class . ' ' . $mobile_class); 
+    echo esc_attr($extra_classes . ' ' . $overflow_class); 
   ?>">
   <table>
     <thead>
@@ -221,7 +221,7 @@ $columns = [
         <?php foreach ($selected_columns as $key): ?>
           <?php if (isset($columns[$key])): ?>
             <th>
-              <span class="icon"><i data-feather="<?php echo $columns[$key]['icon']; ?>"></i></span>
+              <!-- <span class="icon"><i data-feather="<?php echo $columns[$key]['icon']; ?>"></i></span> -->
               <span class="label"><?php echo $columns[$key]['label']; ?></span>
             </th>
           <?php endif; ?>
@@ -242,23 +242,19 @@ $columns = [
           $td_col_class = !empty($columns[$key]['class'])
             ? esc_attr($columns[$key]['class'])
             : '';
-
-          // $td_mobile_class = !isset($columns[$key]['mobile_label']) || $columns[$key]['mobile_label'] !== false
-          //   ? 'show-label'
-          //   : 'no-label';
           ?>
 
           <td data-label="<?php echo $columns[$key]['label']?>" class="<?php echo $td_col_class; ?>">
 
-            <?php 
-              if (isset($columns[$key]['icon']) && !empty($columns[$key]['icon'])) { ?>
+             
+            <!--  if (isset($columns[$key]['icon']) && !empty($columns[$key]['icon'])) { ?>
                 <div class="mobile-label">
                   <span class="icon-wrapper">
-                    <i data-feather="<?php echo $columns[$key]['icon']; ?>"></i>
+                    <i data-feather="echo $columns[$key]['icon']" ?>></i>
                   </span>
-                  <span class="label"><?php echo $columns[$key]['label']?></span>
+                  <span class="label">echo $columns[$key]['label']; ?></span>
                 </div>
-              <?php } ?>
+              } ?> -->
 
             <?php 
               if (isset($columns[$key])) echo $columns[$key]['render']($review_id);

@@ -1,36 +1,51 @@
 <?php
 
-  // $review_id = get_field('review_info'); 
+  $review_id = get_field('review_info'); 
+  $title = get_the_title($review_id);
+  
+  $founded = get_field('details_group', $review_id)['year_founded'] ?? null;
+  
+  $crypto_terms = get_the_terms($review_id, 'cryptocurrency');
+  $crypto_output = display_review_crypto($crypto_terms, 3); 
 
-  // $founded = get_field('details_group', $review_id)['year_founded'] ?? null;
+  $vip_group = get_field('vip_group', $review_id);
+  $has_vip = is_array($vip_group) && !empty($vip_group['has_vip_program']);
+  $vip_output = $has_vip ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
 
-
-  // $crypto_terms = get_the_terms($review_id, 'cryptocurrency');
-  // $crypto_output = display_review_crypto($crypto_terms, 3); 
-  // return '<div class="crypto-icons">' . $crypto_output . '</div>';
-
-  // $games = get_field('games_group', $review_id)['num_games'] ?? null;
-
-
-  // $vip_group = get_field('vip_group', $review_id);
-  // $has_vip = is_array($vip_group) && !empty($vip_group['has_vip_program']);
-  // return $has_vip ? '<i data-feather="check"></i>' : '<i data-feather="slash"></i>';
-
-  // $time = get_field('payment_group', $review_id)['withdrawal_time'] ?? null;
-
-
-  // $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
-  // $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
-  // $bonus_plus = get_field('bonus_group', $review_id)['bonus_plus'] ?? null;
-
-
-
-  // Screenshot
-  // fields
-  // year founded
-  // bonus
-  // vip program
-  // crypto accepted
-
-
+  $homepage_img = get_field('media_group', $review_id)['homepage'] ?? null;
 ?>
+
+<div class="review-info-block">
+  <div class="review-info-block__layout">
+  <div class="screenshot">
+    <?php
+      if ($homepage_img) {
+        $img_url = $homepage_img['sizes']['medium_large'] ?? $homepage_img['url']; ?>
+        <img src="<?php echo esc_url($img_url)?>" alt="<?php echo esc_attr(get_the_title($review_id)); ?>">
+      <?php } 
+    ?>
+  </div>
+  <div class="info">
+    <ul>
+       <li>
+        <span>Year Founded</span>
+        <span><?php echo $founded; ?></span>
+      </li>
+      
+      <li>
+        <span>Crypto</span>
+        <span><div class="crypto-icons"><?php echo $crypto_output; ?></div></span>
+      </li>
+      <li>
+        <span>Games</span>
+        <span>1,350</span>
+      </li>
+      <li>
+        <span>VIP Program</span>
+        <span><?php echo $vip_output; ?></span>
+      </li>
+    </ul>
+    <!-- <a href="#" class="button button__primary">Visit <?php echo $title; ?></a> -->
+  </div>
+  </div>
+</div>
