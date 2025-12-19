@@ -16,33 +16,7 @@ $site_posts_query = new WP_Query(
   array(
     'post_type'      => 'post',
     'posts_per_page' => 8,
-    'meta_query'     => array(
-      'relation' => 'AND',
-      array(
-        'key'     => 'post-review-relationship',
-        'value'   => '"' . $id . '"',
-        'compare' => 'LIKE'
-      ),
-      array(
-        'key'     => 'bonus_expired',
-        'value'   => '1',
-        'compare' => '!='
-      ),
-      array(
-        'relation' => 'OR',
-        array(
-          'key'     => 'expiry_date',
-          'value'   => current_time('mysql'),
-          'compare' => '>',
-          'type'    => 'DATETIME',
-        ),
-        array(
-          'key'     => 'expiry_date',
-          'value'   => '',
-          'compare' => '='
-        ),
-      ),
-    ),
+    'meta_query'     => bonus_expired_meta_query() 
   ),
 );
 
@@ -70,10 +44,7 @@ $closed        = $details_group['closed']; // nothing or 1
 
 /* Media Group */
 $media        = $fields['media_group'];
-$theme_color  = $media['theme_color'];
 $homepageImg  = $media['homepage'];
-$gamesImg     = $media['games'];
-$bettingImg   = $media['betting'];
 
 if ($homepageImg) {
   $homepageImg_url = $homepageImg['sizes']['large'];
@@ -83,8 +54,7 @@ if ($homepageImg) {
 }
 
 if ($homepageImg) $images[] = $homepageImg;
-if ($gamesImg) $images[] = $gamesImg;
-if ($bettingImg) $images[] = $bettingImg;
+
 
 /* Introduction */
 $introduction = $fields['introduction'] ?? '';

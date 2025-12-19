@@ -5,7 +5,6 @@ $used_posts = array();
 $featured_post_args = array(
   'post_type'      => 'post', 
   'posts_per_page' => 4, 
-  'meta_query'     => bonus_expired_meta_query()
 );
 $featured_post_query = new WP_Query( $featured_post_args ); 
 
@@ -181,7 +180,6 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     'post_status'    => 'publish',
     'posts_per_page' => 8,
     'category_name'  => 'news', 
-    'meta_query'     => bonus_expired_meta_query()
   )); 
   
   $latest_casino_news_foundPosts = $latest_casino_news_query->found_posts;
@@ -208,8 +206,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'category_name'  => 'blockchain',
-    'meta_query'     => bonus_expired_meta_query()
+    'category_name'  => 'blockchain'
   )); 
   
   $blockchain_foundPosts = $blockchain_query->found_posts;
@@ -257,42 +254,13 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 <?php }; ?>
 
-<!-- ESPORTS -->
-<?php 
-  $latest_esports_query = new WP_Query(array( 
-    'post_type'      => 'post', 
-    'post_status'    => 'publish',
-    'posts_per_page' => 8,
-    'category_name'  => 'esports',
-    'meta_query'     => bonus_expired_meta_query()
-  )); 
-  
-  $latest_esports_foundPosts = $latest_esports_query->found_posts;
-
-  if ($latest_esports_foundPosts >= 8) { ?>
-
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php 
-        outputNewSlideHTML(array(
-          'query' => $latest_esports_query,
-          'heading' => 'Esports', 
-          'link' => '/category/esports/'
-        ));
-      ?>
-    </section>
-  </div>
-
-<?php }; ?>
-
 <!-- CRYPTCURRENCY -->
 <?php 
   $cryptocurrency_query = new WP_Query(array( 
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'category_name'  => 'cryptocurrency',
-    'meta_query'     => bonus_expired_meta_query()
+    'category_name'  => 'cryptocurrency'
   )); 
   
   $cryptocurrency_foundPosts = $cryptocurrency_query->found_posts;
@@ -318,8 +286,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     'post_type'      => 'post', 
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'category_name'  => 'alternatives',
-    'meta_query'     => bonus_expired_meta_query()
+    'category_name'  => 'alternatives'
   )); 
   
   $alternatives_foundPosts = $alternatives_query->found_posts;

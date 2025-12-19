@@ -1,41 +1,8 @@
 
 <?php 
-  $review_table_data = get_field('review_table');
-
-// Add: Scroll  True / False
-// $scroll = get_field('scroll') ?? null;
-// PHP: echo $scroll ? "custom-table-scroll" : "";
-
-
-// Add Fields to reviews
-// VIP program
-// VIP transfer
-// VIP guide
-// Blockchain
-// Token
-// Withdrawal speed
-// Withdrawal fee
-// Pros
-// Cons
-// 
-
-// Have
-// Type (casino / sports / esports)
-// Crypto accepted
-// Bonus
+$review_table_data = get_field('review_table');
 $excerpt = get_the_excerpt();
-
 $columns = get_field('columns');
-
-
-
-// To add to review
-// Year Founded
-// Number of games - casino_num_games
-// Min deposit (BTC) - casino_year_founded
-// Licensed
-// KYC
-// VIP Program
 
 $count = 1; 
 ?>

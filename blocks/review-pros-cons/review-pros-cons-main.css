@@ -1,0 +1,60 @@
+.pros-cons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-300);
+  ;
+  margin-top: var(--size-300);
+}
+
+.pros-cons__list {
+  margin-top: var(--size-200);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-bg-50);
+}
+
+.pros-cons__list svg {
+  color: var(--color-primary-400);
+  width: 24px;
+  height: 24px;
+}
+
+.pros-cons__list .text {
+  font-size: 1rem;
+}
+
+.pros-cons__list li {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pros-cons__list li:nth-child(1) {
+  margin-top: 0;
+}
+
+/* tablet / desktop */
+@media screen and (min-width: 768px) {
+  .pros-cons {
+    flex-direction: row;
+  }
+
+  .pros-cons__list {
+    margin: 0 !important;
+  }
+
+  .pros-cons__list {
+    flex: 1 1 100%;
+  }
+
+  /* only when there are TWO lists */
+  .pros-cons__list:nth-child(2) {
+    flex-basis: 50%;
+  }
+
+  .pros-cons__list:first-child:nth-last-child(2) {
+    flex-basis: 50%;
+  }
+}

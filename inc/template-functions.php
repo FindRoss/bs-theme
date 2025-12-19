@@ -46,7 +46,7 @@ function terms_to_box($terms, $title, $with_links = false, $current_page_url = '
             <?php if (($with_links && $term_link)) : ?>
               <a <?php echo $on_current_page ? '' : 'href="' . esc_url($term_link) . '"'; ?>>
             <?php endif; ?>
-            <?php if (!empty($icon['sizes']['thumbnail'])): ?>
+            <?php if ($title == 'Cryptocurrency' && !empty($icon['sizes']['thumbnail'])): ?>
               <img
                 src="<?php echo esc_url($icon['sizes']['thumbnail']); ?>"
                 width="40"

@@ -71,7 +71,8 @@ add_action('admin_head', function () {
 include get_template_directory() . '/assets/svg-icons.php';
 
 function themebs_enqueue_scripts() {
-   wp_deregister_script( 'jquery' );
+	// ACTIVATE AFTER TESTING
+  //  wp_deregister_script( 'jquery' );
   
   wp_register_script('main-chaser', get_template_directory_uri() . '/build/index.js', [], wp_get_theme()->get('Version'), true);
   wp_enqueue_script('main-chaser');

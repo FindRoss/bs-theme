@@ -168,5 +168,37 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page', 'review' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * Review Info
+    */
+    acf_register_block_type(array(
+      'name'              => 'review-info',
+      'title'             => __('Review Info'),
+      'description'       => __('A custom block displaying information from a review.'),
+      'render_template'   => 'blocks/review-info/review-info.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-info/review-info-main.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'review', 'casino', 'site', 'info', 'details' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'star-filled'
+    ));
+    /**
+    * Review Pros and Cons
+    */
+    acf_register_block_type(array(
+      'name'              => 'review-pros-cons',
+      'title'             => __('Review Pros and Cons'),
+      'description'       => __('A custom block displaying review pros and cons.'),
+      'render_template'   => 'blocks/review-pros-cons/review-pros-cons.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'reviews', 'pros', 'cons' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'star-filled'
+    ));
   }
 };
