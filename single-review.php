@@ -200,26 +200,26 @@ foreach ($faqs as $faq) {
 
     <main class="skye-section__content">
 
-      <?php        
-        $bonus_query = get_bonuses_by_review_query(get_the_ID());
-        if ($bonus_query->have_posts()) : ?>
+           
+        <!-- // $bonus_query = get_bonuses_by_review_query(get_the_ID());
+        if ($bonus_query->have_posts()) : 
           <section class="section">
             <h2>Bonuses</h2>
             <div class="shanghai-row">
-              <?php 
+               
                 while ($bonus_query->have_posts()) : $bonus_query->the_post();
                   get_template_part('template-parts/card/card', 'shanghai');
                 endwhile;
-              ?>
+              
             </div>
           </section>
-          <?php 
+          
           wp_reset_postdata();
         endif; 
-      ?>
+      ?> -->
 
         <section class="content mt-5">
-          <h2 class="title">Review</h2>
+          <h2 class="title h4">Review</h2>
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
           the_content();
 
