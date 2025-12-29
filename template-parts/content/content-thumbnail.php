@@ -1,8 +1,5 @@
  <?php 
- 
  $hide_image = get_field('hide_featured_image');  
- 
- 
  
  if (has_post_thumbnail() && !$hide_image) : ?>
   <picture>

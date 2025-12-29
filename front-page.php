@@ -7,16 +7,7 @@ $featured_post_args = array(
   'posts_per_page' => 4, 
 );
 $featured_post_query = new WP_Query( $featured_post_args ); 
-
-$countries_to_show = [
-  'germany', 
-  'australia',
-  'canada',
-  'new zealand',
-  'united kingdom',
-  'norway',
-];
-
+ 
 $first_image_bool = true;
 ?> 
 

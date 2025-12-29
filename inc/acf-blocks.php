@@ -180,7 +180,7 @@ function my_acf_init_block_types() {
       'mode'              => 'edit',
       'category'          => 'layout',
       'align'             => 'full',
-      'keywords'          => array( 'review', 'casino', 'site', 'info', 'details' ),
+      'keywords'          => array( 'review', 'casino', 'site', 'info', 'details', 'image' ),
       'post_types'        => array( 'post', 'page' ),
       'icon'              => 'star-filled'
     ));
