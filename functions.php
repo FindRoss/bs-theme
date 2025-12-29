@@ -71,8 +71,7 @@ add_action('admin_head', function () {
 include get_template_directory() . '/assets/svg-icons.php';
 
 function themebs_enqueue_scripts() {
-	// ACTIVATE AFTER TESTING
-  //  wp_deregister_script( 'jquery' );
+   wp_deregister_script( 'jquery' );
   
   wp_register_script('main-chaser', get_template_directory_uri() . '/build/index.js', [], wp_get_theme()->get('Version'), true);
   wp_enqueue_script('main-chaser');
@@ -88,15 +87,6 @@ function themebs_enqueue_scripts() {
       'search'      => get_svg_icon('search'),
       'chevronDown' => get_svg_icon('chevron-down'),
   ]);
-
-	// FEATHER ICONS TESTING
-	// wp_enqueue_script(
-	// 	'feather-icons',
-	// 	get_stylesheet_directory_uri() . '/dist/feather.min.js',
-	// 	[],
-	// 	null,
-	// 	true
-	// );
 };
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_scripts');
 

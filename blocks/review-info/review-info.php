@@ -1,5 +1,4 @@
 <?php
-
   $review_id = get_field('review_info'); 
   $title = get_the_title($review_id);
   
@@ -7,6 +6,9 @@
   
   $crypto_terms = get_the_terms($review_id, 'cryptocurrency');
   $crypto_output = display_review_crypto($crypto_terms, 3); 
+
+  $games_group = get_field('games_group', $review_id);
+  $num_games = $games_group['num_games'] ?? null;
 
   $vip_group = get_field('vip_group', $review_id);
   $has_vip = is_array($vip_group) && !empty($vip_group['has_vip_program']);
@@ -17,35 +19,34 @@
 
 <div class="review-info-block">
   <div class="review-info-block__layout">
-  <div class="screenshot">
-    <?php
-      if ($homepage_img) {
-        $img_url = $homepage_img['sizes']['medium_large'] ?? $homepage_img['url']; ?>
-        <img src="<?php echo esc_url($img_url)?>" alt="<?php echo esc_attr(get_the_title($review_id)); ?>">
-      <?php } 
-    ?>
-  </div>
-  <div class="info">
-    <ul>
-       <li>
-        <span>Year Founded</span>
-        <span><?php echo $founded; ?></span>
-      </li>
-      
-      <li>
-        <span>Crypto</span>
-        <span><div class="crypto-icons"><?php echo $crypto_output; ?></div></span>
-      </li>
-      <li>
-        <span>Games</span>
-        <span>1,350</span>
-      </li>
-      <li>
-        <span>VIP Program</span>
-        <span><?php echo $vip_output; ?></span>
-      </li>
-    </ul>
-    <!-- <a href="#" class="button button__primary">Visit <?php echo $title; ?></a> -->
-  </div>
+    <div class="screenshot">
+      <?php
+        if ($homepage_img) {
+          $img_url = $homepage_img['sizes']['medium_large'] ?? $homepage_img['url']; ?>
+          <img src="<?php echo esc_url($img_url)?>" alt="<?php echo esc_attr(get_the_title($review_id)); ?>">
+        <?php } 
+      ?>
+    </div>
+    <div class="info">
+      <ul>
+        <li>
+          <span>Year Founded</span>
+          <span><?php echo $founded; ?></span>
+        </li>
+        
+        <li>
+          <span>Crypto</span>
+          <span><div class="crypto-icons"><?php echo $crypto_output; ?></div></span>
+        </li>
+        <li>
+          <span>Games</span>
+          <span><?php echo $num_games; ?></span>
+        </li>
+        <li>
+          <span>VIP Program</span>
+          <span><?php echo $vip_output; ?></span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

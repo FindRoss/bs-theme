@@ -9,10 +9,36 @@ $images = array();
 
 // Post From Same Site Query
 $site_posts_query = new WP_Query(
-  array(
+   array(
     'post_type'      => 'post',
-    'posts_per_page' => 8,
-    'meta_query'     => bonus_expired_meta_query() 
+    'posts_per_page' => 5,
+    'meta_query'     => array(
+      'relation' => 'AND',
+      array(
+        'key'     => 'post-review-relationship',
+        'value'   => '"' . $id . '"',
+        'compare' => 'LIKE'
+      ),
+      array(
+        'key'     => 'bonus_expired',
+        'value'   => '1',
+        'compare' => '!='
+      ),
+      array(
+        'relation' => 'OR',
+        array(
+          'key'     => 'expiry_date',
+          'value'   => current_time('mysql'),
+          'compare' => '>',
+          'type'    => 'DATETIME',
+        ),
+        array(
+          'key'     => 'expiry_date',
+          'value'   => '',
+          'compare' => '='
+        ),
+      ),
+    ),
   ),
 );
 
