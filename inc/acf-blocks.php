@@ -176,7 +176,7 @@ function my_acf_init_block_types() {
       'title'             => __('Review Info'),
       'description'       => __('A custom block displaying information from a review.'),
       'render_template'   => 'blocks/review-info/review-info.php',
-      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-info/review-info-main.css',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-info/review-info.css',
       'mode'              => 'edit',
       'category'          => 'layout',
       'align'             => 'full',
