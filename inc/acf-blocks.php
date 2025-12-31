@@ -200,5 +200,21 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * Review Info
+    */
+    acf_register_block_type(array(
+      'name'              => 'review-bonus',
+      'title'             => __('Review Bonus'),
+      'description'       => __('A custom block displaying bonus from a review.'),
+      'render_template'   => 'blocks/review-bonus/review-bonus.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'review', 'casino', 'site', 'bonus', 'promo', 'free spins' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'star-filled'
+    ));
   }
 };

@@ -2,7 +2,7 @@
   margin-top: var(--size-300);
   padding: var(--size-200);
   border-radius: var(--border-radius);
-  background-color: var(--color-bg-100);
+  background-color: var(--color-bg-50);
 }
 
 .review-info-block__layout {
@@ -30,9 +30,7 @@
   flex-direction: column;
   justify-content: center;
   gap: var(--size-200);
-  padding: var(--size-200);
   border-radius: var(--border-radius);
-  background-color: var(--color-bg-50);
 }
 
 .review-info-block__layout>div {

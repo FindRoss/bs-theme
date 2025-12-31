@@ -216,6 +216,11 @@ figure.wp-block-table,
 
     .title {
       color: var(--color-muted-400);
+      display: none;
+
+      @include breakpoint(medium) {
+        display: block;
+      }
     }
 
     .bonus {
