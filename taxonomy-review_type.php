@@ -57,26 +57,11 @@ if ($icon && is_array($icon)) {
   $hasIcon = false;
 }
 
-$selected_casinos = get_field('sites', 'options');
-// $featured_args = array(
-// 'post_type'      => 'review', 
-// 'posts_per_page' => 8,
-// 'post__in'       => $selected_casinos,
-// 'orderby'        => 'post__in',
-// 'tax_query'      => array(
-//     array(
-//       'taxonomy' => $taxonomy,
-//       'field'    => 'term_id',
-//       'terms'    => $term_id
-//     )
-//   ),
-// );
-
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 $query = new WP_Query( 
   array( 
     'post_type'      => 'review', 
-    'posts_per_page' => 12, 
+    'posts_per_page' => 12,  
     'paged'          => $paged,
     'orderby'        => 'meta_value_num',
     'meta_key'       => 'rank',

@@ -24,6 +24,7 @@
 
 .review-bonus__image img {
   margin-top: 0px;
+  border-radius: 0px;
 }
 
 .review-bonus__image img:hover,
