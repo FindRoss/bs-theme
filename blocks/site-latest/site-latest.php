@@ -55,9 +55,12 @@ if ((is_array($type) && !empty($type)) AND $site) {
 			<ul class="site-latest-block__list">
 				<?php if ($query->have_posts()) : ?>
 					<?php while ($query->have_posts()) : $query->the_post(); ?>
-						<li class="site-latest-block__list-item">
+						<li>
 							<a href="<?php the_permalink(); ?>" class="site-latest-block__link">
-								<?php the_title(); ?>
+								<div class="site-latest-block__list-item">
+									<img width="40" height="40" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
+									<?php the_title(); ?>
+								</div>
 							</a>
 						</li>
 					<?php endwhile; ?>

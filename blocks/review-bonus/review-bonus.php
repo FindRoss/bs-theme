@@ -7,15 +7,14 @@ $review_bonus = get_field('review_bonus') ?: [];
 
 foreach ($review_bonus as $review_id) {
 
-  $link = get_field('details_group', $review_id)['affiliate_link'] ?? null;
-  $link_output = '<a target="_blank" href="' . $link . '" class="button button__primary"><span class="text">Visit</span><i data-feather="arrow-right-circle"></i></a>';
+  $link_aff = get_field('details_group', $review_id)['affiliate_link'] ?? null;
+  $link_output = '<a target="_blank" href="' . $link_aff . '" class="button button__primary"><span class="text">Visit</span><i data-feather="arrow-right-circle"></i></a>';
 
   $logo = get_the_post_thumbnail_url($review_id, 'site-small-logo'); 
   $transparent_logo =  get_field('media_group', $review_id)['transparent_logo'] ?? null;
   
-  $link = get_the_permalink($review_id);
   $title = get_the_title($review_id);
-  $img_output = '<a class="img-link" href="' . $link . '"><img width="100" height="auto" class="logo" src="' . $transparent_logo . '" alt="' . $title . '" title="' . $title . '"></a>';
+  $img_output = '<a class="img-link" href="' . $link_aff . '" target="_blank"><img width="100" height="auto" class="logo" src="' . $transparent_logo . '" alt="' . $title . '" title="' . $title . '"></a>';
 
   
   $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;

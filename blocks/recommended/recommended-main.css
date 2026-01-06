@@ -1,14 +1,9 @@
 .recommended-block {
-  /* background: #f9f9f9; */
-  /* border-left: 6px solid #f1f1f1;
-  border-right: 1px solid #f1f1f1;
-  border-top: 1px solid #f1f1f1;
-  border-bottom: 1px solid #f1f1f1; */
   border: 1px solid var(--color-muted-200);
   border-radius: var(--border-radius);
   margin-bottom: 1.33rem;
   margin-top: 1.33rem;
-  padding: .75rem .75rem 1.25rem .75rem;
+  padding: var(--size-300);
 }
 
 .recommended-block__list {
@@ -17,7 +12,7 @@
   list-style: none;
 }
 
-.recommended-block__list-item {
+.recommended-block__list-item .item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -40,7 +35,6 @@
   display: flex;
   align-items: center;
 }
-
 
 .recommended-block__title .title {
   font-weight: 600;

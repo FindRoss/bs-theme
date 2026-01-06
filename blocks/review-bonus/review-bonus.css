@@ -26,6 +26,12 @@
   margin-top: 0px;
 }
 
+.review-bonus__image img:hover,
+.review-bonus__image img:focus,
+.review-bonus__image img:active {
+  opacity: 0.8;
+}
+
 .review-bonus__offer {
   flex: 0 0 40%;
 }
