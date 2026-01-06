@@ -2,7 +2,9 @@
 $extra_classes = isset($block['className']) ? (string) $block['className'] : '';
 $count = 1; 
 $review_table_rows = get_field('review_table_rows') ?: [];
-$selected_columns = get_field('review_table_cols') ?: ['site', 'crypto', 'bonus', 'cta'];
+if (empty($review_table_rows)) return;
+
+$selected_columns = get_field('review_table_cols') ?: ['site', 'bonus', 'cta'];
 // $selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
 $show_rank = get_field('review_table_rank');
 // $stack_on_mobile = get_field('stack_mobile');
@@ -14,7 +16,7 @@ $overflow_class = $overflow_scroll ? 'custom-table-scroll' : '';
 
 $columns = [
   'site' => [
-    'label' => 'Site',
+    'label' => '',
     'mobile_label' => false,
     'class' => 'column-site full-cell',
     'icon' => 'globe',
@@ -179,6 +181,39 @@ $columns = [
       $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
       $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
       $bonus_plus = get_field('bonus_group', $review_id)['bonus_plus'] ?? null;
+      
+      if (!$bonus) return null;
+
+      $html  = '<div class="bonus-cell">';
+      if ($bonus_title) {
+        $html .= '<div class="title">' . esc_html($bonus_title) . '</div>';
+      }
+      $html .= '<div class="bonus">' . esc_html($bonus) . '</div>';
+      if ($bonus_plus) {
+        $html .= '<div class="plus">' . esc_html($bonus_plus) . '</div>';
+      }
+      $html .= '</div>';
+
+      return $html;
+    }
+  ],
+  'betting_bonus' => [
+    'label' => 'Bonus',
+    'mobile_label' => true,
+    'class' => 'column-bonus half-cell',
+    'icon' => 'gift',
+    'render' => function($review_id) {
+      $bonus_is_same = get_field('bonus_group', $review_id)['bonus_same'] ?? null;
+
+      if ($bonus_is_same) {
+        $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
+        $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
+        $bonus_plus = get_field('bonus_group', $review_id)['bonus_plus'] ?? null;
+      } else {
+        $bonus_title = get_field('bonus_group', $review_id)['betting_bonus_title'] ?? null;
+        $bonus = get_field('bonus_group', $review_id)['betting_bonus'] ?? null;
+        $bonus_plus = get_field('bonus_group', $review_id)['betting_bonus_plus'] ?? null;
+      }
       
       if (!$bonus) return null;
 

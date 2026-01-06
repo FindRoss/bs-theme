@@ -32,8 +32,6 @@ foreach ($review_bonus as $review_id) {
     $bonus = get_field('bonus_group', $review_id)['betting_bonus'] ?? null;
     $bonus_plus = get_field('bonus_group', $review_id)['betting_bonus_plus'] ?? null;
     $bonus_terms = get_field('bonus_group', $review_id)['betting_bonus_terms'] ?? null;
-    
-  
   }
   
   if (!$bonus) return null;
