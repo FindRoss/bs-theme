@@ -4,6 +4,9 @@
 <?php 
 
 $review_bonus = get_field('review_bonus') ?: [];
+$review_bonus_type = get_field('review_bonus_type');
+
+
 
 foreach ($review_bonus as $review_id) {
 
@@ -16,13 +19,22 @@ foreach ($review_bonus as $review_id) {
   $title = get_the_title($review_id);
   $img_output = '<a class="img-link" href="' . $link_aff . '" target="_blank"><img width="100" height="auto" class="logo" src="' . $transparent_logo . '" alt="' . $title . '" title="' . $title . '"></a>';
 
+  $bonus_is_same = get_field('bonus_group', $review_id)['bonus_same'] ?? null;
   
-  $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
-  $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
-  $bonus_plus = get_field('bonus_group', $review_id)['bonus_plus'] ?? null;
-  $bonus_terms = get_field('bonus_group', $review_id)['bonus_terms'] ?? null;
-
+  if ($review_bonus_type == 0 OR $bonus_is_same) {
+    $bonus_title = get_field('bonus_group', $review_id)['bonus_title'] ?? null;
+    $bonus = get_field('bonus_group', $review_id)['bonus'] ?? null;
+    $bonus_plus = get_field('bonus_group', $review_id)['bonus_plus'] ?? null;
+    $bonus_terms = get_field('bonus_group', $review_id)['bonus_terms'] ?? null;
+  } else {
+    
+    $bonus_title = get_field('bonus_group', $review_id)['betting_bonus_title'] ?? null;
+    $bonus = get_field('bonus_group', $review_id)['betting_bonus'] ?? null;
+    $bonus_plus = get_field('bonus_group', $review_id)['betting_bonus_plus'] ?? null;
+    $bonus_terms = get_field('bonus_group', $review_id)['betting_bonus_terms'] ?? null;
+    
   
+  }
   
   if (!$bonus) return null;
 
