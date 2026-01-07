@@ -7,10 +7,11 @@ if (empty($review_table_rows)) return;
 $selected_columns = get_field('review_table_cols') ?: ['site', 'bonus', 'cta'];
 // $selected_columns = ['logo', 'bonus', 'crypto', 'cta'];
 $show_rank = get_field('review_table_rank');
-// $stack_on_mobile = get_field('stack_mobile');
-$overflow_scroll = get_field('overflow_scroll');
 
+$overflow_scroll = get_field('overflow_scroll');
 $overflow_class = $overflow_scroll ? 'custom-table-scroll' : '';
+
+// $stack_on_mobile = get_field('stack_mobile');
 // $mobile_class = $stack_on_mobile ? 'stacked-table' : '';
 
 
