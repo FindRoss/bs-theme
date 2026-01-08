@@ -123,51 +123,51 @@ function my_acf_init_block_types() {
     /**
     * Bonus
     */
-    acf_register_block_type(array(
-      'name'              => 'bonus',
-      'title'             => __('Bonus'),
-      'description'       => __('A custom block displaying a casino bonus.'),
-      'render_template'   => 'blocks/bonus/bonus.php',
-      'enqueue_style'     => get_template_directory_uri() . '/blocks/bonus/bonus-main.css',
-      'mode'              => 'edit',
-      'category'          => 'layout',
-      'align'             => 'full',
-      'keywords'          => array( 'bonus', 'casino', 'promotion' ),
-      'post_types'        => array( 'post', 'page', 'review' ),
-      'icon'              => 'star-filled'
-    ));
+    // acf_register_block_type(array(
+    //   'name'              => 'bonus',
+    //   'title'             => __('Bonus'),
+    //   'description'       => __('A custom block displaying a casino bonus.'),
+    //   'render_template'   => 'blocks/bonus/bonus.php',
+    //   'enqueue_style'     => get_template_directory_uri() . '/blocks/bonus/bonus-main.css',
+    //   'mode'              => 'edit',
+    //   'category'          => 'layout',
+    //   'align'             => 'full',
+    //   'keywords'          => array( 'bonus', 'casino', 'promotion' ),
+    //   'post_types'        => array( 'post', 'page', 'review' ),
+    //   'icon'              => 'star-filled'
+    // ));
     /**
     * Recommended Article
     */
-    acf_register_block_type(array(
-      'name'              => 'recommended',
-      'title'             => __('Recommend Articles'),
-      'description'       => __('A custom block to display posts and bonuses on BitcoinChaser.'),
-      'render_template'   => 'blocks/recommended/recommended.php',
-      'enqueue_style'     => get_template_directory_uri() . '/blocks/recommended/recommended-main.css',
-      'mode'              => 'edit',
-      'category'          => 'layout',
-      'align'             => 'full',
-      'keywords'          => array( 'recommended', 'recommend', 'read', 'more', 'next', 'article' ),
-      'post_types'        => array( 'post', 'page', 'review' ),
-      'icon'              => 'star-filled'
-    ));
+    // acf_register_block_type(array(
+    //   'name'              => 'recommended',
+    //   'title'             => __('Recommend Articles'),
+    //   'description'       => __('A custom block to display posts and bonuses on BitcoinChaser.'),
+    //   'render_template'   => 'blocks/recommended/recommended.php',
+    //   'enqueue_style'     => get_template_directory_uri() . '/blocks/recommended/recommended-main.css',
+    //   'mode'              => 'edit',
+    //   'category'          => 'layout',
+    //   'align'             => 'full',
+    //   'keywords'          => array( 'recommended', 'recommend', 'read', 'more', 'next', 'article' ),
+    //   'post_types'        => array( 'post', 'page', 'review' ),
+    //   'icon'              => 'star-filled'
+    // ));
     /**
     * Site latest
     */
-    acf_register_block_type(array(
-      'name'              => 'site-latest',
-      'title'             => __('Site Latest'),
-      'description'       => __('A custom block displaying the latest articles or bonuses from a gambling site.'),
-      'render_template'   => 'blocks/site-latest/site-latest.php',
-      'enqueue_style'     => get_template_directory_uri() . '/blocks/site-latest/site-latest-main.css',
-      'mode'              => 'edit',
-      'category'          => 'layout',
-      'align'             => 'full',
-      'keywords'          => array( 'bonuses', 'posts', 'promos', 'latest', 'site', 'casino', 'gambling', 'news' ),
-      'post_types'        => array( 'post', 'page', 'review' ),
-      'icon'              => 'star-filled'
-    ));
+    // acf_register_block_type(array(
+    //   'name'              => 'site-latest',
+    //   'title'             => __('Site Latest'),
+    //   'description'       => __('A custom block displaying the latest articles or bonuses from a gambling site.'),
+    //   'render_template'   => 'blocks/site-latest/site-latest.php',
+    //   'enqueue_style'     => get_template_directory_uri() . '/blocks/site-latest/site-latest-main.css',
+    //   'mode'              => 'edit',
+    //   'category'          => 'layout',
+    //   'align'             => 'full',
+    //   'keywords'          => array( 'bonuses', 'posts', 'promos', 'latest', 'site', 'casino', 'gambling', 'news' ),
+    //   'post_types'        => array( 'post', 'page', 'review' ),
+    //   'icon'              => 'star-filled'
+    // ));
     /**
     * Review Info
     */

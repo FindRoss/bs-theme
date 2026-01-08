@@ -1,0 +1,28 @@
+{
+  "apiVersion": 3,
+  "name": "acf/bonus",
+  "title": "Bonus",
+  "description": "A custom block displaying a casino bonus.",
+  "category": "layout",
+  "icon": "star-filled",
+  "style": [
+    "file:./bonus-main.css"
+  ],
+  "keywords": [
+    "bonus",
+    "casino",
+    "promotion"
+  ],
+  "acf": {
+    "blockVersion": 2,
+    "mode": "edit",
+    "renderTemplate": "bonus.php",
+    "postTypes": [
+      "post",
+      "page",
+      "review",
+      "bonus",
+      "glossary"
+    ]
+  }
+}

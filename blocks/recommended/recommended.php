@@ -1,6 +1,12 @@
 <?php 
   $recommended_article = get_field('recommended_article');
-  $recommended_query = new WP_Query(array('post__in' => $recommended_article));
+  $recommended_query = new WP_Query(
+    array(
+      'post_type' => ["post", "bonus", "page", "glossary"],
+      'post__in'  => $recommended_article,
+      'orderby'   => 'post__in',
+    )
+  );
 ?>
 
 
@@ -15,7 +21,7 @@
       <li class="recommended-block__list-item">
         <a class="img-link" href="<?php the_permalink(); ?>">
           <div class="item">
-            <img width="40" height="40" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
+            <img width="45" height="45" src="<?php echo esc_url( get_the_post_thumbnail_url( null, 'thumbnail' ) ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
             <?php the_title(); ?>
           </div>
         </a>

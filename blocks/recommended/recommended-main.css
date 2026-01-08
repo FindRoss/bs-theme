@@ -19,7 +19,7 @@
 }
 
 .recommended-block__list-item img {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 .recommended-block__title {

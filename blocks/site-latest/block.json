@@ -1,0 +1,31 @@
+{
+  "apiVersion": 3,
+  "name": "acf/site-latest",
+  "title": "Site Latest",
+  "description": "A custom block displaying the latest articles or bonuses from a gambling site.",
+  "category": "layout",
+  "icon": "list-view",
+  "style": [
+    "file:./site-latest-main.css"
+  ],
+  "keywords": [
+    "site",
+    "latest",
+    "posts",
+    "bonuses",
+    "review",
+    "articles"
+  ],
+  "acf": {
+    "blockVersion": 2,
+    "mode": "edit",
+    "renderTemplate": "site-latest.php",
+    "postTypes": [
+      "post",
+      "page",
+      "review",
+      "bonus",
+      "glossary"
+    ]
+  }
+}

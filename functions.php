@@ -41,6 +41,14 @@ function themebs_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
+// Register Blocks (with block.json)
+add_action( 'init', 'register_acf_blocks', 5 );
+function register_acf_blocks() {
+    register_block_type( __DIR__ . '/blocks/bonus' );
+		register_block_type( __DIR__ . '/blocks/recommended' );
+		register_block_type( __DIR__ . '/blocks/site-latest' );
+}
+
 function my_admin_block_styles() {
   wp_enqueue_style('my-admin-block-styles', get_stylesheet_directory_uri() . '/build/admin-block-styles.css', array(), wp_get_theme()->get('Version'));
 }

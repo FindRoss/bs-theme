@@ -1,0 +1,30 @@
+{
+  "apiVersion": 3,
+  "name": "acf/recommended",
+  "title": "Recommend Articles",
+  "description": "A custom block to display posts and bonuses on BitcoinChaser.",
+  "category": "layout",
+  "icon": "list-view",
+  "style": [
+    "file:./recommended-main.css"
+  ],
+  "keywords": [
+    "recommended",
+    "read",
+    "articles",
+    "more",
+    "post"
+  ],
+  "acf": {
+    "blockVersion": 2,
+    "mode": "edit",
+    "renderTemplate": "recommended.php",
+    "postTypes": [
+      "post",
+      "page",
+      "review",
+      "bonus",
+      "glossary"
+    ]
+  }
+}
