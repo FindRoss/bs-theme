@@ -203,7 +203,7 @@ foreach ($faqs as $faq) {
           <?php if ($bonus) { ?>
             <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
           <?php } ?>
-          <a href="<?php echo $link; ?>" class="button button__primary" target="_blank" rel="sponsored noopener">Sign Up</a>
+          <a href="<?php echo $link; ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Sign up at <?php echo esc_attr($name); ?>">Sign Up</a>
         </div>
       <?php }; ?>
       

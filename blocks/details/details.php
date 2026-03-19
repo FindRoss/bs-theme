@@ -62,7 +62,7 @@ $permalink  = get_permalink($site_id);
   <div class="details-card__ctas">
     <a class="button button__outline" href="<?php echo esc_url($permalink); ?>">Review</a>   
     <?php if ($link) : ?>
-      <a class="button button__primary" rel="sponsored noopener" href="<?php echo esc_url($unique_link ?: $link); ?>" target="_blank">Play</a>
+      <a class="button button__primary" rel="sponsored noopener" href="<?php echo esc_url($unique_link ?: $link); ?>" target="_blank" aria-label="Play at <?php echo esc_attr($name); ?>">Play</a>
     <?php endif; ?>    
   </div>
 

@@ -11,7 +11,7 @@ $review_bonus_type = get_field('review_bonus_type');
 foreach ($review_bonus as $review_id) {
 
   $link_aff = get_field('details_group', $review_id)['affiliate_link'] ?? null;
-  $link_output = '<a target="_blank" rel="sponsored noopener" href="' . $link_aff . '" class="button button__primary"><span class="text">Visit</span><i data-feather="arrow-right-circle"></i></a>';
+  $link_output = '<a target="_blank" rel="sponsored noopener" href="' . $link_aff . '" class="button button__primary" aria-label="Visit ' . esc_attr($title) . '"><span class="text">Visit</span><i data-feather="arrow-right-circle"></i></a>';
 
   $logo = get_the_post_thumbnail_url($review_id, 'site-small-logo'); 
   $transparent_logo =  get_field('media_group', $review_id)['transparent_logo'] ?? null;

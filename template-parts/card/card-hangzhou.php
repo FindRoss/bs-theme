@@ -71,7 +71,7 @@
         </a>
       <?php }; ?>
 
-      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener">Get Bonus</a>
+      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($siteName); ?>">Get Bonus</a>
 
     </div>
   </div>
