@@ -42,7 +42,7 @@
   }
   // String
   if (!empty($kick)) {
-    $table_fields['Kick'] = '<a href="' . $kick . '" target="_blank">' . str_replace(array("http://", "https://"), "", $kick) . '</a>';
+    $table_fields['Kick'] = '<a href="' . esc_url($kick) . '" target="_blank">' . str_replace(array("http://", "https://"), "", $kick) . '</a>';
   }
 
   $moreStreamersQuery = new WP_Query(array(
@@ -97,18 +97,18 @@
 
             <div class="site-card">
               <div class="site-card__media" style="background-color: <?php echo $siteColor; ?>">
-                <a href="<?php echo $siteReviewLink; ?>"><img src="<?php echo $siteLogo;  ?>" alt=""></a>
+                <a href="<?php echo esc_url($siteReviewLink); ?>"><img src="<?php echo $siteLogo;  ?>" alt=""></a>
               </div>
               <div class="site-card__name">
-                <a class="name" href="<?php echo $siteReviewLink; ?>"><h2><?php echo $siteName; ?></h2></a>
+                <a class="name" href="<?php echo esc_url($siteReviewLink); ?>"><h2><?php echo $siteName; ?></h2></a>
               </div>
               <div class="site-card__bonus">
                 <div class="title">BONUS</div>
                 <div class="bonus"><?php echo $siteBonus; ?></div>
               </div>
               <div class="site-card__buttons">
-                <a class="button button__primary" href="<?php echo $siteLink; ?>" target="_blank" rel="sponsored noopener" aria-label="Play at <?php echo esc_attr($siteName); ?>">Play</a>
-                <a class="" href="<?php echo $siteReviewLink; ?>">Read Review</a>
+                <a class="button button__primary" href="<?php echo esc_url($siteLink); ?>" target="_blank" rel="sponsored noopener" aria-label="Play at <?php echo esc_attr($siteName); ?>">Play</a>
+                <a class="" href="<?php echo esc_url($siteReviewLink); ?>">Read Review</a>
               </div>
             </div>
 

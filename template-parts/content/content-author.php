@@ -16,7 +16,7 @@
 ?>
 
 <div class="main--published">
-  <span>By <a href="<?php echo $author_link; ?>"><?php the_author(); ?></a></span>
+  <span>By <a href="<?php echo esc_url($author_link); ?>"><?php the_author(); ?></a></span>
   <?php if ($publish_date) : ?>
     <span><time datetime="<?php echo esc_attr( get_the_date('c') ); ?>"><?php echo esc_html( $publish_date ); ?></time></span>
   <?php endif; ?>

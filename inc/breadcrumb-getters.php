@@ -79,11 +79,11 @@ function get_category_breadcrumbs(): string {
       $grandparent_cat_link = get_category_link($grandparent_category->term_id);
 
       // Add this one first - the grandparent category link to the output
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_html($grandparent_cat_link) . '">' . esc_html($grandparent_cat_name) . '</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url($grandparent_cat_link) . '">' . esc_html($grandparent_cat_name) . '</a></span>';
     }
 
     // The parent category link to the output
-    $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_html($parent_cat_link) . '">' . esc_html($parent_cat_name) . '</a></span>';
+    $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url($parent_cat_link) . '">' . esc_html($parent_cat_name) . '</a></span>';
 
     $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
   }

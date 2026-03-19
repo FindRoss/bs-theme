@@ -31,7 +31,7 @@
   <div class="card card-absolute bonus-pill">
 
     <!-- aria -->
-    <a class="card-absolute__link" href="<?php echo $permalink; ?>"></a>
+    <a class="card-absolute__link" href="<?php echo esc_url($permalink); ?>"></a>
 
     <div class="bonus-pill__content">
       <img class="logo" src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="card-absolute__ctas bonus-pill__cta">
-      <a class="button button__primary" href="<?php echo $bonusLink; ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo $name; ?>">
+      <a class="button button__primary" href="<?php echo esc_url($bonusLink); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo $name; ?>">
        <?php echo get_svg_icon('external-link'); ?>
       </a>
     </div>
