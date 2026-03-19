@@ -6,10 +6,11 @@ $text = get_field('text');
 // Review fields
 $details_group = $id ? get_field('details_group', $id) : null;
 $link          = is_array($details_group) && !empty($details_group['affiliate_link']) ? $details_group['affiliate_link'] : null;
+$name          = is_array($details_group) ? ($details_group['name'] ?? '') : '';
 // $closed         = is_array($details_group) && !empty($details_group['closed']) ? $details_group['closed'] : null;
 
 if ($link !== null): ?>
-  <a class="button button__primary mt-3" rel="sponsored noopener" href="<?php echo esc_url($link); ?>" target="_blank">
+  <a class="button button__primary mt-3" rel="sponsored noopener" href="<?php echo esc_url($link); ?>" target="_blank" aria-label="<?php echo esc_attr(($text ?: 'Play') . ($name ? ' at ' . $name : '')); ?>">
     <?php echo esc_html($text ? $text : "Play"); ?>
   </a>
 <?php endif; ?>
