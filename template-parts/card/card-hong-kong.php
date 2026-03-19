@@ -52,7 +52,7 @@
   <?php if (!empty($link)) {  ?>
     <div class="card-absolute__ctas hong-kong-card__ctas">
       <a href="<?php echo the_permalink(); ?>" class="button button__outline" aria-label="Read <?php echo $name; ?> review">Review</a>
-      <a href="<?php echo $link; ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Goto <?php echo $name; ?>">Play</a>
+      <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Goto <?php echo $name; ?>">Play</a>
     </div>
   <?php }; ?>
 </div>

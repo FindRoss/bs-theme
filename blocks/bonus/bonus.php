@@ -39,11 +39,11 @@
   <div class="bonus-long"> 
     <div class="bonus-long__content">
       <img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php $name . ' logo'?>" width="100" height="50" aria-hidden="true">
-      <h2 class="h5"><a class="custom-card-link" href="<?php echo $permalink; ?>"><?php echo $title; ?></a></h2>
+      <h2 class="h5"><a class="custom-card-link" href="<?php echo esc_url($permalink); ?>"><?php echo $title; ?></a></h2>
     </div>
 
     <div class="bonus-long__cta">
-      <a class="button button__primary" rel="sponsored noopener" href="<?php echo $outputLink; ?>" target="_blank" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get</a>
+      <a class="button button__primary" rel="sponsored noopener" href="<?php echo esc_url($outputLink); ?>" target="_blank" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get</a>
     </div>
   </div>
 

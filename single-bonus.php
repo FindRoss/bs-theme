@@ -69,7 +69,7 @@
       $table_fields = array();
 
       if ($casino_id && $name) {
-        $table_fields['Site'] = '<a href="' . get_the_permalink($casino_id) . '">' . $name . '</a>';
+        $table_fields['Site'] = '<a href="' . esc_url(get_the_permalink($casino_id)) . '">' . $name . '</a>';
       }
 
       if (!empty($bonus)) {
@@ -199,7 +199,7 @@
                     </span>
                   </div>
                 <?php }; ?>
-                <a href="<?php echo $output_link; ?>" class="button button__primary" rel="sponsored noopener" target="_blank" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get Bonus</a>
+                <a href="<?php echo esc_url($output_link); ?>" class="button button__primary" rel="sponsored noopener" target="_blank" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get Bonus</a>
               </div>
               <?php endif; ?>
               

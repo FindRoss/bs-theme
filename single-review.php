@@ -203,7 +203,7 @@ foreach ($faqs as $faq) {
           <?php if ($bonus) { ?>
             <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
           <?php } ?>
-          <a href="<?php echo $link; ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Sign up at <?php echo esc_attr($name); ?>">Sign Up</a>
+          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Sign up at <?php echo esc_attr($name); ?>">Sign Up</a>
         </div>
       <?php }; ?>
       
@@ -287,7 +287,7 @@ foreach ($faqs as $faq) {
         if ($homepageImg) { ?>
           <section>
             <figure class="homepage-image">
-              <a href="<?php echo $link; ?>" target="_blank" rel="sponsored noopener">
+              <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener">
                 <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
               </a>
               <?php if ($homepageImg_cap): ?>

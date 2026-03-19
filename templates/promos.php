@@ -39,7 +39,7 @@ Template Post Type: post, page
       </div>
       <h2 class="h3"><?php echo $siteName; ?></h2>
       <div style="margin-bottom: 1em; font-size: 1.1rem;"><?php echo wp_kses_post(the_sub_field('description')); ?></div>
-      <a href="<?php echo wp_kses_post(the_sub_field('link')); ?>" class="button button__primary" rel="nofollow" target="_blank">Claim Bonus</a>
+      <a href="<?php echo esc_url(get_sub_field('link')); ?>" class="button button__primary" rel="nofollow" target="_blank">Claim Bonus</a>
     </div> 
   </div>
   <?php ++$loop_count; ?>

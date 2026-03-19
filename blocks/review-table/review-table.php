@@ -96,7 +96,7 @@ $columns = [
     'icon' => '',
     'render' => function($review_id) {
       $link = get_field('details_group', $review_id)['affiliate_link'] ?? null;
-      return $link ? '<a target="_blank" rel="sponsored noopener" href="' . $link . '" class="button button__primary" aria-label="Visit ' . esc_attr(get_the_title($review_id)) . '">Visit</a>' : '';
+      return $link ? '<a target="_blank" rel="sponsored noopener" href="' . esc_url($link) . '" class="button button__primary" aria-label="Visit ' . esc_attr(get_the_title($review_id)) . '">Visit</a>' : '';
     }
   ],
   'blockchain' => [
@@ -150,7 +150,7 @@ $columns = [
     'render' => function($review_id) {
       $vip_group = get_field('vip_group', $review_id);
       $post_id = is_array($vip_group) ? ($vip_group['vip_guide'] ?? null) : null;
-      return $post_id ? '<a href="' . get_the_permalink($post_id) . '">' . get_the_title($post_id) . '</a>' : '-';
+      return $post_id ? '<a href="' . esc_url(get_the_permalink($post_id)) . '">' . get_the_title($post_id) . '</a>' : '-';
     }
   ],
   'withdrawal_time' => [
@@ -240,7 +240,7 @@ $columns = [
       $logo = get_the_post_thumbnail_url($review_id, 'site-small-logo'); 
       $link = get_the_permalink($review_id);
       $title = get_the_title($review_id);
-      return '<a class="img-link" href="' . $link . '"><img width="120" height="60" class="logo" src="' . $logo . '" alt="' . $title . '" title="' . $title . '"></a>';
+      return '<a class="img-link" href="' . esc_url($link) . '"><img width="120" height="60" class="logo" src="' . $logo . '" alt="' . $title . '" title="' . $title . '"></a>';
     }
   ]
 ];

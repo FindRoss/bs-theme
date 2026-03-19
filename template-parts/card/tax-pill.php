@@ -16,7 +16,7 @@ if (is_array($term_logo) && isset($term_logo['sizes']['thumbnail'])) {
   <?php endif; ?>
   <div class="tax-pill__content">
     <h3 class="h6 m-0">
-      <a class="tax-pill__link" href="<?php echo get_term_link($term->term_id); ?>">
+      <a class="tax-pill__link" href="<?php echo esc_url(get_term_link($term->term_id)); ?>">
         <?php echo $term->name; ?>
       </a>
     </h3>

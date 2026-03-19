@@ -48,7 +48,7 @@ Template Post Type: post, page
                 <?php if ($website) { ?>
                 <div class="col-12 col-md-6 mb-3">        
                   <div class="d-block fs-small text-muted text-uppercase" style="font-family: var(--font-family-heading); font-weight: semi-bold">Website</div>
-                  <a href="<?php echo $website; ?>" style="word-break: break-word;" target=_blank><?php echo $website; ?></a>
+                  <a href="<?php echo esc_url($website); ?>" style="word-break: break-word;" target=_blank><?php echo esc_html($website); ?></a>
                 </div>
                 <?php }; ?>
                 <?php if ($price) { ?>
