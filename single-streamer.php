@@ -107,7 +107,7 @@
                 <div class="bonus"><?php echo $siteBonus; ?></div>
               </div>
               <div class="site-card__buttons">
-                <a class="button button__primary" href="<?php echo $siteLink; ?>">Play</a>
+                <a class="button button__primary" href="<?php echo $siteLink; ?>" target="_blank" rel="sponsored noopener">Play</a>
                 <a class="" href="<?php echo $siteReviewLink; ?>">Read Review</a>
               </div>
             </div>

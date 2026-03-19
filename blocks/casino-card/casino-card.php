@@ -47,7 +47,7 @@ elseif ($options === "Description") $btn_output = "Play";
 
     <?php if ($link) : ?>
       <div class="casino-card__cta">
-        <a class="button button__primary" rel="nofollow" href="<?php echo esc_url($unique_link ?: $link); ?>" target="_blank"><?php echo esc_html($btn_output); ?></a>
+        <a class="button button__primary" rel="sponsored noopener" href="<?php echo esc_url($unique_link ?: $link); ?>" target="_blank"><?php echo esc_html($btn_output); ?></a>
       </div>
     <?php endif; ?>
 

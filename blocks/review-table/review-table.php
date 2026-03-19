@@ -96,7 +96,7 @@ $columns = [
     'icon' => '',
     'render' => function($review_id) {
       $link = get_field('details_group', $review_id)['affiliate_link'] ?? null;
-      return $link ? '<a target="_blank" href="' . $link . '" class="button button__primary">Visit</a>' : '';
+      return $link ? '<a target="_blank" rel="sponsored noopener" href="' . $link . '" class="button button__primary">Visit</a>' : '';
     }
   ],
   'blockchain' => [

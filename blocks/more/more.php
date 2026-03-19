@@ -13,7 +13,7 @@
 ?>
   <p>Want to learn more about <?php echo $name; ?>? <strong>Read our <a href="<?php echo $permalink ?>"><?php echo $name; ?> review</a></strong>.</p>
   <div class="mt-3">
-    <a href="<?php echo $link; ?>" rel="nofollow" target="_blank" class="button button__primary">Visit <?php echo $name; ?></a>
+    <a href="<?php echo $link; ?>" rel="sponsored noopener" target="_blank" class="button button__primary">Visit <?php echo $name; ?></a>
   </div>
 <?php endif; ?>
 
