@@ -21,7 +21,7 @@ $casino_list = get_field('casino_list') ?? [];
     ?>
       <li>
         <?php echo esc_html($text); ?> - 
-        <a target="_blank" rel="nofollow" href="<?php echo esc_url($link); ?>">
+        <a target="_blank" rel="sponsored noopener" href="<?php echo esc_url($link); ?>">
           <?php echo esc_html($name); ?> 
           <?php echo get_svg_icon('external-link'); ?>
         </a>

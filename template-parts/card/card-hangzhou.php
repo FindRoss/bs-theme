@@ -71,7 +71,7 @@
         </a>
       <?php }; ?>
 
-      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank">Get Bonus</a>
+      <a href="<?php echo $outputLink; ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener">Get Bonus</a>
 
     </div>
   </div>

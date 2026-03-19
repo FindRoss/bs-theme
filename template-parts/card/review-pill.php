@@ -18,7 +18,7 @@
     </h3>
   </div>
   <div class="card-absolute__ctas review-pill__cta">
-    <a class="button button__primary" href="<?php echo $aff_link; ?>" target="_blank" rel="nofollow" aria-label="Visit <?php echo $name; ?>">
+    <a class="button button__primary" href="<?php echo $aff_link; ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo $name; ?>">
        <?php echo get_svg_icon('external-link'); ?>
     </a>
   </div>

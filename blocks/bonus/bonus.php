@@ -43,7 +43,7 @@
     </div>
 
     <div class="bonus-long__cta">
-      <a class="button button__primary" rel="nofollow" href="<?php echo $outputLink; ?>" target="_blank">Get</a>
+      <a class="button button__primary" rel="sponsored noopener" href="<?php echo $outputLink; ?>" target="_blank">Get</a>
     </div>
   </div>
 

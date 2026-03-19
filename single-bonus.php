@@ -199,7 +199,7 @@
                     </span>
                   </div>
                 <?php }; ?>
-                <a href="<?php echo $output_link; ?>" class="button button__primary" rel="nofollow" target="_blank">Get Bonus</a>
+                <a href="<?php echo $output_link; ?>" class="button button__primary" rel="sponsored noopener" target="_blank">Get Bonus</a>
               </div>
               <?php endif; ?>
               
