@@ -39,16 +39,13 @@
       ),
     )
   ));
-
-  // Feature articles from these sites?
-  // $review_ids = wp_list_pluck($query->posts, 'ID');
   
   $title_output = $term_name . ' Casinos and Gambling Sites';
-  if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2025';
+  if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2026';
 ?>
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
