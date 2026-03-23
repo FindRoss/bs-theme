@@ -173,18 +173,15 @@
 
     @include breakpoint(large) {
       padding: var(--size-600);
+      max-width: calc(100% - 300px - var(--size-500));
     }
 
     .title {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 500;
+      margin: 0 0 var(--size-300);
     }
 
-    .skye-section__content {
-      .card-chengdu:last-child {
-        border: 0;
-      }
+    .card-chengdu:last-child {
+      border: 0;
     }
   }
 

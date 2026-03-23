@@ -301,15 +301,11 @@ foreach ($faqs as $faq) {
   </section> 
 
   <?php if ($site_posts_query->have_posts()) : ?>
-  <section class="skye-section skye-section--reverse mt-5 articles-box">
-    <div class="skye-section__sidebar">
-      <h4 class="title">Read more about <?php echo $name; ?></h2>
-    </div>
-    <div class="skye-section__content">
-      <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); 
-         get_template_part('template-parts/card/card', 'chengdu');
-      endwhile; ?>
-    </div>
+  <section class="mt-5 articles-box">
+    <h2 class="title h4">Read more about <?php echo $name; ?></h2>
+    <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post();
+       get_template_part('template-parts/card/card', 'chengdu');
+    endwhile; ?>
   </section>
   <?php endif; ?>
   
