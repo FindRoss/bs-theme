@@ -23,7 +23,7 @@
   }
 }
 
-.grid--three-col {
+.grid.grid--three-col {
   @include breakpoint(medium) {
     grid-template-columns: repeat(2, 1fr);
   }
