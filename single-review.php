@@ -310,7 +310,7 @@ foreach ($faqs as $faq) {
   <?php endif; ?>
   
   <!-- MORE SITES -->
-  <?php 
+  <?php
     if ($more_sites->have_posts()) : ?>
       <section class="section">
         <?php
@@ -322,6 +322,9 @@ foreach ($faqs as $faq) {
       </section>
   <?php endif; ?>
 
+  <?php get_template_part('template-parts/section/latest-posts', null, array(
+    'exclude' => array($review_id)
+  )); ?>
 
 </div><!-- .container -->
 

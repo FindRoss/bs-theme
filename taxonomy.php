@@ -88,44 +88,9 @@
       </div>
     </section>
 
-    <?php
-    $args = array(
-      'post_type' => 'post',
-      'posts_per_page' => 8,
-      'tax_query' => array(
-        array(
-          'taxonomy' => $taxonomy,
-          'field'    => 'term_id',
-          'terms'    => $term_id,
-        ),
-      ),
-      'meta_query' => bonus_expired_meta_query()
-    );
+    <?php get_template_part('template-parts/section/latest-posts'); ?>
 
-    $posts = get_posts($args);
-
-    if (!empty($posts)) { ?>
-
-      <section class="mt-5">
-        <?php
-          $read_more_heading = $term_name . ' Casino News and Guides';
-          chaser_styled_sub_heading(array('heading' => $read_more_heading));
-        ?>
-
-        <div class="row">
-          <?php foreach ($posts as $post) {
-            setup_postdata($post); ?>
-
-            <div class="col-6 col-sm-6 col-lg-3 mt-3">
-              <?php get_template_part('template-parts/card/card', 'beijing'); ?>
-            </div>
-          <?php } ?>
-        </div>
-      </section>
-    <?php }
-
-    wp_reset_postdata();
-  endif; ?>
+  <?php endif; ?>
 </div><!-- .container -->
 
 <?php get_footer(); ?>
