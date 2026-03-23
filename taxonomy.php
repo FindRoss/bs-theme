@@ -27,10 +27,15 @@
       ),
     ),
     'meta_query' => array(
+      'relation' => 'OR',
+      array(
+        'key'     => 'details_group_closed',
+        'compare' => 'NOT EXISTS',
+      ),
       array(
         'key'     => 'details_group_closed',
         'value'   => '1',
-        'compare' => 'NOT LIKE'
+        'compare' => '!='
       ),
     )
   ));
