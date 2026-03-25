@@ -50,7 +50,7 @@
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
-<div class="container bg-sky-800">
+<div class="container">
   <header class="taxonomy-header">
     <?php if ($hasIcon) { ?>
       <img 
