@@ -1,6 +1,7 @@
 <?php
 
 function themebs_enqueue_styles() {
+	wp_enqueue_style( 'tailwind-styles', get_template_directory_uri() . '/build/tailwind.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'index-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version'));
