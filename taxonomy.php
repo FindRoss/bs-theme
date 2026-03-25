@@ -27,23 +27,25 @@
       ),
     ),
     'meta_query' => array(
+      'relation' => 'OR',
+      array(
+        'key'     => 'details_group_closed',
+        'compare' => 'NOT EXISTS',
+      ),
       array(
         'key'     => 'details_group_closed',
         'value'   => '1',
-        'compare' => 'NOT LIKE'
+        'compare' => '!='
       ),
     )
   ));
-
-  // Feature articles from these sites?
-  // $review_ids = wp_list_pluck($query->posts, 'ID');
   
   $title_output = $term_name . ' Casinos and Gambling Sites';
-  if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2025';
-  if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2025';
+  if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2026';
 ?>
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
@@ -86,44 +88,9 @@
       </div>
     </section>
 
-    <?php
-    $args = array(
-      'post_type' => 'post',
-      'posts_per_page' => 8,
-      'tax_query' => array(
-        array(
-          'taxonomy' => $taxonomy,
-          'field'    => 'term_id',
-          'terms'    => $term_id,
-        ),
-      ),
-      'meta_query' => bonus_expired_meta_query()
-    );
+    <?php get_template_part('template-parts/section/latest-posts'); ?>
 
-    $posts = get_posts($args);
-
-    if (!empty($posts)) { ?>
-
-      <section class="mt-5">
-        <?php
-          $read_more_heading = $term_name . ' Casino News and Guides';
-          chaser_styled_sub_heading(array('heading' => $read_more_heading));
-        ?>
-
-        <div class="row">
-          <?php foreach ($posts as $post) {
-            setup_postdata($post); ?>
-
-            <div class="col-6 col-sm-6 col-lg-3 mt-3">
-              <?php get_template_part('template-parts/card/card', 'beijing'); ?>
-            </div>
-          <?php } ?>
-        </div>
-      </section>
-    <?php }
-
-    wp_reset_postdata();
-  endif; ?>
+  <?php endif; ?>
 </div><!-- .container -->
 
 <?php get_footer(); ?>

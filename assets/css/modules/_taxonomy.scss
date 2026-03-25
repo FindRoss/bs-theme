@@ -23,6 +23,16 @@
   }
 }
 
+.grid.grid--three-col {
+  @include breakpoint(medium) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoint(large) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .page-template-bonus-index {
   background-color: var(--color-bg-50);
 }

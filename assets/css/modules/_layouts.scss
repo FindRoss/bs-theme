@@ -53,9 +53,18 @@
 
 	@include breakpoint(large) {
 		display: grid;
-		grid-template-columns: 300px 1fr; // sidebar fixed, content flexible
-		gap: var(--size-500); // adjust as needed
-		align-items: start; // keep heights natural
+		grid-template-columns: 1fr 300px; // content flexible, sidebar fixed
+		grid-template-areas: "content sidebar";
+		gap: var(--size-500);
+		align-items: start;
+
+		&__content {
+			grid-area: content;
+		}
+
+		&__sidebar {
+			grid-area: sidebar;
+		}
 	}
 }
 

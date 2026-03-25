@@ -69,7 +69,7 @@ function taxonomy_main_query($query, $term): void {
     </aside>
     
     <main class="skye-section__content">
-      <div class="grid">
+      <div class="grid grid--three-col">
         <?php if ( $query->have_posts() ) :
           $counter = 1; 
           while ( $query->have_posts() ) : $query->the_post() ?>
