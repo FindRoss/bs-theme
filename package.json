@@ -9,9 +9,9 @@
     "predev": "npm run clean",
     "build": "npm run build:js && npm run build:css && npm run build:tailwind",
     "build:js": "wp-scripts build --config webpack.config.js",
-    "build:css": "sass assets/css/style.scss build/style.css --no-source-map --style=compressed",
+    "build:css": "sass assets/css/:build/ --no-source-map --style=compressed",
     "build:tailwind": "npx @tailwindcss/cli -i assets/css/tailwind.css -o build/tailwind.css --minify",
-    "watch:css": "sass --watch assets/css/style.scss build/style.css --no-source-map",
+    "watch:css": "sass --watch assets/css/:build/ --no-source-map",
     "watch:tailwind": "npx @tailwindcss/cli -i assets/css/tailwind.css -o build/tailwind.css --watch",
     "start": "wp-scripts start",
     "dev": "npm-run-all --parallel watch:css watch:tailwind start"
