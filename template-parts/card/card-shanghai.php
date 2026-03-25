@@ -26,7 +26,7 @@
 
   <div class="card card-absolute card-shanghai">
 
-    <a class="card-absolute__link" href="<?php the_permalink($bonus_id); ?>" aria-label="Read <?php echo $name; ?> review"></a>
+    <a class="card-absolute__link" href="<?php the_permalink($bonus_id); ?>" aria-label="<?php echo esc_attr($title ? $title . ' at ' . $siteName : $siteName . ' bonus details'); ?>"></a>
     
     <div class="card-shanghai__media">
       <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
@@ -73,7 +73,7 @@
         </a>
       <?php }; ?>
 
-      <a href="<?php echo esc_url($outputLink); ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get Bonus</a>
+      <a href="<?php echo esc_url($outputLink); ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($siteName); ?>">Get Bonus</a>
 
     </div>
   </div>

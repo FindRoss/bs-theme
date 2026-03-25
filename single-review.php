@@ -287,7 +287,7 @@ foreach ($faqs as $faq) {
         if ($homepageImg) { ?>
           <section>
             <figure class="homepage-image">
-              <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener">
+              <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
                 <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
               </a>
               <?php if ($homepageImg_cap): ?>
