@@ -4,14 +4,14 @@
   "description": "A custom WordPress theme for BitcoinChaser.com",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:js && npm run build:css",
+    "build": "npm run build:js && npm run build:css && npm run build:tailwind",
     "build:js": "wp-scripts build --config webpack.config.js",
-    "build:css": "sass assets/css/style.scss assets/css/temp.css && npx @tailwindcss/cli -i assets/css/tailwind.css -o build/style.css --minify",
-    "watch:css": "npm-run-all --parallel watch:sass watch:tailwind",
-    "watch:sass": "sass --watch assets/css/style.scss assets/css/temp.css",
-    "watch:tailwind": "npx @tailwindcss/cli -i assets/css/tailwind.css -o build/style.css --watch",
+    "build:css": "sass assets/css/style.scss build/style.css --no-source-map --style=compressed",
+    "build:tailwind": "npx @tailwindcss/cli -i assets/css/tailwind.css -o build/tailwind.css --minify",
+    "watch:css": "sass --watch assets/css/style.scss build/style.css --no-source-map",
+    "watch:tailwind": "npx @tailwindcss/cli -i assets/css/tailwind.css -o build/tailwind.css --watch",
     "start": "wp-scripts start",
-    "dev": "npm-run-all --parallel watch:css start"
+    "dev": "npm-run-all --parallel watch:css watch:tailwind start"
   },
   "author": "Ross Findlay",
   "license": "ISC",

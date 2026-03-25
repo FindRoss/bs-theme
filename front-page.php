@@ -12,6 +12,9 @@ $first_image_bool = true;
 ?> 
 
 <div class="container">
+  <div class="bg-red-500 text-white p-10 text-center font-bold">
+    TAILWIND IS WORKING
+  </div>
   
   <section class="lothian-section mt-4">
     <h1 class="h2 m-0">Welcome to BitcoinChaser!</h1>

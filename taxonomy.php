@@ -50,7 +50,7 @@
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
 
-<div class="container">
+<div class="container bg-sky-800">
   <header class="taxonomy-header">
     <?php if ($hasIcon) { ?>
       <img 
@@ -79,8 +79,8 @@
 
     <?php $main_content = get_field('main_content', $term); ?>
 
-    <section class="aberdeenshire-section">
-      <div class="main--content">
+    <section class="aberdeenshire-section bg-sky-800">
+      <div class="main--content bg-sky-800">
         <?php echo $main_content; ?>
         <?php if (get_field('faqs', $term)) {
           get_template_part('template-parts/content/content', 'faqs');
