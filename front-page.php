@@ -11,15 +11,15 @@ $featured_post_query = new WP_Query( $featured_post_args );
 $first_image_bool = true;
 ?> 
 
+<div class="container">
 
-  
   <section class="lothian-section mt-4">
     <h1 class="h2 m-0">Welcome to BitcoinChaser!</h1>
     <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, no-deposit bonuses, gambling guides, and more.</p>
   </section>
 
   <section class="fife-section mt-4">
-    <div class="fife-section__content grid">
+    <div class="fife-section__content grid-layout">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
           

@@ -190,7 +190,7 @@ foreach ($faqs as $faq) {
       <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo $name; ?>" width="500" height="250" fetchpriority="high">
     </div>
     <div class="review-header__info">
-      <h1><?php echo $name; ?></h1>
+      <h1><?php echo $name; ?> Review</h1>
       <?php if (has_excerpt()) { ?>
         <p class="excerpt"><?php echo get_the_excerpt(); ?></p>
       <?php } ?>
@@ -226,33 +226,14 @@ foreach ($faqs as $faq) {
 
     <main class="skye-section__content">
 
-           
-        <!-- // $bonus_query = get_bonuses_by_review_query(get_the_ID());
-        if ($bonus_query->have_posts()) : 
-          <section class="section">
-            <h2>Bonuses</h2>
-            <div class="shanghai-row">
-               
-                while ($bonus_query->have_posts()) : $bonus_query->the_post();
-                  get_template_part('template-parts/card/card', 'shanghai');
-                endwhile;
-              
-            </div>
-          </section>
-          
-          wp_reset_postdata();
-        endif; 
-      ?> -->
-
         <section class="content mt-5">
-          <h2 class="title h4">Review</h2>
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
           the_content();
 
           foreach ($content as $key => $value) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
-                <h3 class="h4 title"><?php echo $key; ?></h3>
+                <h2 class="h3 title"><?php echo $key; ?></h2>
                 <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
@@ -264,7 +245,7 @@ foreach ($faqs as $faq) {
           <?php if ($faqs_has_answers) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
-                <h3 class="h4 title">FAQs</h3>
+                <h2 class="h4 title">FAQs</h2>
                 <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
