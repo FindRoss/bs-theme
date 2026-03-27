@@ -64,6 +64,13 @@ $link          = $details_group['affiliate_link'];
 $bonus         = $details_group['bonus'];
 $closed        = $details_group['closed']; // nothing or 1 
 
+
+// Bonus Group
+$bonus_group = $fields['bonus_group'] ?? null;
+$bonus_title = $bonus_group['bonus_title'] ?? null;
+$bonus_info  = $bonus_group['bonus'] ?? null;
+$bonus_plus  = $bonus_group['bonus_plus'] ?? null;
+
 /* Media Group */
 $media        = $fields['media_group'];
 $homepageImg  = $media['homepage'];
@@ -165,6 +172,8 @@ foreach ($faqs as $faq) {
   }
 };
 
+
+
 ?>
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
@@ -200,10 +209,16 @@ foreach ($faqs as $faq) {
 
       <?php if (!$closed && $link) { ?>
         <div class="cta-box">
-          <?php if ($bonus) { ?>
-            <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
+          <?php if ($bonus_title) { ?>
+            <p><?php echo esc_html($bonus_title); ?></p>
           <?php } ?>
-          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Sign up at <?php echo esc_attr($name); ?>">Sign Up</a>
+           <?php if ($bonus_info) { ?>
+            <p><?php echo esc_html($bonus_info); ?></p>
+          <?php } ?>
+           <?php if ($bonus_plus) { ?>
+            <p><?php echo esc_html($bonus_plus); ?></p>
+          <?php } ?>
+          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
         </div>
       <?php }; ?>
       
@@ -245,7 +260,7 @@ foreach ($faqs as $faq) {
           <?php if ($faqs_has_answers) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
-                <h2 class="h4 title">FAQs</h2>
+                <h2 class="h3 title">FAQs</h2>
                 <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
@@ -283,7 +298,7 @@ foreach ($faqs as $faq) {
 
   <?php if ($site_posts_query->have_posts()) : ?>
   <section class="mt-5 articles-box">
-    <h2 class="title h4">Read more about <?php echo $name; ?></h2>
+    <h2 class="title h3">Read more about <?php echo $name; ?></h2>
     <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post();
        get_template_part('template-parts/card/card', 'chengdu');
     endwhile; ?>
