@@ -59,10 +59,18 @@ $more_sites = new WP_Query($more_sites_args);
 /* Details Group */
 $fields = get_fields();
 $details_group = $fields['details_group'];
-$name          = $details_group['name'];
-$link          = $details_group['affiliate_link'];
+$name             = $details_group['name'];
+$link             = $details_group['affiliate_link'];
+$review_thumb_alt = get_post_meta(get_post_thumbnail_id($review_id), '_wp_attachment_image_alt', true) ?: $name . ' logo';
 $bonus         = $details_group['bonus'];
 $closed        = $details_group['closed']; // nothing or 1 
+
+
+// Bonus Group
+$bonus_group = $fields['bonus_group'] ?? null;
+$bonus_title = $bonus_group['bonus_title'] ?? null;
+$bonus_info  = $bonus_group['bonus'] ?? null;
+$bonus_plus  = $bonus_group['bonus_plus'] ?? null;
 
 /* Media Group */
 $media        = $fields['media_group'];
@@ -165,6 +173,8 @@ foreach ($faqs as $faq) {
   }
 };
 
+
+
 ?>
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
@@ -187,10 +197,10 @@ foreach ($faqs as $faq) {
   <!-- Header -->
   <header class="review-header">
     <div class="review-header__logo">
-      <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo $name; ?>" width="500" height="250" fetchpriority="high">
+      <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo esc_attr($review_thumb_alt); ?>" width="500" height="250" fetchpriority="high">
     </div>
     <div class="review-header__info">
-      <h1><?php echo $name; ?></h1>
+      <h1><?php echo $name; ?> Review</h1>
       <?php if (has_excerpt()) { ?>
         <p class="excerpt"><?php echo get_the_excerpt(); ?></p>
       <?php } ?>
@@ -200,10 +210,16 @@ foreach ($faqs as $faq) {
 
       <?php if (!$closed && $link) { ?>
         <div class="cta-box">
-          <?php if ($bonus) { ?>
-            <p><?php echo get_svg_icon('present'); ?><?php echo $bonus; ?></p>
+          <?php if ($bonus_title) { ?>
+            <p><?php echo esc_html($bonus_title); ?></p>
           <?php } ?>
-          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Sign up at <?php echo esc_attr($name); ?>">Sign Up</a>
+           <?php if ($bonus_info) { ?>
+            <p><?php echo esc_html($bonus_info); ?></p>
+          <?php } ?>
+           <?php if ($bonus_plus) { ?>
+            <p><?php echo esc_html($bonus_plus); ?></p>
+          <?php } ?>
+          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
         </div>
       <?php }; ?>
       
@@ -226,33 +242,14 @@ foreach ($faqs as $faq) {
 
     <main class="skye-section__content">
 
-           
-        <!-- // $bonus_query = get_bonuses_by_review_query(get_the_ID());
-        if ($bonus_query->have_posts()) : 
-          <section class="section">
-            <h2>Bonuses</h2>
-            <div class="shanghai-row">
-               
-                while ($bonus_query->have_posts()) : $bonus_query->the_post();
-                  get_template_part('template-parts/card/card', 'shanghai');
-                endwhile;
-              
-            </div>
-          </section>
-          
-          wp_reset_postdata();
-        endif; 
-      ?> -->
-
         <section class="content mt-5">
-          <h2 class="title h4">Review</h2>
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
           the_content();
 
           foreach ($content as $key => $value) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
-                <h3 class="h4 title"><?php echo $key; ?></h3>
+                <h2 class="h3 title"><?php echo $key; ?></h2>
                 <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
@@ -264,7 +261,7 @@ foreach ($faqs as $faq) {
           <?php if ($faqs_has_answers) { ?>
             <div class="content-dropdown">
               <div class="content-dropdown__controls">
-                <h3 class="h4 title">FAQs</h3>
+                <h2 class="h3 title">FAQs</h2>
                 <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
@@ -287,7 +284,7 @@ foreach ($faqs as $faq) {
         if ($homepageImg) { ?>
           <section>
             <figure class="homepage-image">
-              <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener">
+              <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
                 <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
               </a>
               <?php if ($homepageImg_cap): ?>
@@ -302,7 +299,7 @@ foreach ($faqs as $faq) {
 
   <?php if ($site_posts_query->have_posts()) : ?>
   <section class="mt-5 articles-box">
-    <h2 class="title h4">Read more about <?php echo $name; ?></h2>
+    <h2 class="title h3">Read more about <?php echo $name; ?></h2>
     <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post();
        get_template_part('template-parts/card/card', 'chengdu');
     endwhile; ?>

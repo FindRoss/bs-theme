@@ -26,7 +26,7 @@
 
   <div class="card card-absolute card-shanghai">
 
-    <a class="card-absolute__link" href="<?php the_permalink($bonus_id); ?>" aria-label="Read <?php echo $name; ?> review"></a>
+    <a class="card-absolute__link" href="<?php the_permalink($bonus_id); ?>" aria-label="<?php echo esc_attr($title ? $title . ' at ' . $siteName : $siteName . ' bonus details'); ?>"></a>
     
     <div class="card-shanghai__media">
       <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
@@ -63,17 +63,17 @@
     <div class="card-absolute__ctas card-shanghai__ctas">
        
       <?php if ($code) { ?>
-        <a class="button button--small button__outline bonus-code" type="button" aria-label="Copy bonus code to clipboard">
+        <button class="button button--small button__outline bonus-code" type="button" aria-label="Copy bonus code to clipboard">
           <span class="bonus-code__code"><?php echo $code; ?></span>
           <span class="bonus-code__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
             </svg>
           </span>
-        </a>
+        </button>
       <?php }; ?>
 
-      <a href="<?php echo esc_url($outputLink); ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get Bonus</a>
+      <a href="<?php echo esc_url($outputLink); ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($siteName); ?>">Get Bonus</a>
 
     </div>
   </div>

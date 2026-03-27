@@ -57,42 +57,41 @@ function taxonomy_main_query($query, $term): void {
 
 
 <div class="container">
-  <section class="skye-section mt-4">
-    <aside class="skye-section__sidebar">
-      <div class="term-boxes">
-        <?php 
-          foreach($all_term_results as $key => $value) {  
-            echo terms_to_box($value, $taxonomy_titles[$key], true, $current_page_url); 
-          }
-        ?>
-      </div>
-    </aside>
-    
-    <main class="skye-section__content">
-      <div class="grid grid--three-col">
+  <section class="mt-4 grid grid-cols-12 gap-6 items-start">
+
+    <main class="col-span-12 lg:col-span-9 lg:order-2">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <?php if ( $query->have_posts() ) :
-          $counter = 1; 
+          $counter = 1;
           while ( $query->have_posts() ) : $query->the_post() ?>
-            <div class="grid-item">
-              <?php if ($counter < 3) {
-                get_template_part('template-parts/card/card', 'hong-kong', array('exclude_lazyload' => true));
-              } else {
-                get_template_part('template-parts/card/card', 'hong-kong');
-              } ?>
-            </div>
+            <?php if ($counter < 3) {
+              get_template_part('template-parts/card/card', 'hong-kong', array('exclude_lazyload' => true));
+            } else {
+              get_template_part('template-parts/card/card', 'hong-kong');
+            } ?>
             <?php $counter++; ?>
           <?php endwhile; ?>
           <?php wp_reset_postdata(); ?>
         <?php endif; ?>
-      </div><!-- .grid -->
+      </div>
         
       <!-- Pagination -->
       <div class="mt-4">
         <?php get_template_part('template-parts/content/content', 'pagination', array('query' => $query)); ?>
       </div>
     </main>
-      
-    </section><!-- .fife-section -->
+
+    <aside class="col-span-12 lg:col-span-3">
+      <div class="term-boxes">
+        <?php
+          foreach($all_term_results as $key => $value) {
+            echo terms_to_box($value, $taxonomy_titles[$key], true, $current_page_url);
+          }
+        ?>
+      </div>
+    </aside>
+
+    </section>
   </div><!-- .container -->
 
 

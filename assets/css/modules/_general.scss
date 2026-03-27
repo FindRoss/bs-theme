@@ -142,6 +142,16 @@ blockquote {
     margin-bottom: 0;
     margin-top: var(--size-400);
   }
+
+  ul:not(.site-latest-block__list):not(.recommended-block__list) {
+    list-style: disc;
+    padding-left: 1.5em;
+  }
+
+  ol {
+    list-style: decimal;
+    padding-left: 1.5em;
+  }
 }
 
 

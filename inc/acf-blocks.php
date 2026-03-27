@@ -117,7 +117,7 @@ function my_acf_init_block_types() {
       'category'          => 'layout',
       'align'             => 'full',
       'keywords'          => array( 'review', 'table', 'list', 'casino' ),
-      'post_types'        => array( 'post' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'editor-ul'
     ));
     /**
@@ -181,7 +181,7 @@ function my_acf_init_block_types() {
       'category'          => 'layout',
       'align'             => 'full',
       'keywords'          => array( 'review', 'casino', 'site', 'info', 'details', 'image' ),
-      'post_types'        => array( 'post', 'page' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'star-filled'
     ));
     /**
@@ -197,7 +197,7 @@ function my_acf_init_block_types() {
       'category'          => 'layout',
       'align'             => 'full',
       'keywords'          => array( 'reviews', 'pros', 'cons' ),
-      'post_types'        => array( 'post', 'page' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'star-filled'
     ));
     /**
@@ -213,7 +213,7 @@ function my_acf_init_block_types() {
       'category'          => 'layout',
       'align'             => 'full',
       'keywords'          => array( 'review', 'casino', 'site', 'bonus', 'promo', 'free spins' ),
-      'post_types'        => array( 'post', 'page' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'star-filled'
     ));
   }

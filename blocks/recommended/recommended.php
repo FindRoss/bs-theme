@@ -12,10 +12,10 @@
 
 <?php if($recommended_query->have_posts() ) { ?>
   <aside class="recommended-block">
-    <h4 class="recommended-block__title">
+    <div class="recommended-block__title">
       <span class="icon"><i data-feather="arrow-right-circle"></i></span>
       <span class="title">Read More</span>
-    </h4>
+    </div>
     <ul class="recommended-block__list">
     <?php while ( $recommended_query->have_posts() ) : $recommended_query->the_post(); ?>
       <li class="recommended-block__list-item">

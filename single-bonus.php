@@ -40,9 +40,10 @@
       $casino_id = get_field('single_bonus_casino')[0];
       
       $details_group  = get_field('details_group', $casino_id);
-      $name           = $details_group['name']; 
-      $link           = $details_group['affiliate_link']; 
-      $featured_image = get_the_post_thumbnail_url($casino_id, 'medium');
+      $name             = $details_group['name'];
+      $link             = $details_group['affiliate_link'];
+      $featured_image   = get_the_post_thumbnail_url($casino_id, 'medium');
+      $bonus_thumb_alt  = get_post_meta(get_post_thumbnail_id($casino_id), '_wp_attachment_image_alt', true) ?: $name . ' logo';
 
       $media_group = get_field('media_group', $casino_id);
       $theme_color = $media_group['theme_color'];
@@ -169,7 +170,7 @@
 
             <div class="bonus-header">
               <div class="bonus-header__brand" style="background: <?php echo $theme_color; ?>">
-                <img src="<?php echo $featured_image ?>" alt="<?php $name . ' logo'; ?>" class="border-radius exclude-lazyload" aria-hidden="true" fetchpriority="high" /> 
+                <img src="<?php echo $featured_image ?>" alt="<?php echo esc_attr($bonus_thumb_alt); ?>" class="border-radius exclude-lazyload" aria-hidden="true" fetchpriority="high" /> 
               </div>
 
               <div class="bonus-header__content">

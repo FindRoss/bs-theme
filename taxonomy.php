@@ -53,13 +53,14 @@
 <div class="container">
   <header class="taxonomy-header">
     <?php if ($hasIcon) { ?>
-      <img 
+      <img
         src="<?php echo esc_url($icon['sizes']['medium']); ?>"
         alt="<?php echo esc_attr($term_name .  ' casinos'); ?>"
         class="exclude-lazyload"
         fetchpriority="high"
        />
     <?php } ?>
+
     <h1><?php echo esc_html($title_output); ?></h1>
 
     <?php if (term_description()) { ?>
@@ -79,8 +80,8 @@
 
     <?php $main_content = get_field('main_content', $term); ?>
 
-    <section class="aberdeenshire-section">
-      <div class="main--content">
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-4">
+      <div class="col-span-1 md:col-span-9 main--content">
         <?php echo $main_content; ?>
         <?php if (get_field('faqs', $term)) {
           get_template_part('template-parts/content/content', 'faqs');
