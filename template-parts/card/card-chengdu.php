@@ -3,6 +3,8 @@
  $expiry_ts      = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
  $marked_expired = get_field('bonus_expired'); 
  $exclude_image  = $args['exclude_image'] ?? false;
+ $thumb_id       = get_post_thumbnail_id();
+ $image_alt      = get_post_meta($thumb_id, '_wp_attachment_image_alt', true) ?: the_title_attribute(['echo' => false]);
 ?>
 
 <div class="card card-chengdu">
@@ -34,7 +36,7 @@
 					<!-- Fallback for browsers that don't support <picture> -->
 					<img 
 						src="<?php echo get_the_post_thumbnail_url(null, 'medium'); ?>" 
-						alt="<?php the_title_attribute(); ?>" 
+						alt="<?php echo esc_attr($image_alt); ?>"
 						title="<?php the_title_attribute(); ?>" 
 						width="800"
 						height="480"

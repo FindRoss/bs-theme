@@ -59,8 +59,9 @@ $more_sites = new WP_Query($more_sites_args);
 /* Details Group */
 $fields = get_fields();
 $details_group = $fields['details_group'];
-$name          = $details_group['name'];
-$link          = $details_group['affiliate_link'];
+$name             = $details_group['name'];
+$link             = $details_group['affiliate_link'];
+$review_thumb_alt = get_post_meta(get_post_thumbnail_id($review_id), '_wp_attachment_image_alt', true) ?: $name . ' logo';
 $bonus         = $details_group['bonus'];
 $closed        = $details_group['closed']; // nothing or 1 
 
@@ -196,7 +197,7 @@ foreach ($faqs as $faq) {
   <!-- Header -->
   <header class="review-header">
     <div class="review-header__logo">
-      <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo $name; ?>" width="500" height="250" fetchpriority="high">
+      <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo esc_attr($review_thumb_alt); ?>" width="500" height="250" fetchpriority="high">
     </div>
     <div class="review-header__info">
       <h1><?php echo $name; ?> Review</h1>

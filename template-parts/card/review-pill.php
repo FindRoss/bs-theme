@@ -10,7 +10,7 @@
 ?>
 
 <div class="card card-absolute review-pill">
-  <a class="card-absolute__link" href="<?php echo esc_url($review_link); ?>" aria-label="Read <?php echo $name; ?> review"></a>
+  <a class="card-absolute__link" href="<?php echo esc_url($review_link); ?>" aria-label="Read <?php echo esc_attr($name); ?> review"></a>
   <div class="review-pill__body">
     <img class="logo" src="<?php echo get_the_post_thumbnail_url($id, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
     <h3 class="h6">
@@ -18,7 +18,7 @@
     </h3>
   </div>
   <div class="card-absolute__ctas review-pill__cta">
-    <a class="button button__primary" href="<?php echo esc_url($aff_link); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo $name; ?>">
+    <a class="button button__primary" href="<?php echo esc_url($aff_link); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
        <?php echo get_svg_icon('external-link'); ?>
     </a>
   </div>
