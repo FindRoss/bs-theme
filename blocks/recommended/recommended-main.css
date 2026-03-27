@@ -8,8 +8,8 @@
 
 .recommended-block__list {
   margin: 0;
-  padding: 0 !important;
-  list-style: none !important;
+  padding: 0;
+  list-style: none;
 }
 
 .recommended-block__list-item .item {

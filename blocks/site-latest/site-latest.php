@@ -12,7 +12,7 @@ $type_output = '';
 
 if (is_array($type_keys) && !empty($type_keys)) {
 	$length = count($type_keys);
-	$type_output = $length > 1 ? 'Articles and Bonuses' : $type_keys[0]; 
+	$type_output = $length > 1 ? 'articles and bonuses' : $type_keys[0]; 
 }
 
 if ((is_array($type) && !empty($type)) AND $site) {
@@ -45,10 +45,10 @@ if ((is_array($type) && !empty($type)) AND $site) {
 	)); ?>
 
 	<aside class="site-latest-block">
-		<h4 class="site-latest-block__title">
+		<div class="site-latest-block__title">
 			<span class="icon"><i data-feather="arrow-right-circle"></i></span>
-			<span class="title">Latest <?php echo $type_output; ?> From <?php echo $site_name; ?></span>
-		</h4>
+			<span class="title">Latest <?php echo $type_output; ?> from <?php echo $site_name; ?></span>
+		</div>
 		<ul class="site-latest-block__list">
 			<?php if ($query->have_posts()) : ?>
 				<?php while ($query->have_posts()) : $query->the_post(); ?>
