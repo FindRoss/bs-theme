@@ -116,6 +116,10 @@ blockquote {
   }
 }
 
+.content-thumbnail-img {
+  border: 1px solid var(--color-muted-300);
+}
+
 .main--content {
   .wp-caption {
     max-width: 100%;
