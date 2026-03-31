@@ -1,3 +1,5 @@
+import feather from 'feather-icons';
+
 class SidebarMenu {
   constructor() {
     this.body = document.querySelector('body')
@@ -93,13 +95,13 @@ class SidebarMenu {
       this.body.classList.add('no-scroll')
       this.pageOverlay.classList.add('active')
       this.navToggleBtn.setAttribute('aria-label', 'Close menu')
-      this.navToggleBtn.innerHTML = svgIcons.close;
+      this.navToggleBtn.innerHTML = feather.icons['x'].toSvg();
     } else {
       this.drawer.classList.remove('show')
       this.body.classList.remove('no-scroll')
       this.pageOverlay.classList.remove('active')
       this.navToggleBtn.setAttribute('aria-label', 'Open menu')
-      this.navToggleBtn.innerHTML = svgIcons.hamburger;
+      this.navToggleBtn.innerHTML = feather.icons['menu'].toSvg();
     }
     this.navToggleBtn.setAttribute('aria-expanded', this.menuOpen);
   }

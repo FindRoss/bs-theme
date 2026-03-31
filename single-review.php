@@ -242,7 +242,7 @@ foreach ($faqs as $faq) {
 
     <main class="skye-section__content">
 
-        <section class="content mt-5">
+        <section class="content main--content mt-5">
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
           the_content();
 
@@ -259,16 +259,16 @@ foreach ($faqs as $faq) {
           <?php } ?>
 
           <?php if ($faqs_has_answers) { ?>
-            <div class="content-dropdown">
+            <div class="content-dropdown main--content">
               <div class="content-dropdown__controls">
-                <h2 class="h3 title">FAQs</h2>
+                <h2 class="title">FAQs</h2>
                 <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
               </div>
               <div class="content-dropdown__content">
                 <?php foreach ($faqs as $faq) { ?>
                   <?php if ($faq['answer']) : ?>
                     <div>
-                      <h4><?php echo $faq['question']; ?></h4>
+                      <h3><?php echo $faq['question']; ?></h3>
                       <div><?php echo wpautop($faq['answer']); ?></div>
                     </div>
                   <?php endif; ?>

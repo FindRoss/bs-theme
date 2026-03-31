@@ -29,30 +29,14 @@ function taxonomy_main_query($query, $term): void {
     $all_term_results[$term_name] = $terms;
   };
   
-  // $crypto_terms = get_terms(array(
-  //   'taxonomy'    => $taxonomy,
-  //   'hide_empty' => true,
-  //   'order'      => 'DESC',
-  //   'number'     => 35,
-  //   'orderby'    => 'count',
-  // ));
-  
-  // if (!is_wp_error($crypto_terms)) {
-  //   usort($crypto_terms, function ($a, $b) {
-  //     return strcasecmp($a->name, $b->name);
-  //   });
-  // }
-  
   $taxonomy_titles = [
-    'cryptocurrency' => 'Cryptocurrencies',
+    'cryptocurrency' => 'Cryptocurrency',
     'game'           => 'Games',
     'provider'       => 'Providers',
-    'payment'        => 'Payments',
+    'payment'        => 'Payment Methods',
     'country'        => 'Countries',
     'review_type'    => 'Sites',
   ];
-  // Use the mapped title if it exists, otherwise just ucfirst
-  // $taxonomy_title = $taxonomy_titles[$taxonomy] ?? ucfirst($taxonomy);
   ?>
 
 

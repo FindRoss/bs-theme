@@ -56,7 +56,6 @@
   z-index: 1;
   transition: border var(--transition-style);
   border: 1px solid var(--color-muted-200);
-  // border: 1px solid var(--color-primary-100);
   border-radius: var(--border-radius);
   background-color: #FFFFFF;
   overflow: hidden;
@@ -86,11 +85,6 @@
   &:focus-within {
     border: 1px solid var(--color-primary-300);
   }
-
-  /* Reset border when hovering any button inside CTAs */
-  // &:has(.card-absolute__ctas:hover) {
-  //   border: 2px solid var(--color-muted-200);
-  // }
 
   /* Reset border only when hovering a primary button */
   &:has(.card-absolute__ctas .button__primary:hover) {

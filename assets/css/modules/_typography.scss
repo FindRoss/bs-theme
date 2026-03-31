@@ -8,17 +8,6 @@ a:hover {
   color: var(--color-link-hover);
 }
 
-/*
-These were below. Hover was in use
-
-a {
-  color: #0074b3;
-} */
-
-// a:hover {
-//   color: #0056b3;
-// }
-
 h1,
 h2,
 h3 {
@@ -106,28 +95,33 @@ h6 {
     max-width: 35ch;
   }
 
-  h2 {
+  h2,
+  h3,
+  h4,
+  h5 {
     color: #333;
+  }
+
+  h2 {
     font-size: var(--size-600);
     margin-top: var(--size-800);
+    font-weight: 500;
   }
 
   h3 {
-    color: #333;
     margin-top: var(--size-500);
-    font-weight: 400;
+    font-weight: 700;
   }
 
   h4 {
-    font-weight: 400;
-    color: #333;
     font-size: var(--size-400);
     margin-top: var(--size-500);
+    font-weight: 700;
   }
 
   h5 {
-    font-weight: 400;
     margin-top: var(--size-400);
+    font-weight: 700;
   }
 
   p,

@@ -6,7 +6,6 @@ import "../assets/css/style.scss";
 // import '../assets/css/message.scss';
 // import '../assets/css/404.scss';
 
-
 // import CardFocus from "./modules/CardFocus";
 import SidebarMenu from "./modules/SidebarMenu";
 import BonusCode from "./modules/BonusCode";

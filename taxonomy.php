@@ -42,7 +42,11 @@
   
   $title_output = $term_name . ' Casinos and Gambling Sites';
   if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
-  if ($taxonomy == 'game') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
+  if ($taxonomy == 'game') {
+    $title_output = $term_name == 'Live Casino'
+        ? 'Top ' . $term_name . ' Sites of 2026'
+        : 'Top Crypto ' . $term_name . ' Casinos of 2026';
+  }
   if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
   if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
   if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2026';

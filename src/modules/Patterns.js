@@ -1,3 +1,5 @@
+import feather from 'feather-icons';
+
 class Patterns {
 	constructor() {
 		this.headingTogglePats = document.querySelectorAll('.pattern.heading-toggle');
@@ -24,7 +26,7 @@ class Patterns {
 
 		const iconButton = document.createElement('button');
 		iconButton.classList.add('round-icon');
-		iconButton.innerHTML = svgIcons.chevronDown;
+		iconButton.innerHTML = feather.icons['chevron-down'].toSvg();
 
 		// Accessibility: link button to content
 		const contentDiv = document.createElement('div');

@@ -2,10 +2,6 @@
 
 function themebs_enqueue_styles() {
 
-	// add_action('wp_enqueue_scripts', function() {
-	// 		wp_dequeue_style('wp-block-library');
-	// }, 100);
-
 	wp_enqueue_style( 'tailwind-styles', get_template_directory_uri() . '/build/tailwind.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'index-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
@@ -94,13 +90,6 @@ function themebs_enqueue_scripts() {
 		wp_enqueue_script('toggle-table', get_template_directory_uri() . '/build/toggle-table.js', [], wp_get_theme()->get('Version'), true); 
 	}
 
-  // Localize script to pass PHP data to JavaScript
-  wp_localize_script('main-chaser', 'svgIcons', [
-      'hamburger'   => get_svg_icon('hamburger'),
-      'close'       => get_svg_icon('close'),
-      'search'      => get_svg_icon('search'),
-      'chevronDown' => get_svg_icon('chevron-down'),
-  ]);
 };
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_scripts');
 
