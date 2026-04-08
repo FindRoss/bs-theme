@@ -1,0 +1,25 @@
+{
+  "apiVersion": 3,
+  "name": "acf/game-info",
+  "title": "Game Info",
+  "description": "Displays game information including heading, image, content and linked casino site.",
+  "category": "layout",
+  "icon": "games",
+  "style": [
+    "file:./game-info-main.css"
+  ],
+  "keywords": [
+    "game",
+    "info",
+    "casino",
+    "slot"
+  ],
+  "acf": {
+    "blockVersion": 2,
+    "mode": "edit",
+    "renderTemplate": "game-info.php",
+    "postTypes": [
+      "post"
+    ]
+  }
+}

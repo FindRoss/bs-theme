@@ -49,6 +49,7 @@ function register_acf_blocks() {
     register_block_type( __DIR__ . '/blocks/bonus' );
 		register_block_type( __DIR__ . '/blocks/recommended' );
 		register_block_type( __DIR__ . '/blocks/site-latest' );
+		register_block_type( __DIR__ . '/blocks/game-info' );
 }
 
 function my_admin_block_styles() {

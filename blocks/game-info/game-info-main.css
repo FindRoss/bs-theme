@@ -1,0 +1,127 @@
+/* =========================================
+   Game Info Block
+   ========================================= */
+
+.game-info {
+  background-color: var(--color-bg-50);
+  border: 1px solid var(--color-primary-100);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Top section: image + stats side by side */
+.game-info__top {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Image */
+.game-info__image {
+  flex-shrink: 0;
+  width: 270px;
+}
+
+.game-info .game-info__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+  margin-top: 0;
+}
+
+/* Stats table */
+.game-info__stats {
+  flex: 1;
+  margin: 0;
+}
+
+.game-info__stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-muted-200);
+  gap: 1rem;
+}
+
+.game-info__stat:first-child {
+  padding-top: 0;
+}
+
+.game-info__stat:last-child {
+  border-bottom: none;
+}
+
+.game-info .game-info__heading {
+  font-size: var(--size-600);
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  color: var(--color-primary-900);
+}
+
+.game-info__stat-label {
+  color: var(--color-muted-500);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.game-info__stat-value {
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: right;
+  margin: 0;
+}
+
+/* Content / description */
+.game-info__content {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-muted-200);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.game-info__content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Landscape image variant: wider image, side-by-side on desktop */
+.game-info__top--landscape .game-info__image {
+  width: 50%;
+}
+
+.game-info .button {
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .game-info__top--landscape .game-info__image {
+    width: 100%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .game-info {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .game-info__top {
+    flex-direction: column;
+  }
+
+  .game-info__image {
+    width: 100%;
+  }
+
+  .game-info__stats {
+    width: 100%;
+  }
+}
