@@ -15,8 +15,6 @@ if ($site_id) {
   $bonus     = $details_group['bonus']; 
 }
 
-
-
 ?>
 
 <div class="game-info">
