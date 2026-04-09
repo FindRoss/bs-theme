@@ -5,14 +5,24 @@ $heading      = get_field('game_info_heading');
 $image        = get_field('game_info_image');
 $content      = get_field('game_info_content');
 $is_landscape = $image && ( $image['width'] > $image['height'] );
-$site_id      = get_field('game_info_site');
+$site_ids = get_field('game_info_site');
 
-if ($site_id) {
-  $details_group = $site_id ? get_field('details_group', $site_id) : null;
-  $closed    = $details_group['closed'];
-  $goto_link = $details_group['affiliate_link'];
-  $name      = $details_group['name'];
-  $bonus     = $details_group['bonus']; 
+$sites = [];
+if ($site_ids) {
+  foreach ($site_ids as $site_id) {
+    $details_group = get_field('details_group', $site_id);
+    if (!$details_group) continue;
+    $bonus_group = get_field('bonus_group', $site_id);
+    $sites[] = [
+      'closed'      => $details_group['closed'],
+      'goto_link'   => $details_group['affiliate_link'],
+      'name'        => $details_group['name'],
+      'thumbnail'   => get_the_post_thumbnail($site_id, 'site-small-logo'),
+      'bonus_title' => $bonus_group['bonus_title'] ?? null,
+      'bonus'       => $bonus_group['bonus'] ?? null,
+      'bonus_plus'  => $bonus_group['bonus_plus'] ?? null,
+    ];
+  }
 }
 
 ?>
@@ -60,8 +70,12 @@ if ($site_id) {
     </div>
   <?php endif; ?>
 
-  <?php if ( $site_id && ! $closed && $goto_link ) : ?>
-    <a class="button button__primary" rel="sponsored noopener" href="<?php echo esc_url($goto_link); ?>" target="_blank">Play on <?php echo esc_html($name); ?></a>
+  <?php if ( $sites ) : ?>
+    <?php foreach ( $sites as $site ) : ?>
+      <?php if ( ! $site['closed'] && $site['goto_link'] ) : ?>
+        <a class="button button__primary" rel="sponsored noopener" href="<?php echo esc_url($site['goto_link']); ?>" target="_blank">Play on <?php echo esc_html($site['name']); ?></a>
+      <?php endif; ?>
+    <?php endforeach; ?>
   <?php endif; ?>
 
 </div>
