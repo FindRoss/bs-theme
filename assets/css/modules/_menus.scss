@@ -87,6 +87,17 @@ body.no-scroll {
   }
 }
 
+.menu-item a:not([href]) {
+  cursor: default;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--color-primary-900);
+  }
+}
+
+
 // nav
 .nav-layout {
   height: 55px;
@@ -187,6 +198,10 @@ body.no-scroll {
 
       &:hover {
         background: var(--color-bg-50);
+      }
+
+      &:has(> a:not([href])):hover {
+        background: transparent;
       }
 
       // Chevron
