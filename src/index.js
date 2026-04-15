@@ -16,6 +16,7 @@ import ExpiryDates from "./modules/ExpiryDates";
 import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
+import { kunmingCard } from "./modules/KunmingCard";
 import tableToggle from "./modules/TableToggle";
 
 // const cardFocus = new CardFocus()
@@ -46,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('body.single-review')) {
     singleReview();
+  }
+
+  if (document.querySelector('.card-kunming')) {
+    kunmingCard();
   }
 
   if (document.querySelector('.post-template-power-index')) {

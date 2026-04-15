@@ -227,6 +227,11 @@ foreach ($faqs as $faq) {
   </header>
 
  
+  <?php get_template_part('template-parts/review/review-info-boxes', null, [
+    'review_id' => $review_id,
+    'size'      => 'large',
+  ]); ?>
+
   <section class="skye-section">
     
     <aside class="skye-section__sidebar">
