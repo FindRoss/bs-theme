@@ -1043,20 +1043,24 @@ section.articles-box {
  * Card Kunming — horizontal row card for taxonomy listing pages
  */
 .card-kunming {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-600);
-  padding: var(--size-400);
+  margin-top: var(--size-300);
   max-width: 1120px;
   border: 1px solid var(--color-muted-200);
   border-radius: var(--border-radius);
   background-color: #ffffff;
   overflow: hidden;
 
-  @include breakpoint(medium) {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--size-500);
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-600);
+    padding: var(--size-400);
+
+    @include breakpoint(medium) {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--size-500);
+    }
   }
 
   &__media {
@@ -1217,6 +1221,71 @@ section.articles-box {
       white-space: nowrap;
       width: 100%;
       text-align: center;
+    }
+  }
+
+  &__info-boxes {
+    border-top: 1px solid var(--color-muted-100);
+    background-color: var(--color-bg-50);
+  }
+
+  &__details-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--size-200);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--size-200) var(--size-400);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-muted-400);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+
+    span.toggle-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--color-primary-50);
+      color: var(--color-primary-700);
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: var(--color-primary-100);
+      }
+
+      svg {
+        width: 11px;
+        height: 11px;
+        transition: transform 0.2s ease;
+      }
+    }
+  }
+
+  &__details-content {
+    height: 0;
+    overflow: hidden;
+
+    &.expanded {
+      height: auto;
+      padding: 0 var(--size-400) var(--size-200);
+    }
+  }
+
+  .review-info-boxes--small {
+    gap: var(--size-100);
+
+    li {
+      padding: var(--size-100) var(--size-200);
+    }
+
+    .review-info-boxes__value {
+      font-size: 13px;
     }
   }
 }

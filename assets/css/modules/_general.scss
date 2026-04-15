@@ -749,3 +749,63 @@ iframe {
     border-bottom: 1px solid var(--color-muted-200);
   }
 }
+
+/*
+ * Content Dropdown — base collapse/expand behaviour (visual overrides in single-review.scss)
+ */
+svg.rotated {
+  transform: rotate(180deg);
+}
+
+.content-dropdown__content {
+  height: 0;
+  overflow: hidden;
+
+  &.expanded {
+    height: auto;
+  }
+}
+
+/*
+ * Review Info Boxes — shared base styles
+ * Size variants live in _cards.scss (--small) and single-review.scss (--large)
+ */
+.review-info-boxes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid var(--color-muted-200);
+    border-radius: var(--border-radius);
+    background: #fff;
+  }
+}
+
+.review-info-boxes__label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted-400);
+}
+
+.review-info-boxes__value {
+  font-weight: 600;
+  color: var(--color-muted-900);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--color-primary-500);
+  }
+}

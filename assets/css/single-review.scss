@@ -120,6 +120,26 @@
     }
   }
 
+  .review-info-boxes--large {
+    gap: var(--size-200);
+    margin-top: var(--size-400);
+    margin-bottom: var(--size-400);
+
+    li {
+      padding: var(--size-200) var(--size-300);
+      background-color: var(--color-bg-50);
+    }
+
+    .review-info-boxes__value {
+      font-size: 16px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
   .skye-section {
     margin-top: var(--size-600);
 
