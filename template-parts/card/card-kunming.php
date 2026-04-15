@@ -1,0 +1,71 @@
+<?php
+  $review_id = get_the_ID();
+  $exclude_lazyload = $args['exclude_lazyload'] ?? false;
+
+  $details_group = get_field('details_group');
+  $name          = $details_group['name'];
+  $link          = $details_group['affiliate_link'];
+
+  $bonus_group  = get_field('bonus_group');
+  $bonus_title  = $bonus_group['bonus_title'] ?? null;
+  $bonus        = $bonus_group['bonus'] ?? null;
+  $bonus_plus   = $bonus_group['bonus_plus'] ?? null;
+
+  $mediaGroup = get_field('media_group');
+  $siteColor  = $mediaGroup['theme_color'];
+
+  $crypto_terms  = get_the_terms($review_id, 'cryptocurrency');
+  $crypto_output = display_review_crypto($crypto_terms);
+
+  $pros = $review_id ? get_field('pros', $review_id) : [];
+?>
+
+<div class="card card-kunming">
+
+  <div class="card-kunming__media">
+    <div class="km-card-bg-color" style="background-color: <?php echo esc_attr($siteColor); ?>">
+      <img
+        src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo')); ?>"
+        width="90" height="52"
+        alt="<?php echo esc_attr($name . ' logo'); ?>"
+        aria-hidden="true"
+        <?php echo $exclude_lazyload ? 'class="exclude-lazyload"' : ''; ?>
+      >
+    </div>
+  </div>
+
+  <div class="card-kunming__bonus">
+    <h3><?php echo esc_html($name); ?></h3>
+    <?php if ($bonus) : ?>
+      <div class="card-kunming__bonus-pill">
+        <span class="card-kunming__bonus-icon"><i data-feather="gift"></i></span>
+        <div><span><?php echo esc_html($bonus); ?></span></div>
+      </div>
+    <?php endif; ?>
+  </div>
+
+  <div class="card-kunming__pros-cons">
+    <?php if (!empty($pros)) : ?>
+      <span class="card-kunming__section-label">Highlights</span>
+      <ul class="card-kunming__pros">
+        <?php foreach ($pros as $pro) : ?>
+          <li><?php echo esc_html($pro['item']); ?></li>
+        <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
+  </div>
+
+  <div class="card-kunming__crypto">
+    <?php if (!empty($crypto_output)) : ?>
+      <div class="crypto-icons"><?php echo $crypto_output; ?></div>
+    <?php endif; ?>
+  </div>
+
+  <div class="card-kunming__ctas">
+    <a href="<?php the_permalink(); ?>" class="button button__outline" aria-label="Read <?php echo esc_attr($name); ?> review">Review</a>
+    <?php if ($link) : ?>
+      <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Go to <?php echo esc_attr($name); ?>">Play Now</a>
+    <?php endif; ?>
+  </div>
+
+</div>

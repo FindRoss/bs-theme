@@ -231,6 +231,7 @@ require get_theme_file_path('/inc/template-functions.php');
  * Search Endpoint
  */
 require get_theme_file_path('/inc/search-endpoint.php');
+require get_theme_file_path('/inc/load-more-endpoint.php');
 
 /**
  * Bradcrumbs

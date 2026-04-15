@@ -1038,3 +1038,199 @@ section.articles-box {
     border: 0;
   }
 }
+
+/**
+ * Card Kunming — horizontal row card for taxonomy listing pages
+ */
+.card-kunming {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-600);
+  padding: var(--size-400);
+  max-width: 1120px;
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--border-radius);
+  background-color: #ffffff;
+  overflow: hidden;
+
+  @include breakpoint(medium) {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--size-500);
+  }
+
+  &__media {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--size-100);
+
+    .km-card-bg-color {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 110px;
+      height: 70px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+
+      img {
+        width: 90px;
+        height: auto;
+        border: none;
+      }
+    }
+
+  }
+
+  &__bonus {
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 var(--size-100);
+    }
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-100);
+    justify-content: center;
+  }
+
+  &__bonus-pill {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    span {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+  }
+
+  &__bonus-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-primary-50);
+    border-radius: 50%;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--color-primary-700);
+    }
+  }
+
+  &__section-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-muted-400);
+    margin-bottom: 4px;
+
+    @include breakpoint(medium) {
+      display: none;
+    }
+  }
+
+  &__pros-cons {
+    flex: 2;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__pros {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    li {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &::before {
+        content: "✓";
+        color: #16a34a;
+        font-weight: 700;
+        flex-shrink: 0;
+        font-size: 11px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        background-color: #dcfce7;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__crypto {
+    display: none;
+
+    @include breakpoint(medium) {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-100);
+    width: 100%;
+
+    @include breakpoint(medium) {
+      flex-shrink: 0;
+      width: 160px;
+    }
+
+    .button {
+      font-size: 14px;
+      padding-left: var(--size-300);
+      padding-right: var(--size-300);
+      white-space: nowrap;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.km-load-more-wrapper {
+  margin-top: var(--size-400);
+}
+
+.km-load-more {
+  gap: var(--size-100);
+  border-color: var(--color-primary-200) !important;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}

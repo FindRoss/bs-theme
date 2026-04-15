@@ -11,6 +11,7 @@ import SidebarMenu from "./modules/SidebarMenu";
 import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
+import TaxonomyLoadMore from "./modules/TaxonomyLoadMore";
 import ExpiryDates from "./modules/ExpiryDates";
 import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
@@ -52,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   desktopMenu();
+
+  new TaxonomyLoadMore();
 
   const swiper = new Swiper('.swiper-primary', {
     // Optional parameters

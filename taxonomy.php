@@ -14,7 +14,7 @@
   // Custom query
   $query = new WP_Query(array(
     'post_type'      => 'review',
-    'posts_per_page' => 12,
+    'posts_per_page' => 6,
     'paged'          => $paged,
     'orderby'        => 'meta_value_num',
     'meta_key'       => 'rank',
