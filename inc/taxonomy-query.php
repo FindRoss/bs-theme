@@ -26,7 +26,7 @@ function taxonomy_main_query($query, $term): void {
   </div>
 
   <?php if ($query->max_num_pages > 1) : ?>
-    <div class="km-load-more-wrapper">
+    <div class="km-load-more-wrapper mt-3">
       <button class="km-load-more button button__outline" data-page="2">
         <i data-feather="chevron-down"></i>
         <span>Load More</span>

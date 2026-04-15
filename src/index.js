@@ -54,7 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   desktopMenu();
 
-  new TaxonomyLoadMore();
+  if (document.querySelector('#km-card-list')) {
+    new TaxonomyLoadMore();
+  }
 
   const swiper = new Swiper('.swiper-primary', {
     // Optional parameters

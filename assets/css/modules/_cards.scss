@@ -1220,17 +1220,3 @@ section.articles-box {
     }
   }
 }
-
-.km-load-more-wrapper {
-  margin-top: var(--size-400);
-}
-
-.km-load-more {
-  gap: var(--size-100);
-  border-color: var(--color-primary-200) !important;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
