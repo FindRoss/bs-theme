@@ -162,6 +162,11 @@ $payment_terms  = $terms_by_tax['payment'] ?? [];
 $languages = $fields['languages'] ?? [];
 $support_channels = $support_group['channels'];
 
+// Pros & Cons
+$pros = get_field('pros', $review_id) ?: [];
+$cons = get_field('cons', $review_id) ?: [];
+$has_pros_cons = !empty($pros) || !empty($cons);
+
 // Faqs
 $faqs = get_review_faqs($review_id);
 $faqs_has_answers = false;
@@ -194,58 +199,89 @@ foreach ($faqs as $faq) {
     </section>
   <?php } ?>
 
-  <!-- Header -->
-  <header class="review-header">
-    <div class="review-header__logo">
-      <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo esc_attr($review_thumb_alt); ?>" width="500" height="250" fetchpriority="high">
-    </div>
-    <div class="review-header__info">
-      <h1><?php echo $name; ?> Review</h1>
-      <?php if (has_excerpt()) { ?>
-        <p class="excerpt"><?php echo get_the_excerpt(); ?></p>
-      <?php } ?>
-      <!-- get_template_part( 'template-parts/content/content-author' ); -->
-    </div>
-    <div class="review-header__cta">
+  <!-- Review layout: main content (left) + sticky CTA (right) -->
+  <div class="review-layout">
 
+    <div class="review-layout__main">
+
+      <!-- Header -->
+      <header class="review-header">
+        <div class="review-header__logo">
+          <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo esc_attr($review_thumb_alt); ?>" width="500" height="250" fetchpriority="high">
+        </div>
+        <div class="review-header__info">
+          <h1><?php echo $name; ?> Review</h1>
+        </div>
+      </header>
+
+      <!-- Mobile CTA — shown below header on mobile, hidden on desktop -->
       <?php if (!$closed && $link) { ?>
+      <div class="review-layout__cta-mobile">
         <div class="cta-box">
           <?php if ($bonus_title) { ?>
             <p><?php echo esc_html($bonus_title); ?></p>
           <?php } ?>
-           <?php if ($bonus_info) { ?>
+          <?php if ($bonus_info) { ?>
             <p><?php echo esc_html($bonus_info); ?></p>
           <?php } ?>
-           <?php if ($bonus_plus) { ?>
+          <?php if ($bonus_plus) { ?>
             <p><?php echo esc_html($bonus_plus); ?></p>
           <?php } ?>
           <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
         </div>
-      <?php }; ?>
-      
-    </div>
-  </header>
-
- 
-  <?php get_template_part('template-parts/review/review-info-boxes', null, [
-    'review_id' => $review_id,
-    'size'      => 'large',
-  ]); ?>
-
-  <section class="skye-section">
-    
-    <aside class="skye-section__sidebar">
-      <div class="term-boxes">
-        <?php echo terms_to_box($crypto_terms, 'Cryptocurrency', true); ?>
-        <?php echo terms_to_box($game_terms, 'Games', true); ?>
-        <?php echo terms_to_box($provider_terms, 'Providers', true); ?>
-        <?php echo terms_to_box($payment_terms, 'Payments', true); ?>
-        <?php echo terms_to_box($languages, 'Languages'); ?>
-        <?php echo terms_to_box($support_channels, 'Support'); ?>
       </div>
-    </aside>
+      <?php } ?>
 
-    <main class="skye-section__content">
+      <?php if ($homepageImg) : ?>
+        <figure class="homepage-image">
+          <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
+            <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
+          </a>
+          <?php if ($homepageImg_cap): ?>
+            <figcaption><?php echo $homepageImg_cap; ?></figcaption>
+          <?php endif; ?>
+        </figure>
+      <?php endif; ?>
+
+      <?php get_template_part('template-parts/review/review-tabs', null, [
+        'review_id' => $review_id,
+      ]); ?>
+
+      <?php if (has_excerpt() || $has_pros_cons) { ?>
+      <div class="review-top-section">
+        <div class="review-pros-cons">
+          <?php if (has_excerpt()) { ?>
+          <div class="review-pros-cons__section review-pros-cons__section--why">
+            <h3 class="review-pros-cons__title">Why play at <?php echo esc_html($name); ?></h3>
+            <p class="review-pros-cons__excerpt"><?php echo get_the_excerpt(); ?></p>
+          </div>
+          <?php } ?>
+          <?php if (!empty($pros)) { ?>
+          <div class="review-pros-cons__section review-pros-cons__section--pros">
+            <h3 class="review-pros-cons__title">Pros</h3>
+            <ul class="review-pros-cons__list review-pros-cons__list--pros">
+              <?php foreach ($pros as $pro) { ?>
+                <li><?php echo esc_html($pro['item']); ?></li>
+              <?php } ?>
+            </ul>
+          </div>
+          <?php } ?>
+          <?php if (!empty($cons)) { ?>
+          <div class="review-pros-cons__section review-pros-cons__section--cons">
+            <h3 class="review-pros-cons__title">Cons</h3>
+            <ul class="review-pros-cons__list review-pros-cons__list--cons">
+              <?php foreach ($cons as $con) { ?>
+                <li><?php echo esc_html($con['item']); ?></li>
+              <?php } ?>
+            </ul>
+          </div>
+          <?php } ?>
+        </div>
+      </div>
+      <?php } ?>
+
+      <section class="skye-section">
+        <main class="skye-section__content">
 
         <section class="content main--content mt-5">
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
@@ -285,25 +321,34 @@ foreach ($faqs as $faq) {
         </section>
 
 
-        <?php 
-        if ($homepageImg) { ?>
-          <section>
-            <figure class="homepage-image">
-              <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
-                <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
-              </a>
-              <?php if ($homepageImg_cap): ?>
-                <figcaption><?php echo $homepageImg_cap; ?></figcaption>
-              <?php endif; ?>
-            </figure>
-            </section>
-          <?php
-        }; ?>
-    </main>
-  </section> 
+        </main>
+      </section>
+
+
+    </div><!-- .review-layout__main -->
+
+    <!-- Desktop sticky CTA column — hidden on mobile (mobile uses .review-layout__cta-mobile above) -->
+    <aside class="review-layout__cta">
+      <?php if (!$closed && $link) { ?>
+        <div class="cta-box">
+          <?php if ($bonus_title) { ?>
+            <p><?php echo esc_html($bonus_title); ?></p>
+          <?php } ?>
+          <?php if ($bonus_info) { ?>
+            <p><?php echo esc_html($bonus_info); ?></p>
+          <?php } ?>
+          <?php if ($bonus_plus) { ?>
+            <p><?php echo esc_html($bonus_plus); ?></p>
+          <?php } ?>
+          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
+        </div>
+      <?php } ?>
+    </aside>
+
+  </div><!-- .review-layout -->
 
   <?php if ($site_posts_query->have_posts()) : ?>
-  <section class="mt-5 articles-box">
+  <section class="mt-5 articles-box" id="review-end-sentinel">
     <h2 class="title h3">Read more about <?php echo $name; ?></h2>
     <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post();
        get_template_part('template-parts/card/card', 'chengdu');
@@ -329,5 +374,18 @@ foreach ($faqs as $faq) {
   )); ?>
 
 </div><!-- .container -->
+
+<?php if (!$closed && $link) { ?>
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta__inner container">
+    <div class="sticky-cta__info">
+      <?php if ($bonus_info) echo '<span>' . esc_html($bonus_info) . '</span>'; ?>
+    </div>
+    <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
+      Visit <?php echo esc_attr($name); ?>
+    </a>
+  </div>
+</div>
+<?php } ?>
 
 <?php get_footer(); ?>
