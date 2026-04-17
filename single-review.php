@@ -190,7 +190,7 @@ foreach ($faqs as $faq) {
   <?php if ($closed) { ?>
     <section class="section-closed">
       <div>
-        <h2 class="h3">🚩<?php echo $name; ?> is now closed</h2>
+        <h2>🚩<?php echo $name; ?> is now closed</h2>
         <p>Explore our reviews of <a href="https://bitcoinchaser.com/sites/casino/">popular crypto casinos</a> or <a href="https://bitcoinchaser.com/sites/sports/">sports betting sites</a> you might enjoy.</p>
         <?php if ($more_sites->have_posts()) :
           outputNewSlideHTML(array('query' => $more_sites));
@@ -288,34 +288,20 @@ foreach ($faqs as $faq) {
           the_content();
 
           foreach ($content as $key => $value) { ?>
-            <div class="content-dropdown">
-              <div class="content-dropdown__controls">
-                <h2 class="h3 title"><?php echo $key; ?></h2>
-                <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
-              </div>
-              <div class="content-dropdown__content">
-                <?php echo $value; ?>
-              </div>
-            </div>
+            <h2><?php echo $key; ?></h2>
+            <?php echo $value; ?>
           <?php } ?>
 
           <?php if ($faqs_has_answers) { ?>
-            <div class="content-dropdown main--content">
-              <div class="content-dropdown__controls">
-                <h2 class="title">FAQs</h2>
-                <button class="round-icon"><?php echo get_svg_icon('chevron-down'); ?></button>
-              </div>
-              <div class="content-dropdown__content">
-                <?php foreach ($faqs as $faq) { ?>
-                  <?php if ($faq['answer']) : ?>
-                    <div>
-                      <h3><?php echo $faq['question']; ?></h3>
-                      <div><?php echo wpautop($faq['answer']); ?></div>
-                    </div>
-                  <?php endif; ?>
-                <?php } ?>
-              </div>
-            </div>
+            <h2>FAQs</h2>
+            <?php foreach ($faqs as $faq) { ?>
+              <?php if ($faq['answer']) : ?>
+                <div>
+                  <h3><?php echo $faq['question']; ?></h3>
+                  <div><?php echo wpautop($faq['answer']); ?></div>
+                </div>
+              <?php endif; ?>
+            <?php } ?>
           <?php } ?>
 
         </section>
