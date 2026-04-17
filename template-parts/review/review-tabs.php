@@ -142,13 +142,11 @@ $first_key = array_key_first($tabs);
             <?php foreach ($tab['rows'] as $row) :
               if ($row['type'] === 'taxonomy') : ?>
                 <tr class="review-table__row review-table__row--taxonomy">
-                  <th colspan="2" scope="rowgroup">
+                  <th scope="row">
                     <span class="review-info-boxes__label-icon"><i data-feather="<?php echo esc_attr($row['icon']); ?>"></i></span>
                     <?php echo esc_html($row['label']); ?>
                   </th>
-                </tr>
-                <tr class="review-table__row review-table__row--taxonomy-values">
-                  <td colspan="2"><?php echo $row['value']; ?></td>
+                  <td><?php echo $row['value']; ?></td>
                 </tr>
               <?php else : ?>
                 <tr class="review-table__row">

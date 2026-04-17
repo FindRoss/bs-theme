@@ -211,6 +211,7 @@ foreach ($faqs as $faq) {
         </div>
         <div class="review-header__info">
           <h1><?php echo $name; ?> Review</h1>
+          <?php get_template_part('template-parts/content/content-author'); ?>
         </div>
       </header>
 
@@ -219,29 +220,18 @@ foreach ($faqs as $faq) {
       <div class="review-layout__cta-mobile">
         <div class="cta-box">
           <?php if ($bonus_title) { ?>
-            <p><?php echo esc_html($bonus_title); ?></p>
+            <p class="cta-box__title"><span><?php echo esc_html($bonus_title); ?></span></p>
           <?php } ?>
-          <?php if ($bonus_info) { ?>
-            <p><?php echo esc_html($bonus_info); ?></p>
-          <?php } ?>
-          <?php if ($bonus_plus) { ?>
-            <p><?php echo esc_html($bonus_plus); ?></p>
+          <?php if ($bonus_info || $bonus_plus) { ?>
+            <p class="cta-box__offer">
+              <?php if ($bonus_info) { ?><span class="cta-box__info"><?php echo esc_html($bonus_info); ?></span><?php } ?>
+              <?php if ($bonus_plus) { ?><span class="cta-box__plus"><?php echo esc_html($bonus_plus); ?></span><?php } ?>
+            </p>
           <?php } ?>
           <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
         </div>
       </div>
       <?php } ?>
-
-      <?php if ($homepageImg) : ?>
-        <figure class="homepage-image">
-          <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
-            <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
-          </a>
-          <?php if ($homepageImg_cap): ?>
-            <figcaption><?php echo $homepageImg_cap; ?></figcaption>
-          <?php endif; ?>
-        </figure>
-      <?php endif; ?>
 
       <?php get_template_part('template-parts/review/review-tabs', null, [
         'review_id' => $review_id,
@@ -279,6 +269,17 @@ foreach ($faqs as $faq) {
         </div>
       </div>
       <?php } ?>
+
+      <?php if ($homepageImg) : ?>
+        <figure class="homepage-image">
+          <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
+            <img src="<?php echo $homepageImg_url; ?>" alt="<?php echo $homepageImg_alt; ?>" width="1000" height="600" loading="lazy">
+          </a>
+          <?php if ($homepageImg_cap): ?>
+            <figcaption><?php echo $homepageImg_cap; ?></figcaption>
+          <?php endif; ?>
+        </figure>
+      <?php endif; ?>
 
       <section class="skye-section">
         <main class="skye-section__content">
@@ -318,13 +319,13 @@ foreach ($faqs as $faq) {
       <?php if (!$closed && $link) { ?>
         <div class="cta-box">
           <?php if ($bonus_title) { ?>
-            <p><?php echo esc_html($bonus_title); ?></p>
+            <p class="cta-box__title"><span><?php echo esc_html($bonus_title); ?></span></p>
           <?php } ?>
-          <?php if ($bonus_info) { ?>
-            <p><?php echo esc_html($bonus_info); ?></p>
-          <?php } ?>
-          <?php if ($bonus_plus) { ?>
-            <p><?php echo esc_html($bonus_plus); ?></p>
+          <?php if ($bonus_info || $bonus_plus) { ?>
+            <p class="cta-box__offer">
+              <?php if ($bonus_info) { ?><span class="cta-box__info"><?php echo esc_html($bonus_info); ?></span><?php } ?>
+              <?php if ($bonus_plus) { ?><span class="cta-box__plus"><?php echo esc_html($bonus_plus); ?></span><?php } ?>
+            </p>
           <?php } ?>
           <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
         </div>
