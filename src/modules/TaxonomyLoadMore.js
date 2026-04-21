@@ -11,6 +11,7 @@ class TaxonomyLoadMore {
     this.taxonomy   = this.cardList.dataset.taxonomy;
     this.term       = this.cardList.dataset.term;
     this.totalPages = parseInt(this.cardList.dataset.totalPages, 10);
+    this.endpoint   = this.cardList.dataset.endpoint || 'chaser/v2/reviews';
     this.origin     = window.location.origin;
 
     this.button.addEventListener('click', () => this.handleClick());
@@ -29,7 +30,7 @@ class TaxonomyLoadMore {
         page,
       });
 
-      const response = await fetch(`${this.origin}/wp-json/chaser/v2/reviews?${params.toString()}`);
+      const response = await fetch(`${this.origin}/wp-json/${this.endpoint}?${params.toString()}`);
       const data = await response.json();
       const { html, currentPage, totalPages } = data;
 
