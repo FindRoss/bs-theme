@@ -38,12 +38,13 @@ if (empty($merged_bonuses)) {
   $query = null; 
 } else {
   $query = new WP_Query(array(
-    'post_type'  => 'bonus',
-    'paged'      => $paged,
-    'post__in'   => $merged_bonuses,
-    'orderby'    => 'post__in',
-    'meta_query' => bonus_expired_meta_query()
-  )); 
+    'post_type'      => 'bonus',
+    'posts_per_page' => 6,
+    'paged'          => $paged,
+    'post__in'       => $merged_bonuses,
+    'orderby'        => 'post__in',
+    'meta_query'     => bonus_expired_meta_query()
+  ));
 };
 
 $title_output = '';
@@ -78,26 +79,35 @@ switch($term_name) {
     </section>
 
     <!-- MAIN QUERY -->
-    <section class="perthshire-section">
-      <?php 
-        if ($query && $query->have_posts()) : 
-          while ($query->have_posts()) : $query->the_post();     
-            get_template_part('template-parts/card/card', 'shanghai');
-          endwhile; 
-          wp_reset_postdata();
-        else : ?>
+    <section>
+      <div id="km-card-list"
+        class="mt-4 flex flex-col gap-3"
+        data-term="<?php echo esc_attr($term_slug); ?>"
+        data-taxonomy="<?php echo esc_attr($taxonomy); ?>"
+        data-total-pages="<?php echo esc_attr($query ? $query->max_num_pages : 0); ?>"
+        data-endpoint="chaser/v2/bonuses"
+      >
+        <?php if ($query && $query->have_posts()) : ?>
+          <?php while ($query->have_posts()) : $query->the_post(); ?>
+            <?php get_template_part('template-parts/card/card', 'suzhou'); ?>
+          <?php endwhile; wp_reset_postdata(); ?>
+        <?php else : ?>
           <div class="p-2 bg-white border-radius mt-4 border-top" style="font-size: 18px;">
-            <p>There are currently <strong>no <?php echo $term_name; ?> bonuses available</strong>.</p> 
+            <p>There are currently <strong>no <?php echo esc_html($term_name); ?> bonuses available</strong>.</p>
             <p>Please explore the <a href="/bonuses/">other bonuses</a> we have currently listed.</p>
           </div>
         <?php endif; ?>
-      </section><!-- .perthshire-section --> 
+      </div>
 
-      <?php if (!empty($merged_bonuses)) {
-        get_template_part('template-parts/content/content', 'pagination', array('query' => $query));
-      }; ?>
-
-
+      <?php if ($query && $query->max_num_pages > 1) : ?>
+        <div class="km-load-more-wrapper mt-3">
+          <button class="km-load-more button button__outline" data-page="2">
+            <i data-feather="chevron-down"></i>
+            <span>Load More</span>
+          </button>
+        </div>
+      <?php endif; ?>
+    </section>
 
     <!-- MAIN CONTENT -->
     <?php if ($paged == 1) : ?>

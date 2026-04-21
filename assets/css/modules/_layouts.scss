@@ -129,22 +129,6 @@
 	}
 }
 
-.perthshire-section {
-	display: grid;
-	gap: var(--size-500);
-	grid-template-columns: 1fr;
-	margin-top: var(--size-600);
-
-	@include breakpoint(medium) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@include breakpoint(large) {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-
 .aberdeenshire-section {
 	display: grid;
 	gap: var(--size-500);

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     singleReview();
   }
 
-  if (document.querySelector('.card-kunming')) {
+  if (document.querySelector('.card-kunming, .card-suzhou')) {
     kunmingCard();
   }
 
