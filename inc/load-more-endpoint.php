@@ -136,3 +136,63 @@ function km_load_more_callback($data) {
     'totalPages'  => (int) $query->max_num_pages,
   );
 }
+
+function km_review_search_endpoint() {
+  register_rest_route('chaser/v2', 'reviews/search', array(
+    'methods'             => 'GET',
+    'callback'            => 'km_review_search_callback',
+    'permission_callback' => '__return_true',
+  ));
+}
+add_action('rest_api_init', 'km_review_search_endpoint');
+
+function km_review_search_callback($data) {
+  $q           = sanitize_text_field($data['q'] ?? '');
+  $review_type = sanitize_key($data['review_type'] ?? '');
+
+  $args = array(
+    'post_type'      => 'review',
+    'posts_per_page' => -1,
+    'orderby'        => 'meta_value_num',
+    'meta_key'       => 'rank',
+    'order'          => 'ASC',
+    'meta_query'     => array(
+      array(
+        'key'     => 'details_group_closed',
+        'value'   => '1',
+        'compare' => 'NOT LIKE'
+      ),
+    ),
+  );
+
+  if (!empty($q)) {
+    $args['s'] = $q;
+  }
+
+  if (!empty($review_type)) {
+    $args['tax_query'] = array(
+      array(
+        'taxonomy' => 'review_type',
+        'field'    => 'slug',
+        'terms'    => $review_type,
+      ),
+    );
+  }
+
+  $query = new WP_Query($args);
+
+  ob_start();
+  if ($query->have_posts()) {
+    while ($query->have_posts()) {
+      $query->the_post();
+      get_template_part('template-parts/card/card', 'kunming');
+    }
+    wp_reset_postdata();
+  }
+  $html = ob_get_clean();
+
+  return array(
+    'html'  => $html,
+    'count' => $query->found_posts,
+  );
+}

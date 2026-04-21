@@ -11,8 +11,8 @@ function taxonomy_main_query($query, $term): void {
   <div
     id="km-card-list"
     class="mt-4 flex flex-col gap-3"
-    data-term="<?php echo esc_attr($term->slug); ?>"
-    data-taxonomy="<?php echo esc_attr($term->taxonomy); ?>"
+    data-term="<?php echo $term ? esc_attr($term->slug) : ''; ?>"
+    data-taxonomy="<?php echo $term ? esc_attr($term->taxonomy) : ''; ?>"
     data-total-pages="<?php echo esc_attr($query->max_num_pages); ?>"
   >
     <?php if ( $query->have_posts() ) :

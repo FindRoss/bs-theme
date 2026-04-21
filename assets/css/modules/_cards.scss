@@ -1380,6 +1380,7 @@ section.articles-box {
 
   &__exclusive-pill {
     display: inline-flex;
+    align-self: flex-start;
     align-items: center;
     gap: 5px;
     background-color: var(--color-primary-50);
