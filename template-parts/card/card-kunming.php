@@ -25,15 +25,20 @@
   <div class="card-kunming__main">
 
     <div class="card-kunming__media">
-      <div class="km-card-bg-color" style="background-color: <?php echo esc_attr($siteColor); ?>">
-        <img
-          src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo')); ?>"
-          width="90" height="52"
-          alt="<?php echo esc_attr($name . ' logo'); ?>"
-          aria-hidden="true"
-          <?php echo $exclude_lazyload ? 'class="exclude-lazyload"' : ''; ?>
-        >
-      </div>
+      <?php if ($link) : ?>
+      <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
+      <?php endif; ?>
+        <div class="km-card-bg-color" style="background-color: <?php echo esc_attr($siteColor); ?>">
+          <img
+            src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'site-small-logo')); ?>"
+            width="90" height="52"
+            alt="<?php echo esc_attr($name . ' logo'); ?>"
+            <?php echo $exclude_lazyload ? 'class="exclude-lazyload"' : ''; ?>
+          >
+        </div>
+      <?php if ($link) : ?>
+      </a>
+      <?php endif; ?>
     </div>
 
     <div class="card-kunming__bonus">

@@ -129,6 +129,12 @@ h6 {
     font-size: clamp(1.09rem, 0.95rem + 0.45vw, 1.2rem);
   }
 
+  hr {
+    margin: var(--size-700) 0;
+    border: none;
+    border-top: 2px solid var(--color-muted-200);
+  }
+
   a {
     &:not(.btn):not(.button):not(.tax-pill__link):not(.custom-card-link):not(.img-link) {
       text-decoration: none;
