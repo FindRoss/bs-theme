@@ -6,8 +6,8 @@ import "../assets/css/style.scss";
 // import '../assets/css/message.scss';
 // import '../assets/css/404.scss';
 
-// import CardFocus from "./modules/CardFocus";
 import SidebarMenu from "./modules/SidebarMenu";
+import ArchiveReview from "./modules/ArchiveReview";
 import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
@@ -61,6 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('#km-card-list')) {
     new TaxonomyLoadMore();
+  }
+
+  if (document.querySelector('#review-search')) {
+    new ArchiveReview();
   }
 
   const swiper = new Swiper('.swiper-primary', {
