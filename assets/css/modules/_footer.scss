@@ -8,12 +8,36 @@ footer {
 
     .menu-item {
       margin-top: var(--size-300);
+
+      a {
+        color: var(--color-link);
+        text-decoration: none;
+        font-size: 0.9rem;
+
+        &:hover { color: var(--color-link-hover); }
+      }
     }
   }
 
+  .footer-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   .footer-social-icons {
     display: flex;
     gap: 1rem;
+  }
+
+  .footer-col__heading {
+    margin-bottom: var(--size-300);
+  }
+
+  @media (max-width: 575px) {
+    .footer-col {
+      border-bottom: 1px dashed var(--color-muted-200);
+      padding-bottom: var(--size-400);
+    }
   }
 }
