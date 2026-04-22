@@ -149,10 +149,13 @@ add_action('rest_api_init', 'km_review_search_endpoint');
 function km_review_search_callback($data) {
   $q           = sanitize_text_field($data['q'] ?? '');
   $review_type = sanitize_key($data['review_type'] ?? '');
+  $page        = !empty($data['page'])     ? absint($data['page'])     : 1;
+  $per_page    = !empty($data['per_page']) ? absint($data['per_page']) : 12;
 
   $args = array(
     'post_type'      => 'review',
-    'posts_per_page' => -1,
+    'posts_per_page' => $per_page,
+    'paged'          => $page,
     'orderby'        => 'meta_value_num',
     'meta_key'       => 'rank',
     'order'          => 'ASC',
@@ -191,8 +194,30 @@ function km_review_search_callback($data) {
   }
   $html = ob_get_clean();
 
+  $total_pages    = (int) $query->max_num_pages;
+  $pagination_html = '';
+
+  if ($total_pages > 1) {
+    $links = paginate_links(array(
+      'base'      => '?paged=%#%',
+      'format'    => '',
+      'current'   => $page,
+      'total'     => $total_pages,
+      'prev_text' => '&lt;',
+      'next_text' => '&gt;',
+      'type'      => 'array',
+    ));
+
+    if ($links) {
+      $pagination_html = '<div class="custom-pagination py-3"><div class="nav-links">' . implode('', $links) . '</div></div>';
+    }
+  }
+
   return array(
-    'html'  => $html,
-    'count' => $query->found_posts,
+    'html'           => $html,
+    'count'          => $query->found_posts,
+    'currentPage'    => $page,
+    'totalPages'     => $total_pages,
+    'paginationHtml' => $pagination_html,
   );
 }
