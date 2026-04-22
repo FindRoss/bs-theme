@@ -1,330 +1,434 @@
-// New York Times: https://www.nytimes.com/search?dropmab=false&query=asd&sort=best
+import feather from 'feather-icons';
 
-class SearchResultsNew {
+class SearchResults {
   constructor() {
-    this.query = '';
-    this.type = 'all';
-    this.order = 'DESC'
-    this.orderby = 'relevance';
-    this.postType = 'all';
-    this.page = 1;
-    this.websiteUrl = new URL(window.location.href);
-    this.resultsCount = 0;
-    this.resultsCountEl = document.getElementById('search-results-count-container');
-    this.resultsContainer = document.getElementById('search-results-container');
-    this.paginationContainer = document.getElementById('search-pagination-container');
-    this.spinner = document.getElementById('spinner');
-    this.form = document.getElementById('searchForm');
-    this.input = this.form.querySelector('input[id="searchInput"]');
-    this.select = document.getElementById('searchSelect');
-    this.allCheckboxes = document.querySelectorAll('.form-check-input');
-
-    this.applyFilterBtns = document.querySelectorAll('#filterApplyBtn');
-    this.filterResetBtns = document.querySelectorAll('#filterResetBtn');
-    this.filterCountEl = document.querySelector('.filter-count');
-    this.filterCount = 0;
-    this.filterDesktopWrapper = document.querySelector('.desktop-filter');
-    this.sortResultsWrapper = document.querySelector('.search-sort-by');
-    this.init();
-  }
-
-  // Initialize the component
-  init() {
-    const searchQuery = this.getQueryParam('s');
-
-    if (!searchQuery) {
-      this.hideLoader();
-      this.paintNoResults();
-      return;
+    this.state = {
+      term:   '',
+      types:  new Set(),
+      date:   'anytime',
+      topics: new Set(),
+      sort:   'relevance',
+      page:   1,
     };
 
-    this.query = this.sanitizeInput(searchQuery);
+    this.els = {
+      input:          document.getElementById('searchInput'),
+      form:           document.getElementById('searchForm'),
+      resultCount:    document.getElementById('searchResultCount'),
+      resultsContainer: document.getElementById('searchResultsContainer'),
+      pagination:     document.getElementById('searchPaginationContainer'),
+      spinner:        document.getElementById('spinner'),
+      activeFilters:  document.getElementById('activeFilters'),
+      activeStrip:    document.getElementById('activeChipsStrip'),
+      filterBadge:    document.getElementById('filterBadge'),
+      filterOpenBtn:  document.getElementById('filterOpenBtn'),
+      filterCloseBtn: document.getElementById('filterCloseBtn'),
+      filterApplyBtn: document.getElementById('filterApplyBtn'),
+      filterResetBtn: document.getElementById('filterResetBtn'),
+      filterBackdrop: document.getElementById('filterBackdrop'),
+      filterAside:    document.getElementById('searchFilter'),
+      sortChip:       document.getElementById('sortChip'),
+      sortDropdown:   document.getElementById('sortDropdown'),
+      clearAll:       document.getElementById('clearAllFilters'),
+    };
 
-    this.input.value = this.query;
+    this.hydrateFromUrl();
+    this.syncInputDisplay();
+    this.bindEvents();
 
-    this.fetchSearchResults();
-
-    this.input.addEventListener('input', (event) => this.handleInputChange(event));
-    this.form.addEventListener('submit', (event) => this.handleFormSubmit(event));
-    this.select.addEventListener('change', (event) => this.handleSelectChange(event));
-    [...this.applyFilterBtns].map(btn => btn.addEventListener('click', () => this.handleFilterApply()));
-    [...this.filterResetBtns].map(btn => btn.addEventListener('click', () => this.resetAllFilters()));
-    [...this.allCheckboxes].map(checkbox => checkbox.addEventListener('change', () => this.syncCheckboxes(checkbox)));
+    if (this.state.term) {
+      this.fetch();
+    } else {
+      this.hideSpinner();
+      this.renderEmpty();
+    }
   }
 
-  syncCheckboxes(changedCheckbox) {
+  // ── URL / State ─────────────────────────────────────────────────────────────
 
-    // Find all checkboxes with the same value
-    const checkboxesToSync = document.querySelectorAll(`.form-check-input[value="${changedCheckbox.value}"]`);
+  hydrateFromUrl() {
+    const p = new URLSearchParams(window.location.search);
+    this.state.term = this.sanitize(p.get('s') || '');
 
-    // Update their state to match the changed checkbox
-    checkboxesToSync.forEach(checkbox => {
-      if (checkbox !== changedCheckbox) {
-        checkbox.checked = changedCheckbox.checked;
+    const types = p.getAll('types[]');
+    this.state.types = new Set(types.filter(t => ['post','review','bonus','streamer'].includes(t)));
+
+    const date = p.get('date');
+    this.state.date = ['anytime','last_month','last_year'].includes(date) ? date : 'anytime';
+
+    const topics = p.getAll('topics[]');
+    this.state.topics = new Set(topics);
+
+    const sort = p.get('sort');
+    this.state.sort = ['relevance','newest','oldest'].includes(sort) ? sort : 'relevance';
+
+    this.state.page = Math.max(1, parseInt(p.get('page') || '1', 10) || 1);
+  }
+
+  pushUrl() {
+    const p = new URLSearchParams();
+    if (this.state.term) p.set('s', this.state.term);
+    this.state.types.forEach(t => p.append('types[]', t));
+    if (this.state.date !== 'anytime') p.set('date', this.state.date);
+    this.state.topics.forEach(t => p.append('topics[]', t));
+    if (this.state.sort !== 'relevance') p.set('sort', this.state.sort);
+    if (this.state.page > 1) p.set('page', this.state.page);
+    window.history.pushState({}, '', `?${p.toString()}`);
+  }
+
+  syncInputDisplay() {
+    if (this.els.input) this.els.input.value = this.state.term;
+  }
+
+  // ── Events ──────────────────────────────────────────────────────────────────
+
+  bindEvents() {
+    // Search form
+    this.els.form?.addEventListener('submit', e => {
+      e.preventDefault();
+      const val = this.sanitize(this.els.input.value.trim());
+      if (!val) return;
+      this.state.term = val;
+      this.state.page = 1;
+      this.pushUrl();
+      this.refetch();
+    });
+
+    // Type filter rows
+    document.querySelectorAll('[data-filter-type="type"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.dataset.value;
+        this.state.types.has(val) ? this.state.types.delete(val) : this.state.types.add(val);
+        this.state.page = 1;
+        this.pushUrl();
+        this.refetch();
+      });
+    });
+
+    // Date filter rows
+    document.querySelectorAll('[data-filter-type="date"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.state.date = btn.dataset.value;
+        this.state.page = 1;
+        this.pushUrl();
+        this.refetch();
+      });
+    });
+
+    // Sort chip + dropdown
+    this.els.sortChip?.addEventListener('click', e => {
+      e.stopPropagation();
+      this.els.sortDropdown?.classList.toggle('d-none');
+    });
+
+    this.els.sortDropdown?.querySelectorAll('[data-sort]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.state.sort = btn.dataset.sort;
+        this.state.page = 1;
+        this.pushUrl();
+        this.updateSortChip();
+        this.els.sortDropdown.classList.add('d-none');
+        this.refetch();
+      });
+    });
+
+    // Clear all
+    this.els.clearAll?.addEventListener('click', () => {
+      this.state.types  = new Set();
+      this.state.date   = 'anytime';
+      this.state.topics = new Set();
+      this.state.page   = 1;
+      this.pushUrl();
+      this.refetch();
+    });
+
+    // Mobile drawer open/close
+    this.els.filterOpenBtn?.addEventListener('click',    () => this.openDrawer());
+    this.els.filterCloseBtn?.addEventListener('click',   () => this.closeDrawer());
+    this.els.filterBackdrop?.addEventListener('click',   () => this.closeDrawer());
+    this.els.filterApplyBtn?.addEventListener('click',   () => this.closeDrawer());
+    this.els.filterResetBtn?.addEventListener('click',   () => {
+      this.state.types  = new Set();
+      this.state.date   = 'anytime';
+      this.state.topics = new Set();
+      this.state.page   = 1;
+      this.pushUrl();
+      this.updateFilterUI({});
+      this.closeDrawer();
+      this.refetch();
+    });
+
+    // Close dropdown on outside click / ESC
+    document.addEventListener('click', () => this.els.sortDropdown?.classList.add('d-none'));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        this.closeDrawer();
+        this.els.sortDropdown?.classList.add('d-none');
       }
     });
   }
 
-
-  resetAllFilters() {
-    const checkboxes = document.querySelectorAll('.form-check-input');
-    checkboxes.forEach(checkbox => checkbox.checked = false);
-    this.filterCount = 0;
-    this.updateFilterCount();
+  openDrawer() {
+    this.els.filterAside?.classList.add('is-open');
+    this.els.filterBackdrop?.classList.remove('d-none');
+    document.body.classList.add('no-scroll');
   }
 
+  closeDrawer() {
+    this.els.filterAside?.classList.remove('is-open');
+    this.els.filterBackdrop?.classList.add('d-none');
+    document.body.classList.remove('no-scroll');
+  }
 
-  handleFilterApply() {
-    const checkboxes = document.querySelectorAll('.checkboxes'); // Select all checkbox containers
+  // ── Fetch ────────────────────────────────────────────────────────────────────
 
-    [...checkboxes].forEach(checkbox => {
-      const type = checkbox.getAttribute('data-checkbox-type'); // Get the type (e.g., 'postType')
-      const checks = checkbox.querySelectorAll('.form-check-input'); // Select all checkboxes inside
-
-      const allCheckedItems = [...checks] // Convert NodeList to Array
-        .filter(check => check.checked) // Filter only checked checkboxes
-        .map(check => check.value); // Map their values
-
-      this.filterCount = allCheckedItems.length;
-
-      if (type === 'postType') {
-        this.type = allCheckedItems.length > 0 ? `[${allCheckedItems.map(item => `"${item}"`).join(', ')}]` : 'all'; // Add checked items or default to 'all'
-      } // else if (type == 'crypto')
-    });
-
-    this.page = 1;
+  refetch() {
     this.clearResults();
-    this.fetchSearchResults();
-    this.updateFilterCount();
+    this.fetch();
   }
 
-  updateFilterCount() {
-    if (this.filterCount == 0) {
-      this.filterCountEl.classList.add('d-none');
+  buildParams() {
+    const sortMap = {
+      relevance: { order: 'DESC', orderby: 'relevance' },
+      newest:    { order: 'DESC', orderby: 'date' },
+      oldest:    { order: 'ASC',  orderby: 'date' },
+    };
+    const { order, orderby } = sortMap[this.state.sort] || sortMap.relevance;
+    const typesArr  = this.state.types.size  ? JSON.stringify([...this.state.types])  : 'all';
+    const topicsArr = JSON.stringify([...this.state.topics]);
+    return new URLSearchParams({ term: this.state.term, types: typesArr, date: this.state.date, topics: topicsArr, order, orderby, page: this.state.page });
+  }
+
+  async fetch() {
+    this.showSpinner();
+    try {
+      const res  = await fetch(`${location.origin}/wp-json/chaser/v2/search?${this.buildParams()}`);
+      const data = await res.json();
+      const { terms, results, counts, currentPage, totalPages, totalPosts } = data;
+
+      this.state.page = currentPage;
+      this.updateFilterUI(counts);
+      this.updateSortChip();
+
+      if (results.length > 0 || terms.length > 0) {
+        this.renderTermCards(terms);
+        this.renderResults(results, true);
+        this.renderCount(totalPosts);
+        this.renderPagination(currentPage, totalPages);
+      } else {
+        this.renderCount(0);
+        this.renderEmpty();
+      }
+    } catch (_) {
+      this.renderEmpty();
+    } finally {
+      this.hideSpinner();
+    }
+  }
+
+  async fetchMore() {
+    this.state.page++;
+    this.showSpinner();
+    try {
+      const res  = await fetch(`${location.origin}/wp-json/chaser/v2/search?${this.buildParams()}`);
+      const data = await res.json();
+      this.renderResults(data.results, false);
+      this.renderPagination(data.currentPage, data.totalPages);
+    } catch (_) {
+      // noop
+    } finally {
+      this.hideSpinner();
+    }
+  }
+
+  // ── Render ───────────────────────────────────────────────────────────────────
+
+  renderTermCards(terms) {
+    const existing = document.getElementById('topicResultsSection');
+    if (existing) existing.remove();
+    if (!terms || !terms.length) return;
+
+    const cards = terms.map(t => `
+      <div class="result-card">
+        <a class="result-card__link" href="${t.link}">
+          <div class="result-thumb">
+            ${t.image ? `<img src="${t.image}" alt="" width="110" height="76" loading="lazy">` : '<div class="result-thumb-placeholder"></div>'}
+          </div>
+          <div class="result-body">
+            <span class="result-pill result-pill--topic">Topic</span>
+            <div class="result-title">${t.title}</div>
+            <div class="result-excerpt">Browse all Reviews tagged ${t.title}</div>
+          </div>
+        </a>
+      </div>
+      <div class="result-divider"></div>`).join('');
+
+    const section = document.createElement('div');
+    section.id = 'topicResultsSection';
+    section.innerHTML = cards;
+    this.els.resultsContainer.before(section);
+  }
+
+  renderResults(results, replace) {
+    const html = results.map(r => this.cardHTML(r)).join('');
+    if (replace) {
+      this.els.resultsContainer.innerHTML = html;
     } else {
-      this.filterCountEl.classList.remove('d-none');
-    };
-
-    this.filterCountEl.textContent = this.filterCount;
+      this.els.resultsContainer.insertAdjacentHTML('beforeend', html);
+    }
   }
 
+  cardHTML(r) {
+    const isBonus = r.postType === 'bonus';
+    const thumb = r.image
+      ? `<img src="${r.image}" alt="" width="110" height="76" loading="lazy">`
+      : `<div class="result-thumb-placeholder"></div>`;
+    const pill = `<span class="result-pill result-pill--${r.postType}">${r.label || r.postType}</span>`;
+    const cardClass = isBonus ? 'result-card result-card--bonus' : 'result-card';
 
-
-  handleInputChange(event) {
-    const input = event.target.value;
-    if (!input) return;
-    this.query = input;
+    return `
+      <div class="${cardClass}">
+        <a class="result-card__link" href="${r.link}">
+          <div class="result-thumb">${thumb}</div>
+          <div class="result-body">
+            ${pill}
+            <div class="result-title">${r.title}</div>
+            ${r.excerpt ? `<div class="result-excerpt">${r.excerpt}</div>` : ''}
+          </div>
+        </a>
+      </div>
+      <div class="result-divider"></div>`;
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault();
-
-    if (this.query == '') return;
-
-    const url = new URL(window.location);
-    url.searchParams.set('s', this.query); // Update or add a query parameter
-    window.history.pushState({}, '', url); // Push the updated URL to the browser history
-
-    this.page = 1;
-    this.clearResults();
-    this.fetchSearchResults();
+  renderCount(total) {
+    if (this.els.resultCount) {
+      this.els.resultCount.textContent = total > 0 ? `${total} results` : '';
+    }
   }
 
-  handleSelectChange(event) {
-    switch (event.target.value) {
-      case 'date_desc':
-        this.order = 'DESC';
-        this.orderby = 'date';
-        break;
-      case 'date_asc':
-        this.order = 'ASC';
-        this.orderby = 'date';
-        break;
-      default:
-        this.order = 'DESC';
-        this.orderby = 'relevance';
-        break;
-    };
+  renderEmpty() {
+    this.els.resultsContainer.innerHTML = `
+      <div class="search-empty">
+        <div class="search-empty__eyebrow">NO RESULTS FOR</div>
+        <div class="search-empty__query">"${this.state.term}"</div>
+        <p class="search-empty__note">Couldn't find anything matching your search.</p>
+      </div>`;
+    this.els.pagination.innerHTML = '';
+  }
 
-    this.page = 1;
-    this.clearResults();
-    this.fetchSearchResults();
+  renderPagination(page, totalPages) {
+    if (!totalPages || page >= totalPages) { this.els.pagination.innerHTML = ''; return; }
+    const wrap = document.createElement('div');
+    wrap.className = 'd-flex justify-content-center';
+    const btn = document.createElement('button');
+    btn.className = 'button button__primary';
+    btn.textContent = 'Load More';
+    btn.addEventListener('click', async () => {
+      btn.textContent = 'Loading…';
+      btn.disabled = true;
+      await this.fetchMore();
+    });
+    wrap.appendChild(btn);
+    this.els.pagination.replaceChildren(wrap);
   }
 
   clearResults() {
-    this.resultsCountEl.innerHTML = "";
-    this.resultsContainer.innerHTML = "";
-    this.paginationContainer.innerHTML = "";
+    this.els.resultsContainer.innerHTML = '';
+    this.els.pagination.innerHTML = '';
+    if (this.els.resultCount) this.els.resultCount.textContent = '';
   }
 
-  // Get query parameter by name
-  getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  }
+  // ── Filter UI ────────────────────────────────────────────────────────────────
 
-  sanitizeInput(input) {
-    input = input.replace(/[\\"'&<>]/g, ''); // Remove dangerous characters
-    input = input.replace(/[^a-zA-Z0-9 _.-]/g, ''); // Allow only alphanumeric, spaces, hyphens, underscores, periods
-    return input;
-  }
-
-
-  async fetchSearchResults() {
-    try {
-      this.showLoader();
-
-      const params = new URLSearchParams({
-        term: this.query,
-        type: this.type,
-        page: this.page,
-        order: this.order,
-        orderby: this.orderby,
-      });
-
-      const response = await fetch(`${this.websiteUrl.origin}/wp-json/chaser/v2/search?${params.toString()}`);
-      const data = await response.json();
-
-      const { terms, results, currentPage, totalPages, totalPosts } = data;
-
-      this.page = currentPage;
-
-      if (results.length > 0) {
-        this.showInputElements();
-        this.paintResults(results, terms);
-        this.paintCount(totalPosts);
-        this.paintPagination(currentPage, totalPages);
-      } else {
-        this.hideInputElements();
-        this.paintNoResults();
-      }
-    } catch (error) {
-      this.hideInputElements();
-      this.paintNoResults();
-    } finally {
-      this.hideLoader();
-    }
-  }
-
-  paintResults(results, terms) {
-
-    if (terms.length !== 0) {
-      let randomHTML = '';
-      randomHTML = `
-        <div class="search-topics">
-          <span class="subtitle">Topics</span>
-        <div class="search-topics__layout">
-      `;
-      terms.forEach(term => {
-        const { title, link, image } = term;
-
-        randomHTML += ` 
-          <div class="tax-pill">
-
-            ${image ? `  
-              <div class="tax-pill__media">
-                <img src="${image}" width="45" height="45" alt="" aria-hidden="true" />
-              </div> 
-            ` : ''}
-
-            <div class="tax-pill__content">
-              <h3 class="h6 m-0">
-                <a class="tax-pill__link" href="${link}">${title}</a>
-              </h3>
-            </div>
-          </div>
-        `;
-
-      });
-
-      randomHTML += `
-                </div>
-          </div>
-        `;
-
-      const randomFragment = document.createRange().createContextualFragment(randomHTML);
-      this.resultsContainer.appendChild(randomFragment);
-
-    }
-
-    results.forEach(r => {
-      const { title, link, excerpt, postType } = r;
-
-      const postTypeDisplay = postType == "post" ? "Article" : postType;
-
-      const cardHTML = `
-        <div class= "search-card-wrapper">
-          <a class="card__link h-100" href="${link}">
-            <div class="search-card h-100">
-              <div class="search-card__body">
-                <span class="subtitle">${postTypeDisplay}</span>
-                <h3 class="title">${title}</h3>
-                ${excerpt ? `<p class="excerpt">${excerpt}</p>` : ''}
-              </div>
-            </div>
-          </a>
-        </div>
-        `;
-      const fragment = document.createRange().createContextualFragment(cardHTML);
-      this.resultsContainer.appendChild(fragment);
+  updateFilterUI(counts) {
+    // Type rows
+    document.querySelectorAll('[data-filter-type="type"]').forEach(btn => {
+      const val     = btn.dataset.value;
+      const isActive = this.state.types.has(val);
+      const count   = counts ? (counts[val] ?? null) : null;
+      btn.classList.toggle('is-active', isActive);
+      const dot = btn.querySelector('.filter-row__dot');
+      if (dot) dot.textContent = isActive ? '◉' : '◯';
+      const countEl = btn.querySelector('.filter-row__count');
+      if (countEl && count !== null) countEl.textContent = count;
+      const isZero = count === 0 && !isActive;
+      btn.classList.toggle('is-zero', isZero);
+      btn.disabled = isZero;
     });
+
+    // Date rows
+    document.querySelectorAll('[data-filter-type="date"]').forEach(btn => {
+      const isActive = this.state.date === btn.dataset.value;
+      btn.classList.toggle('is-active', isActive);
+      const dot = btn.querySelector('.filter-row__dot');
+      if (dot) dot.textContent = isActive ? '◉' : '◯';
+    });
+
+    this.renderActiveChips();
+    this.updateFilterBadge();
   }
 
-  showInputElements() {
-    // this.filterDesktopWrapper.classList.remove('d-none');
-    this.sortResultsWrapper.classList.remove('d-none');
-    this.sortResultsWrapper.classList.add('d-flex');
-  }
-
-  hideInputElements() {
-    // this.filterDesktopWrapper.classList.add('d-none');
-    this.sortResultsWrapper.classList.remove('d-flex');
-    this.sortResultsWrapper.classList.add('d-none');
-  }
-
-  showLoader() {
-    this.spinner.style.display = 'flex';
-  }
-
-  hideLoader() {
-    this.spinner.style.display = 'none';
-  }
-
-  paintNoResults() {
-    const note = `<div style = "text-align: center;"> No results found for the query <strong> ${this.query}</strong></div>`;
-    const fragment = document.createRange().createContextualFragment(note);
-    this.resultsCountEl.replaceChildren(fragment);
-  }
-
-  paintCount(totalPosts) {
-    const note = `${totalPosts} results.`;
-    const fragment = document.createRange().createContextualFragment(note);
-    this.resultsCountEl.replaceChildren(fragment);
-  }
-
-  paintPagination(page, totalPages) {
-    if (totalPages === 0) return;
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "d-flex justify-content-center";
-
-    if (page < totalPages) {
-      const button = document.createElement("button");
-      button.className = "button button__primary";
-      button.textContent = "Load More";
-      button.addEventListener("click", (event) => this.handleLoadMoreClick(event, button));
-      wrapper.appendChild(button);
+  updateFilterBadge() {
+    const count = this.state.types.size + this.state.topics.size + (this.state.date !== 'anytime' ? 1 : 0);
+    if (this.els.filterBadge) {
+      this.els.filterBadge.textContent = count;
+      this.els.filterBadge.classList.toggle('d-none', count === 0);
     }
-
-    this.paginationContainer.replaceChildren(wrapper);
   }
 
-  async handleLoadMoreClick(event, button) {
-    button.textContent = "Loading";
-    button.disabled = true;
-    this.page++;
-    await this.fetchSearchResults();
+  renderActiveChips() {
+    const typeLabels = { post: 'Articles', review: 'Reviews', bonus: 'Bonuses', streamer: 'Streamers' };
+    const dateLabels = { last_month: 'Last month', last_year: 'Last year' };
+    const chips = [];
+
+    this.state.types.forEach(t => chips.push({
+      label: typeLabels[t] || t,
+      remove: () => { this.state.types.delete(t); this.state.page = 1; this.pushUrl(); this.refetch(); },
+    }));
+
+    if (this.state.date !== 'anytime') chips.push({
+      label: dateLabels[this.state.date] || this.state.date,
+      remove: () => { this.state.date = 'anytime'; this.state.page = 1; this.pushUrl(); this.refetch(); },
+    });
+
+    this.state.topics.forEach(t => chips.push({
+      label: t,
+      remove: () => { this.state.topics.delete(t); this.state.page = 1; this.pushUrl(); this.refetch(); },
+    }));
+
+    const build = container => {
+      if (!container) return;
+      if (!chips.length) { container.innerHTML = ''; return; }
+      container.innerHTML = `<span class="active-label">ACTIVE:</span>` +
+        chips.map((c, i) => `<button class="active-chip" data-i="${i}" type="button">${c.label} ✕</button>`).join('');
+      container.querySelectorAll('.active-chip').forEach(btn =>
+        btn.addEventListener('click', () => chips[+btn.dataset.i].remove())
+      );
+    };
+
+    build(this.els.activeFilters);
+    build(this.els.activeStrip);
+  }
+
+  updateSortChip() {
+    const labels = { relevance: 'Relevance', newest: 'Newest', oldest: 'Oldest' };
+    const label  = labels[this.state.sort] || 'Relevance';
+    if (this.els.sortChip) {
+      this.els.sortChip.innerHTML = `${label} <i data-feather="chevron-down"></i>`;
+      feather.replace({ 'stroke-width': 2 });
+    }
+  }
+
+  // ── Spinner ──────────────────────────────────────────────────────────────────
+
+  showSpinner() { this.els.spinner?.classList.remove('d-none'); }
+  hideSpinner() { this.els.spinner?.classList.add('d-none'); }
+
+  // ── Util ─────────────────────────────────────────────────────────────────────
+
+  sanitize(input) {
+    return input.replace(/[<>"'&]/g, '').trim().substring(0, 150);
   }
 }
 
-export default SearchResultsNew;
+export default SearchResults;

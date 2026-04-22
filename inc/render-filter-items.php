@@ -8,7 +8,7 @@ function render_filter_items() {
     
     <h3 class="filter-toggle">
       <span class="heading">Type</span>
-      <span class="icon"><?php echo get_svg_icon('chevron-up'); ?></span>
+      <span class="icon"><i data-feather="chevron-up"></i></span>
     </h3>
 
     <div class="checkboxes-wrapper">
