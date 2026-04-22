@@ -25,16 +25,16 @@
   ));
 ?>
 
-<div class="container">
+<div class="container container--review-archive">
   <header class="taxonomy-header">
     <h1>Reviews</h1>
     <div class="taxonomy-header__description main--content">
-      <p>Discover casino and gambling site reviews including information about bonuses, payments, and games.</p>
+      <p>Explore our in-depth reviews of top crypto casinos and betting sites. We personally test and verify every platform so you can easily compare accepted cryptocurrencies, bonuses, and standout features. Our team analyzes critical details like ownership, VIP clubs, and customer support, regularly updating every review to guarantee absolute accuracy.</p>
     </div>
   </header>
 </div>
 
-<div class="container">
+<div class="container container--review-archive">
 
   <div class="review-archive-controls">
     <div class="review-archive-search">

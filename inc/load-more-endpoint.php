@@ -205,11 +205,10 @@ function km_review_search_callback($data) {
       'total'     => $total_pages,
       'prev_text' => '&lt;',
       'next_text' => '&gt;',
-      'type'      => 'array',
     ));
 
     if ($links) {
-      $pagination_html = '<div class="custom-pagination py-3"><div class="nav-links">' . implode('', $links) . '</div></div>';
+      $pagination_html = '<div class="custom-pagination py-3">' . $links . '</div>';
     }
   }
 

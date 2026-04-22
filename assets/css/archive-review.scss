@@ -1,5 +1,9 @@
 @use "modules/_breakpoints" as *;
 
+.container--review-archive {
+  max-width: 960px;
+}
+
 .review-archive-controls {
   margin-bottom: var(--size-400);
 }
