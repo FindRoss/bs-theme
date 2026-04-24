@@ -1,6 +1,7 @@
 <?php
-$top_sites = get_field('sites', 'options'); 
+$top_sites = get_field('sites', 'options');
 $top_bonuses = get_field('top_bonus', 'options');
+$featured_sites = get_field('reviews', 'options');
 
 if (!is_front_page()) { 
   if (function_exists('geot_target') && geot_target( 'US' )) { 
@@ -33,6 +34,30 @@ if(!empty($top_sites)) {
     echo '<h2 class="sidebar__widget--title">Top Sites</h2>';
 
     while ($sites_query->have_posts()) : $sites_query->the_post(); 
+      get_template_part('template-parts/card/review-pill');
+    endwhile;
+
+    echo '</section>';
+    wp_reset_postdata();
+  endif;
+
+}
+
+if(!empty($featured_sites)) {
+
+  $featured_query = new WP_Query(array(
+    'post_type'      => 'review',
+    'orderby'        => 'post__in',
+    'post__in'       => $featured_sites,
+    'posts_per_page' => 5
+  ));
+
+  if ($featured_query->have_posts()) :
+    echo '<section class="sidebar__widget">';
+
+    echo '<h2 class="sidebar__widget--title">Featured Sites</h2>';
+
+    while ($featured_query->have_posts()) : $featured_query->the_post();
       get_template_part('template-parts/card/review-pill');
     endwhile;
 

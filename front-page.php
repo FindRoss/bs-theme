@@ -51,84 +51,6 @@ $first_image_bool = true;
 
 </div><!-- .container -->
 
-<!-- REVIEWS --> 
-<?php 
-$review_ids_to_include = get_field('reviews', 'options');
-
-$review_args = array(
-    'post_type'      => 'review', 
-    'post_status'    => 'publish',
-    'posts_per_page' => 12, 
-); 
-
-if ($review_ids_to_include) {
-    $review_args['post__in'] = $review_ids_to_include;
-    $review_args['orderby']  = 'post__in';
-};
-
-$review_query = new WP_Query($review_args); 
-$review_query_foundPosts = $review_query->found_posts;
-
-if ($review_query_foundPosts >= 1) { ?>
-
-<div class="container">
-  <section class="slide-section">
-    <?php 
-      outputNewSlideHTML(array(
-        'query'   => $review_query,
-        'heading' => 'Featured Reviews'
-      )); 
-    ?>
-  </section>
-</div>
-
-<?php }; ?>
-
-
-<!-- PROMOTIONS -->
-<?php 
-  $blog_section_category = 'promotions'; 
-  $blog_section_title = 'Promotions';
-  $blog_section_slug = '/category/promotions/';
-  $blog_section_description = 'Get involved in the latest events and promotions running at crypto gambling sites.';
-  $blog_section_link_text = 'All Promotions';
-?>
-  
-<div class="container mt-5">
-  <section class="angus-section">
-    <?php 
-      $blog_section_query = new WP_Query(array(
-        'post_type'      => array('post'), 
-        'posts_per_page' => 4, 
-        'category_name'  => $blog_section_category,
-        'post__not_in'   => $used_posts,
-        'meta_query'     => bonus_expired_meta_query()
-      )); 
-      ?> 
-  
-      <?php if ( $blog_section_query->have_posts() ) : ?>
-
-        <?php chaser_styled_sub_heading(array(
-          'heading' => $blog_section_title,
-          'link'    => $blog_section_slug
-        )); ?>
-
-        <p><?php echo $blog_section_description; ?></p>
-
-        <div class="layout">
-          <?php while ( $blog_section_query->have_posts() ) : $blog_section_query->the_post() ?>
-            <div class="grid-item">
-              <?php  get_template_part('template-parts/card/card', 'beijing'); ?>
-              <?php $used_posts[] = get_the_ID(); ?>
-            </div>
-          <?php endwhile; ?>
-
-        </div><!-- .row --> 
-      <?php wp_reset_postdata();
-      endif; ?>
-  </section>
-</div>
-
 <!-- BONUSES -->
 <?php 
   $bonus_ids_to_include = get_field('bonuses', 'options');
@@ -155,7 +77,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     <?php 
       outputNewSlideHTML(array(
         'query' => $featured_bonus_query,
-        'heading' => 'Bonuses', 
+        'heading' => 'Exclusive Bonuses', 
         'link' => 'https://bitcoinchaser.com/bonuses/'
       )); 
     ?>
@@ -183,7 +105,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
       <?php 
          outputNewSlideHTML(array(
           'query' => $latest_casino_news_query,
-          'heading' => 'Gambling News', 
+          'heading' => 'News', 
           'link' => '/category/news/'
         )); 
       ?>
@@ -191,32 +113,35 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 <?php }; ?>
 
-<!-- BLOCKCHAIN -->
-<?php 
-  $blockchain_query = new WP_Query(array( 
-    'post_type'      => 'post', 
+<!-- PROMOTIONS -->
+<?php
+  $promotions_query = new WP_Query(array(
+    'post_type'      => 'post',
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'category_name'  => 'blockchain'
-  )); 
-  
-  $blockchain_foundPosts = $blockchain_query->found_posts;
+    'category_name'  => 'promotions',
+    'meta_query'     => bonus_expired_meta_query()
+  ));
 
-  if ($blockchain_foundPosts >= 4) { ?>
+  $promotions_foundPosts = $promotions_query->found_posts;
+
+  if ($promotions_foundPosts >= 8) { ?>
 
   <div class="container mt-5 pt-4">
     <section>
-      <?php 
+      <?php
         outputNewSlideHTML(array(
-          'query' => $blockchain_query,
-          'heading' => 'Blockchain', 
-          'link' => '/category/blockchain/'
+          'query'   => $promotions_query,
+          'heading' => 'Promotions',
+          'link'    => '/category/promotions/'
         ));
       ?>
     </section>
   </div>
 
 <?php }; ?>
+
+
 
 <!-- SPORTS -->
 <?php 
@@ -245,31 +170,6 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 <?php }; ?>
 
-<!-- CRYPTCURRENCY -->
-<?php 
-  $cryptocurrency_query = new WP_Query(array( 
-    'post_type'      => 'post', 
-    'post_status'    => 'publish',
-    'posts_per_page' => 8,
-    'category_name'  => 'cryptocurrency'
-  )); 
-  
-  $cryptocurrency_foundPosts = $cryptocurrency_query->found_posts;
-
-  if ($cryptocurrency_foundPosts >= 4) { ?>
-
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php 
-        outputNewSlideHTML(array(
-          'query' => $cryptocurrency_query,
-          'heading' => 'Cryptocurrency', 
-          'link' => '/category/cryptocurrency/'
-        ));
-      ?>
-    </section>
-  </div>
-<?php }; ?>
 
 <!-- ALTERNATIVES -->
 <?php 
@@ -297,6 +197,37 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 
 <?php }; ?>
+
+<!-- BITCOIN CASINOS -->
+<?php
+  $top_sites = get_field('sites', 'option');
+
+  if ($top_sites) {
+    $bitcoin_casinos_query = new WP_Query(array(
+      'post_type'      => 'review',
+      'post_status'    => 'publish',
+      'post__in'       => $top_sites,
+      'posts_per_page' => 8,
+      'orderby'        => 'post__in',
+    ));
+
+    if ($bitcoin_casinos_query->have_posts()) { ?>
+
+  <div class="container mt-5 pt-4">
+    <section>
+      <?php
+        outputNewSlideHTML(array(
+          'query'   => $bitcoin_casinos_query,
+          'heading' => 'Bitcoin Casinos',
+          'link'    => '/sites/casino/'
+        ));
+      ?>
+    </section>
+  </div>
+
+    <?php };
+  };
+?>
 
 <!-- Spacer -->
 <div style="margin-top:3rem"></div>
