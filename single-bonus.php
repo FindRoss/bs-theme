@@ -177,7 +177,7 @@
 
                 <?php if ($bonus_exclusive) : ?>
                   <span class="info-pill exclusive">
-                    <?php echo get_svg_icon('star'); ?>
+                    <i data-feather="award"></i>
                     <span>Exclusive</span>
                   </span>
                 <?php endif; ?>

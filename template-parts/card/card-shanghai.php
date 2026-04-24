@@ -19,48 +19,55 @@
   $detailsGroup = get_field('details_group', $site);
   $siteName = $detailsGroup['name'];
   $siteLink = $detailsGroup['affiliate_link'];
+
+  $mediaGroup = get_field('media_group', $site);
+  $siteColor  = $mediaGroup['theme_color'] ?? '#f0f0f0';
   
   $outputLink = $bonusLink ? $bonusLink : $siteLink;
   ?>
 
 
-  <div class="card card-absolute card-shanghai">
+  <div class="card card-shanghai">
 
-    <a class="card-absolute__link" href="<?php the_permalink($bonus_id); ?>" aria-label="<?php echo esc_attr($title ? $title . ' at ' . $siteName : $siteName . ' bonus details'); ?>"></a>
-    
-    <div class="card-shanghai__media">
-      <span class="img-wrapper"><img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" width="34" height="17" alt="<?php echo $siteName . ' logo'; ?>" aria-hidden="true"></span>
+    <div class="card-shanghai__body">
 
-      <?php if ($expiry_date || $exclusive || $marked_expired) { ?>
-        <div class="card-shanghai-pills">      
-          
-          <?php if ($expiry_date || $marked_expired) : ?>
-          <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
-            <?php echo get_svg_icon('stopwatch'); ?>
-            <span class="ends-in-text"></span>
-          </span>
-          <?php endif; ?>
-          
-          <?php if ($exclusive) : ?>
-            <span class="info-pill exclusive">
-              <?php echo get_svg_icon('star'); ?>
-              <span>Exclusive</span>
-            </span>
-          <?php endif; ?>
-          
+      <a href="<?php echo esc_url($outputLink); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($siteName); ?>">
+        <div class="card-shanghai__logo" style="background-color: <?php echo esc_attr($siteColor); ?>">
+          <img src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo esc_attr($siteName . ' logo'); ?>" aria-hidden="true">
         </div>
-      <?php }; ?>
+      </a>
+
+      <a href="<?php echo esc_url(get_permalink($bonus_id)); ?>" class="card-shanghai__content">
+        <h3>
+          <?php if ($title) { ?><div class="title"><?php echo $title; ?></div><?php } ?>
+          <?php if ($bonus) { ?><div class="bonus"><?php echo $bonus; ?></div><?php } ?>
+          <?php if ($plus)  { ?><div class="subtitle"><?php echo $plus; ?></div><?php } ?>
+        </h3>
+
+        <?php if ($expiry_date || $exclusive || $marked_expired) { ?>
+          <div class="card-shanghai__pills">
+
+            <?php if ($exclusive) : ?>
+              <span class="info-pill exclusive">
+                <i data-feather="award"></i>
+                <span>Exclusive</span>
+              </span>
+            <?php endif; ?>
+
+            <?php if ($expiry_date || $marked_expired) : ?>
+              <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
+                <i data-feather="calendar"></i>
+                <span class="ends-in-text"></span>
+              </span>
+            <?php endif; ?>
+
+          </div>
+        <?php } ?>
+      </a>
+
     </div>
 
-    <div class="card-shanghai__content">
-      <h3>        
-        <?php if ($title) { ?><div class="title"><?php echo $title; ?></div><?php }; ?>
-        <?php if ($bonus) { ?><div class="bonus"><?php echo $bonus; ?></div><?php }; ?>
-        <?php if ($plus) { ?><div class="subtitle"><?php echo $plus; ?></div><?php }; ?>
-      </h3>
-    </div>
-      
-    <div class="card-absolute__ctas card-shanghai__ctas">
+    <div class="card-shanghai__ctas">
        
       <?php if ($code) { ?>
         <button class="button button--small button__outline bonus-code" type="button" aria-label="Copy bonus code to clipboard">

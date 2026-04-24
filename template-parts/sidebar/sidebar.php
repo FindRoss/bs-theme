@@ -43,29 +43,29 @@ if(!empty($top_sites)) {
 
 }
 
-if(!empty($featured_sites)) {
+// if(!empty($featured_sites) && !is_front_page()) {
 
-  $featured_query = new WP_Query(array(
-    'post_type'      => 'review',
-    'orderby'        => 'post__in',
-    'post__in'       => $featured_sites,
-    'posts_per_page' => 5
-  ));
+//   $featured_query = new WP_Query(array(
+//     'post_type'      => 'review',
+//     'orderby'        => 'post__in',
+//     'post__in'       => $featured_sites,
+//     'posts_per_page' => 5
+//   ));
 
-  if ($featured_query->have_posts()) :
-    echo '<section class="sidebar__widget">';
+//   if ($featured_query->have_posts()) :
+//     echo '<section class="sidebar__widget">';
 
-    echo '<h2 class="sidebar__widget--title">Featured Sites</h2>';
+//     echo '<h2 class="sidebar__widget--title">Featured Sites</h2>';
 
-    while ($featured_query->have_posts()) : $featured_query->the_post();
-      get_template_part('template-parts/card/review-pill');
-    endwhile;
+//     while ($featured_query->have_posts()) : $featured_query->the_post();
+//       get_template_part('template-parts/card/review-pill');
+//     endwhile;
 
-    echo '</section>';
-    wp_reset_postdata();
-  endif;
+//     echo '</section>';
+//     wp_reset_postdata();
+//   endif;
 
-}
+// }
 
 if(!empty($top_bonuses)) { 
 
@@ -73,7 +73,7 @@ if(!empty($top_bonuses)) {
     'post_type'      => 'bonus',
     'orderby'        => 'post__in',
     'post__in'       => $top_bonuses,
-    'posts_per_page' => is_front_page() ? 2 : 5,
+    'posts_per_page' => 5,
     'meta_query'     => bonus_expired_meta_query()
     )
   );

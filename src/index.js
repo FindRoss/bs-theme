@@ -23,7 +23,6 @@ import tableToggle from "./modules/TableToggle";
 const sidebarMenu = new SidebarMenu()
 const bonusCode = new BonusCode()
 const showMore = new ShowMore()
-const expiryDates = new ExpiryDates()
 
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
@@ -36,6 +35,7 @@ import feather from 'feather-icons';
 
 document.addEventListener('DOMContentLoaded', function () {
   feather.replace();
+  new ExpiryDates();
 
   if (document.querySelector('body.search')) {
     const searchResults = new SearchResults()

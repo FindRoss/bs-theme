@@ -206,9 +206,10 @@ if ($featured_bonus_foundPosts >= 1) { ?>
     $bitcoin_casinos_query = new WP_Query(array(
       'post_type'      => 'review',
       'post_status'    => 'publish',
-      'post__in'       => $top_sites,
       'posts_per_page' => 8,
-      'orderby'        => 'post__in',
+      'meta_key'       => 'rank', 
+      'orderby'        => 'meta_value_num',
+      'order'          => 'ASC',
     ));
 
     if ($bitcoin_casinos_query->have_posts()) { ?>

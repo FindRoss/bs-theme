@@ -19,7 +19,10 @@
   $mediaGroup = get_field('media_group', $site);
   $siteColor  = $mediaGroup['theme_color'] ?? '#ffffff';
 
-  $exclusive = get_field('exclusive', $bonus_id);
+  $exclusive      = get_field('exclusive', $bonus_id);
+  $expiry_date    = get_field('expiry_date', $bonus_id);
+  $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
+  $marked_expired = get_field('bonus_expired', $bonus_id);
 ?>
 
 <div class="card card-suzhou">
@@ -45,9 +48,16 @@
   <div class="card-suzhou__site">
     <h3><?php echo esc_html($siteName); ?></h3>
     <?php if ($exclusive) : ?>
-      <span class="card-suzhou__exclusive-pill">
-        <i data-feather="star"></i>
-        Exclusive
+      <span class="info-pill exclusive">
+        <i data-feather="award"></i>
+        <span>Exclusive</span>
+      </span>
+    <?php endif; ?>
+
+    <?php if ($expiry_date || $marked_expired) : ?>
+      <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
+        <i data-feather="calendar"></i>
+        <span class="ends-in-text"></span>
       </span>
     <?php endif; ?>
   </div>
@@ -79,7 +89,7 @@
   <?php endif; ?>
 
   <div class="card-suzhou__ctas">
-    <a href="<?php echo esc_url(get_permalink($bonus_id)); ?>" class="button button__outline" aria-label="View <?php echo esc_attr($siteName); ?> bonus">View Bonus</a>
+    <a href="<?php echo esc_url(get_permalink($bonus_id)); ?>" class="button button__outline" aria-label="View <?php echo esc_attr($siteName); ?> bonus">Learn more</a>
     <?php if ($outputLink) : ?>
       <a href="<?php echo esc_url($outputLink); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($siteName); ?>">Get Bonus</a>
     <?php endif; ?>

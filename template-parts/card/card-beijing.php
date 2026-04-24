@@ -37,7 +37,7 @@
       
       <?php if ($expiry_date || $marked_expired) : ?>
         <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
-          <?php echo get_svg_icon('stopwatch'); ?>
+          <i data-feather="calendar"></i>
           <span class="ends-in-text"></span>
         </span>
       <?php endif; ?>

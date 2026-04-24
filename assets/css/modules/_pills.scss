@@ -1,0 +1,102 @@
+// ── Pills ──────────────────────────────────────────────────────────────────────
+// Single source for all pill/badge styling across the site.
+// .info-pill  — PHP templates (cards, tables, helper.php)
+// .result-pill — JS search results (SearchResults.js)
+
+.info-pills {
+  display: flex;
+  gap: var(--size-100);
+  flex-wrap: wrap;
+}
+
+.info-pill,
+.result-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  border-radius: var(--border-radius);
+  padding: 2px 6px;
+  line-height: 1.4;
+
+  svg, i {
+    height: 12px;
+    width: 12px;
+  }
+}
+
+// ── Colour modifiers ───────────────────────────────────────────────────────────
+// Use as .info-pill--post or .result-pill--post etc.
+
+.info-pill--post,
+.result-pill--post {
+  color: var(--color-primary-600);
+  border: 1px solid var(--color-primary-200);
+  background: var(--color-primary-50);
+}
+
+.info-pill--review,
+.result-pill--review {
+  color: #9f1239;
+  border: 1px solid #fda4af;
+  background: #fff1f2;
+}
+
+.info-pill--bonus,
+.result-pill--bonus {
+  color: #166534;
+  border: 1px solid #86efac;
+  background: #f0fdf4;
+}
+
+.info-pill--streamer,
+.result-pill--streamer {
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  background: #fffbeb;
+}
+
+.info-pill--topic,
+.result-pill--topic {
+  color: #0e7490;
+  border: 1px solid #67e8f9;
+  background: #ecfeff;
+}
+
+// ── info-pill specific modifiers ───────────────────────────────────────────────
+
+.info-pill {
+
+  &.exclusive {
+    background: #fefce8;
+    border: 1px solid #ca8a04;
+    color: #713f12;
+  }
+
+  &.timer.hours,
+  &.timer.days {
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+  }
+
+  &.timer.weeks,
+  &.timer.months {
+    background-color: #f0fdf4;
+    border: 1px solid #86efac;
+    color: #166534;
+  }
+
+  &.timer.expired {
+    background-color: #F8D7DA;
+    border: 1px solid #f87171;
+    color: #7f1d1d;
+  }
+
+  .ends-in-text::first-letter {
+    text-transform: capitalize;
+  }
+}

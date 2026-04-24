@@ -867,24 +867,39 @@
   gap: var(--size-200);
   background-color: #ffffff;
   border: 1px solid var(--color-muted-200);
+  border-radius: var(--border-radius);
+  overflow: hidden;
 
-  &__media {
+  &__body {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--size-200);
+  }
+
+  &__logo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--border-radius);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--size-200);
+    justify-content: center;
+    padding: var(--size-300);
 
-    .img-wrapper {
-      img {
-        height: 35px;
-        width: auto;
-        border-radius: 3px;
-      }
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 
   &__content {
     flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-100);
+    color: inherit;
+    text-decoration: none;
 
     h3 {
       margin: 0;
@@ -893,23 +908,29 @@
       gap: var(--size-50);
 
       .title {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 500;
-        color: var(--color-muted-400);
+        color: var(--color-muted-500);
       }
 
       .bonus {
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 17px;
+        font-weight: 700;
         color: var(--color-primary-800);
       }
 
       .subtitle {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 500;
-        color: var(--color-muted-400);
+        color: var(--color-muted-500);
       }
     }
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-100);
   }
 
   &__ctas {
@@ -923,6 +944,7 @@
       flex: 1;
     }
   }
+
 }
 
 /**
@@ -1341,6 +1363,7 @@ section.articles-box {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: var(--size-100);
 
     @include breakpoint(medium) {
@@ -1378,25 +1401,6 @@ section.articles-box {
     color: var(--color-muted-500);
   }
 
-  &__exclusive-pill {
-    display: inline-flex;
-    align-self: flex-start;
-    align-items: center;
-    gap: 5px;
-    background-color: var(--color-primary-50);
-    border: 1px solid var(--color-primary-200);
-    color: var(--color-primary-700);
-    border-radius: 100px;
-    padding: 3px 10px 3px 6px;
-    font-size: 12px;
-    font-weight: 600;
-
-    svg {
-      width: 13px;
-      height: 13px;
-      stroke: var(--color-primary-700);
-    }
-  }
 
   &__code {
     display: flex;

@@ -1,4 +1,5 @@
 import feather from 'feather-icons';
+import { processExpiryPills } from './ExpiryDates';
 
 class TaxonomyLoadMore {
   constructor() {
@@ -38,6 +39,7 @@ class TaxonomyLoadMore {
       this.cardList.appendChild(fragment);
 
       feather.replace();
+      processExpiryPills(this.cardList.querySelectorAll('.info-pill-expiry:not([data-expiry-done])'));
 
       if (currentPage >= totalPages) {
         this.button.closest('.km-load-more-wrapper').remove();

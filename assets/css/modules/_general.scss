@@ -597,59 +597,6 @@ iframe {
 }
 
 
-/**
-* Used for 
-*/
-
-// Not all info-pill are wrapped in .info-pills. Used on card/hong-kong and block/review-table
-.info-pills {
-  display: flex;
-  gap: var(--size-100);
-  flex-wrap: wrap;
-}
-
-.info-pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 90px;
-  padding-left: var(--size-100);
-  padding-right: var(--size-100);
-  background: var(--color-primary-50);
-  font-size: 13px;
-  gap: 4px;
-  color: var(--color-muted-600);
-
-  svg {
-    height: 16px;
-    width: 16px;
-    // fill: var(--color-muted-400);
-  }
-
-  &.timer.hours {
-    background-color: #FFF3CD;
-    /* Light yellow for hours */
-  }
-
-  &.timer.days,
-  &.timer.weeks {
-    background-color: #BBF7D0;
-    /* Light green for days and weeks */
-  }
-
-  &.timer.months {
-    background-color: #ceecfa;
-    /* Light blue for months */
-  }
-
-  &.timer.expired {
-    background-color: #F8D7DA;
-    /* Light red for expired */
-  }
-
-  .ends-in-text::first-letter {
-    text-transform: capitalize;
-  }
-}
 
 
 
@@ -774,6 +721,7 @@ svg.rotated {
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-left: 0 !important;
   display: flex;
   flex-wrap: wrap;
 
