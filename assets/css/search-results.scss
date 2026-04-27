@@ -180,10 +180,11 @@
 
 .filter-sidebar {
   &__title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--color-primary-900);
-    margin-bottom: 12px;
+    font-weight: 800;
+    font-size: var(--size-400);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: var(--size-400);
     display: none;
 
     @include breakpoint(large) {

@@ -3,13 +3,15 @@
 $used_posts = array();
 
 $featured_post_args = array(
-  'post_type'      => 'post', 
-  'posts_per_page' => 4, 
+  'post_type'      => 'post',
+  'posts_per_page' => 2,
 );
-$featured_post_query = new WP_Query( $featured_post_args ); 
- 
-$first_image_bool = true;
-?> 
+$featured_post_query = new WP_Query( $featured_post_args );
+
+$top_sites     = get_field('sites', 'options');
+$featured_sites = get_field('reviews', 'options');
+$top_bonuses   = get_field('top_bonus', 'options');
+?>
 
 <div class="container">
 
@@ -18,36 +20,82 @@ $first_image_bool = true;
     <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, no-deposit bonuses, gambling guides, and more.</p>
   </section>
 
-  <section class="fife-section mt-4">
-    <div class="fife-section__content grid-layout">
+  <section class="mt-4">
+
+    <!-- Two lead posts -->
+    <div class="dirplus-posts">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
-          
-          <div class="grid-item">
-            <?php 
-              if ($first_image_bool) { 
-                get_template_part('template-parts/card/card', 'beijing', array('exclude_lazyload' => true));
-              } else { 
-                get_template_part('template-parts/card/card', 'beijing'); 
-              }; 
-            ?>   
+          <div>
+            <?php get_template_part('template-parts/card/card', 'beijing', array('exclude_lazyload' => true)); ?>
           </div>
-          
-          <?php 
-            $used_posts[] = get_the_ID(); 
-
-            if (count($used_posts) > 1) {
-              $first_image_bool = false; 
-            };
-          ?>
+          <?php $used_posts[] = get_the_ID(); ?>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
       <?php endif; ?>
     </div>
-    <aside class="fife-section__sidebar sidebar">
-      <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
-    </aside>
-  </section><!-- .fife-section -->
+
+    <!-- Three-column pill rail -->
+    <div class="dirplus-rail">
+
+      <!-- Top Sites -->
+      <?php if ( !empty($top_sites) ) :
+        $sites_query = new WP_Query(array(
+          'post_type'      => 'review',
+          'orderby'        => 'post__in',
+          'post__in'       => $top_sites,
+          'posts_per_page' => 5,
+        ));
+        if ( $sites_query->have_posts() ) : ?>
+          <div class="rail-block">
+            <h2 class="rail-block__title">Top Sites</h2>
+            <?php while ( $sites_query->have_posts() ) : $sites_query->the_post(); ?>
+              <?php get_template_part('template-parts/card/review-pill'); ?>
+            <?php endwhile; wp_reset_postdata(); ?>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+
+      <!-- Featured Sites -->
+      <?php if ( !empty($featured_sites) ) :
+        $featured_query = new WP_Query(array(
+          'post_type'      => 'review',
+          'orderby'        => 'post__in',
+          'post__in'       => $featured_sites,
+          'posts_per_page' => 5,
+        ));
+        if ( $featured_query->have_posts() ) : ?>
+          <div class="rail-block">
+            <h2 class="rail-block__title">Featured Sites</h2>
+            <?php while ( $featured_query->have_posts() ) : $featured_query->the_post(); ?>
+              <?php get_template_part('template-parts/card/review-pill'); ?>
+            <?php endwhile; wp_reset_postdata(); ?>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+
+      <!-- Top Bonuses -->
+      <?php if ( !empty($top_bonuses) ) :
+        $bonus_query = new WP_Query(array(
+          'post_type'      => 'bonus',
+          'orderby'        => 'post__in',
+          'post__in'       => $top_bonuses,
+          'posts_per_page' => 5,
+          'meta_query'     => bonus_expired_meta_query(),
+        ));
+        if ( $bonus_query->have_posts() ) : ?>
+          <div class="rail-block">
+            <h2 class="rail-block__title">Top Bonuses</h2>
+            <?php while ( $bonus_query->have_posts() ) : $bonus_query->the_post(); ?>
+              <?php get_template_part('template-parts/card/bonus-pill'); ?>
+            <?php endwhile; wp_reset_postdata(); ?>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+
+    </div><!-- .three-col pill rail -->
+
+  </section>
 
 </div><!-- .container -->
 
