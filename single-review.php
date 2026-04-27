@@ -91,22 +91,22 @@ $introduction = $fields['introduction'] ?? '';
 
 /* Sign Up */
 $sign_up_content = $fields['sign_up'] ?? '';
-if ($sign_up_content) $content['Sign Up'] = $sign_up_content;
+if ($sign_up_content) $content["How to register on $name"] = $sign_up_content;
 
 /* KYC */
 $kyc_content = $fields['kyc'] ?? '';
-if ($kyc_content) $content['KYC'] = $kyc_content;
+if ($kyc_content) $content["Verification and KYC requirements at $name"] = $kyc_content;
 
 /* Games Group */
 $games_group       = $fields['games_group'];
 $games_content     = $games_group['games'];
 $providers_content = $games_group['providers'];
-if ($games_content) $content['Casino Games'] = $games_content;
-if ($providers_content) $content['Providers'] = $providers_content;
+if ($games_content) $content["Casino games available at $name"] = $games_content;
+if ($providers_content) $content["Software providers at $name"] = $providers_content;
 
 /* Sports Betting */
 $betting_content = $fields['betting'] ?? '';
-if ($betting_content) $content['Sports Betting'] = $betting_content;
+if ($betting_content) $content["Sports betting on $name"] = $betting_content;
 
 /* Poker Group */
 $poker_content = $fields['poker'] ?? '';
@@ -114,28 +114,28 @@ if ($poker_content) $content['Poker'] = $poker_content;
 
 /* Bonuses */
 $bonus_content = $fields['bonuses'] ?? '';
-if ($bonus_content) $content['Bonuses'] = $bonus_content;
+if ($bonus_content) $content["Bonuses and promotions at $name"] = $bonus_content;
 
 /* Payments Group */
 $payments_content = $fields['payments'] ?? '';
-if ($payments_content) $content['Payments'] = $payments_content;
+if ($payments_content) $content["$name payment methods and limits"] = $payments_content;
 
 /* VIP Program */
 $vip_content = $fields['vip_program'] ?? '';
-if ($vip_content) $content['VIP Program'] = $vip_content;
+if ($vip_content) $content["$name VIP program"] = $vip_content;
 
 /* Support Group */
 $support_group    = $fields['support_group'];
 $support_content  = $support_group['content'];
-if ($support_content) $content['Support'] = $support_content;
+if ($support_content) $content["Customer support at $name"] = $support_content;
 
 /* Mobile */
 $mobile_content = $fields['mobile'] ?? '';
-if ($mobile_content) $content['Mobile'] = $mobile_content;
+if ($mobile_content) $content["The $name mobile experience"] = $mobile_content;
 
 /* Conclusion */
 $conclusion = $fields['conclusion'] ?? '';
-if ($conclusion) $content['Conclusion'] = $conclusion;
+if ($conclusion) $content["Should you play on $name?"] = $conclusion;
 
 // TAXONOMIES
 $taxonomies = ['cryptocurrency', 'game', 'provider', 'payment', 'country'];
@@ -287,7 +287,6 @@ foreach ($faqs as $faq) {
         <section class="content main--content mt-5">
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
           the_content();
-
           foreach ($content as $key => $value) { ?>
             <h2><?php echo $key; ?></h2>
             <?php echo $value; ?>

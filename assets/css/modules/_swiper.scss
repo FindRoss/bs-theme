@@ -26,8 +26,21 @@
     .swiper-button-next {
       position: static;
       width: 35px;
-      margin: 0;
       height: 35px;
+      margin: 0;
+      background-color: var(--color-primary-50);
+      color: var(--color-primary-700);
+      border: 1px solid var(--color-primary-200);
+      border-radius: 8px;
+      transition: background-color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover,
+      &:focus {
+        background-color: var(--color-primary-100);
+      }
 
       &:after {
         content: none;
