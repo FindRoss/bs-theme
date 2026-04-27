@@ -270,7 +270,35 @@ if ($featured_bonus_foundPosts >= 1) { ?>
           'heading' => 'Bitcoin Casinos',
           'link'    => '/sites/casino/'
         ));
-      ?>
+
+        $bitcoin_term = get_term_by('slug', 'bitcoin', 'cryptocurrency');
+        $exclude_ids  = $bitcoin_term ? array($bitcoin_term->term_id) : array();
+
+        $crypto_terms = get_terms(array(
+          'taxonomy'   => 'cryptocurrency',
+          'hide_empty' => true,
+          'orderby'    => 'count',
+          'order'      => 'DESC',
+          'number'     => 6,
+          'exclude'    => $exclude_ids,
+        ));
+
+        if (!empty($crypto_terms) && !is_wp_error($crypto_terms)) : ?>
+          <div class="coin-chips">
+            <span class="coin-chips__label">Browse by coin</span>
+            <?php foreach ($crypto_terms as $term) :
+              $icon     = get_field('icon', $term);
+              $icon_url = $icon['sizes']['thumbnail'] ?? null;
+            ?>
+              <a class="coin-chip" href="<?php echo esc_url(get_term_link($term)); ?>">
+                <?php if ($icon_url) : ?>
+                  <img src="<?php echo esc_url($icon_url); ?>" width="18" height="18" alt="" aria-hidden="true">
+                <?php endif; ?>
+                <?php echo esc_html($term->name); ?>
+              </a>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
     </section>
   </div>
 

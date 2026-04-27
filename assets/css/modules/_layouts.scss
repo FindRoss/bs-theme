@@ -83,41 +83,6 @@
 	}
 }
 
-.dirplus-posts {
-	display: grid;
-	gap: var(--size-400);
-	grid-template-columns: 1fr;
-
-	@include breakpoint(medium) {
-		grid-template-columns: 1fr 1fr;
-	}
-}
-
-.dirplus-rail {
-	display: grid;
-	gap: var(--size-500);
-	grid-template-columns: 1fr;
-	margin-top: var(--size-600);
-
-	@include breakpoint(medium) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-}
-
-.rail-block {
-	background: var(--color-bg-200);
-	border-radius: var(--border-radius);
-	padding: var(--size-400) var(--size-200);
-
-	&__title {
-		margin: 0 0 var(--size-400);
-		font-weight: 800;
-		font-size: var(--size-400);
-		text-transform: uppercase;
-		letter-spacing: 0.4px;
-	}
-}
-
 .lothian-section {
 	background: var(--color-bg-50);
 	border-radius: var(--border-radius);

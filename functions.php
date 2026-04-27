@@ -44,6 +44,10 @@ function themebs_enqueue_styles() {
   if (is_post_type_archive('review')) {
     wp_enqueue_style( 'archive-review-styles', get_template_directory_uri() . '/build/archive-review.css', array(), wp_get_theme()->get('Version'));
   }
+
+  if (is_front_page()) {
+    wp_enqueue_style( 'front-page-styles', get_template_directory_uri() . '/build/front-page.css', array(), wp_get_theme()->get('Version'));
+  }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
