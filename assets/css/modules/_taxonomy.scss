@@ -1,6 +1,14 @@
 @use "_breakpoints" as *;
 
 
+.category-intro {
+  margin-bottom: var(--size-600);
+
+  p + p {
+    margin-top: var(--size-400);
+  }
+}
+
 .archive {
   background-color: var(--color-bg-50);
 }

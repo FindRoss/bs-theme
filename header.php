@@ -55,7 +55,7 @@
 
       <div class="nav-layout__search">
         <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
-          <?php echo get_svg_icon('search'); ?>
+          <i data-feather="search"></i>
         </button>
       </div>
       
@@ -69,14 +69,14 @@
 
   <div class="background-drawer__header">
     <button type="button" id="nav-toggle-close" class="button button__icon" aria-expanded="false" aria-label="Open menu">
-      <?php echo get_svg_icon('close'); ?>
+      <i data-feather="x"></i>
     </button>
     
     <div class="chaser-search">
       <form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
         <div class="chaser-search__layout">
           <input class="mr-sm-2 nav-search-input" type="search" placeholder="Search" aria-label="Search" value="" name="s" id="s" type="text">
-          <button id="searchsubmit" class="button button__primary" value="Search" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg></button>
+          <button id="searchsubmit" class="button button__primary" value="Search" type="submit"><i data-feather="search"></i></button>
         </div>
       </form>
     </div>

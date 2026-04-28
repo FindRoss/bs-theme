@@ -34,13 +34,11 @@ $wp_query   = $query; ?>
 
 <div class="container mb-4">
 
-  <div class="row">
-    <div class="col-12 col-md-8">
-      <h1 class="m-0"><?php echo $name; ?></h1>
-      <?php if ($paged === 1) { ?>
-        <div class="fs-large"><?php echo term_description(); ?></div>
-      <?php } ?>
-    </div>
+  <div class="category-intro mt-4 max-w-4xl">
+    <h1><?php echo $name; ?></h1>
+    <?php if ($paged === 1) { ?>
+      <div class="fs-large mt-3"><?php echo term_description(); ?></div>
+    <?php } ?>
   </div>
 
   <?php if ($query->have_posts()) : ?>
