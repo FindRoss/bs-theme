@@ -8,37 +8,64 @@
   $taxonomy  = $term->taxonomy;
   $term_name = $term->name;
 
+  $selected_casinos = get_field('casinos', $term);
+
+  $pinned_ids = !empty($selected_casinos)
+    ? array_map(fn($p) => is_object($p) ? $p->ID : (int) $p, $selected_casinos)
+    : [];
+
   $icon = get_field('icon', $term);
   $hasIcon = $icon && is_array($icon); // simplified boolean check
 
   // Custom query
-  $query = new WP_Query(array(
-    'post_type'      => 'review',
-    'posts_per_page' => 6,
-    'paged'          => $paged,
-    'orderby'        => 'meta_value_num',
-    'meta_key'       => 'rank',
-    'order'          => 'ASC',
-    'tax_query'      => array(
-      array(
-        'taxonomy' => $taxonomy,
-        'field'    => 'term_id',
-        'terms'    => $term_id
+  if (!empty($pinned_ids)) {
+    $query = new WP_Query(array(
+      'post_type'      => 'review',
+      'posts_per_page' => count($pinned_ids),
+      'post__in'       => $pinned_ids,
+      'orderby'        => 'post__in',
+      'meta_query'     => array(
+        'relation' => 'OR',
+        array(
+          'key'     => 'details_group_closed',
+          'compare' => 'NOT EXISTS',
+        ),
+        array(
+          'key'     => 'details_group_closed',
+          'value'   => '1',
+          'compare' => '!=',
+        ),
       ),
-    ),
-    'meta_query' => array(
-      'relation' => 'OR',
-      array(
-        'key'     => 'details_group_closed',
-        'compare' => 'NOT EXISTS',
+    ));
+  } else {
+    $query = new WP_Query(array(
+      'post_type'      => 'review',
+      'posts_per_page' => 6,
+      'paged'          => $paged,
+      'orderby'        => 'meta_value_num',
+      'meta_key'       => 'rank',
+      'order'          => 'ASC',
+      'tax_query'      => array(
+        array(
+          'taxonomy' => $taxonomy,
+          'field'    => 'term_id',
+          'terms'    => $term_id,
+        ),
       ),
-      array(
-        'key'     => 'details_group_closed',
-        'value'   => '1',
-        'compare' => '!='
+      'meta_query' => array(
+        'relation' => 'OR',
+        array(
+          'key'     => 'details_group_closed',
+          'compare' => 'NOT EXISTS',
+        ),
+        array(
+          'key'     => 'details_group_closed',
+          'value'   => '1',
+          'compare' => '!=',
+        ),
       ),
-    )
-  ));
+    ));
+  }
   
   $title_output = $term_name . ' Casinos and Gambling Sites';
   if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
