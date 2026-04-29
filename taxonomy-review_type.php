@@ -108,6 +108,40 @@ $wp_query   = $query;
       </div>
 
     <?php }; ?>
+
+    <?php
+    $icon_menu_items = get_field('icon_menu', $term);
+    if ($icon_menu_items) :
+    ?>
+    <div class="taxonomy-header__icon-menu">
+      <?php
+        $icon_menu_labels = array(
+          'sports'      => 'Browse by sport',
+          'esports'     => 'Browse by esport',
+          'casino'      => 'Browse',
+          'sweepstakes' => 'Browse',
+        );
+        $icon_menu_label = isset($icon_menu_labels[$term->slug]) ? $icon_menu_labels[$term->slug] : 'Browse';
+      ?>
+      <p class="icon-menu__label"><?php echo esc_html($icon_menu_label); ?></p>
+      <nav class="icon-menu" aria-label="<?php echo esc_attr($term_name); ?> categories">
+        <?php foreach ($icon_menu_items as $item) :
+          $img   = $item['image'];
+          $label = $item['text'];
+          $url   = $item['link'];
+        ?>
+          <a href="<?php echo esc_url($url); ?>" class="icon-menu__item">
+            <?php if ($img) : ?>
+              <img src="<?php echo esc_url($img['sizes']['thumbnail']); ?>"
+                   alt="<?php echo esc_attr($label); ?>"
+                   width="80" height="80" />
+            <?php endif; ?>
+            <span><?php echo esc_html($label); ?></span>
+          </a>
+        <?php endforeach; ?>
+      </nav>
+    </div>
+    <?php endif; ?>
   </header>
 </div>
 
