@@ -268,6 +268,10 @@ foreach ($faqs as $faq) {
       </div>
       <?php } ?>
 
+      <?php get_template_part('template-parts/review/review-trust-index', null, [
+        'review_id' => $review_id,
+      ]); ?>
+
       <?php if ($homepageImg) : ?>
         <figure class="homepage-image">
           <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
