@@ -111,7 +111,6 @@ body.no-scroll {
     flex: 1;
 
     button {
-      // display: block;
       margin-right: 8px;
 
       @include breakpoint(large) {
@@ -168,9 +167,6 @@ body.no-scroll {
   display: flex;
   align-items: center;
   height: 100%;
-  visibility: visible;
-  display: flex;
-  align-items: center;
   gap: 0;
   font-size: var(--size-400);
   font-weight: 800;
