@@ -9,7 +9,7 @@ Template Post Type: page
 <div class="pb-5">
 
   <div class="container">
-    <h1>Bonuses</h1>
+    <h1 class="mt-4">Bonuses</h1>
     <div class="main--content">
       <?php $introduction = get_field('introduction'); ?>
       <?php echo $introduction; ?>

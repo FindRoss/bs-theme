@@ -29,8 +29,8 @@ $additional_bonuses = get_posts(array(
 $additional_bonuses = is_array($additional_bonuses) ? $additional_bonuses : [];
 $merged_bonuses = array_merge($featured_bonuses, $additional_bonuses);
 
-$icon  = get_field('icon', $term);
-if ($icon) $icon_thumbnail = $icon['url'];
+$icon    = get_field('icon', $term);
+$hasIcon = $icon && is_array($icon);
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
@@ -67,16 +67,22 @@ switch($term_name) {
 <div class="container">
     
     <!-- INTRODUCTION -->
-    <section class="">
-      <h1><?php echo $title_output; ?></h1>
-      <div class="main--content"><?php echo term_description($term); ?></div>
-        
-      <?php if ($icon) { ?>
-        <div class="">
-          <img src="<?php echo $icon_thumbnail; ?>" alt="<?php echo $term_name .  " casinos" ?>" width="200" height="200" />
-        </div>
-      <?php }; ?>
-    </section>
+    <header class="taxonomy-header">
+      <?php if ($hasIcon) { ?>
+        <img
+          src="<?php echo esc_url($icon['sizes']['medium']); ?>"
+          alt="<?php echo esc_attr($term_name . ' casinos'); ?>"
+          class="exclude-lazyload"
+          fetchpriority="high"
+        />
+      <?php } ?>
+
+      <h1><?php echo esc_html($title_output); ?></h1>
+
+      <?php if (term_description($term)) { ?>
+        <div class="taxonomy-header__description main--content"><?php echo term_description($term); ?></div>
+      <?php } ?>
+    </header>
 
     <!-- MAIN QUERY -->
     <section>
