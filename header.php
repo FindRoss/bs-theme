@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
+<html class="no-js" <?php language_attributes(); ?>>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <!-- WP_HEAD STARTS -->
     <?php wp_head(); ?>
     <!-- GTM -->
@@ -75,7 +73,7 @@
     <div class="chaser-search">
       <form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
         <div class="chaser-search__layout">
-          <input class="mr-sm-2 nav-search-input" type="search" placeholder="Search" aria-label="Search" value="" name="s" id="s" type="text">
+          <input class="mr-sm-2 nav-search-input" type="search" placeholder="Search" aria-label="Search" value="" name="s" id="s">
           <button id="searchsubmit" class="button button__primary" value="Search" type="submit"><i data-feather="search"></i></button>
         </div>
       </form>

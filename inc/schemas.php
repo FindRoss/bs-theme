@@ -32,7 +32,7 @@ function productFaqSchema() {
         $schema['mainEntity'][] = $faq_item;
       };
 
-		echo '<script type="application/ld+json">' . json_encode($schema) . '</script>';
+		echo '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
   }
 };
 
@@ -74,7 +74,8 @@ function reviewFaqSchema() {
     };
     
     if (!$empty_fields) {
-      echo '<script type="application/ld+json">' . json_encode($schema) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
     };
   }
 };
+

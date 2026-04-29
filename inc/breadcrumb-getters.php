@@ -98,7 +98,7 @@ function get_review_breadcrumbs(): string {
 
     $primary_id = get_post_meta( get_the_ID(), '_yoast_wpseo_primary_review_type', true );
   
-    $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/reviews/">Reviews</a></span>';
+    $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
 
     if ($primary_id) {
       $term_link = get_term_link( (int) $primary_id, 'review_type' );
@@ -118,27 +118,27 @@ function get_taxonomy_breadcrumbs($term) {
   $taxonomy = $term->taxonomy;
   $name = $term->name;
   
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/reviews/">Reviews</a></span>';
+  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
 
   switch ( $taxonomy ) {
     case 'cryptocurrency':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/crypto/">Crypto</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/crypto/') ) . '">Crypto</a></span>';
       break;
 
     case 'game':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/games/">Games</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/games/') ) . '">Games</a></span>';
       break;
 
     case 'provider':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/providers/">Providers</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/providers/') ) . '">Providers</a></span>';
       break;
 
     case 'country':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/countries/">Countries</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/countries/') ) . '">Countries</a></span>';
       break;
 
     case 'payment':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/payments/">Payments</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/payments/') ) . '">Payments</a></span>';
       break;
 
     default:
@@ -152,15 +152,15 @@ function get_taxonomy_breadcrumbs($term) {
 }
 
 function get_taxonomy_index_breadcrumbs() {
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/reviews/">Reviews</a></span>';
+  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
   $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . get_the_title(get_the_ID()) . '</span>';
 
   return $breadcrumb_html;
 }
 
 function get_review_type_breadcrumbs($term) {
-  
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/reviews/">Reviews</a></span>';
+
+  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
   $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
 
   return $breadcrumb_html;
@@ -169,8 +169,8 @@ function get_review_type_breadcrumbs($term) {
 function get_bonus_type_breadcrumbs($term) {
   if (!$term) return '';
 
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/bonuses/">Bonuses</a></span>';
-  $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
+  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/bonuses/') ) . '">Bonuses</a></span>';
+  $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . esc_html( $term->name ) . '</span>';
 
   return $breadcrumb_html;
 }
@@ -180,14 +180,12 @@ function get_bonus_breadcrumbs() {
 
   if (!$primary_id) return '';
 
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="/bonuses/">Bonuses</a></span>';
+  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/bonuses/') ) . '">Bonuses</a></span>';
 
   $term_link = get_term_link( (int) $primary_id, 'bonus_type' );
   if ( ! is_wp_error( $term_link ) ) {
     $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( $term_link ) . '">' . esc_html( get_term( $primary_id )->name ) . '</a></span>';
   }
-
-  // $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . get_the_title() . '</span>';
 
   return $breadcrumb_html;
 }

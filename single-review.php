@@ -16,7 +16,7 @@ $site_posts_query = new WP_Query(
       'relation' => 'AND',
       array(
         'key'     => 'post-review-relationship',
-        'value'   => '"' . $id . '"',
+        'value'   => '"' . $review_id . '"',
         'compare' => 'LIKE'
       ),
       array(
@@ -177,8 +177,6 @@ foreach ($faqs as $faq) {
     break; 
   }
 };
-
-
 
 ?>
 
