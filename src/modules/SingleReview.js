@@ -55,7 +55,12 @@ export function singleReview() {
 
     if (reviewEnd) {
       new IntersectionObserver(([entry]) => {
-        reviewEndVisible = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          reviewEndVisible = true;
+        } else {
+          // top < 0 means sentinel exited above the viewport (already scrolled past)
+          reviewEndVisible = entry.boundingClientRect.top < 0;
+        }
         updateStickyCta();
       }, { threshold: 0 }).observe(reviewEnd);
     }
