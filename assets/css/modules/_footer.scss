@@ -39,6 +39,12 @@ footer {
   }
 
   @media (max-width: 575px) {
+    .footer-top-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
     .footer-col {
       border-bottom: 1px dashed var(--color-muted-200);
       padding-bottom: var(--size-400);
