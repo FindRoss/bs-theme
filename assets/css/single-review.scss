@@ -327,7 +327,11 @@
 
     &__panels {
       background: #fff;
-      padding: var(--size-400) var(--size-300);
+      padding: var(--size-400);
+
+      @include breakpoint(medium) {
+        padding: var(--size-600);
+      }
     }
 
     &__panel {
@@ -459,7 +463,7 @@
 
       p {
         margin: 0;
-        font-size: 13px;
+        font-size: 14px;
         color: var(--color-muted-600);
         line-height: 1.6;
       }
@@ -475,7 +479,7 @@
 
     &__circle-label {
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.07em;
       color: var(--color-muted-400);

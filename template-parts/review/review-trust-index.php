@@ -60,7 +60,7 @@ elseif ($total >= 36)  $modifier = 'mid';
 
   <?php if ($comments) : ?>
     <div class="review-trust-index__comments">
-      <p><?php echo esc_html($comments); ?></p>
+      <p><strong>Verdict: </strong><?php echo esc_html($comments); ?></p>
     </div>
   <?php endif; ?>
 
