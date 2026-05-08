@@ -68,15 +68,6 @@ switch($term_name) {
     
     <!-- INTRODUCTION -->
     <header class="taxonomy-header">
-      <?php if ($hasIcon) { ?>
-        <img
-          src="<?php echo esc_url($icon['sizes']['medium']); ?>"
-          alt="<?php echo esc_attr($term_name . ' casinos'); ?>"
-          class="exclude-lazyload"
-          fetchpriority="high"
-        />
-      <?php } ?>
-
       <h1><?php echo esc_html($title_output); ?></h1>
 
       <?php if (term_description($term)) { ?>

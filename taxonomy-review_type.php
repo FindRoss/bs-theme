@@ -93,11 +93,6 @@ $wp_query   = $query;
 
 <div class="container">
   <header class="taxonomy-header">
-    <?php if ($hasIcon) { ?>
-      <img src="<?php echo esc_url($icon['sizes']['thumbnail']); ?>"
-            alt="<?php echo esc_attr($term_name .  ' casinos'); ?>"
-            width="100" height="100" />
-    <?php } ?>
     <h1>Crypto <?php  echo $term_name; ?></h1>
 
     <?php
