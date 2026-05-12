@@ -19,12 +19,15 @@ $casino_list = get_field('casino_list') ?? [];
 
       if (!$name || !$link) continue; // skip if essential data missing
     ?>
-      <li>
-        <?php echo esc_html($text); ?> - 
-        <a target="_blank" rel="sponsored noopener" href="<?php echo esc_url($link); ?>">
-          <?php echo esc_html($name); ?> 
-          <?php echo get_svg_icon('external-link'); ?>
-        </a>
+      <li class="casino-list__item">
+        <i data-feather="chevron-right"></i>
+        <span class="casino-list__text">
+          <?php echo esc_html($text); ?>: 
+          <a target="_blank" rel="sponsored noopener" href="<?php echo esc_url($link); ?>">
+            <?php echo esc_html($name); ?> 
+            <i data-feather="external-link"></i>
+          </a>
+        </span>
       </li>
     <?php endforeach; ?>
   </ul>

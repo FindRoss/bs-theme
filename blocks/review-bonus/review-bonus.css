@@ -18,13 +18,17 @@
 }
 
 .review-bonus__image {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
 }
 
 .review-bonus__image img {
-  margin-top: 0px;
-  border-radius: 0px;
+  width: 130px;
+  height: auto;
+  margin-top: 0;
+  border-radius: 0;
 }
 
 .review-bonus__image img:hover,
