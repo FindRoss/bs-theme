@@ -31,7 +31,7 @@
       
       <div class="nav-layout__logo">
         <button type="button" id="nav-toggle" class="button button__icon" aria-expanded="false" aria-label="Open menu">
-          <i data-feather="menu"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
         <a href="/" class="d-flex align-items-center">
           <img width="274" height="34" class="exclude-lazyload" src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png" alt="BitcoinChaser logo">
@@ -53,7 +53,7 @@
 
       <div class="nav-layout__search">
         <button type="button" id="nav-search-btn" class="button button__icon" aria-label="Search BitcoinChaser">
-          <i data-feather="search"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
       </div>
       
@@ -67,14 +67,14 @@
 
   <div class="background-drawer__header">
     <button type="button" id="nav-toggle-close" class="button button__icon" aria-expanded="false" aria-label="Open menu">
-      <i data-feather="x"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
     
     <div class="chaser-search">
       <form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
         <div class="chaser-search__layout">
           <input class="mr-sm-2 nav-search-input" type="search" placeholder="Search" aria-label="Search" value="" name="s" id="s">
-          <button id="searchsubmit" class="button button__primary" value="Search" type="submit"><i data-feather="search"></i></button>
+          <button id="searchsubmit" class="button button__primary" value="Search" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
         </div>
       </form>
     </div>
