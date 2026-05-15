@@ -8,7 +8,7 @@ if (is_singular('post')) {
   $link_output = get_review_breadcrumbs();
 } else if (is_category()) {
   $link_output = get_category_breadcrumbs();
-} else if (is_tax( ['cryptocurrency', 'game', 'provider', 'payment', 'country'] )) {
+} else if (is_tax( ['cryptocurrency', 'game', 'provider', 'payment', 'country', 'license'] )) {
   $link_output = get_taxonomy_breadcrumbs(get_queried_object());
 } else if (is_tax('review_type')) { 
   $link_output = get_review_type_breadcrumbs(get_queried_object());

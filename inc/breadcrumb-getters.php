@@ -141,6 +141,10 @@ function get_taxonomy_breadcrumbs($term) {
       $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/payments/') ) . '">Payments</a></span>';
       break;
 
+    case 'license':
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/licenses/') ) . '">Licenses</a></span>';
+      break;
+
     default:
       echo "...";
       break;

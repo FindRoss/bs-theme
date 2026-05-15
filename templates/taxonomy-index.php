@@ -6,19 +6,8 @@
 
   $page_id = get_queried_object_id();
 
-  $taxonomy_name = ''; 
-  
-  if (is_page_template('templates/taxonomy-index.php')) {
-    if (is_page(95880)) $taxonomy_name = 'game'; 
-    else if (is_page(95861)) $taxonomy_name = 'cryptocurrency'; 
-    else if (is_page(95867)) $taxonomy_name = 'provider';
-    else if (is_page(95863)) $taxonomy_name = 'country';
-    else if (is_page(95859)) $taxonomy_name = 'payment';
-  };
-    
-
-  // Will have to use an ACF text field for this
-  // $taxonomy_name = get_the_title()
+  $taxonomy_name = get_field('taxonomy_name') ?: '';
+  $terms = [];
 
   if ($taxonomy_name) {
     $terms = get_terms([
