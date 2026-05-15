@@ -93,7 +93,8 @@ $wp_query   = $query;
 
 <div class="container">
   <header class="taxonomy-header">
-    <h1>Crypto <?php  echo $term_name; ?></h1>
+    <?php $heading = get_field('heading', $term); ?>
+    <h1><?php echo $heading ? esc_html($heading) : 'Crypto ' . esc_html($term_name); ?></h1>
 
     <?php
       if (term_description()) {
