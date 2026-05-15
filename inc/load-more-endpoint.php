@@ -23,7 +23,7 @@ function km_load_more_bonuses_callback($data) {
   $taxonomy  = sanitize_key($data['taxonomy']);
   $term_slug = sanitize_text_field($data['term']);
   $page      = !empty($data['page']) ? absint($data['page']) : 1;
-  $per_page  = !empty($data['per_page']) ? absint($data['per_page']) : 6;
+  $per_page  = !empty($data['per_page']) ? absint($data['per_page']) : 5;
 
   if (!$taxonomy || !$term_slug) {
     return new WP_Error('missing_params', 'taxonomy and term are required', array('status' => 400));
