@@ -345,6 +345,10 @@
   svg { width: 16px; height: 16px; }
 
   &:hover { border-color: var(--color-muted-400); }
+
+  @include breakpoint(large) {
+    display: none;
+  }
 }
 
 .filter-badge {

@@ -40,7 +40,7 @@
 
         <div class="search-toolbar">
           <div class="search-toolbar__left">
-            <button class="filter-open-btn d-lg-none" id="filterOpenBtn" type="button">
+            <button class="filter-open-btn" id="filterOpenBtn" type="button">
               <?php echo get_svg_icon('filter'); ?>
               Filter
               <span class="filter-badge d-none" id="filterBadge"></span>
