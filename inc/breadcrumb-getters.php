@@ -126,7 +126,7 @@ function get_taxonomy_breadcrumbs($term) {
       break;
 
     case 'game':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/games/') ) . '">Games</a></span>';
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/online-casino-games/') ) . '">Games</a></span>';
       break;
 
     case 'provider':
