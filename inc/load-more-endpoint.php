@@ -30,7 +30,7 @@ function km_load_more_bonuses_callback($data) {
   }
 
   $term     = get_term_by('slug', $term_slug, $taxonomy);
-  $featured = get_field('featured_bonuses', $term) ?? [];
+  $featured = get_field('featured_bonuses', $term) ?: [];
   $featured = array_map('intval', $featured);
 
   $additional = get_posts(array(
