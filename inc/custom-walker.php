@@ -61,34 +61,65 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
     private function get_posts_panel( $parent_menu_item_id ) {
         if ( ! $parent_menu_item_id ) return '';
 
-        $category = get_field( 'menu_panel_category', $parent_menu_item_id );
-        if ( ! $category ) return '';
+        $post_type = get_field( 'menu_panel_post_type', $parent_menu_item_id ) ?: 'post';
 
-        $query = new WP_Query( [
-            'post_type'      => 'post',
+        $query_args = [
+            'post_type'      => $post_type,
             'posts_per_page' => 3,
             'no_found_rows'  => true,
-            'cat'            => $category->term_id,
-        ] );
+        ];
+
+        if ( $post_type === 'post' ) {
+            $category = get_field( 'menu_panel_category', $parent_menu_item_id );
+            if ( ! $category ) return '';
+            $query_args['cat'] = $category->term_id;
+
+        } elseif ( $post_type === 'review' ) {
+            $post_ids = get_field( 'sites', 'options' );
+            if ( empty( $post_ids ) ) return '';
+            $query_args['posts_per_page'] = 5;
+            $query_args['post__in']       = $post_ids;
+            $query_args['orderby']        = 'post__in';
+
+        } elseif ( $post_type === 'bonus' ) {
+            $post_ids = get_field( 'top_bonus', 'options' );
+            if ( empty( $post_ids ) ) return '';
+            $query_args['posts_per_page'] = 5;
+            $query_args['post__in']       = $post_ids;
+            $query_args['orderby']        = 'post__in';
+            $query_args['meta_query']     = bonus_expired_meta_query();
+        }
+
+        $query = new WP_Query( $query_args );
 
         if ( ! $query->have_posts() ) return '';
 
         $html = '<div class="mega-menu__posts">';
 
-        while ( $query->have_posts() ) {
-            $query->the_post();
-
-            $thumb = get_the_post_thumbnail_url( null, 'medium' );
-            $date  = get_the_date( 'j M Y' );
-
-            $html .= '<a href="' . esc_url( get_permalink() ) . '" class="mega-menu__post">';
-            if ( $thumb ) {
-                $html .= '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '" width="120" height="80">';
+        if ( in_array( $post_type, [ 'review', 'bonus' ], true ) ) {
+            $template = 'template-parts/card/' . $post_type . '-pill';
+            ob_start();
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                get_template_part( $template );
             }
-            $html .= '<div class="mega-menu__post-content">';
-            $html .= '<span class="mega-menu__post-date">' . esc_html( $date ) . '</span>';
-            $html .= '<h4 class="mega-menu__post-title">' . esc_html( get_the_title() ) . '</h4>';
-            $html .= '</div></a>';
+            $html .= ob_get_clean();
+        } else {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+
+                $thumb = get_the_post_thumbnail_url( null, 'medium' );
+                $date  = get_the_date( 'j M Y' );
+
+                $html .= '<a href="' . esc_url( get_permalink() ) . '" class="mega-menu__post">';
+                if ( $thumb ) {
+                    $html .= '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '" width="120" height="80">';
+                }
+                $html .= '<div class="mega-menu__post-content">';
+                $html .= '<span class="mega-menu__post-date">' . esc_html( $date ) . '</span>';
+                $html .= '<h4 class="mega-menu__post-title">' . esc_html( get_the_title() ) . '</h4>';
+                $html .= '</div></a>';
+            }
         }
 
         wp_reset_postdata();

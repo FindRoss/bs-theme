@@ -19,7 +19,7 @@
   </div>
   <div class="card-absolute__ctas review-pill__cta">
     <a class="button button__primary" href="<?php echo esc_url($aff_link); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
-       <?php echo get_svg_icon('external-link'); ?>
+       <i data-feather="external-link"></i>
     </a>
   </div>
 </div>

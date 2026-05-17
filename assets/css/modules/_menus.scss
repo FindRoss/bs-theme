@@ -281,6 +281,8 @@ body.no-scroll {
     padding: var(--size-800) 0.75rem;
     gap: var(--size-600);
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
     list-style-type: none;
     align-content: start;
 
@@ -309,7 +311,7 @@ body.no-scroll {
   .mega-menu__posts {
     display: flex;
     flex-direction: column;
-    gap: var(--size-400);
+    gap: var(--size-200);
   }
 
   .mega-menu__post {
