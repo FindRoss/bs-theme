@@ -105,7 +105,7 @@ body.no-scroll {
 }
 
 // This should be global for desktop and mobile menu;
-.menu-item a {
+.menu-item a:not(.button) {
   color: var(--color-primary-900);
   text-decoration: none;
   font-weight: 500;
