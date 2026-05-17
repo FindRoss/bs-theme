@@ -41,7 +41,7 @@
         <?php
           $footer_cols = array(
             array( 'location' => 'footer_articles',  'heading' => 'Articles' ),
-            array( 'location' => 'footer_reviews',   'heading' => 'Reviews' ),
+            array( 'location' => 'footer_crypto',    'heading' => 'Crypto' ),
             array( 'location' => 'footer_games',     'heading' => 'Games' ),
             array( 'location' => 'footer_countries', 'heading' => 'Countries' ),
             array( 'location' => 'footer_bonuses',   'heading' => 'Bonuses' ),
