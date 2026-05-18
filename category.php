@@ -55,7 +55,7 @@ $wp_query   = $query; ?>
     </div><!-- .row -->
 </div><!-- .container -->
 
-<?php if ($total > 10) { ?>
+<?php if ($query->max_num_pages > 1) { ?>
   <div class="container mt-4">
     <?php get_template_part('template-parts/content/content', 'pagination', array('query' => $query)); ?>
   </div><!-- container -->

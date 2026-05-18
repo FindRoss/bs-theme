@@ -40,7 +40,7 @@
 
     <div class="card-absolute__ctas bonus-pill__cta">
       <a class="button button__primary" href="<?php echo esc_url($bonusLink); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
-       <?php echo get_svg_icon('external-link'); ?>
+        <?php echo get_svg_icon('external-link'); ?>
       </a>
     </div>
   </div>
