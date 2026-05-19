@@ -10,9 +10,12 @@
   $socialGroup  = get_field('socials');
   $sites        = get_field('sites');
 
-  $kick    = $socialGroup['kick'];
-  $twitch  = $socialGroup['twitch'];
-  $twitter = $socialGroup['x_twitter'];
+  $kick      = !empty($socialGroup) ? $socialGroup['kick']      : '';
+  $twitch    = !empty($socialGroup) ? $socialGroup['twitch']    : '';
+  $twitter   = !empty($socialGroup) ? $socialGroup['x_twitter'] : '';
+  $youtube   = !empty($socialGroup) ? $socialGroup['youtube']   : '';
+  $instagram = !empty($socialGroup) ? $socialGroup['instagram'] : '';
+  $discord   = !empty($socialGroup) ? $socialGroup['discord']   : '';
 
   // String
   if (!empty($realName)) {
@@ -23,27 +26,38 @@
     $table_fields['Streaming name'] = $streamerName;
   }
   // Date
-  if (isset($birthDate)) {
-    //// Calc age from dob
-    // Convert date of birth string to a DateTime object
-    $birthDate = DateTime::createFromFormat('Ymd', $dob);
-    // Get current date
+  if (!empty($dob)) {
+    $birthDate   = DateTime::createFromFormat('Ymd', $dob);
     $currentDate = new DateTime();
-    // Calculate difference between birth date and current date
-    $age = $currentDate->diff($birthDate);
-    // Get the difference in years
-    $age = $age->y;
-
+    $age         = $currentDate->diff($birthDate)->y;
     $table_fields['Age'] = $age;
+  } else {
+    $table_fields['Age'] = 'Unknown';
   }
   // String
   if (!empty($games)) {
     $table_fields['Favorite games'] = $games;
   }
-  // String
-  if (!empty($kick)) {
-    $table_fields['Kick'] = '<a href="' . esc_url($kick) . '" target="_blank">' . str_replace(array("http://", "https://"), "", $kick) . '</a>';
+  // Socials
+  function streamer_social_link($url, $platform) {
+    $labels = [
+      'kick'       => 'Kick',
+      'twitch'     => 'Twitch',
+      'twitter-x'  => 'Twitter / X',
+      'youtube'    => 'YouTube',
+      'instagram'  => 'Instagram',
+      'discord'    => 'Discord',
+    ];
+    $icon  = get_svg_icon('social-' . $platform);
+    $label = $labels[$platform] ?? ucfirst($platform);
+    return '<a class="social-link" href="' . esc_url($url) . '" target="_blank" rel="noopener">' . $icon . '<span>' . $label . '</span></a>';
   }
+  if (!empty($kick))      $table_fields['Kick']        = streamer_social_link($kick,      'kick');
+  if (!empty($twitch))    $table_fields['Twitch']      = streamer_social_link($twitch,    'twitch');
+  if (!empty($twitter))   $table_fields['Twitter / X'] = streamer_social_link($twitter,   'twitter-x');
+  if (!empty($youtube))   $table_fields['YouTube']     = streamer_social_link($youtube,   'youtube');
+  if (!empty($instagram)) $table_fields['Instagram']   = streamer_social_link($instagram, 'instagram');
+  if (!empty($discord))   $table_fields['Discord']     = streamer_social_link($discord,   'discord');
 
   $moreStreamersQuery = new WP_Query(array(
     'post_type' => 'streamer',
@@ -56,69 +70,27 @@
 
 <div class="container">
 
-  <article class="py-3 py-lg-4">
+  <article class="py-4 lg:py-6">
 
     <div class="streamer-header">
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <h1 class="main--title"><?php the_title(); ?></h1>
-          <?php if (has_excerpt()) { ?>
-            <p class="fs-large"><?php echo get_the_excerpt(); ?></p>
-          <?php }; ?>
-        </div>
-        <div class="col-12 col-lg-6">
-          <img 
-            src="<?php echo get_the_post_thumbnail_url(); ?>" 
-            class="w-100 h-auto exclude-lazyload" 
-            alt="<?php the_title(); ?>" 
-            fetchpriority="high"
-            >
-        </div>
-      </div>
+      <h1 class="main--title"><?php the_title(); ?></h1>
+      <?php if (has_excerpt()) { ?>
+        <p class="fs-large"><?php echo get_the_excerpt(); ?></p>
+      <?php }; ?>
     </div>
 
-    <div class="row">
-      <div class="col-12 col-lg-8">
-      
-        <?php if (isset($sites) && is_array($sites)) : ?>
-        <div class="mt-5">
-          <h2>Plays at</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-12">
+      <div class="lg:col-span-8">
 
-          <?php foreach($sites as $site) { 
-              $siteDetailsGroup = get_field('details_group', $site);
-              $siteMediaGroup   = get_field('media_group', $site);
-              $siteColor        = $siteMediaGroup['theme_color'];
-              $siteName         = $siteDetailsGroup['name'];
-              $siteLink         = $siteDetailsGroup['affiliate_link'];
-              $siteLogo         = get_the_post_thumbnail_url($site, 'site-small-logo');
-              $siteBonus        = $siteDetailsGroup['bonus'];
-              $siteReviewLink   = get_the_permalink($site);
-            ?>
+        <img
+          src="<?php echo get_the_post_thumbnail_url(); ?>"
+          class="w-full h-auto exclude-lazyload mb-12 rounded-2xl"
+          alt="<?php the_title(); ?>"
+          fetchpriority="high"
+          >
 
-            <div class="site-card">
-              <div class="site-card__media" style="background-color: <?php echo $siteColor; ?>">
-                <a href="<?php echo esc_url($siteReviewLink); ?>"><img src="<?php echo $siteLogo;  ?>" alt=""></a>
-              </div>
-              <div class="site-card__name">
-                <a class="name" href="<?php echo esc_url($siteReviewLink); ?>"><h2><?php echo $siteName; ?></h2></a>
-              </div>
-              <div class="site-card__bonus">
-                <div class="title">BONUS</div>
-                <div class="bonus"><?php echo $siteBonus; ?></div>
-              </div>
-              <div class="site-card__buttons">
-                <a class="button button__primary" href="<?php echo esc_url($siteLink); ?>" target="_blank" rel="sponsored noopener" aria-label="Play at <?php echo esc_attr($siteName); ?>">Play</a>
-                <a class="" href="<?php echo esc_url($siteReviewLink); ?>">Read Review</a>
-              </div>
-            </div>
-
-          <?php }; ?>
-        </div>
-        <?php endif; ?>    
-    
-        
         <?php if (!empty($table_fields)) { ?>
-        <div class="mt-5">
+        <div>
           <h2>Details</h2>
           <table class="chaser-table">
             <tbody>
@@ -127,35 +99,53 @@
                   <tr>
                     <td><?php echo $key; ?></td>
                     <td><?php echo $value; ?></td>
-                  </tr>  
+                  </tr>
                   <?php endif; ?>
                 <?php } ?>
             </tbody>
           </table>
         </div>
         <?php }; ?>
-        
+
+        <?php if (isset($sites) && is_array($sites)) : ?>
+        <div class="mt-12">
+          <h2>Plays at</h2>
+
+          <?php
+          global $post;
+          foreach ($sites as $site) :
+            $post = get_post($site);
+            setup_postdata($post);
+            get_template_part('template-parts/card/card', 'kunming');
+          endforeach;
+          wp_reset_postdata();
+          ?>
+        </div>
+        <?php endif; ?>
+
         <?php if (get_the_content()) { ?>
-        <div class="main--content mt-5">
+        <div class="main--content mt-12">
           <?php the_content(); ?>
         </div>
         <?php }; ?>
       </div>
+
+      <aside class="sidebar lg:col-span-4">
+        <?php get_template_part('template-parts/sidebar/sidebar'); ?>
+      </aside>
     </div>
   </article>
 
   <?php if ($moreStreamersQuery->have_posts()) : ?>
-  <div class="mt-5 pb-5">
+  <div class="mt-12 pb-12">
     <?php chaser_styled_sub_heading(array(
-      'heading' => 'Discover More Streamers' 
+      'heading' => 'Discover More Streamers'
     )); ?>
-    <div class="row mt-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
     <?php while ($moreStreamersQuery->have_posts()) : $moreStreamersQuery->the_post(); ?>
-      <div class="col-12 col-md-6 col-lg-3 mt-4">
-        <?php get_template_part('template-parts/card/card', 'streamer'); ?>
-      </div><!-- .col --> 
+      <?php get_template_part('template-parts/card/card', 'streamer'); ?>
     <?php endwhile; ?>
-    </div><!-- .row --> 
+    </div>
   </div>
   <?php endif; ?>
 
