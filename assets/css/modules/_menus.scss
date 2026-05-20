@@ -306,6 +306,19 @@ body.no-scroll {
     flex: 0 0 50%;
     padding: var(--size-800) var(--size-600);
     border-left: 1px solid var(--color-muted-200);
+
+    &--full {
+      flex: 1 1 100%;
+      border-left: none;
+
+      .mega-menu__posts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, auto);
+        grid-auto-flow: column;
+        gap: var(--size-200);
+      }
+    }
   }
 
   .mega-menu__posts {

@@ -1,12 +1,15 @@
 <?php
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 
-    private $current_parent_id = null;
+    private $current_parent_id   = null;
+    private $current_panel_type  = null;
 
     function start_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat( "\t", $depth );
         if ( ! empty( $args->is_mobile ) ) {
             $output .= "\n$indent<ul class=\"sub-menu\">\n";
+        } elseif ( $this->current_panel_type === 'review' ) {
+            $output .= "\n$indent<div class=\"sub-menu-wrapper\"><div class=\"mega-menu__inner mega-menu__inner--full\">\n";
         } else {
             $output .= "\n$indent<div class=\"sub-menu-wrapper\"><div class=\"mega-menu__inner\"><ul class=\"sub-menu\">\n";
         }
@@ -16,16 +19,32 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
         $indent = str_repeat( "\t", $depth );
         if ( ! empty( $args->is_mobile ) ) {
             $output .= "$indent</ul>\n";
+        } elseif ( $this->current_panel_type === 'review' ) {
+            $panel = $this->get_posts_panel( $this->current_parent_id );
+            $output .= "$indent<div class=\"mega-menu__panel mega-menu__panel--full\">$panel</div></div></div>\n";
         } else {
             $panel = $this->get_posts_panel( $this->current_parent_id );
             $output .= "$indent</ul><div class=\"mega-menu__panel\">$panel</div></div></div>\n";
         }
     }
 
+    function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        if ( $depth > 0 && $this->current_panel_type === 'review' && empty( $args->is_mobile ) ) {
+            return;
+        }
+        parent::end_el( $output, $item, $depth, $args );
+    }
+
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        // Track the top-level parent so end_lvl can read its category field
+        // Track the top-level parent and its panel type so start/end_lvl can use them
         if ( $depth === 0 && in_array( 'menu-item-has-children', $item->classes ) ) {
-            $this->current_parent_id = $item->ID;
+            $this->current_parent_id  = $item->ID;
+            $this->current_panel_type = get_field( 'menu_panel_post_type', $item->ID ) ?: 'post';
+        }
+
+        // Skip sub-menu items entirely for review panels on desktop
+        if ( $depth > 0 && $this->current_panel_type === 'review' && empty( $args->is_mobile ) ) {
+            return;
         }
 
         $before_length = strlen( $output );
@@ -65,19 +84,26 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 
         $query_args = [
             'post_type'      => $post_type,
-            'posts_per_page' => 3,
+            'posts_per_page' => 4,
             'no_found_rows'  => true,
         ];
 
         if ( $post_type === 'post' ) {
             $category = get_field( 'menu_panel_category', $parent_menu_item_id );
             if ( ! $category ) return '';
-            $query_args['cat'] = $category->term_id;
+
+            $featured_ids = get_field( 'featured', 'term_' . $category->term_id );
+            if ( ! empty( $featured_ids ) ) {
+                $query_args['post__in'] = $featured_ids;
+                $query_args['orderby']  = 'post__in';
+            } else {
+                $query_args['cat'] = $category->term_id;
+            }
 
         } elseif ( $post_type === 'review' ) {
             $post_ids = get_field( 'sites', 'options' );
             if ( empty( $post_ids ) ) return '';
-            $query_args['posts_per_page'] = 5;
+            $query_args['posts_per_page'] = 10;
             $query_args['post__in']       = $post_ids;
             $query_args['orderby']        = 'post__in';
 
