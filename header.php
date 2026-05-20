@@ -85,7 +85,9 @@
     'depth'           => 2,
     'container'       => false,
     'menu_class'      => 'menu-sidebar-nav',
-    'menu_id'         => 'menu-sidebar-nav'
+    'menu_id'         => 'menu-sidebar-nav',
+    'walker'          => new Custom_Walker_Nav_Menu(),
+    'is_mobile'       => true,
   )); ?>
   
 </div>

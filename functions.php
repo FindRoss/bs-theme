@@ -310,6 +310,7 @@ require get_theme_file_path('/inc/bonus-expired-meta-query.php');
  * Custom Nav Walker
  */
 require get_template_directory() . '/inc/custom-walker.php';
+require get_template_directory() . '/inc/acf-menu-fields.php';
 
 /**
  * Taxonomy Paginated Noindex
