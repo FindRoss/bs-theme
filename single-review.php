@@ -63,7 +63,8 @@ $name             = $details_group['name'];
 $link             = $details_group['affiliate_link'];
 $review_thumb_alt = get_post_meta(get_post_thumbnail_id($review_id), '_wp_attachment_image_alt', true) ?: $name . ' logo';
 $bonus         = $details_group['bonus'];
-$closed        = $details_group['closed']; // nothing or 1 
+$closed        = $details_group['closed']; // nothing or 1
+
 
 
 // Bonus Group
@@ -75,6 +76,8 @@ $bonus_plus  = $bonus_group['bonus_plus'] ?? null;
 /* Media Group */
 $media        = $fields['media_group'];
 $homepageImg  = $media['homepage'];
+$theme_color       = $media['theme_color'] ?? null;
+$transparent_logo  = $media['transparent_logo'] ?? null;
 
 if ($homepageImg) {
   $homepageImg_url = $homepageImg['sizes']['large'];
@@ -174,9 +177,17 @@ $faqs_has_answers = false;
 foreach ($faqs as $faq) {
   if (!empty($faq['answer'])) {
     $faqs_has_answers = true;
-    break; 
+    break;
   }
 };
+
+// Trust score total (for rail CTA display)
+$_trust_weights = ['fairness'=>25,'track_record'=>15,'security'=>10,'responsible'=>10,'community'=>15,'customer_service'=>25];
+$_trust_sum = 0;
+foreach ($_trust_weights as $_k => $_w) {
+  $_trust_sum += ((int) get_field("trust_index_{$_k}", $review_id) / 5) * $_w;
+}
+$trust_total = round($_trust_sum);
 
 ?>
 
@@ -204,13 +215,24 @@ foreach ($faqs as $faq) {
 
       <!-- Header -->
       <header class="review-header">
-        <div class="review-header__logo">
+        <div class="review-header__logo"<?php if ($theme_color) echo ' style="background-color: ' . esc_attr($theme_color) . '"'; ?>>
           <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo esc_attr($review_thumb_alt); ?>" width="500" height="250" fetchpriority="high">
         </div>
         <div class="review-header__info">
           <h1><?php echo $name; ?> Review</h1>
           <?php get_template_part('template-parts/content/content-author'); ?>
         </div>
+        <?php if (!$closed && $link) : ?>
+        <aside class="review-header__hero-cta" id="hero-cta">
+          <?php if ($bonus_title) : ?>
+            <div class="hero-cta__kicker"><?php echo esc_html($bonus_title); ?></div>
+          <?php endif; ?>
+          <?php if ($bonus_info) : ?>
+            <div class="hero-cta__line"><?php echo esc_html($bonus_info); ?><?php echo $bonus_plus ? ' ' . esc_html($bonus_plus) : ''; ?></div>
+          <?php endif; ?>
+          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
+        </aside>
+        <?php endif; ?>
       </header>
 
       <!-- Mobile CTA — shown below header on mobile, hidden on desktop -->
@@ -235,36 +257,35 @@ foreach ($faqs as $faq) {
         'review_id' => $review_id,
       ]); ?>
 
-      <?php if (has_excerpt() || $has_pros_cons) { ?>
-      <div class="review-top-section">
-        <div class="review-pros-cons">
-          <?php if (has_excerpt()) { ?>
-          <div class="review-pros-cons__section review-pros-cons__section--why">
-            <h3 class="review-pros-cons__title">Why play at <?php echo esc_html($name); ?></h3>
-            <p class="review-pros-cons__excerpt"><?php echo get_the_excerpt(); ?></p>
-          </div>
-          <?php } ?>
-          <?php if (!empty($pros)) { ?>
-          <div class="review-pros-cons__section review-pros-cons__section--pros">
-            <h3 class="review-pros-cons__title">Pros</h3>
-            <ul class="review-pros-cons__list review-pros-cons__list--pros">
-              <?php foreach ($pros as $pro) { ?>
-                <li><?php echo esc_html($pro['item']); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-          <?php } ?>
-          <?php if (!empty($cons)) { ?>
-          <div class="review-pros-cons__section review-pros-cons__section--cons">
-            <h3 class="review-pros-cons__title">Cons</h3>
-            <ul class="review-pros-cons__list review-pros-cons__list--cons">
-              <?php foreach ($cons as $con) { ?>
-                <li><?php echo esc_html($con['item']); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-          <?php } ?>
+      <?php if (has_excerpt()) { ?>
+      <div class="review-why">
+        <h2 class="review-why__title">Why play at <?php echo esc_html($name); ?></h2>
+        <p class="review-why__excerpt"><?php echo get_the_excerpt(); ?></p>
+      </div>
+      <?php } ?>
+
+      <?php if ($has_pros_cons) { ?>
+      <div class="review-pros-cons">
+        <?php if (!empty($pros)) { ?>
+        <div class="review-pros-cons__col">
+          <h3 class="review-pros-cons__title">Pros</h3>
+          <ul class="review-pros-cons__list review-pros-cons__list--pros">
+            <?php foreach ($pros as $pro) { ?>
+              <li><?php echo esc_html($pro['item']); ?></li>
+            <?php } ?>
+          </ul>
         </div>
+        <?php } ?>
+        <?php if (!empty($cons)) { ?>
+        <div class="review-pros-cons__col">
+          <h3 class="review-pros-cons__title">Cons</h3>
+          <ul class="review-pros-cons__list review-pros-cons__list--cons">
+            <?php foreach ($cons as $con) { ?>
+              <li><?php echo esc_html($con['item']); ?></li>
+            <?php } ?>
+          </ul>
+        </div>
+        <?php } ?>
       </div>
       <?php } ?>
 
@@ -315,22 +336,27 @@ foreach ($faqs as $faq) {
 
     </div><!-- .review-layout__main -->
 
-    <!-- Desktop sticky CTA column — hidden on mobile (mobile uses .review-layout__cta-mobile above) -->
-    <aside class="review-layout__cta">
-      <?php if (!$closed && $link) { ?>
-        <div class="cta-box">
-          <?php if ($bonus_title) { ?>
-            <p class="cta-box__title"><span><?php echo esc_html($bonus_title); ?></span></p>
-          <?php } ?>
-          <?php if ($bonus_info || $bonus_plus) { ?>
-            <p class="cta-box__offer">
-              <?php if ($bonus_info) { ?><span class="cta-box__info"><?php echo esc_html($bonus_info); ?></span><?php } ?>
-              <?php if ($bonus_plus) { ?><span class="cta-box__plus"><?php echo esc_html($bonus_plus); ?></span><?php } ?>
-            </p>
-          <?php } ?>
-          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
+    <!-- Desktop sticky CTA column — hidden on mobile -->
+    <aside class="review-layout__cta" id="rail-cta">
+      <?php if (!$closed && $link) : ?>
+      <div class="rail-cta">
+        <div class="rail-cta__name"><?php echo esc_html($name); ?></div>
+        <?php if ($bonus_title) : ?>
+          <div class="rail-cta__kicker"><?php echo esc_html($bonus_title); ?></div>
+        <?php endif; ?>
+        <?php if ($bonus_info || $bonus_plus) : ?>
+          <div class="rail-cta__line"><?php echo esc_html($bonus_info); ?><?php echo $bonus_plus ? ' ' . esc_html($bonus_plus) : ''; ?></div>
+        <?php endif; ?>
+        <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?> &rarr;</a>
+        <div class="rail-cta__micro">T&amp;Cs apply</div>
+        <?php if ($trust_total > 0) : ?>
+        <div class="rail-cta__score">
+          <span>Trust Score</span>
+          <b><?php echo esc_html($trust_total); ?> / 100</b>
         </div>
-      <?php } ?>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
     </aside>
 
   </div><!-- .review-layout -->

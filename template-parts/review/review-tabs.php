@@ -137,29 +137,15 @@ $first_key = array_key_first($tabs);
         class="review-tabs__panel<?php echo $key === $first_key ? ' active' : ''; ?>"
         role="tabpanel"
       >
-        <table class="review-table">
-          <tbody>
-            <?php foreach ($tab['rows'] as $row) :
-              if ($row['type'] === 'taxonomy') : ?>
-                <tr class="review-table__row review-table__row--taxonomy">
-                  <th scope="row">
-                    <span class="review-info-boxes__label-icon"><i data-feather="<?php echo esc_attr($row['icon']); ?>"></i></span>
-                    <?php echo esc_html($row['label']); ?>
-                  </th>
-                  <td><?php echo $row['value']; ?></td>
-                </tr>
-              <?php else : ?>
-                <tr class="review-table__row">
-                  <th scope="row">
-                    <span class="review-info-boxes__label-icon"><i data-feather="<?php echo esc_attr($row['icon']); ?>"></i></span>
-                    <?php echo esc_html($row['label']); ?>
-                  </th>
-                  <td><?php echo $row['value']; ?></td>
-                </tr>
-              <?php endif;
-            endforeach; ?>
-          </tbody>
-        </table>
+        <div class="review-details">
+          <?php foreach ($tab['rows'] as $row) : ?>
+            <div class="review-details__row<?php echo $row['type'] === 'taxonomy' ? ' review-details__row--taxonomy' : ''; ?>">
+              <span class="review-details__icon"><i data-feather="<?php echo esc_attr($row['icon']); ?>"></i></span>
+              <div class="review-details__key"><?php echo esc_html($row['label']); ?></div>
+              <div class="review-details__val"><?php echo $row['value']; ?></div>
+            </div>
+          <?php endforeach; ?>
+        </div>
       </div>
     <?php endforeach; ?>
   </div>

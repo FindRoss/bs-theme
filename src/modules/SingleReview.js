@@ -60,4 +60,30 @@ export function singleReview() {
       }, { threshold: 0 }).observe(reviewEnd);
     }
   }
+
+  // Rail CTA — hide while the hero CTA is visible in the header
+  const heroCta = document.getElementById('hero-cta');
+  const railCta = document.getElementById('rail-cta');
+  if (heroCta && railCta) {
+    new IntersectionObserver(
+      ([entry]) => railCta.classList.toggle('is-hidden', entry.isIntersecting),
+      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+    ).observe(heroCta);
+  }
+
+  // Trust index info tooltips
+  const infoBtns = document.querySelectorAll('.review-trust-index__info-btn');
+  infoBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      infoBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!isOpen) btn.setAttribute('aria-expanded', 'true');
+    });
+  });
+  if (infoBtns.length) {
+    document.addEventListener('click', () => {
+      infoBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    });
+  }
 };

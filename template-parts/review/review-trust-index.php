@@ -1,67 +1,75 @@
 <?php
 $review_id = $args['review_id'] ?? get_the_ID();
 
-$scores = [
-  'Ownership'   => (int) get_field('trust_index_ownership',   $review_id),
-  'License'     => (int) get_field('trust_index_license',     $review_id),
-  'Terms'       => (int) get_field('trust_index_terms',       $review_id),
-  'Support'     => (int) get_field('trust_index_support',     $review_id),
-  'Social'      => (int) get_field('trust_index_social',      $review_id),
-  'Responsible' => (int) get_field('trust_index_responsible', $review_id),
+$categories = [
+  'fairness'         => ['label' => 'Fairness',         'weight' => 25, 'tooltip' => 'Evaluates fair game odds, RTP transparency, and dispute resolution processes.'],
+  'track_record'     => ['label' => 'Track Record',     'weight' => 15, 'tooltip' => 'Assesses operational history, past incidents, and long-term reputation.'],
+  'security'         => ['label' => 'Security',         'weight' => 10, 'tooltip' => 'Reviews encryption standards, two-factor authentication, and data protection practices.'],
+  'responsible'      => ['label' => 'Responsible',      'weight' => 10, 'tooltip' => 'Examines responsible gambling tools, self-exclusion options, and harm reduction measures.'],
+  'community'        => ['label' => 'Community',        'weight' => 15, 'tooltip' => 'Gauges user trust, community sentiment, and peer-reviewed ratings.'],
+  'customer_service' => ['label' => 'Customer Service', 'weight' => 25, 'tooltip' => 'Rates support availability, response times, and issue resolution quality.'],
 ];
 
-$total    = array_sum($scores);
-$comments = get_field('trust_index_comments', $review_id);
+$weighted_sum = 0;
 
-if ($total <= 0) return;
+foreach ($categories as $key => $cat) {
+  $value = (int) get_field("trust_index_{$key}", $review_id);
+  $categories[$key]['value'] = $value;
+  $weighted_sum += ($value / 5) * $cat['weight'];
+}
 
-$circumference = 263.89;
-$offset        = round($circumference * (1 - $total / 60), 2);
+if ($weighted_sum <= 0) return;
+
+$total = round($weighted_sum);
 
 $modifier = 'low';
-if ($total >= 48)      $modifier = 'high';
-elseif ($total >= 36)  $modifier = 'mid';
+if ($total >= 80)     $modifier = 'high';
+elseif ($total >= 50) $modifier = 'mid';
 ?>
 
 <div class="review-trust-index review-trust-index--<?php echo esc_attr($modifier); ?>">
 
-  <div class="review-trust-index__scores">
-
-    <div class="review-trust-index__circle-wrap">
-      <span class="review-trust-index__circle-label">Trust Index</span>
-      <div class="review-trust-index__circle-container">
-        <svg class="review-trust-index__svg" viewBox="0 0 100 100" aria-hidden="true">
-          <circle class="bg-track" cx="50" cy="50" r="42" />
-          <circle
-            class="score-arc"
-            cx="50" cy="50" r="42"
-            stroke-dasharray="<?php echo $circumference; ?>"
-            stroke-dashoffset="<?php echo $offset; ?>"
-          />
-        </svg>
-        <div class="review-trust-index__score">
-          <strong class="review-trust-index__score-num"><?php echo esc_html($total); ?></strong>
-          <span class="review-trust-index__score-denom">/60</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-trust-index__grid">
-      <?php foreach ($scores as $label => $value) : ?>
-        <div class="review-trust-index__row">
-          <span class="review-trust-index__label"><?php echo esc_html($label); ?></span>
-          <span class="review-trust-index__dots" aria-hidden="true"></span>
-          <span class="review-trust-index__value"><?php echo esc_html($value); ?></span>
-        </div>
-      <?php endforeach; ?>
-    </div>
-
+  <div class="review-trust-index__head">
+    <h3 class="review-trust-index__title">Trust Score</h3>
+    <div class="review-trust-index__total"><strong><?php echo esc_html($total); ?></strong> / 100</div>
   </div>
 
-  <?php if ($comments) : ?>
-    <div class="review-trust-index__comments">
-      <p><strong>Verdict: </strong><?php echo esc_html($comments); ?></p>
-    </div>
-  <?php endif; ?>
+  <div class="flex flex-col gap-[var(--size-100)]">
+    <?php foreach ($categories as $key => $cat) :
+      $bar_pct    = ($cat['value'] / 5) * 100;
+      $score_val  = round(($cat['value'] / 5) * 100);
+      $tooltip_id = 'trust-tip-' . esc_attr($key);
+    ?>
+      <div class="grid grid-cols-2 md:grid-cols-[200px_1fr] items-center gap-3">
+
+        <div class="flex items-center gap-[5px] relative">
+          <span class="text-[13px] font-semibold text-[var(--color-muted-700)] whitespace-nowrap"><?php echo esc_html($cat['label']); ?></span>
+          <span class="text-[13px] text-[var(--color-muted-400)]">&middot; <?php echo esc_html($cat['weight']); ?>%</span>
+          <button
+            class="review-trust-index__info-btn w-[14px] h-[14px] rounded-full border border-[var(--color-muted-300)] bg-transparent text-[var(--color-muted-400)] text-[9px] italic cursor-pointer inline-flex items-center justify-center shrink-0 hover:border-[var(--color-primary-500)] hover:text-[var(--color-primary-500)] focus:outline-none"
+            type="button"
+            aria-label="About <?php echo esc_attr($cat['label']); ?>"
+            aria-expanded="false"
+            aria-controls="<?php echo $tooltip_id; ?>"
+          ><i>i</i></button>
+          <span
+            class="review-trust-index__tooltip hidden absolute top-[calc(100%+6px)] left-0 bg-[var(--color-muted-100)] text-[var(--color-muted-700)] border border-[var(--color-muted-200)] text-[12px] leading-relaxed px-[10px] py-2 rounded-[var(--border-radius)] w-[260px] z-[100] pointer-events-none"
+            id="<?php echo $tooltip_id; ?>"
+            role="tooltip"
+          ><?php echo esc_html($cat['tooltip']); ?></span>
+        </div>
+
+        <div class="h-[7px] bg-[var(--color-muted-200)] rounded overflow-hidden min-w-[60px]">
+          <div class="h-full bg-[var(--trust-color)] rounded" style="width:<?php echo esc_attr($bar_pct); ?>%"></div>
+        </div>
+
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+  <div class="mt-4 pt-4 border-t border-[var(--color-muted-200)] flex items-center justify-between">
+    <p class="m-0 text-[12.5px] text-[var(--color-muted-400)] italic"><em>Score reflects additional qualitative review</em></p>
+    <a href="https://bitcoinchaser.com/legit-crypto-gambling-sites/" class="text-[13px] font-semibold text-[var(--color-primary-500)] no-underline hover:text-[var(--color-primary-700)] whitespace-nowrap">View methodology &rarr;</a>
+  </div>
 
 </div>
