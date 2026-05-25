@@ -8,9 +8,17 @@ $featured_post_args = array(
 );
 $featured_post_query = new WP_Query( $featured_post_args );
 
-$top_sites     = get_field('sites', 'options');
-$featured_sites = get_field('reviews', 'options');
-$top_bonuses   = get_field('top_bonus', 'options');
+// ── Pills grid config ──────────────────────────────────────────────────────
+$pills_per_section = 3; // Change to 4 to show 4 pills per section
+
+$pill_sections = array(
+  array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '#' ),
+  array( 'field' => 'new_sites',            'title' => 'New Sites',            'link' => '#' ),
+  array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '#' ),
+  array( 'field' => 'vip_sites',            'title' => 'VIP Sites',            'link' => '#' ),
+  array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '#' ),
+  array( 'field' => 'crash_sites',          'title' => 'Crash Sites',          'link' => '#' ),
+);
 ?>
 
 <div class="container">
@@ -20,9 +28,66 @@ $top_bonuses   = get_field('top_bonus', 'options');
     <p>Discover Bitcoin casino reviews, cryptocurrency sports betting sites, no-deposit bonuses, gambling guides, and more.</p>
   </section>
 
-  <section class="mt-4">
+  <!-- Review Pills Grid -->
+  <section class="pills-grid mt-4">
+    <div class="pills-grid__grid">
 
-    <!-- Two lead posts -->
+      <?php foreach ( $pill_sections as $section ) :
+        $post_ids = get_field( $section['field'], 'options' );
+        if ( empty( $post_ids ) ) continue;
+
+        $section_query = new WP_Query( array(
+          'post_type'      => 'review',
+          'orderby'        => 'post__in',
+          'post__in'       => $post_ids,
+          'posts_per_page' => $pills_per_section,
+        ) );
+
+        if ( ! $section_query->have_posts() ) continue;
+      ?>
+        <div class="pills-grid__section">
+          <header class="pills-grid__header">
+            <h2 class="pills-grid__title"><?php echo esc_html( $section['title'] ); ?></h2>
+            <a class="pills-grid__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <i data-feather="arrow-right"></i></a>
+          </header>
+          <div class="pills-grid__pills">
+            <?php
+            $rank = 0;
+            while ( $section_query->have_posts() ) :
+              $section_query->the_post();
+              $rank++;
+              $post_id      = get_the_ID();
+              $details      = get_field( 'details_group', $post_id );
+              $name         = $details['name'] ?? get_the_title();
+              $bonus_group  = get_field( 'bonus_group', $post_id );
+              $bonus_text   = $bonus_group['bonus'] ?? '';
+              $logo_url     = get_the_post_thumbnail_url( $post_id, 'site-small-logo' );
+              $review_url   = get_the_permalink( $post_id );
+              $top_class    = $rank === 1 ? ' pills-grid__pill--top' : '';
+            ?>
+              <a class="pills-grid__pill<?php echo $top_class; ?>" href="<?php echo esc_url( $review_url ); ?>">
+                <span class="pills-grid__num"><?php echo $rank; ?></span>
+                <span class="pills-grid__logo">
+                  <?php if ( $logo_url ) : ?>
+                    <img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $name . ' logo' ); ?>" width="96" height="44">
+                  <?php endif; ?>
+                </span>
+                <span class="pills-grid__offer">
+                  <span class="pills-grid__offer-icon"><i data-feather="gift" aria-hidden="true"></i></span>
+                  <span class="pills-grid__offer-text"><?php echo esc_html( $bonus_text ?: $name ); ?></span>
+                </span>
+                <span class="pills-grid__visit" aria-hidden="true"><i data-feather="external-link"></i></span>
+              </a>
+            <?php endwhile; wp_reset_postdata(); ?>
+          </div>
+        </div>
+      <?php endforeach; ?>
+
+    </div>
+  </section>
+
+  <!-- Two lead posts -->
+  <section class="mt-4">
     <div class="dirplus-posts">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
@@ -34,100 +99,39 @@ $top_bonuses   = get_field('top_bonus', 'options');
         <?php wp_reset_postdata(); ?>
       <?php endif; ?>
     </div>
-
-    <!-- Three-column pill rail -->
-    <div class="dirplus-rail">
-
-      <!-- Top Sites -->
-      <?php if ( !empty($top_sites) ) :
-        $sites_query = new WP_Query(array(
-          'post_type'      => 'review',
-          'orderby'        => 'post__in',
-          'post__in'       => $top_sites,
-          'posts_per_page' => 5,
-        ));
-        if ( $sites_query->have_posts() ) : ?>
-          <div class="rail-block">
-            <h2 class="rail-block__title">Top Sites</h2>
-            <?php while ( $sites_query->have_posts() ) : $sites_query->the_post(); ?>
-              <?php get_template_part('template-parts/card/review-pill'); ?>
-            <?php endwhile; wp_reset_postdata(); ?>
-          </div>
-        <?php endif; ?>
-      <?php endif; ?>
-
-      <!-- Featured Sites -->
-      <?php if ( !empty($featured_sites) ) :
-        $featured_query = new WP_Query(array(
-          'post_type'      => 'review',
-          'orderby'        => 'post__in',
-          'post__in'       => $featured_sites,
-          'posts_per_page' => 5,
-        ));
-        if ( $featured_query->have_posts() ) : ?>
-          <div class="rail-block">
-            <h2 class="rail-block__title">Featured Sites</h2>
-            <?php while ( $featured_query->have_posts() ) : $featured_query->the_post(); ?>
-              <?php get_template_part('template-parts/card/review-pill'); ?>
-            <?php endwhile; wp_reset_postdata(); ?>
-          </div>
-        <?php endif; ?>
-      <?php endif; ?>
-
-      <!-- Top Bonuses -->
-      <?php if ( !empty($top_bonuses) ) :
-        $bonus_query = new WP_Query(array(
-          'post_type'      => 'bonus',
-          'orderby'        => 'post__in',
-          'post__in'       => $top_bonuses,
-          'posts_per_page' => 5,
-          'meta_query'     => bonus_expired_meta_query(),
-        ));
-        if ( $bonus_query->have_posts() ) : ?>
-          <div class="rail-block">
-            <h2 class="rail-block__title">Top Bonuses</h2>
-            <?php while ( $bonus_query->have_posts() ) : $bonus_query->the_post(); ?>
-              <?php get_template_part('template-parts/card/bonus-pill'); ?>
-            <?php endwhile; wp_reset_postdata(); ?>
-          </div>
-        <?php endif; ?>
-      <?php endif; ?>
-
-    </div><!-- .three-col pill rail -->
-
   </section>
 
 </div><!-- .container -->
 
 <!-- BONUSES -->
-<?php 
+<?php
   $bonus_ids_to_include = get_field('bonuses', 'options');
 
-  $featured_bonus_args = array( 
-    'post_type'      => 'bonus', 
+  $featured_bonus_args = array(
+    'post_type'      => 'bonus',
     'post_status'    => 'publish',
     'posts_per_page' => 12,
     'meta_query'     => bonus_expired_meta_query()
   );
-  
+
   if ($bonus_ids_to_include) {
     $featured_bonus_args['post__in'] = $bonus_ids_to_include;
     $featured_bonus_args['orderby']  = 'post__in';
   };
-  
-$featured_bonus_query = new WP_Query($featured_bonus_args); 
+
+$featured_bonus_query = new WP_Query($featured_bonus_args);
 $featured_bonus_foundPosts = $featured_bonus_query->found_posts;
 
 if ($featured_bonus_foundPosts >= 1) { ?>
 
 <div class="container mt-5 pt-4">
   <section>
-    <?php 
+    <?php
       outputNewSlideHTML(array(
         'query' => $featured_bonus_query,
-        'heading' => 'Exclusive Bonuses', 
+        'heading' => 'Exclusive Bonuses',
         'link' => 'https://bitcoinchaser.com/bonuses/'
-      )); 
+      ));
     ?>
   </section>
 </div>
@@ -135,27 +139,26 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 <?php }; ?>
 
 <!-- NEWS -->
-<?php 
-  $latest_casino_news_query = new WP_Query(array( 
-    'post_type'      => 'post', 
+<?php
+  $latest_casino_news_query = new WP_Query(array(
+    'post_type'      => 'post',
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'category_name'  => 'news', 
-  )); 
-  
+    'category_name'  => 'news',
+  ));
+
   $latest_casino_news_foundPosts = $latest_casino_news_query->found_posts;
 
   if ($latest_casino_news_foundPosts >= 8) { ?>
 
-
   <div class="container mt-5 pt-4">
     <section>
-      <?php 
+      <?php
          outputNewSlideHTML(array(
           'query' => $latest_casino_news_query,
-          'heading' => 'News', 
+          'heading' => 'News',
           'link' => '/category/news/'
-        )); 
+        ));
       ?>
     </section>
   </div>
@@ -189,17 +192,15 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 
 <?php }; ?>
 
-
-
 <!-- SPORTS -->
-<?php 
-  $latest_sports_query = new WP_Query(array( 
-    'post_type'      => 'post', 
+<?php
+  $latest_sports_query = new WP_Query(array(
+    'post_type'      => 'post',
     'post_status'    => 'publish',
     'posts_per_page' => 8,
-    'category_name'  => 'sports', 
+    'category_name'  => 'sports',
     'meta_query'     => bonus_expired_meta_query()
-  )); 
+  ));
 
   $latest_sports_foundPosts = $latest_sports_query->found_posts;
 
@@ -207,10 +208,10 @@ if ($featured_bonus_foundPosts >= 1) { ?>
 
   <div class="container mt-5 pt-4">
     <section>
-      <?php 
+      <?php
         outputNewSlideHTML(array(
           'query' => $latest_sports_query,
-          'heading' => 'Sports', 
+          'heading' => 'Sports',
           'link' => '/category/sports/'
         ))
       ?>
@@ -218,26 +219,25 @@ if ($featured_bonus_foundPosts >= 1) { ?>
   </div>
 <?php }; ?>
 
-
 <!-- ALTERNATIVES -->
-<?php 
-  $alternatives_query = new WP_Query(array( 
-    'post_type'      => 'post', 
+<?php
+  $alternatives_query = new WP_Query(array(
+    'post_type'      => 'post',
     'post_status'    => 'publish',
     'posts_per_page' => 8,
     'category_name'  => 'alternatives'
-  )); 
-  
+  ));
+
   $alternatives_foundPosts = $alternatives_query->found_posts;
 
   if ($alternatives_foundPosts >= 8) { ?>
 
   <div class="container mt-5 pt-4">
     <section>
-      <?php 
+      <?php
         outputNewSlideHTML(array(
           'query' => $alternatives_query,
-          'heading' => 'Alternatives', 
+          'heading' => 'Alternatives',
           'link' => '/category/alternatives/'
         ));
       ?>
@@ -255,7 +255,7 @@ if ($featured_bonus_foundPosts >= 1) { ?>
       'post_type'      => 'review',
       'post_status'    => 'publish',
       'posts_per_page' => 8,
-      'meta_key'       => 'rank', 
+      'meta_key'       => 'rank',
       'orderby'        => 'meta_value_num',
       'order'          => 'ASC',
     ));
