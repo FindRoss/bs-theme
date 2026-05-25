@@ -9,7 +9,7 @@ $featured_post_args = array(
 $featured_post_query = new WP_Query( $featured_post_args );
 
 // ── Pills grid config ──────────────────────────────────────────────────────
-$pills_per_section = 3; // Change to 4 to show 4 pills per section
+$pills_per_section = 4; // Change to 4 to show 4 pills per section
 
 $pill_sections = array(
   array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '#' ),
