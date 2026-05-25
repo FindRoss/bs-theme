@@ -86,4 +86,26 @@ export function singleReview() {
       infoBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
     });
   }
+
+  // TOC scroll spy — highlights the link whose section is in the middle viewport band
+  const tocLinks = [...document.querySelectorAll('.review-toc__link')];
+  if (tocLinks.length) {
+    const map = new Map();
+    tocLinks.forEach(a => {
+      const target = document.getElementById(a.getAttribute('href').slice(1));
+      if (target) map.set(target, a);
+    });
+
+    if (map.size) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          tocLinks.forEach(l => l.classList.remove('is-active'));
+          map.get(e.target)?.classList.add('is-active');
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+      map.forEach((_, el) => io.observe(el));
+    }
+  }
 };

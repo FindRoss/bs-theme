@@ -189,6 +189,18 @@ foreach ($_trust_weights as $_k => $_w) {
 }
 $trust_total = round($_trust_sum);
 
+// Build Table of Contents
+$toc = [];
+$toc[] = ['id' => 'section-tabs', 'label' => 'Overview'];
+if (has_excerpt()) $toc[] = ['id' => 'section-why', 'label' => "Why play at $name"];
+if ($has_pros_cons) $toc[] = ['id' => 'section-pros-cons', 'label' => 'Pros & Cons'];
+$toc[] = ['id' => 'section-trust', 'label' => 'Trust Score'];
+$toc[] = ['id' => 'section-review', 'label' => 'Review'];
+foreach ($content as $key => $value) {
+  $toc[] = ['id' => 'section-' . sanitize_title($key), 'label' => $key];
+}
+if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
+
 ?>
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?>
@@ -253,19 +265,21 @@ $trust_total = round($_trust_sum);
       </div>
       <?php } ?>
 
-      <?php get_template_part('template-parts/review/review-tabs', null, [
-        'review_id' => $review_id,
-      ]); ?>
+      <div id="section-tabs">
+        <?php get_template_part('template-parts/review/review-tabs', null, [
+          'review_id' => $review_id,
+        ]); ?>
+      </div>
 
       <?php if (has_excerpt()) { ?>
-      <div class="review-why">
+      <div class="review-why" id="section-why">
         <h2 class="review-why__title">Why play at <?php echo esc_html($name); ?></h2>
         <p class="review-why__excerpt"><?php echo get_the_excerpt(); ?></p>
       </div>
       <?php } ?>
 
       <?php if ($has_pros_cons) { ?>
-      <div class="review-pros-cons">
+      <div class="review-pros-cons" id="section-pros-cons">
         <?php if (!empty($pros)) { ?>
         <div class="review-pros-cons__col">
           <h3 class="review-pros-cons__title">Pros</h3>
@@ -289,9 +303,11 @@ $trust_total = round($_trust_sum);
       </div>
       <?php } ?>
 
-      <?php get_template_part('template-parts/review/review-trust-index', null, [
-        'review_id' => $review_id,
-      ]); ?>
+      <div id="section-trust">
+        <?php get_template_part('template-parts/review/review-trust-index', null, [
+          'review_id' => $review_id,
+        ]); ?>
+      </div>
 
       <?php if ($homepageImg) : ?>
         <figure class="homepage-image">
@@ -307,15 +323,19 @@ $trust_total = round($_trust_sum);
       <section class="skye-section">
         <main class="skye-section__content">
 
-        <section class="content main--content mt-5">
+        <section class="content main--content mt-5" id="section-review">
           <?php if ($introduction) echo '<div class="introduction">' . $introduction . '</div>';
           the_content();
           foreach ($content as $key => $value) { ?>
-            <h2><?php echo $key; ?></h2>
+            <h2 id="<?php echo esc_attr('section-' . sanitize_title($key)); ?>"><?php echo $key; ?></h2>
             <?php echo $value; ?>
           <?php } ?>
 
-          <?php if ($faqs_has_answers) { ?>
+        </section>
+
+
+        <?php if ($faqs_has_answers) { ?>
+        <section class="content main--content mt-5" id="section-faqs">
             <h2>FAQs</h2>
             <?php foreach ($faqs as $faq) { ?>
               <?php if ($faq['answer']) : ?>
@@ -325,9 +345,8 @@ $trust_total = round($_trust_sum);
                 </div>
               <?php endif; ?>
             <?php } ?>
-          <?php } ?>
-
         </section>
+        <?php } ?>
 
 
         </main>
@@ -357,6 +376,7 @@ $trust_total = round($_trust_sum);
         <?php endif; ?>
       </div>
       <?php endif; ?>
+      <!-- <?php get_template_part('template-parts/review/review-toc', null, ['toc' => $toc]); ?> -->
     </aside>
 
   </div><!-- .review-layout -->
