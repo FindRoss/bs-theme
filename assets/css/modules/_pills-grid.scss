@@ -1,0 +1,67 @@
+@use "_breakpoints" as *;
+
+.pills-grid {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+
+    @include breakpoint(medium) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include breakpoint(large) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  &__section {
+    background: #f4f6fa;
+    border: 1px solid #e7ebf2;
+    border-radius: 14px;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 2px 2px 0;
+  }
+
+  &__title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__link {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary-700);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+
+    &:hover { background: #e3e8f0; }
+
+    svg { width: 12px; height: 12px; }
+  }
+
+  &__pills {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+  }
+}

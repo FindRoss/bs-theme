@@ -18,6 +18,10 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
     function end_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat( "\t", $depth );
         if ( ! empty( $args->is_mobile ) ) {
+            $panel = $this->get_posts_panel( $this->current_parent_id );
+            if ( $panel ) {
+                $output .= "$indent<li class=\"mobile-panel-item\">$panel</li>\n";
+            }
             $output .= "$indent</ul>\n";
         } elseif ( $this->current_panel_type === 'review' ) {
             $panel = $this->get_posts_panel( $this->current_parent_id );

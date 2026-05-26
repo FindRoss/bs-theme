@@ -1,9 +1,7 @@
 <?php
 $top_sites = get_field('sites', 'options');
 $top_bonuses = get_field('top_bonus', 'options');
-$featured_sites = get_field('reviews', 'options');
-
-if (!is_front_page()) { 
+if (!is_front_page()) {
   if (function_exists('geot_target') && geot_target( 'US' )) { 
     if (is_active_sidebar( 'us-sidebar-ad' )) { 
       echo '<section class="sidebar__widget advert">';
@@ -29,39 +27,17 @@ if(!empty($top_sites)) {
   )); 
 
   if ($sites_query->have_posts()) :
-    echo '<section class="sidebar__widget">';
+    echo '<section class="sidebar__widget pills-grid__section">';
+    echo '<header class="pills-grid__header"><h2 class="pills-grid__title">Top Sites</h2></header>';
+    echo '<div class="pills-grid__pills">';
 
-    echo '<h2 class="sidebar__widget--title">Top Sites</h2>';
-
-    while ($sites_query->have_posts()) : $sites_query->the_post(); 
-      get_template_part('template-parts/card/review-pill');
+    $rank = 0;
+    while ($sites_query->have_posts()) : $sites_query->the_post();
+      $rank++;
+      get_template_part('template-parts/card/review-pill', null, ['rank' => $rank]);
     endwhile;
 
-    echo '</section>';
-    wp_reset_postdata();
-  endif;
-
-}
-
-if(!empty($featured_sites)) {
-
-  $featured_query = new WP_Query(array(
-    'post_type'      => 'review',
-    'orderby'        => 'post__in',
-    'post__in'       => $featured_sites,
-    'posts_per_page' => 5
-  ));
-
-  if ($featured_query->have_posts()) :
-    echo '<section class="sidebar__widget">';
-
-    echo '<h2 class="sidebar__widget--title">Featured Sites</h2>';
-
-    while ($featured_query->have_posts()) : $featured_query->the_post();
-      get_template_part('template-parts/card/review-pill');
-    endwhile;
-
-    echo '</section>';
+    echo '</div></section>';
     wp_reset_postdata();
   endif;
 
@@ -79,13 +55,23 @@ if(!empty($top_bonuses)) {
   );
   
   if ($bonus_query->have_posts()) :
-    echo '<section class="sidebar__widget">';
-      $top_bonus_title = count($top_bonuses) > 1 ? 'Top Bonuses' : 'Top Bonus';
-      echo '<h2 class="sidebar__widget--title">' . $top_bonus_title . '</h2>';
+    $top_bonus_title = count($top_bonuses) > 1 ? 'Top Bonuses' : 'Top Bonus';
+    echo '<section class="sidebar__widget pills-grid__section">';
+      echo '<header class="pills-grid__header">';
+        echo '<h2 class="pills-grid__title">' . esc_html($top_bonus_title) . '</h2>';
+        echo '<a class="pills-grid__link" href="/bonuses/">View all <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>';
+      echo '</header>';
+      echo '<div class="pills-grid__pills">';
 
-      while ($bonus_query->have_posts()) : $bonus_query->the_post(); 
-        get_template_part('template-parts/card/bonus-pill');
+      $rank = 0;
+      while ($bonus_query->have_posts()) : $bonus_query->the_post();
+        $rank++;
+        get_template_part('template-parts/card/bonus-pill', null, [
+          'is_top' => ($rank === 1),
+        ]);
       endwhile;
+
+      echo '</div>';
     wp_reset_postdata();
     echo '</section>';
   endif;

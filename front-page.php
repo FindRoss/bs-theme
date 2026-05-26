@@ -12,12 +12,13 @@ $featured_post_query = new WP_Query( $featured_post_args );
 $pills_per_section = 4; // Change to 4 to show 4 pills per section
 
 $pill_sections = array(
-  array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '#' ),
-  array( 'field' => 'new_sites',            'title' => 'New Sites',            'link' => '#' ),
-  array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '#' ),
-  array( 'field' => 'vip_sites',            'title' => 'VIP Sites',            'link' => '#' ),
-  array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '#' ),
-  array( 'field' => 'crash_sites',          'title' => 'Crash Sites',          'link' => '#' ),
+  array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '' ),
+  array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '/anonymous-casinos/' ),
+  array( 'field' => 'vip_sites',            'title' => 'VIP Sites',            'link' => '/vip-casinos-for-high-rollers/' ),
+  array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '' ),
+  array( 'field' => 'us_friendly_sites',    'title' => 'US-Friendly Sites',    'link' => '/country/united-states/'),
+  array( 'field' => 'crash_sites',          'title' => 'Crash Sites',          'link' => '/game/crash/' ),
+  // array( 'field' => 'new_sites',          'title' => 'New Sites',           'link' => '' ),
 );
 ?>
 
@@ -48,7 +49,9 @@ $pill_sections = array(
         <div class="pills-grid__section">
           <header class="pills-grid__header">
             <h2 class="pills-grid__title"><?php echo esc_html( $section['title'] ); ?></h2>
-            <a class="pills-grid__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <i data-feather="arrow-right"></i></a>
+            <?php if ( ! empty( $section['link'] ) ) : ?>
+              <a class="pills-grid__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <i data-feather="arrow-right"></i></a>
+            <?php endif; ?>
           </header>
           <div class="pills-grid__pills">
             <?php
@@ -56,29 +59,13 @@ $pill_sections = array(
             while ( $section_query->have_posts() ) :
               $section_query->the_post();
               $rank++;
-              $post_id      = get_the_ID();
-              $details      = get_field( 'details_group', $post_id );
-              $name         = $details['name'] ?? get_the_title();
-              $bonus_group  = get_field( 'bonus_group', $post_id );
-              $bonus_text   = $bonus_group['bonus'] ?? '';
-              $logo_url     = get_the_post_thumbnail_url( $post_id, 'site-small-logo' );
-              $review_url   = get_the_permalink( $post_id );
-              $top_class    = $rank === 1 ? ' pills-grid__pill--top' : '';
+              get_template_part( 'template-parts/card/review-pill', null, [
+                'rank'   => $rank,
+                'is_top' => $rank === 1,
+              ] );
+            endwhile;
+            wp_reset_postdata();
             ?>
-              <a class="pills-grid__pill<?php echo $top_class; ?>" href="<?php echo esc_url( $review_url ); ?>">
-                <span class="pills-grid__num"><?php echo $rank; ?></span>
-                <span class="pills-grid__logo">
-                  <?php if ( $logo_url ) : ?>
-                    <img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $name . ' logo' ); ?>" width="96" height="44">
-                  <?php endif; ?>
-                </span>
-                <span class="pills-grid__offer">
-                  <span class="pills-grid__offer-icon"><i data-feather="gift" aria-hidden="true"></i></span>
-                  <span class="pills-grid__offer-text"><?php echo esc_html( $bonus_text ?: $name ); ?></span>
-                </span>
-                <span class="pills-grid__visit" aria-hidden="true"><i data-feather="external-link"></i></span>
-              </a>
-            <?php endwhile; wp_reset_postdata(); ?>
           </div>
         </div>
       <?php endforeach; ?>
@@ -88,7 +75,10 @@ $pill_sections = array(
 
   <!-- Two lead posts -->
   <section class="mt-4">
-    <div class="dirplus-posts">
+    <div class="section-heading">
+      <h2 class="section-heading__title h4">Latest</h2>
+    </div>
+    <div class="dirplus-posts mt-4">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
           <div>
@@ -110,7 +100,7 @@ $pill_sections = array(
   $featured_bonus_args = array(
     'post_type'      => 'bonus',
     'post_status'    => 'publish',
-    'posts_per_page' => 12,
+    'posts_per_page' => 6,
     'meta_query'     => bonus_expired_meta_query()
   );
 
@@ -119,24 +109,27 @@ $pill_sections = array(
     $featured_bonus_args['orderby']  = 'post__in';
   };
 
-$featured_bonus_query = new WP_Query($featured_bonus_args);
-$featured_bonus_foundPosts = $featured_bonus_query->found_posts;
+  $featured_bonus_query = new WP_Query($featured_bonus_args);
 
-if ($featured_bonus_foundPosts >= 1) { ?>
+  if ($featured_bonus_query->have_posts()) : ?>
 
 <div class="container mt-5 pt-4">
   <section>
-    <?php
-      outputNewSlideHTML(array(
-        'query' => $featured_bonus_query,
-        'heading' => 'Exclusive Bonuses',
-        'link' => 'https://bitcoinchaser.com/bonuses/'
-      ));
-    ?>
+    <div class="section-heading">
+      <h2 class="section-heading__title h4">
+        <a href="https://bitcoinchaser.com/bonuses/">Bonuses <?php echo get_svg_icon('chevron-right'); ?></a>
+      </h2>
+    </div>
+    <div class="bonus-cards-grid">
+      <?php while ($featured_bonus_query->have_posts()) : $featured_bonus_query->the_post(); ?>
+        <?php get_template_part('template-parts/card/card', 'shanghai'); ?>
+      <?php endwhile; ?>
+      <?php wp_reset_postdata(); ?>
+    </div>
   </section>
 </div>
 
-<?php }; ?>
+<?php endif; ?>
 
 <!-- NEWS -->
 <?php

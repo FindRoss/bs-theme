@@ -13,11 +13,7 @@ body.no-scroll {
   overflow: hidden;
 }
 
-/*
-* Featured Navbar Item
-**/
-
-
+// Featured Navbar Item
 .featured-navbar-item {
   display: flex;
   padding: 0 !important;
@@ -64,7 +60,6 @@ body.no-scroll {
       flex: 1;
       border-radius: var(--border-radius);
       border: 1px solid var(--color-muted-400);
-      // font-size: 1.25rem;
       padding: 12px 1rem;
     }
   }
@@ -109,7 +104,6 @@ body.no-scroll {
   color: var(--color-primary-900);
   text-decoration: none;
   font-weight: 500;
-  // font-size: 16px;
   user-select: none;
 
   &:hover,
@@ -133,11 +127,10 @@ body.no-scroll {
 // nav
 .nav-layout {
   height: 55px;
-  padding: 0rem;
+  padding: 0;
   display: flex;
   gap: var(--size-600);
   align-items: center;
-  justify-self: space-between;
 
   &__logo {
     display: flex;
@@ -255,7 +248,6 @@ body.no-scroll {
         top: 100%;
         left: 0;
         background-color: var(--color-bg-50);
-        // border-top: 2px solid var(--color-muted-200);
         border-bottom: 1px solid var(--color-muted-200);
         transition: max-height 0.5s ease-out;
 
@@ -375,6 +367,17 @@ body.no-scroll {
     color: var(--color-primary-900);
     transition: color 0.15s ease;
   }
+
+  // Nav link colour rule has higher specificity than review-pill__visit a,
+  // so override it here where cascade order gives us the win.
+  .review-pill__visit a {
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
 }
 
 /**
@@ -388,11 +391,8 @@ body.no-scroll {
 .background-drawer {
   position: fixed;
   display: block;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background-color: rgb(255, 255, 255);
+  inset: 0;
+  background-color: #fff;
   visibility: hidden;
   z-index: 3000;
   transition: transform 0.1s ease-in-out;
@@ -424,11 +424,8 @@ body.no-scroll {
     padding-left: 0;
     user-select: none;
 
-    a {
-      padding-top: var(--size-300);
-      padding-bottom: var(--size-300);
-      padding-left: var(--size-100);
-      padding-right: var(--size-200);
+    .menu-item > a {
+      padding: var(--size-300) var(--size-200) var(--size-300) var(--size-100);
       font-size: 14px;
 
       &:hover,
@@ -443,13 +440,12 @@ body.no-scroll {
       }
 
       &>a {
-        display: block; // top-level links are block
+        display: block;
         font-size: 18px;
       }
     }
 
-    .sub-menu a {
-      // flex from shared rule — add mobile-specific padding
+    .sub-menu .menu-item > a {
       padding: var(--size-200) var(--size-300);
       font-size: 0.9rem;
     }
@@ -465,7 +461,6 @@ body.no-scroll {
 
       &>a {
         grid-area: link;
-        flex: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -502,7 +497,7 @@ body.no-scroll {
       .sub-menu {
         grid-area: submenu;
         visibility: hidden;
-        height: 0px;
+        height: 0;
         list-style-type: none;
         padding: 0;
 
@@ -510,13 +505,30 @@ body.no-scroll {
           display: block;
           visibility: visible;
           height: auto;
-          flex-basis: 100%;
           background-color: var(--color-bg-50);
           border-top: 1px solid var(--color-bg-600);
           border-bottom: 1px solid var(--color-bg-600);
         }
 
-        // flex layout inherited from shared .sub-menu a rule
+        .mobile-panel-item {
+          list-style: none;
+          padding: var(--size-300) var(--size-200);
+
+          .mega-menu__posts {
+            display: flex;
+            flex-direction: column;
+            gap: var(--size-200);
+          }
+
+          .review-pill__visit a {
+            color: #fff;
+
+            &:hover,
+            &:focus {
+              color: #fff;
+            }
+          }
+        }
       }
     }
   }

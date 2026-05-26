@@ -45,20 +45,13 @@ $play_at_query = new WP_Query( $play_at_args );
     <div class="col-12 col-lg-8">
 
       <article class="mb-5 pb-4">
-
-        <!-- heading --> 
         <div class="mb-4 pb-4 border-bottom">
-              
-          <!-- image --> 
           <img class="w-100 h-auto mb-4 border-radius border" width="600" height="311" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" />
-
-          <!-- title --> 
           <h1 class="mb-4"><?php the_title(); ?></h1>
 
           <!-- meta --> 
           <div class="main--meta d-flex flex-row align-items-center">
             <img src="<?php echo $get_avatar_url; ?>" width="55" height="55" class="p-1 rounded-circle shadow-sm border"/> 
-            <!-- TEXT -->    
             <div class="d-flex flex-column ms-2">
               <div class="">
                 <span>By <?php the_author(); ?></span>

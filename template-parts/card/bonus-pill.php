@@ -1,61 +1,110 @@
-<?php 
+<?php
   $bid = get_the_ID();
 
   // Bonus Fields
   $bonus_title = get_field('bonus_title', $bid);
   $bonus       = get_field('bonus', $bid);
-  $bonus_plus  = get_field('bonus_plus', $bid);
-  $title       = get_the_title($bid);
   $code        = get_field('code', $bid);
   $blockLink   = get_field('bonus_link', $bid);
+  $permalink   = get_permalink($bid);
 
+  $siteArr = get_field('single_bonus_casino', $bid);
+  $site    = $siteArr[0];
 
-  $siteArr    = get_field('single_bonus_casino', $bid);
-  $site       = $siteArr[0];  
-  
-  $permalink  = get_permalink($bid);
-  $postStatus = get_post_status($bid);
-  
   // Review Fields
   $details_group = get_field('details_group', $site);
-  $name          = $details_group['name']; 
-  $link          = $details_group['affiliate_link'];  
-  $media_group   = get_field('media_group', $site);
-  $color         = $media_group['theme_color'];
+  $name          = $details_group['name'];
+  $link          = $details_group['affiliate_link'];
+  $logo_url      = get_the_post_thumbnail_url($site, 'site-small-logo');
 
   $bonusLink = $link;
-  if ($blockLink) $bonusLink = $blockLink;  
+  if ($blockLink) $bonusLink = $blockLink;
+
+  // Args
+  $is_top = $args['is_top'] ?? false;
+
+  // Derive category from bonus_type taxonomy for tag colouring
+  $bonus_types  = get_the_terms($bid, 'bonus_type');
+  $category     = 'default';
+  $category_map = [
+    'no-deposit' => 'nodeposit',
+    'free-spins' => 'nodeposit',
+    'exclusive'  => 'exclusive',
+    'reload'     => 'reload',
+    'cashback'   => 'cashback',
+    'rakeback'   => 'cashback',
+  ];
+  if ($bonus_types && !is_wp_error($bonus_types)) {
+    $category = $category_map[$bonus_types[0]->slug] ?? 'default';
+  }
+
+  // Tag label: ACF bonus_title > taxonomy term name
+  $tag_label = $bonus_title ?: ($bonus_types && !is_wp_error($bonus_types) ? $bonus_types[0]->name : '');
+
+  $pill_class = 'bonus-pill' . ($is_top ? ' bonus-pill--top' : '');
 ?>
 
-<div class="bonus-pill-wrapper">
-  <div class="card card-absolute bonus-pill">
+<div class="<?php echo esc_attr($pill_class); ?>">
+  <a class="bonus-pill__link"
+     href="<?php echo esc_url($permalink); ?>"
+     aria-label="<?php echo esc_attr($name . ($bonus ? ' — ' . $bonus : '')); ?>"></a>
 
-    <!-- aria -->
-    <a class="card-absolute__link" href="<?php echo esc_url($permalink); ?>" aria-label="<?php echo esc_attr($title); ?>"></a>
+  <span class="bonus-pill__logo">
+    <?php if ($logo_url) : ?>
+      <img src="<?php echo esc_url($logo_url); ?>"
+           alt="<?php echo esc_attr($name . ' logo'); ?>"
+           width="96" height="44">
+    <?php endif; ?>
+  </span>
 
-    <div class="bonus-pill__content">
-      <img class="logo" src="<?php echo get_the_post_thumbnail_url($site, 'site-small-logo'); ?>" alt="<?php echo $name . ' logo'; ?>" width="100" height="50" title="<?php echo $name; ?>"/>
-      <h3>
-        <?php if ($bonus_title) { ?><div class="title"><?php echo $bonus_title; ?></div><?php } ?>
-        <?php if ($bonus)       { ?><div class="bonus"><?php echo $bonus; ?></div><?php } ?>
-        <?php if ($bonus_plus)  { ?><div class="subtitle"><?php echo $bonus_plus; ?></div><?php } ?>
-      </h3>
-    </div>
-
-    <div class="card-absolute__ctas bonus-pill__cta">
-      <?php if ($code) { ?>
-        <button class="bonus-pill__code bonus-code" type="button" aria-label="Copy bonus code to clipboard">
-          <span class="bonus-code__code"><?php echo esc_html($code); ?></span>
-          <span class="bonus-code__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-            </svg>
-          </span>
-        </button>
-      <?php } ?>
-      <a class="button button__primary" href="<?php echo esc_url($bonusLink); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
-        <i data-feather="external-link"></i>
-      </a>
-    </div>
+  <div class="bonus-pill__copy">
+    <?php if ($tag_label) : ?>
+      <span class="bonus-pill__tag bonus-pill__tag--<?php echo esc_attr($category); ?>">
+        <?php echo esc_html($tag_label); ?>
+      </span>
+    <?php endif; ?>
+    <?php if ($bonus) : ?>
+      <span class="bonus-pill__amount"><?php echo esc_html($bonus); ?></span>
+    <?php endif; ?>
   </div>
+
+  <?php if ($code) : ?>
+    <button class="bonus-pill__code bonus-code" type="button"
+            aria-label="Copy code <?php echo esc_attr($code); ?>">
+      <span class="bonus-code__code"><?php echo esc_html($code); ?></span>
+      <span class="bonus-code__icon" aria-hidden="true">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      </span>
+      <span class="sr-only" aria-live="polite"></span>
+    </button>
+  <?php else : ?>
+    <span class="bonus-pill__code-none" aria-hidden="true">—</span>
+  <?php endif; ?>
+
+  <span class="bonus-pill__visit">
+    <?php if ($bonusLink) : ?>
+      <a href="<?php echo esc_url($bonusLink); ?>"
+         target="_blank"
+         rel="sponsored noopener"
+         aria-label="Visit <?php echo esc_attr($name); ?>"
+         tabindex="-1">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+    <?php else : ?>
+      <span aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </span>
+    <?php endif; ?>
+  </span>
 </div>

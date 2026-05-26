@@ -22,8 +22,24 @@
 
   $mediaGroup = get_field('media_group', $site);
   $siteColor  = $mediaGroup['theme_color'] ?? '#f0f0f0';
-  
+
   $outputLink = $bonusLink ? $bonusLink : $siteLink;
+
+  // Derive category from bonus_type taxonomy for the title tag
+  $bonus_types  = get_the_terms($bonus_id, 'bonus_type');
+  $category_map = [
+    'no-deposit' => 'nodeposit',
+    'free-spins' => 'nodeposit',
+    'exclusive'  => 'exclusive',
+    'reload'     => 'reload',
+    'cashback'   => 'cashback',
+    'rakeback'   => 'cashback',
+  ];
+  $category = 'default';
+  if ($bonus_types && !is_wp_error($bonus_types)) {
+    $category = $category_map[$bonus_types[0]->slug] ?? 'default';
+  }
+  $tag_label = $title ?: ($bonus_types && !is_wp_error($bonus_types) ? $bonus_types[0]->name : '');
   ?>
 
 
@@ -39,7 +55,7 @@
 
       <a href="<?php echo esc_url(get_permalink($bonus_id)); ?>" class="card-shanghai__content">
         <h3>
-          <?php if ($title) { ?><div class="title"><?php echo $title; ?></div><?php } ?>
+          <?php if ($tag_label) { ?><span class="bonus-pill__tag bonus-pill__tag--<?php echo esc_attr($category); ?>"><?php echo esc_html($tag_label); ?></span><?php } ?>
           <?php if ($bonus) { ?><div class="bonus"><?php echo $bonus; ?></div><?php } ?>
           <?php if ($plus)  { ?><div class="subtitle"><?php echo $plus; ?></div><?php } ?>
         </h3>
@@ -80,7 +96,7 @@
         </button>
       <?php }; ?>
 
-      <a href="<?php echo esc_url($outputLink); ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($siteName); ?>">Get Bonus</a>
+      <a href="<?php echo esc_url($outputLink); ?>" class="button button--small button__primary" target="_blank" rel="sponsored noopener" aria-label="Claim bonus at <?php echo esc_attr($siteName); ?>">Claim Bonus</a>
 
     </div>
   </div>
