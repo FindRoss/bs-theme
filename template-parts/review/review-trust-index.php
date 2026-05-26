@@ -67,9 +67,9 @@ elseif ($total >= 50) $modifier = 'mid';
     <?php endforeach; ?>
   </div>
 
-  <div class="mt-4 pt-4 border-t border-[var(--color-muted-200)] flex items-center justify-between">
+  <div class="mt-3 pt-2 border-t border-[var(--color-muted-200)] flex items-center justify-between">
     <p class="m-0 text-[12.5px] text-[var(--color-muted-400)] italic"><em>Score reflects additional qualitative review</em></p>
-    <a href="https://bitcoinchaser.com/legit-crypto-gambling-sites/" class="text-[13px] font-semibold text-[var(--color-primary-500)] no-underline hover:text-[var(--color-primary-700)] whitespace-nowrap">View methodology &rarr;</a>
+    <!-- <a href="https://bitcoinchaser.com/legit-crypto-gambling-sites/" class="text-[13px] font-semibold text-[var(--color-primary-500)] no-underline hover:text-[var(--color-primary-700)] whitespace-nowrap">View methodology &rarr;</a> -->
   </div>
 
 </div>

@@ -6,7 +6,6 @@
   "scripts": {
     "clean": "rimraf build",
     "prebuild": "npm run clean",
-    "predev": "npm run clean",
     "build": "npm run build:js && npm run build:css && npm run build:tailwind",
     "build:js": "wp-scripts build --config webpack.config.js",
     "build:css": "sass assets/css/:build/ --no-source-map --style=compressed",

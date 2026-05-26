@@ -1,6 +1,53 @@
 <?php
 $review_id = $args['review_id'] ?? get_the_ID();
 
+if (!function_exists('bs_chips_html')) {
+  function bs_chips_html(array $items, int $visible = 8, string $singular = 'item', string $plural = ''): string {
+    if (empty($items)) return '';
+    if (!$plural) $plural = $singular . 's';
+
+    $total        = count($items);
+    $needs_toggle = $total > $visible;
+    $html         = $needs_toggle ? '<div class="truncated" data-truncated>' : '';
+    $html        .= '<div class="chips">';
+
+    foreach ($items as $i => $item) {
+      $hidden = ($needs_toggle && $i >= $visible) ? ' is-hidden' : '';
+      $label  = esc_html($item['label']);
+      if (!empty($item['url'])) {
+        $html .= '<a class="chips__chip' . $hidden . '" href="' . esc_url($item['url']) . '">' . $label . '</a>';
+      } else {
+        $html .= '<span class="chips__chip' . $hidden . '">' . $label . '</span>';
+      }
+    }
+
+    $html .= '</div>';
+
+    if ($needs_toggle) {
+      $noun       = $total === 1 ? $singular : $plural;
+      $label_open = 'Show all ' . $total . ' ' . $noun . ' →';
+      $html .= '<button type="button" class="truncated__toggle" aria-expanded="false"'
+             . ' data-label-open="' . esc_attr($label_open) . '"'
+             . ' data-label-close="Show fewer ↑">'
+             . esc_html($label_open)
+             . '</button></div>';
+    }
+
+    return $html;
+  }
+}
+
+if (!function_exists('bs_terms_to_chip_items')) {
+  function bs_terms_to_chip_items(array $terms): array {
+    $items = [];
+    foreach ($terms as $term) {
+      $url     = get_term_link($term);
+      $items[] = ['label' => $term->name, 'url' => is_wp_error($url) ? '' : $url];
+    }
+    return $items;
+  }
+}
+
 // Details
 $details       = get_field('details_group', $review_id);
 $founded       = $details['year_founded'] ?? null;
@@ -13,11 +60,10 @@ $languages     = get_field('languages', $review_id) ?? [];
 $type_terms    = get_the_terms($review_id, 'review_type') ?: [];
 $license_terms = get_the_terms($review_id, 'license') ?: [];
 
-$type_output    = implode(', ', wp_list_pluck($type_terms, 'name'));
-$license_output = implode(', ', array_map(function($t) {
-  return '<a href="' . esc_url(get_term_link($t)) . '">' . esc_html($t->name) . '</a>';
-}, $license_terms));
-$lang_output    = implode(', ', array_map('esc_html', $languages));
+$type_output    = bs_chips_html(bs_terms_to_chip_items($type_terms), 8, 'type', 'types');
+$license_output = bs_chips_html(bs_terms_to_chip_items($license_terms), 8, 'license', 'licenses');
+$lang_items     = array_map(fn($l) => ['label' => trim($l), 'url' => ''], (array) $languages);
+$lang_output    = bs_chips_html($lang_items, 8, 'language', 'languages');
 
 // Games
 $games_group  = get_field('games_group', $review_id);
@@ -25,12 +71,8 @@ $num_games    = $games_group['num_games'] ?? null;
 $game_terms   = get_the_terms($review_id, 'game') ?: [];
 $prov_terms   = get_the_terms($review_id, 'provider') ?: [];
 
-$game_output = implode(', ', array_map(function($t) {
-  return '<a href="' . esc_url(get_term_link($t)) . '">' . esc_html($t->name) . '</a>';
-}, $game_terms));
-$prov_output = implode(', ', array_map(function($t) {
-  return '<a href="' . esc_url(get_term_link($t)) . '">' . esc_html($t->name) . '</a>';
-}, $prov_terms));
+$game_output = bs_chips_html(bs_terms_to_chip_items($game_terms), 8, 'game type', 'game types');
+$prov_output = bs_chips_html(bs_terms_to_chip_items($prov_terms), 8, 'provider', 'providers');
 
 // Payments
 $payment_group   = get_field('payment_group', $review_id);
@@ -42,22 +84,17 @@ $withdrawal_fee  = $payment_group['withdrawal_fee'] ?? null;
 $crypto_terms    = get_the_terms($review_id, 'cryptocurrency') ?: [];
 $payment_terms   = get_the_terms($review_id, 'payment') ?: [];
 
-$crypto_output   = implode(', ', array_map(function($t) {
-  return '<a href="' . esc_url(get_term_link($t)) . '">' . esc_html($t->name) . '</a>';
-}, $crypto_terms));
-$pmethods_output = implode(', ', array_map(function($t) {
-  return '<a href="' . esc_url(get_term_link($t)) . '">' . esc_html($t->name) . '</a>';
-}, $payment_terms));
+$crypto_output   = bs_chips_html(bs_terms_to_chip_items($crypto_terms), 8, 'cryptocurrency', 'cryptocurrencies');
+$pmethods_output = bs_chips_html(bs_terms_to_chip_items($payment_terms), 8, 'method', 'methods');
 
 // Support
 $support_group    = get_field('support_group', $review_id);
 $support_channels = $support_group['channels'] ?? [];
 $country_terms    = get_the_terms($review_id, 'country') ?: [];
 
-$channels_output = implode(', ', array_map('esc_html', (array) $support_channels));
-$country_output  = implode(', ', array_map(function($t) {
-  return '<a href="' . esc_url(get_term_link($t)) . '">' . esc_html($t->name) . '</a>';
-}, $country_terms));
+$channel_items   = array_map(fn($c) => ['label' => trim($c), 'url' => ''], (array) $support_channels);
+$channels_output = bs_chips_html($channel_items, 8, 'channel', 'channels');
+$country_output  = bs_chips_html(bs_terms_to_chip_items($country_terms), 8, 'country', 'countries');
 
 // Row types: 'simple' = label left / value right; 'taxonomy' = label full-width header, values below
 $tabs = [

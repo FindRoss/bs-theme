@@ -382,11 +382,13 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
   </div><!-- .review-layout -->
 
   <?php if ($site_posts_query->have_posts()) : ?>
-  <section class="mt-5 articles-box" id="review-end-sentinel">
-    <h2 class="title h3">Read more about <?php echo $name; ?></h2>
-    <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post();
-       get_template_part('template-parts/card/card', 'chengdu');
-    endwhile; ?>
+  <section class="review-read-more" id="review-end-sentinel">
+    <h2 class="review-read-more__heading">Read more about <?php echo esc_html($name); ?></h2>
+    <div class="review-read-more__grid">
+      <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); ?>
+        <?php get_template_part('template-parts/card/card', 'review-article'); ?>
+      <?php endwhile; ?>
+    </div>
   </section>
   <?php endif; ?>
   
@@ -403,7 +405,7 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
       </section>
   <?php endif; ?>
 
-  <?php get_template_part('template-parts/section/latest-posts', null, array(
+  <?php get_template_part('template-parts/section/latest-posts-review', null, array(
     'exclude' => array($review_id)
   )); ?>
 

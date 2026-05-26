@@ -1,4 +1,15 @@
 export function singleReview() {
+  // Truncated chip lists — "Show all / Show fewer" toggle
+  document.querySelectorAll('[data-truncated]').forEach(block => {
+    const btn = block.querySelector('.truncated__toggle');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const open = block.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? btn.dataset.labelClose : btn.dataset.labelOpen;
+    });
+  });
+
   // Tab switching
   const tabBtns = document.querySelectorAll('.review-tabs__btn');
   const tabPanels = document.querySelectorAll('.review-tabs__panel');
