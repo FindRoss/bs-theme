@@ -65,4 +65,52 @@ export function singleReview() {
       }, { threshold: 0 }).observe(reviewEnd);
     }
   }
+
+  // Rail CTA — hide while the hero CTA is visible in the header
+  const heroCta = document.getElementById('hero-cta');
+  const railCta = document.getElementById('rail-cta');
+  if (heroCta && railCta) {
+    new IntersectionObserver(
+      ([entry]) => railCta.classList.toggle('is-hidden', entry.isIntersecting),
+      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+    ).observe(heroCta);
+  }
+
+  // Trust index info tooltips
+  const infoBtns = document.querySelectorAll('.review-trust-index__info-btn');
+  infoBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      infoBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!isOpen) btn.setAttribute('aria-expanded', 'true');
+    });
+  });
+  if (infoBtns.length) {
+    document.addEventListener('click', () => {
+      infoBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    });
+  }
+
+  // TOC scroll spy — highlights the link whose section is in the middle viewport band
+  const tocLinks = [...document.querySelectorAll('.review-toc__link')];
+  if (tocLinks.length) {
+    const map = new Map();
+    tocLinks.forEach(a => {
+      const target = document.getElementById(a.getAttribute('href').slice(1));
+      if (target) map.set(target, a);
+    });
+
+    if (map.size) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          tocLinks.forEach(l => l.classList.remove('is-active'));
+          map.get(e.target)?.classList.add('is-active');
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+      map.forEach((_, el) => io.observe(el));
+    }
+  }
 };
