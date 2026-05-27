@@ -1,8 +1,9 @@
 <?php
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 
-    private $current_parent_id   = null;
-    private $current_panel_type  = null;
+    private $current_parent_id      = null;
+    private $current_panel_type     = null;
+    private $review_panel_childless = false;
 
     function start_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat( "\t", $depth );
@@ -36,14 +37,37 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
         if ( $depth > 0 && $this->current_panel_type === 'review' && empty( $args->is_mobile ) ) {
             return;
         }
+
+        // Inject panel for childless review items (no start_lvl/end_lvl will fire for them)
+        if ( $depth === 0 && $this->review_panel_childless ) {
+            $panel = $this->get_posts_panel( $item->ID );
+            if ( $panel ) {
+                if ( empty( $args->is_mobile ) ) {
+                    $output .= "\n\t<div class=\"sub-menu-wrapper\"><div class=\"mega-menu__inner mega-menu__inner--full\">";
+                    $output .= "<div class=\"mega-menu__panel mega-menu__panel--full\">$panel</div>";
+                    $output .= "</div></div>";
+                } else {
+                    $output .= "\n\t<ul class=\"sub-menu\"><li class=\"mobile-panel-item\">$panel</li></ul>";
+                }
+            }
+        }
+
         parent::end_el( $output, $item, $depth, $args );
     }
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
         // Track the top-level parent and its panel type so start/end_lvl can use them
-        if ( $depth === 0 && in_array( 'menu-item-has-children', $item->classes ) ) {
-            $this->current_parent_id  = $item->ID;
-            $this->current_panel_type = get_field( 'menu_panel_post_type', $item->ID ) ?: 'post';
+        if ( $depth === 0 ) {
+            $this->current_parent_id      = $item->ID;
+            $this->current_panel_type     = get_field( 'menu_panel_post_type', $item->ID ) ?: 'post';
+            $this->review_panel_childless = (
+                $this->current_panel_type === 'review' &&
+                ! in_array( 'menu-item-has-children', $item->classes )
+            );
+            // Give childless review items the children class so CSS/JS hover works
+            if ( $this->review_panel_childless ) {
+                $item->classes[] = 'menu-item-has-children';
+            }
         }
 
         // Skip sub-menu items entirely for review panels on desktop
