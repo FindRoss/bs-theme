@@ -12,7 +12,6 @@ import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
 import TaxonomyLoadMore from "./modules/TaxonomyLoadMore";
-import ExpiryDates from "./modules/ExpiryDates";
 import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
@@ -35,7 +34,6 @@ import feather from 'feather-icons';
 
 document.addEventListener('DOMContentLoaded', function () {
   feather.replace();
-  new ExpiryDates();
 
   if (document.querySelector('body.search')) {
     const searchResults = new SearchResults()

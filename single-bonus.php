@@ -2,7 +2,7 @@
 
     <?php 
       $post_id = get_the_ID();
-      $options_bonuses = get_field('bonuses', 'options');
+      $options_bonuses = get_field('bonuses', 'options') ?: [];
 
       // Remove the current ID from the options bonuses if it exists
       $options_bonuses = array_diff($options_bonuses, array($post_id));
@@ -24,17 +24,8 @@
       $game             = $fields['game'] ?? '';
       $valid_for        = $fields['valid_for'] ?? '';
       $start_date       = $fields['start_date'] ?? '';
-      $expiry_date      = $fields['expiry_date'] ?? '';
-      $bonus_marked_as_expired = $fields['bonus_expired'] ?? false;
       $bonus_exclusive  = $fields['exclusive'] ?? false;
       $bonus_link       = $fields['bonus_link'] ?? '';
-
-
-      $expiry_date_has_passed = false;
-      if ($expiry_date) {
-        $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
-        $expiry_date_has_passed = $expiry_date_timestamp < time();
-      }
 
       // Relationship from Single-Bonus
       $casino_id = get_field('single_bonus_casino')[0];
@@ -117,16 +108,11 @@
           $table_fields['Valid From'] = $start_date;
       }
 
-      if (!empty($expiry_date)) {
-          $table_fields['Expires On'] = formatDate($expiry_date);
-      }
-    
       $output_link = $bonus_link ? $bonus_link : $link;
 
       $relatedBonusArgs = array(
         'post_type'      => 'bonus',
         'posts_per_page' => 8,
-        'meta_query'     => bonus_expired_meta_query(),
         'post__not_in'   => array($post_id)
       );
       
@@ -136,27 +122,24 @@
       };
       $relatedBonus = new WP_Query($relatedBonusArgs);
 
-      $sameSiteBonusArgs = array(
-        'post_type'      => 'bonus',
-        'posts_per_page' => 8,
-        'post__not_in'   => array($post_id),
-        'meta_query'     => array_merge(
-        bonus_expired_meta_query(),
-          array(
+      $same_site_cache_key = 'same_site_bonuses_' . $casino_id . '_' . $post_id;
+      $sameSiteBonus = get_transient($same_site_cache_key);
+      if (false === $sameSiteBonus) {
+        $sameSiteBonusArgs = array(
+          'post_type'      => 'bonus',
+          'posts_per_page' => 8,
+          'post__not_in'   => array($post_id),
+          'meta_query'     => array(
             array(
-              'key'     => 'single_bonus_casino', 
-              'value'   => '"' . $casino_id . '"', 
+              'key'     => 'single_bonus_casino',
+              'value'   => '"' . $casino_id . '"',
               'compare' => 'LIKE'
             )
-          )
-        ),
-      );
-      $sameSiteBonus = new WP_Query($sameSiteBonusArgs);
-
-      $bonus_has_expired = $bonus_marked_as_expired || $expiry_date_has_passed;
-
-      
-    show_banner_message($post_id);
+          ),
+        );
+        $sameSiteBonus = new WP_Query($sameSiteBonusArgs);
+        set_transient($same_site_cache_key, $sameSiteBonus, HOUR_IN_SECONDS);
+      }
     
     get_template_part( 'template-parts/breadcrumbs/breadcrumbs' ); 
     
@@ -186,7 +169,6 @@
 
               </div><!-- .bonus-header__content -->
               
-              <?php if (!$bonus_has_expired) : ?> 
               <div class="bonus-header__cta">
                   
                 <?php if ($code) { ?>
@@ -202,8 +184,6 @@
                 <?php }; ?>
                 <a href="<?php echo esc_url($output_link); ?>" class="button button__primary" rel="sponsored noopener" target="_blank" aria-label="Claim bonus at <?php echo esc_attr($name); ?>">Get Bonus</a>
               </div>
-              <?php endif; ?>
-              
             </div><!-- .bonus-header -->
 
             <!-- BODY -->

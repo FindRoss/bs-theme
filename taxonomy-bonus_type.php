@@ -22,7 +22,6 @@ $additional_bonuses = get_posts(array(
       'terms'    => $term_slug,
     ),
   ),
-  'meta_query' => bonus_expired_meta_query(),
   'post__not_in' => $featured_bonuses,
 ));
 
@@ -43,7 +42,6 @@ if (empty($merged_bonuses)) {
     'paged'          => $paged,
     'post__in'       => $merged_bonuses,
     'orderby'        => 'post__in',
-    'meta_query'     => bonus_expired_meta_query()
   ));
 };
 

@@ -13,8 +13,7 @@ $query = new WP_Query(array(
   'post_type'  => 'post',
   'paged'      => $paged,
   'author'     => $author_id,
-  'meta_query' => bonus_expired_meta_query(),
-)); 
+));
 
 ?>
 

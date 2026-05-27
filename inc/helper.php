@@ -43,29 +43,6 @@ function get_review_faqs($id = null) {
 };
 
 /**
- * Format Date
- */
-function formatDate($date) {
-  if ($date) {
-    // Create a DateTime object from the string with the new format
-    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-    
-    // Check if the conversion was successful
-    if ($dateTime) {
-      // Format the date as "j F Y" (e.g., "12 January 2025")
-      $formattedDate = $dateTime->format('j F Y');
-      
-      return $formattedDate;
-    } else {
-      // Handle invalid input date
-      return "Invalid date format";
-    }
-  }
-  // Handle case where no date is provided
-  return null;
-}
-
-/**
  * Truncate Text
  */
 function truncate_text($text, $max_length = 100) {
@@ -74,33 +51,6 @@ function truncate_text($text, $max_length = 100) {
   }
   return $text;
 };
-
-/**
- * Show Message Banner for Active/Expired Promotions or Bonuses
- */
-function show_banner_message($post_id = null) {
-  // Fall back to current post if no ID passed
-  $post_id = $post_id ?: get_the_ID();
-
-  $expiry_date = get_field('expiry_date', $post_id);
-  $promo_marked_as_expired = get_field('bonus_expired', $post_id);
-
-  if (empty($expiry_date) && !$promo_marked_as_expired) return;
-
-  $args = array(); 
-  
-  if ($expiry_date) {
-    $expiry_date_timestamp = DateTime::createFromFormat('Y-m-d H:i:s', $expiry_date)->getTimestamp();
-    $expiry_ts_has_passed = ($expiry_date_timestamp < time()) ?? false;
-    $args['timestamp'] = $expiry_date_timestamp;
-
-    return get_template_part('template-parts/message/message', $expiry_ts_has_passed ? 'expired' : 'active', $args);
-  }  
-  
-  if ($promo_marked_as_expired) {
-     return get_template_part('template-parts/message/message', 'expired', $args);
-  }
-}
 
 function display_review_crypto($crypto_terms, $num_icons = 5) {
   if (is_wp_error($crypto_terms) OR empty($crypto_terms)) return;

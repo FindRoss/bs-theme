@@ -42,7 +42,6 @@ function km_load_more_bonuses_callback($data) {
       'field'    => 'slug',
       'terms'    => $term_slug,
     )),
-    'meta_query'   => bonus_expired_meta_query(),
     'post__not_in' => $featured,
   ));
 
@@ -58,7 +57,6 @@ function km_load_more_bonuses_callback($data) {
     'paged'          => $page,
     'post__in'       => $merged,
     'orderby'        => 'post__in',
-    'meta_query'     => bonus_expired_meta_query(),
   ));
 
   ob_start();

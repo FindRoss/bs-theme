@@ -18,7 +18,6 @@ $term     = get_queried_object();
   'paged'          => $paged,
   'cat'            => $id,
   'posts_per_page' => 15,
-  'meta_query'     => bonus_expired_meta_query() 
 
 ); ?>
 

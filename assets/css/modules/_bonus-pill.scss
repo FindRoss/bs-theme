@@ -153,6 +153,7 @@
 
   // Visit CTA — z-index 2 so the affiliate link sits above the overlay
   &__visit {
+    grid-column: 4;
     width: 36px;
     height: 36px;
     border-radius: 8px;
@@ -178,6 +179,6 @@
       z-index: 2;
     }
 
-    svg { width: 15px; height: 15px; }
+    svg { width: 15px; height: 15px; stroke: #fff; }
   }
 }

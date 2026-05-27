@@ -1,7 +1,4 @@
-<?php 
- $expiry_date    = get_field('expiry_date');
- $expiry_ts      = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
- $marked_expired = get_field('bonus_expired'); 
+<?php
  $exclude_image  = $args['exclude_image'] ?? false;
  $thumb_id       = get_post_thumbnail_id();
  $image_alt      = get_post_meta($thumb_id, '_wp_attachment_image_alt', true) ?: the_title_attribute(['echo' => false]);
@@ -11,15 +8,6 @@
 	<a class="card__link card-chengdu__link" href="<?php the_permalink(); ?>">
 		<div class="card-chengdu__body">
 		
-			<?php if ($expiry_date || $marked_expired) : ?>
-				<div class="mb-1">
-					<span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_ts; ?>">
-						<i data-feather="calendar"></i>
-						<span class="ends-in-text"></span>
-					</span>
-				</div>
-			<?php endif; ?>
-
 			<h3><?php the_title(); ?></h3>
 			
 			<?php if (has_excerpt()) { ?><?php the_excerpt(); ?><?php }; ?>

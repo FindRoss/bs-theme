@@ -1,6 +1,6 @@
 <?php
 $top_sites = get_field('sites', 'options');
-$top_bonuses = get_field('top_bonus', 'options');
+$top_bonuses = get_field('bonuses', 'options');
 if (!is_front_page()) {
   if (function_exists('geot_target') && geot_target( 'US' )) { 
     if (is_active_sidebar( 'us-sidebar-ad' )) { 
@@ -50,7 +50,6 @@ if(!empty($top_bonuses)) {
     'orderby'        => 'post__in',
     'post__in'       => $top_bonuses,
     'posts_per_page' => 5,
-    'meta_query'     => bonus_expired_meta_query()
     )
   );
   

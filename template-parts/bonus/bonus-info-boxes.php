@@ -1,7 +1,6 @@
 <?php
 $bonus_id = $args['bonus_id'] ?? get_the_ID();
 
-$expiry_date       = get_field('expiry_date', $bonus_id);
 $turnover          = get_field('turnover', $bonus_id);
 $min_deposit       = get_field('min_deposit', $bonus_id);
 $max_bonus         = get_field('max_bonus', $bonus_id);
@@ -11,7 +10,6 @@ $game              = get_field('game', $bonus_id);
 
 $boxes = [];
 
-if ($expiry_date)      $boxes[] = ['label' => 'Expires',              'icon' => 'calendar',    'value' => esc_html(date('d M Y', strtotime($expiry_date)))];
 if ($turnover)         $boxes[] = ['label' => 'Wagering Requirement',  'icon' => 'percent',     'value' => esc_html($turnover)];
 if ($min_deposit)      $boxes[] = ['label' => 'Min. Deposit',          'icon' => 'credit-card', 'value' => esc_html($min_deposit)];
 if ($max_bonus)        $boxes[] = ['label' => 'Max. Bonus',            'icon' => 'arrow-up',    'value' => esc_html($max_bonus)];

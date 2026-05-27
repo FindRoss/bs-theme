@@ -3290,10 +3290,6 @@ iframe {
   /* Light blue for months */
 }
 
-.info-pill.timer.expired {
-  background-color: #F8D7DA;
-  /* Light red for expired */
-}
 
 .info-pill .ends-in-text::first-letter {
   text-transform: capitalize;

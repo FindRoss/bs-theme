@@ -16,12 +16,6 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $single_category_link = '';
   }
   
-  $promo_marked_as_expired = get_field('bonus_expired');
-  $expiry_date = get_field('expiry_date');
-  
-
-  show_banner_message($post_id);
-      
   ?>
 
     <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
@@ -69,9 +63,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     'post__not_in'   => array($post_id),
     'posts_per_page' => 8, 
     'cat'            => $single_category_id,
-    'meta_query'     => bonus_expired_meta_query()
-    
-  ); 
+  );
   $latest_query = new WP_Query( $args );
 ?>
 

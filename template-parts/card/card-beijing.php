@@ -1,7 +1,4 @@
-<?php  
-  $expiry_date = get_field('expiry_date');
-  $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
-  $marked_expired = get_field('bonus_expired'); 
+<?php
   $exclude_lazyload = $args['exclude_lazyload'] ?? false;
   $exclude_image    = $args['exclude_image'] ?? false;
   $thumb_id         = get_post_thumbnail_id();
@@ -35,13 +32,6 @@
           
     <div class="card-beijing__body">
       
-      <?php if ($expiry_date || $marked_expired) : ?>
-        <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
-          <i data-feather="calendar"></i>
-          <span class="ends-in-text"></span>
-        </span>
-      <?php endif; ?>
-
       <h3><?php the_title(); ?></h3>
     </div>
   </a>

@@ -112,12 +112,11 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
             $query_args['orderby']        = 'post__in';
 
         } elseif ( $post_type === 'bonus' ) {
-            $post_ids = get_field( 'top_bonus', 'options' );
+            $post_ids = get_field( 'bonuses', 'options' );
             if ( empty( $post_ids ) ) return '';
             $query_args['posts_per_page'] = 5;
             $query_args['post__in']       = $post_ids;
             $query_args['orderby']        = 'post__in';
-            $query_args['meta_query']     = bonus_expired_meta_query();
         }
 
         $query = new WP_Query( $query_args );

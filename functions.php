@@ -135,92 +135,6 @@ function custom_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
   
 
-/**
- * Bonus Expired Cron Job
- */
-// 1. Register the Bonus cron job (once daily)
-add_action('init', function () {
-	if (!wp_next_scheduled('check_bonus_expiry_cron')) {
-		wp_schedule_event(time(), 'daily', 'check_bonus_expiry_cron'); 
-	}
-});
-
-// 2. Hook function to run when cron job fires
-add_action('check_bonus_expiry_cron', 'update_bonus_expired_flags');
-
-function update_bonus_expired_flags() {
-	$args = array(
-		'post_type'      => 'bonus',
-		'post_status'    => 'publish',
-		'posts_per_page' => -1,
-		'fields'         => 'ids', 
-		'meta_query'     => array(
-			array(
-				'key'     => 'expiry_date',
-				'compare' => 'EXISTS',
-			),
-		),
-	);
-
-	$bonus_ids = get_posts($args);
-
-	foreach ($bonus_ids as $post_id) {
-		$expiry_date = get_field('expiry_date', $post_id); // ACF field
-
-		if ($expiry_date) {
-			// Convert to timestamp
-			$expiry_timestamp = strtotime($expiry_date);
-			$is_expired = $expiry_timestamp < time(); // True if date has passed
-
-			// Update ACF field with boolean true/false
-			update_field('bonus_expired', $is_expired, $post_id);
-		}
-	}
-}
-
-/**
- * Promotion Expired Cron Job
- */
-// 1. Register the Bonus cron job (once daily)
-add_action('init', function () {
-	if (!wp_next_scheduled('check_promo_expiry_cron')) {
-		wp_schedule_event(time(), 'daily', 'check_promo_expiry_cron'); 
-	}
-});
-
-// 2. Hook function to run when cron job fires
-add_action('check_promo_expiry_cron', 'update_promo_expired_flags');
-
-function update_promo_expired_flags() {
-	$args = array(
-		'post_type'      => 'post',
-		'post_status'    => 'publish',
-    'category_name'  => 'promotions',
-		'posts_per_page' => -1,
-		'fields'         => 'ids', 
-		'meta_query'     => array(
-			array(
-				'key'     => 'expiry_date',
-				'compare' => 'EXISTS',
-			),
-		),
-	);
-
-	$post_ids = get_posts($args);
-
-	foreach ($post_ids as $post_id) {
-		$expiry_date = get_field('expiry_date', $post_id); // ACF field
-
-		if ($expiry_date) {
-			// Convert to timestamp
-			$expiry_timestamp = strtotime($expiry_date);
-			$is_expired = $expiry_timestamp < time();
-
-			// Update ACF field with boolean true/false
-			update_field('bonus_expired', $is_expired, $post_id);
-		}
-	}
-}
 
 /**
  * Helper functions
@@ -301,10 +215,6 @@ require get_theme_file_path('/inc/render-filter-overlay.php');
  */
 require get_theme_file_path('/inc/render-filter-items.php');
 
-/**
- * Bonus Expired Meta Query
- */
-require get_theme_file_path('/inc/bonus-expired-meta-query.php');
 
 /**
  * Custom Nav Walker

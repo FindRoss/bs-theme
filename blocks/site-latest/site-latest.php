@@ -22,7 +22,6 @@ if ((is_array($type) && !empty($type)) AND $site) {
 		'posts_per_page' => 5,
 		'post__not_in'   => array($post_id),
 		'meta_query'     => array(
-			'relation'   => 'AND',
 			array(
 				'relation' => 'OR',
 				array(
@@ -36,11 +35,6 @@ if ((is_array($type) && !empty($type)) AND $site) {
 					'compare' => 'LIKE',
 				),
 			),
-			array(
-				'key'     => 'bonus_expired',
-				'value'   => '1',
-				'compare' => '!='
-			)
 		)
 	)); ?>
 

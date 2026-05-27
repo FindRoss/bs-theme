@@ -95,7 +95,6 @@ Template Post Type: page
           'terms'    => $type['id']
         ),
       ),
-      'meta_query' => bonus_expired_meta_query()
     );
 
     $bonus_query = new WP_Query($args);

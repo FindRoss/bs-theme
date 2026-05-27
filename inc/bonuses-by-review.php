@@ -13,17 +13,11 @@ function get_bonuses_by_review_query($id) {
       'post_type'      => 'bonus',
       'posts_per_page' => 12,
       'meta_query'     => array(
-        'relation' => 'AND', 
         array(
-          'key'     => 'single_bonus_casino', 
+          'key'     => 'single_bonus_casino',
           'value'   => '"' . $id . '"',
           'compare' => 'LIKE'
         ),
-        array(
-          'key'     => 'bonus_expired',
-          'value'   => '1',
-          'compare' => '!='
-        )
       )
     )
   );

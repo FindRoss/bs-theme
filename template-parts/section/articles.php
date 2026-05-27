@@ -5,9 +5,8 @@
   $args = array(
     'post_type'      => 'post', 
     'post__not_in'   => array($current_post_id),
-    'posts_per_page' => 8, 
-    'meta_query'     => bonus_expired_meta_query()
-  ); 
+    'posts_per_page' => 8,
+  );
   $query = new WP_Query( $args );
 ?>
 

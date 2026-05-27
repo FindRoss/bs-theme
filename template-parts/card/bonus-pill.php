@@ -80,8 +80,6 @@
       </span>
       <span class="sr-only" aria-live="polite"></span>
     </button>
-  <?php else : ?>
-    <span class="bonus-pill__code-none" aria-hidden="true">—</span>
   <?php endif; ?>
 
   <span class="bonus-pill__visit">

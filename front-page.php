@@ -101,7 +101,6 @@ $pill_sections = array(
     'post_type'      => 'bonus',
     'post_status'    => 'publish',
     'posts_per_page' => 6,
-    'meta_query'     => bonus_expired_meta_query()
   );
 
   if ($bonus_ids_to_include) {
@@ -164,7 +163,6 @@ $pill_sections = array(
     'post_status'    => 'publish',
     'posts_per_page' => 8,
     'category_name'  => 'promotions',
-    'meta_query'     => bonus_expired_meta_query()
   ));
 
   $promotions_foundPosts = $promotions_query->found_posts;
@@ -192,7 +190,6 @@ $pill_sections = array(
     'post_status'    => 'publish',
     'posts_per_page' => 8,
     'category_name'  => 'sports',
-    'meta_query'     => bonus_expired_meta_query()
   ));
 
   $latest_sports_foundPosts = $latest_sports_query->found_posts;

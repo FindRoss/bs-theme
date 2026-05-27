@@ -7,7 +7,6 @@ $latest_posts_query = new WP_Query(array(
   'post__not_in'   => $exclude_ids,
   'orderby'        => 'date',
   'order'          => 'DESC',
-  'meta_query'     => bonus_expired_meta_query()
 ));
 ?>
 

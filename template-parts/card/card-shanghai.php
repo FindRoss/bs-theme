@@ -12,10 +12,6 @@
   $site        = get_field('single_bonus_casino', $bonus_id)[0] ?? null;
   if (!$site) return;
   
-  $expiry_date = get_field('expiry_date', $bonus_id);
-  $expiry_timestamp = $expiry_date ? strtotime($expiry_date) * 1000 : 'Expired';
-  $marked_expired = get_field('bonus_expired', $bonus_id); 
-  
   $detailsGroup = get_field('details_group', $site);
   $siteName = $detailsGroup['name'];
   $siteLink = $detailsGroup['affiliate_link'];
@@ -60,23 +56,12 @@
           <?php if ($plus)  { ?><div class="subtitle"><?php echo $plus; ?></div><?php } ?>
         </h3>
 
-        <?php if ($expiry_date || $exclusive || $marked_expired) { ?>
+        <?php if ($exclusive) { ?>
           <div class="card-shanghai__pills">
-
-            <?php if ($exclusive) : ?>
-              <span class="info-pill exclusive">
-                <i data-feather="award"></i>
-                <span>Exclusive</span>
-              </span>
-            <?php endif; ?>
-
-            <?php if ($expiry_date || $marked_expired) : ?>
-              <span class="info-pill info-pill-expiry timer" data-expiry="<?php echo $expiry_timestamp; ?>">
-                <i data-feather="calendar"></i>
-                <span class="ends-in-text"></span>
-              </span>
-            <?php endif; ?>
-
+            <span class="info-pill exclusive">
+              <i data-feather="award"></i>
+              <span>Exclusive</span>
+            </span>
           </div>
         <?php } ?>
       </a>
