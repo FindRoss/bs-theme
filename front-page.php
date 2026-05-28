@@ -50,7 +50,7 @@ $pill_sections = array(
           <header class="pills-grid__header">
             <h2 class="pills-grid__title"><?php echo esc_html( $section['title'] ); ?></h2>
             <?php if ( ! empty( $section['link'] ) ) : ?>
-              <a class="pills-grid__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <i data-feather="arrow-right"></i></a>
+              <a class="pills-grid__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <?php echo get_svg_icon('arrow-right'); ?></a>
             <?php endif; ?>
           </header>
           <div class="pills-grid__pills">

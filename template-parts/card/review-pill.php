@@ -26,17 +26,17 @@ $pill_class  = 'review-pill'
   </span>
   <?php if ($bonus_text) : ?>
   <span class="review-pill__offer">
-    <span class="review-pill__offer-icon"><i data-feather="gift" aria-hidden="true"></i></span>
+    <span class="review-pill__offer-icon"><?php echo get_svg_icon('present'); ?></span>
     <span class="review-pill__offer-text"><?php echo esc_html($bonus_text); ?></span>
   </span>
   <?php endif; ?>
   <span class="review-pill__visit">
     <?php if ($aff_link) : ?>
       <a href="<?php echo esc_url($aff_link); ?>" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
-        <i data-feather="external-link"></i>
+        <?php echo get_svg_icon('external-link'); ?>
       </a>
     <?php else : ?>
-      <span aria-hidden="true"><i data-feather="external-link"></i></span>
+      <span aria-hidden="true"><?php echo get_svg_icon('external-link'); ?></span>
     <?php endif; ?>
   </span>
 </div>
