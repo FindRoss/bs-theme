@@ -109,7 +109,7 @@ body.no-scroll {
   &:hover,
   &:active,
   &:focus {
-    color: var(--color-primary-400);
+    color: var(--color-primary-500);
   }
 }
 
@@ -216,13 +216,12 @@ body.no-scroll {
     }
 
     &.menu-item-has-children {
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
 
       &:hover {
-        background: var(--color-bg-50);
-      }
-
-      &:has(> a:not([href])):hover {
-        background: transparent;
+        background: var(--color-primary-50);
+        border-bottom-color: var(--color-primary-400);
       }
 
       // Chevron
@@ -247,8 +246,8 @@ body.no-scroll {
         max-height: 0;
         top: 100%;
         left: 0;
-        background-color: var(--color-bg-50);
-        border-bottom: 1px solid var(--color-muted-200);
+        background-color: var(--color-bg-200);
+        border-bottom: 3px solid var(--color-primary-400);
         transition: max-height 0.5s ease-out;
 
         &.open {
@@ -325,7 +324,7 @@ body.no-scroll {
     align-items: flex-start;
     text-decoration: none;
     color: inherit;
-    border-radius: var(--border-radius, 6px);
+    border-radius: var(--border-radius);
     padding: var(--size-200);
     transition: background-color 0.15s ease;
 
@@ -333,7 +332,7 @@ body.no-scroll {
       background-color: var(--color-muted-100);
 
       .mega-menu__post-title {
-        color: var(--color-primary-400);
+        color: var(--color-primary-500);
       }
     }
 
@@ -341,7 +340,7 @@ body.no-scroll {
       width: 100px;
       height: 70px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: var(--border-radius);
       flex-shrink: 0;
     }
   }
@@ -350,17 +349,11 @@ body.no-scroll {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-
-  .mega-menu__post-date {
-    font-size: 0.7rem;
-    color: var(--color-muted-500);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    max-width: 260px;
   }
 
   .mega-menu__post-title {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     line-height: 1.4;
     margin: 0;

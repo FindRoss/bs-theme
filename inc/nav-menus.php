@@ -2,6 +2,7 @@
 register_nav_menus( array(
   'primary'          => __( 'Primary Nav', 'bs-theme' ),
   'sidebar'          => __( 'Sidebar Nav', 'bs-theme' ),
+  'homepage_icons'   => __( 'Homepage — Icon Nav', 'bs-theme' ),
   'footer_countries' => __( 'Footer — Countries', 'bs-theme' ),
   'footer_bonuses'   => __( 'Footer — Bonuses', 'bs-theme' ),
   'footer_games'     => __( 'Footer — Games', 'bs-theme' ),

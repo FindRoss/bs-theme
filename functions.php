@@ -173,6 +173,7 @@ require get_theme_file_path('/inc/widgets.php');
  * - widgets_init
  */
 require get_theme_file_path('/inc/nav-menus.php');
+require get_theme_file_path('/inc/icon-nav-svgs.php');
 
 /**
  * Styled heading

@@ -162,14 +162,12 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
                 $query->the_post();
 
                 $thumb = get_the_post_thumbnail_url( null, 'medium' );
-                $date  = get_the_date( 'j M Y' );
 
                 $html .= '<a href="' . esc_url( get_permalink() ) . '" class="mega-menu__post">';
                 if ( $thumb ) {
                     $html .= '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( get_the_title() ) . '" width="120" height="80">';
                 }
                 $html .= '<div class="mega-menu__post-content">';
-                $html .= '<span class="mega-menu__post-date">' . esc_html( $date ) . '</span>';
                 $html .= '<h4 class="mega-menu__post-title">' . esc_html( get_the_title() ) . '</h4>';
                 $html .= '</div></a>';
             }
