@@ -216,12 +216,8 @@ body.no-scroll {
     }
 
     &.menu-item-has-children {
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-
       &:hover {
         background: var(--color-primary-50);
-        border-bottom-color: var(--color-primary-400);
       }
 
       // Chevron
@@ -247,7 +243,7 @@ body.no-scroll {
         top: 100%;
         left: 0;
         background-color: var(--color-bg-200);
-        border-bottom: 3px solid var(--color-primary-400);
+        border-bottom: 3px solid var(--color-muted-200);
         transition: max-height 0.5s ease-out;
 
         &.open {
