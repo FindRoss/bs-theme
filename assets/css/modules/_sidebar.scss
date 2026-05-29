@@ -3,7 +3,6 @@
   &__widget {
     background: var(--color-bg-200);
     border-radius: var(--border-radius);
-    padding: var(--size-400) var(--size-200);
     &:not(:first-child) {
       margin-top: var(--size-400);
     }

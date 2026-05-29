@@ -195,15 +195,19 @@ if ($paged == 1) {
   <div class="container">
     <section class="aberdeenshire-section">
       <?php $main_content = get_field('main_content', $term); ?>
-      
+
       <div class="main--content">
         <?php echo $main_content; ?>
         <!-- FAQS -->
         <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
       </div>
 
-      
+
     </section>
+
+    <?php get_template_part('template-parts/section/latest-posts-review', null, array(
+      'exclude' => array()
+    )); ?>
   </div>
 <?php endif; ?>
 

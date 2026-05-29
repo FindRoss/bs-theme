@@ -667,14 +667,6 @@
   // ── Read more ────────────────────────────────────────────────────────────────
   .review-read-more {
     margin-top: 56px;
-
-    &__heading {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: var(--color-muted-900);
-      margin: 0 0 16px;
-    }
   }
 
   .review-article-card {
@@ -730,53 +722,6 @@
     }
   }
 
-  // ── Latest posts ─────────────────────────────────────────────────────────────
-  .review-latest-posts {
-    margin-top: 56px;
-
-    &__heading {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: var(--color-muted-900);
-      margin: 0 0 20px;
-    }
-
-    &__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px 32px;
-
-      @media (max-width: 767px) {
-        grid-template-columns: 1fr;
-      }
-    }
-  }
-
-  .review-post-card {
-    display: block;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--color-muted-200);
-    text-decoration: none;
-    color: inherit;
-
-    &__title {
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--color-muted-900);
-      margin: 0 0 6px;
-    }
-
-    &__lede {
-      font-size: 13px;
-      color: var(--color-muted-450);
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    &:hover &__title { color: var(--color-link); }
-  }
 }
 
 // Mobile-only sticky bottom bar — hidden on desktop (layout handles it there)

@@ -56,30 +56,11 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     </article>
 
 
-<!-- RELATED ARTICLES --> 
-<?php
-  $args = array(
-    'post_type'      => 'post', 
-    'post__not_in'   => array($post_id),
-    'posts_per_page' => 8, 
-    'cat'            => $single_category_id,
-  );
-  $latest_query = new WP_Query( $args );
-?>
-
-<?php if ( $latest_query->have_posts() ) : ?>  
-  <aside class="container mt-5 pt-4">
-    <section>
-      <?php outputNewSlideHTML(array(
-          'query'   => $latest_query,
-          'heading' => $single_category_name,
-          'link'    => $single_category_link
-        ));
-      ?>
-    </section>
-  </aside>
-<?php wp_reset_postdata(); ?>
-<?php endif; ?>
+<div class="container">
+  <?php get_template_part('template-parts/section/latest-posts-review', null, array(
+    'exclude' => array($post_id)
+  )); ?>
+</div>
 
 <?php endwhile; else: ?>
   <div class="container mb-5">

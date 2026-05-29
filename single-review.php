@@ -361,9 +361,37 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 
   </div><!-- .review-layout -->
 
+  <?php
+  $streamers_query = new WP_Query([
+    'post_type'      => 'streamer',
+    'posts_per_page' => 8,
+    'meta_query'     => [[
+      'key'     => 'sites',
+      'value'   => '"' . $review_id . '"',
+      'compare' => 'LIKE',
+    ]],
+  ]);
+  if ($streamers_query->have_posts()) : ?>
+</div><!-- .container (closed for full-width streamers band) -->
+<section class="review-streamers">
+  <div class="container">
+    <h2 class="group-heading"><?php echo esc_html($name); ?> Streamers</h2>
+    <div class="row mt-3">
+      <?php while ($streamers_query->have_posts()) : $streamers_query->the_post(); ?>
+        <div class="col-6 col-md-4 col-lg-3 mt-4">
+          <?php get_template_part('template-parts/card/card', 'streamer'); ?>
+        </div>
+      <?php endwhile; ?>
+    </div>
+    <?php wp_reset_postdata(); ?>
+  </div>
+</section>
+<div class="container"><!-- .container (reopened after streamers band) -->
+  <?php endif; ?>
+
   <?php if ($site_posts_query->have_posts()) : ?>
   <section class="review-read-more" id="review-end-sentinel">
-    <h2 class="review-read-more__heading">Read more about <?php echo esc_html($name); ?></h2>
+    <h2 class="group-heading">Read more about <?php echo esc_html($name); ?></h2>
     <div class="review-read-more__grid">
       <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); ?>
         <?php get_template_part('template-parts/card/card', 'review-article'); ?>

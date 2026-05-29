@@ -79,14 +79,6 @@
     background: #d9f0e3;
     color: #0f7a4f;
 
-    &::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #0f7a4f;
-      flex-shrink: 0;
-    }
   }
 
   &__amount {

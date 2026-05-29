@@ -9,7 +9,7 @@ if ( empty( $menu_items ) ) return;
   <section class="icon-nav container">
     <div class="icon-nav__intro">
       <h1 class="icon-nav__heading">Welcome to<span class="icon-nav__heading-break"></span> BitcoinChaser.</h1>
-      <p class="icon-nav__body">Bitcoin casinos, crypto betting guides, and exclusive bonuses - since 2013.</p>
+      <p class="icon-nav__body">Bitcoin casinos, crypto betting guides, and exclusive bonuses — since 2013.</p>
     </div>
     <ul class="icon-nav__grid">
       <?php foreach ( $menu_items as $item ) :

@@ -127,6 +127,31 @@ $pill_sections = array(
 
 <?php endif; ?>
 
+<!-- STREAMERS -->
+<?php
+  $homepage_streamers_query = new WP_Query([
+    'post_type'      => 'streamer',
+    'posts_per_page' => 8,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+  ]);
+
+  if ($homepage_streamers_query->have_posts()) : ?>
+<section class="review-streamers mt-5">
+  <div class="container">
+    <h2 class="group-heading">Gambling Streamers</h2>
+    <div class="row mt-3">
+      <?php while ($homepage_streamers_query->have_posts()) : $homepage_streamers_query->the_post(); ?>
+        <div class="col-6 col-md-4 col-lg-3 mt-4">
+          <?php get_template_part('template-parts/card/card', 'streamer'); ?>
+        </div>
+      <?php endwhile; ?>
+      <?php wp_reset_postdata(); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- NEWS -->
 <?php
   $latest_casino_news_query = new WP_Query(array(

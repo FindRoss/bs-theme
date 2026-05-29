@@ -23,23 +23,9 @@
   // Args
   $is_top = $args['is_top'] ?? false;
 
-  // Derive category from bonus_type taxonomy for tag colouring
-  $bonus_types  = get_the_terms($bid, 'bonus_type');
-  $category     = 'default';
-  $category_map = [
-    'no-deposit' => 'nodeposit',
-    'free-spins' => 'nodeposit',
-    'exclusive'  => 'exclusive',
-    'reload'     => 'reload',
-    'cashback'   => 'cashback',
-    'rakeback'   => 'cashback',
-  ];
-  if ($bonus_types && !is_wp_error($bonus_types)) {
-    $category = $category_map[$bonus_types[0]->slug] ?? 'default';
-  }
-
   // Tag label: ACF bonus_title > taxonomy term name
-  $tag_label = $bonus_title ?: ($bonus_types && !is_wp_error($bonus_types) ? $bonus_types[0]->name : '');
+  $bonus_types = get_the_terms($bid, 'bonus_type');
+  $tag_label   = $bonus_title ?: ($bonus_types && !is_wp_error($bonus_types) ? $bonus_types[0]->name : '');
 
   $pill_class = 'bonus-pill' . ($is_top ? ' bonus-pill--top' : '');
 ?>
@@ -59,7 +45,7 @@
 
   <div class="bonus-pill__copy">
     <?php if ($tag_label) : ?>
-      <span class="bonus-pill__tag bonus-pill__tag--<?php echo esc_attr($category); ?>">
+      <span class="bonus-pill__tag">
         <?php echo esc_html($tag_label); ?>
       </span>
     <?php endif; ?>

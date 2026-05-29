@@ -108,7 +108,7 @@ switch($term_name) {
     <?php if ($paged == 1) : ?>
       <section class="aberdeenshire-section">
         <?php $main_content = get_field('main_content', $term); ?>
-        
+
         <div class="main--content">
           <?php echo $main_content; ?>
           <!-- FAQS -->
@@ -119,8 +119,12 @@ switch($term_name) {
           <?php get_template_part( 'template-parts/sidebar/sidebar' ); ?>
         </aside>
       </section>
+
+      <?php get_template_part('template-parts/section/latest-posts-review', null, array(
+        'exclude' => array()
+      )); ?>
     <?php endif; ?>
-  
+
 </div><!-- .container --> 
 
 <?php get_footer(); ?>

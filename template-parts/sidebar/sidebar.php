@@ -34,7 +34,7 @@ if(!empty($top_sites)) {
     $rank = 0;
     while ($sites_query->have_posts()) : $sites_query->the_post();
       $rank++;
-      get_template_part('template-parts/card/review-pill', null, ['rank' => $rank]);
+      get_template_part('template-parts/card/review-pill', null, ['rank' => $rank, 'is_top' => ($rank === 1)]);
     endwhile;
 
     echo '</div></section>';

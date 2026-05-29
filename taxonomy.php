@@ -114,7 +114,9 @@
       </div>
     </section>
 
-    <?php get_template_part('template-parts/section/latest-posts'); ?>
+    <?php get_template_part('template-parts/section/latest-posts-review', null, array(
+      'exclude' => array()
+    )); ?>
 
   <?php endif; ?>
 </div><!-- .container -->

@@ -149,6 +149,10 @@
   </div>
   <?php endif; ?>
 
+  <?php get_template_part('template-parts/section/latest-posts-review', null, array(
+    'exclude' => array(get_the_ID())
+  )); ?>
+
 </div><!-- .container -->
 
 
