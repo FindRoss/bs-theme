@@ -394,7 +394,7 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
     <h2 class="group-heading">Read more about <?php echo esc_html($name); ?></h2>
     <div class="review-read-more__grid">
       <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); ?>
-        <?php get_template_part('template-parts/card/card', 'review-article'); ?>
+        <?php get_template_part('template-parts/card/card', 'guangzhou'); ?>
       <?php endwhile; ?>
     </div>
   </section>

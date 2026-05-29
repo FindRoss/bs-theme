@@ -133,6 +133,34 @@
         </div>
         <?php endif; ?>
 
+        <?php
+        $alt_guides = [];
+        if (isset($sites) && is_array($sites)) {
+          foreach ($sites as $site_id) {
+            $articles = get_field('articles_group', $site_id);
+            $guide_id = is_array($articles) ? ($articles['alternative_guide'] ?? null) : null;
+            if ($guide_id) $alt_guides[] = $guide_id;
+          }
+          $alt_guides = array_unique($alt_guides);
+        }
+        ?>
+
+        <?php if (!empty($alt_guides)) : ?>
+        <div class="mt-8">
+          <div class="review-read-more__grid">
+            <?php
+            global $post;
+            foreach ($alt_guides as $guide_id) :
+              $post = get_post($guide_id);
+              setup_postdata($post);
+              get_template_part('template-parts/card/card', 'guangzhou');
+            endforeach;
+            wp_reset_postdata();
+            ?>
+          </div>
+        </div>
+        <?php endif; ?>
+
         <?php if (get_the_content()) { ?>
         <div class="main--content mt-12">
           <?php the_content(); ?>
