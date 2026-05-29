@@ -4,6 +4,7 @@
   $table_fields = array();
 
   $realName     = get_field('real_name');
+  $nationality  = get_field('nationality');
   $streamerName = get_field('streamer_name');
   $dob          = get_field('date_of_birth');
   $games        = get_field('favorite_games');
@@ -16,6 +17,8 @@
   $youtube   = !empty($socialGroup) ? $socialGroup['youtube']   : '';
   $instagram = !empty($socialGroup) ? $socialGroup['instagram'] : '';
   $discord   = !empty($socialGroup) ? $socialGroup['discord']   : '';
+  $tiktok    = !empty($socialGroup) ? $socialGroup['tiktok']    : '';
+  $telegram  = !empty($socialGroup) ? $socialGroup['telegram']  : '';
 
   // String
   if (!empty($realName)) {
@@ -34,6 +37,9 @@
   } else {
     $table_fields['Age'] = 'Unknown';
   }
+  if (!empty($nationality)) {
+    $table_fields['Nationality'] = $nationality;
+  }
   // String
   if (!empty($games)) {
     $table_fields['Favorite games'] = $games;
@@ -47,6 +53,8 @@
       'youtube'    => 'YouTube',
       'instagram'  => 'Instagram',
       'discord'    => 'Discord',
+      'tiktok'     => 'TikTok',
+      'telegram'   => 'Telegram',
     ];
     $icon  = get_svg_icon('social-' . $platform);
     $label = $labels[$platform] ?? ucfirst($platform);
@@ -58,6 +66,8 @@
   if (!empty($youtube))   $table_fields['YouTube']     = streamer_social_link($youtube,   'youtube');
   if (!empty($instagram)) $table_fields['Instagram']   = streamer_social_link($instagram, 'instagram');
   if (!empty($discord))   $table_fields['Discord']     = streamer_social_link($discord,   'discord');
+  if (!empty($tiktok))    $table_fields['TikTok']      = streamer_social_link($tiktok,    'tiktok');
+  if (!empty($telegram))  $table_fields['Telegram']    = streamer_social_link($telegram,  'telegram');
 
   $moreStreamersQuery = new WP_Query(array(
     'post_type' => 'streamer',

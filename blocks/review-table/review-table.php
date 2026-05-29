@@ -148,8 +148,8 @@ $columns = [
     'class' => '',
     'icon' => 'book-open',
     'render' => function($review_id) {
-      $vip_group = get_field('vip_group', $review_id);
-      $post_id = is_array($vip_group) ? ($vip_group['vip_guide'] ?? null) : null;
+      $articles_group = get_field('articles_group', $review_id);
+      $post_id = is_array($articles_group) ? ($articles_group['vip_guide'] ?? null) : null;
       return $post_id ? '<a href="' . esc_url(get_the_permalink($post_id)) . '">' . get_the_title($post_id) . '</a>' : '-';
     }
   ],
