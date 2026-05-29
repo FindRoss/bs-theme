@@ -212,7 +212,10 @@ body.no-scroll {
       height: 100%;
       display: flex;
       align-items: center;
+      font-size: 14px !important;
       font-weight: 700 !important;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     &.menu-item-has-children {
@@ -430,8 +433,10 @@ body.no-scroll {
 
       &>a {
         display: block;
-        font-size: 20px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
       }
     }
 
