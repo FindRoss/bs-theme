@@ -210,9 +210,9 @@ body.no-scroll {
 
     >a {
       height: 100%;
-
       display: flex;
       align-items: center;
+      font-weight: 700 !important;
     }
 
     &.menu-item-has-children {
@@ -430,7 +430,8 @@ body.no-scroll {
 
       &>a {
         display: block;
-        font-size: 18px;
+        font-size: 20px !important;
+        font-weight: 700 !important;
       }
     }
 
