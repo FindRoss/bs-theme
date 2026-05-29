@@ -38,6 +38,16 @@ footer {
     letter-spacing: 0.4px;
   }
 
+  .footer-disclaimer {
+    background: #FAFAFA;
+
+    &__text {
+      font-size: 0.78rem;
+      color: var(--color-muted-400, #9ca3af);
+      line-height: 1.6;
+    }
+  }
+
   @media (max-width: 575px) {
     .footer-top-row {
       flex-direction: column;

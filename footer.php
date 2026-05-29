@@ -4,7 +4,54 @@
     <div style="background: #FAFAFA;">
       <div class="container py-5">
 
-        <div class="footer-top-row mb-5">
+        <?php
+          $footer_cols = array(
+            array( 'location' => 'footer_articles',  'heading' => 'Articles' ),
+            array( 'location' => 'footer_crypto',    'heading' => 'Crypto' ),
+            array( 'location' => 'footer_games',     'heading' => 'Games' ),
+            array( 'location' => 'footer_countries', 'heading' => 'Countries' ),
+            array( 'location' => 'footer_bonuses',   'heading' => 'Bonuses' ),
+            array( 'location' => 'footer_site',      'heading' => 'Site' ),
+          );
+
+          $has_any_col = false;
+          foreach ( $footer_cols as $col ) {
+            $menu_html = wp_nav_menu( array(
+              'theme_location'  => $col['location'],
+              'depth'           => 1,
+              'container'       => 'div',
+              'container_class' => 'footer-list__container',
+              'menu_class'      => '',
+              'fallback_cb'     => false,
+              'echo'            => false,
+            ) );
+            if ( $menu_html ) { $has_any_col = true; break; }
+          }
+        ?>
+
+        <?php if ( $has_any_col ) : ?>
+        <div class="row mb-5">
+          <?php foreach ( $footer_cols as $col ) :
+            $menu_html = wp_nav_menu( array(
+              'theme_location'  => $col['location'],
+              'depth'           => 1,
+              'container'       => 'div',
+              'container_class' => 'footer-list__container',
+              'menu_class'      => '',
+              'fallback_cb'     => false,
+              'echo'            => false,
+            ) );
+            if ( ! $menu_html ) continue;
+          ?>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 footer-col">
+              <h2 class="h4 footer-col__heading"><?php echo esc_html( $col['heading'] ); ?></h2>
+              <?php echo $menu_html; ?>
+            </div>
+          <?php endforeach; ?>
+        </div><!-- .row -->
+        <?php endif; ?>
+
+        <div class="footer-top-row">
           <a href="/" aria-label="BitcoinChaser home">
             <img src="https://bitcoinchaser.com/wp-content/uploads/2014/06/bitcoinchaser_logo-03.png"
                  width="180" height="22"
@@ -38,66 +85,42 @@
           </div>
         </div>
 
-        <?php
-          $footer_cols = array(
-            array( 'location' => 'footer_articles',  'heading' => 'Articles' ),
-            array( 'location' => 'footer_crypto',    'heading' => 'Crypto' ),
-            array( 'location' => 'footer_games',     'heading' => 'Games' ),
-            array( 'location' => 'footer_countries', 'heading' => 'Countries' ),
-            array( 'location' => 'footer_bonuses',   'heading' => 'Bonuses' ),
-            array( 'location' => 'footer_site',      'heading' => 'Site' ),
-          );
-
-          $has_any_col = false;
-          foreach ( $footer_cols as $col ) {
-            $menu_html = wp_nav_menu( array(
-              'theme_location'  => $col['location'],
-              'depth'           => 1,
-              'container'       => 'div',
-              'container_class' => 'footer-list__container',
-              'menu_class'      => '',
-              'fallback_cb'     => false,
-              'echo'            => false,
-            ) );
-            if ( $menu_html ) { $has_any_col = true; break; }
-          }
-        ?>
-
-        <?php if ( $has_any_col ) : ?>
-        <div class="row">
-          <?php foreach ( $footer_cols as $col ) :
-            $menu_html = wp_nav_menu( array(
-              'theme_location'  => $col['location'],
-              'depth'           => 1,
-              'container'       => 'div',
-              'container_class' => 'footer-list__container',
-              'menu_class'      => '',
-              'fallback_cb'     => false,
-              'echo'            => false,
-            ) );
-            if ( ! $menu_html ) continue;
-          ?>
-            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4 footer-col">
-              <h2 class="h4 footer-col__heading"><?php echo esc_html( $col['heading'] ); ?></h2>
-              <?php echo $menu_html; ?>
-            </div>
-          <?php endforeach; ?>
-        </div><!-- .row -->
-        <?php endif; ?>
-
       </div><!-- .container -->
     </div>
 
-    <div class="border-top" style="background: #EFEFEF;">
+    <div class="footer-disclaimer">
       <div class="container">
-        <div class="row">
-          <div class="col-12 d-flex align-items-center py-3" style="font-size: 0.85em;">
-            <div class="mr-2 ff-main">BitcoinChaser</div>
-            <div class="text-muted mr-2">&copy; <?php echo date('Y'); ?></div>
+        <div class="flex flex-col md:flex-row gap-4 py-4 border-t" style="border-color: var(--color-muted-200);">
+          <div class="flex-1">
+            <p class="footer-disclaimer__text mb-0">
+              <strong>Affiliate Disclosure:</strong> Our content contains affiliate links and, yes, we may earn a commission if you sign up or deposit through them.
+            </p>
           </div>
+          <div class="flex-1">
+            <p class="footer-disclaimer__text mb-0">
+              <strong>Disclaimer:</strong> Gambling is illegal in some jurisdictions, and you must comply with the laws within your state or country. The legal age to gamble online varies depending on your country of residence. Gambling can be addictive. Please gamble responsibly.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-gambling-resources flex flex-nowrap items-center justify-between border-t py-4" style="border-color: var(--color-muted-200);">
+          <img src="<?php echo esc_url( content_url( 'uploads/2026/05/18-logo.webp' ) ); ?>" alt="18+ only" class="max-h-[30px] w-auto">
+          <a href="https://www.ncpgambling.org/" target="_blank" rel="noopener noreferrer" aria-label="National Council on Problem Gambling">
+            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/ncpg-logo.webp' ) ); ?>" alt="NCPG" class="max-h-[30px] w-auto">
+          </a>
+          <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer" aria-label="GambleAware">
+            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/gamble-aware-logo.webp' ) ); ?>" alt="GambleAware" class="max-h-[30px] w-auto">
+          </a>
+          <a href="https://www.gamstop.co.uk/" target="_blank" rel="noopener noreferrer" aria-label="GamStop">
+            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/gamstop-logo__.webp' ) ); ?>" alt="GamStop" class="max-h-[30px] w-auto">
+          </a>
+          <a href="https://www.gamcare.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="GamCare">
+            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/gamcare-logo.webp' ) ); ?>" alt="GamCare" class="max-h-[30px] w-auto">
+          </a>
         </div>
       </div>
     </div>
+
   </footer>
   <!-- disabled Google fonts and Font Awesome from loading with OptinMonster -->
   <script type="text/javascript">
