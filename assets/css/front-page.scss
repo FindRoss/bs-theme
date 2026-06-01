@@ -38,8 +38,8 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--size-600);
-  padding-top: var(--size-600);
-  padding-bottom: var(--size-600);
+  padding-top: var(--size-700);
+  padding-bottom: var(--size-700);
 
   @include breakpoint(large) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
