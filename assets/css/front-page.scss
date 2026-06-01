@@ -49,7 +49,7 @@
 }
 
 .icon-nav__heading {
-  font-size: clamp(28px, 4vw, 46px);
+  font-size: clamp(44px, 4vw, 46px);
 
   > span {
     gap: 1ch;
@@ -80,6 +80,7 @@
   line-height: 1.55;
   color: var(--color-muted-450);
   margin: 0 0 var(--size-400);
+  max-width: 350px;
 
   @include breakpoint(large) {
     max-width: 34ch;
@@ -97,6 +98,7 @@
   margin: 0;
   padding: 0;
   display: grid;
+  font-weight: 700;
   grid-template-columns: 1fr;
   gap: 10px;
 

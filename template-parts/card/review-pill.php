@@ -31,11 +31,11 @@ $pill_class  = 'review-pill'
   </span>
   <?php endif; ?>
   <span class="review-pill__actions">
-    <a class="button button__outline" href="<?php echo esc_url($review_link); ?>">Review</a>
+    <a class="button button--small button__outline" href="<?php echo esc_url($review_link); ?>">Review</a>
     <?php if ($aff_link) : ?>
-      <a class="button button__primary" href="<?php echo esc_url($aff_link); ?>" target="_blank" rel="sponsored noopener">Visit</a>
+      <a class="button button--small button__primary" href="<?php echo esc_url($aff_link); ?>" target="_blank" rel="sponsored noopener">Visit</a>
     <?php else : ?>
-      <span class="button button__primary" aria-hidden="true">Visit</span>
+      <span class="button button--small button__primary" aria-hidden="true">Visit</span>
     <?php endif; ?>
   </span>
 </div>
