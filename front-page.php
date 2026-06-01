@@ -31,7 +31,11 @@ $pill_sections = array(
     <div class="pills-grid__grid">
 
       <?php foreach ( $pill_sections as $section ) :
-        $post_ids = get_field( $section['field'], 'options' );
+        $rows = get_field( $section['field'], 'options' );
+        if ( empty( $rows ) ) continue;
+
+        $rows = array_slice( $rows, 0, $pills_per_section );
+        $post_ids = array_column( $rows, 'review' );
         if ( empty( $post_ids ) ) continue;
 
         $section_query = new WP_Query( array(
@@ -42,6 +46,14 @@ $pill_sections = array(
         ) );
 
         if ( ! $section_query->have_posts() ) continue;
+
+        // Build a map of post ID → affiliate link for quick lookup
+        $aff_link_map = [];
+        foreach ( $rows as $row ) {
+          if ( ! empty( $row['review'] ) ) {
+            $aff_link_map[ $row['review'] ] = $row['affiliate_link'] ?? '';
+          }
+        }
       ?>
         <div class="pills-grid__section">
           <header class="pills-grid__header">
@@ -57,8 +69,9 @@ $pill_sections = array(
               $section_query->the_post();
               $rank++;
               get_template_part( 'template-parts/card/review-pill', null, [
-                'rank'   => $rank,
-                'is_top' => $rank === 1,
+                'rank'     => $rank,
+                'is_top'   => $rank === 1,
+                'aff_link' => $aff_link_map[ get_the_ID() ] ?? '',
               ] );
             endwhile;
             wp_reset_postdata();

@@ -2,7 +2,7 @@
 $id          = get_the_ID();
 $details     = get_field('details_group', $id);
 $name        = $details['name'] ?? get_the_title();
-$aff_link    = $details['affiliate_link'] ?? '';
+$aff_link    = $args['aff_link'] ?: ($details['affiliate_link'] ?? '');
 $review_link = get_the_permalink($id);
 $logo_url    = get_the_post_thumbnail_url($id, 'site-small-logo');
 $rank        = $args['rank'] ?? null;
