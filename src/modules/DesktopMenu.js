@@ -2,41 +2,39 @@ export function desktopMenu() {
   const desktopMenu = document.querySelector('.desktop-menu');
   const menuItemsWithChildren = desktopMenu.querySelectorAll('.menu-item-has-children');
   const subMenuWrappers = desktopMenu.querySelectorAll('.sub-menu-wrapper');
+  const overlay = document.querySelector('.page-overlay');
 
   function closeAllMenus() {
     subMenuWrappers.forEach((subMenu) => {
       subMenu.classList.remove('open');
     });
+    overlay?.classList.remove('active');
   }
 
   menuItemsWithChildren.forEach((menuItem) => {
-    let openTimeout;   // ✅ define both timeouts here
+    let openTimeout;
     let closeTimeout;
 
     menuItem.addEventListener('mouseenter', () => {
       const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
 
-      clearTimeout(closeTimeout); // Cancel any closing
-      clearTimeout(openTimeout);  // ✅ Cancel previously scheduled opens
+      clearTimeout(closeTimeout);
+      clearTimeout(openTimeout);
 
       openTimeout = setTimeout(() => {
         closeAllMenus();
         if (subMenuWrapper) {
           subMenuWrapper.classList.add('open');
+          overlay?.classList.add('active');
         }
       }, 200);
     });
 
     menuItem.addEventListener('mouseleave', () => {
-      const subMenuWrapper = menuItem.querySelector('.sub-menu-wrapper');
-
-      clearTimeout(openTimeout); // ✅ Prevent menu from opening if not yet opened
+      clearTimeout(openTimeout);
 
       closeTimeout = setTimeout(() => {
         closeAllMenus();
-        if (subMenuWrapper) {
-          subMenuWrapper.classList.remove('open');
-        }
       }, 50);
     });
   });
