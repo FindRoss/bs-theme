@@ -23,7 +23,8 @@ $site_posts_query = new WP_Query(
 );
 
 // More Sites Query
-$topSites = get_field('sites', 'option');
+$topSitesRows = get_field('sites', 'option') ?: [];
+$topSites = array_column( $topSitesRows, 'review' );
 $filteredTopSites = array_diff($topSites, array($review_id));
 
 $more_sites_args = array(

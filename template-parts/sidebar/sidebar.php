@@ -19,15 +19,7 @@ if (!is_front_page()) {
 
 if(!empty($top_sites)) {
 
-  $sidebar_rows = array_slice( $top_sites, 0, 5 );
-  $sidebar_ids  = array_column( $sidebar_rows, 'review' );
-
-  $aff_link_map = [];
-  foreach ( $sidebar_rows as $row ) {
-    if ( ! empty( $row['review'] ) ) {
-      $aff_link_map[ $row['review'] ] = $row['affiliate_link'] ?? '';
-    }
-  }
+  $sidebar_ids = array_column( array_slice( $top_sites, 0, 5 ), 'review' );
 
   $sites_query = new WP_Query(array(
     'post_type'      => 'review',
@@ -45,9 +37,8 @@ if(!empty($top_sites)) {
     while ($sites_query->have_posts()) : $sites_query->the_post();
       $rank++;
       get_template_part('template-parts/card/review-pill', null, [
-        'rank'     => $rank,
-        'is_top'   => ($rank === 1),
-        'aff_link' => $aff_link_map[ get_the_ID() ] ?? '',
+        'rank'   => $rank,
+        'is_top' => ($rank === 1),
       ]);
     endwhile;
 

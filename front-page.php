@@ -15,10 +15,9 @@ $pill_sections = array(
   array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '' ),
   array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '/anonymous-casinos/' ),
   array( 'field' => 'vip_sites',            'title' => 'VIP Sites',            'link' => '/vip-casinos-for-high-rollers/' ),
-  array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '' ),
+  array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '/instant-withdrawal-crypto-casinos/' ),
   array( 'field' => 'us_friendly_sites',    'title' => 'US-Friendly Sites',    'link' => '/country/united-states/'),
-  array( 'field' => 'crash_sites',          'title' => 'Crash Sites',          'link' => '/game/crash/' ),
-  // array( 'field' => 'new_sites',          'title' => 'New Sites',           'link' => '' ),
+  array( 'field' => 'crash_sites',          'title' => 'Crash Sites',          'link' => '/game/crash/' )
 );
 ?>
 
@@ -275,7 +274,8 @@ $pill_sections = array(
 
 <!-- BITCOIN CASINOS -->
 <?php
-  $top_sites = get_field('sites', 'option');
+  $top_sites_rows = get_field('sites', 'option') ?: [];
+  $top_sites = array_column( $top_sites_rows, 'review' );
 
   if ($top_sites) {
     $bitcoin_casinos_query = new WP_Query(array(

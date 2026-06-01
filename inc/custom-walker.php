@@ -129,7 +129,9 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
             }
 
         } elseif ( $post_type === 'review' ) {
-            $post_ids = get_field( 'sites', 'options' );
+            $rows = get_field( 'sites', 'options' );
+            if ( empty( $rows ) ) return '';
+            $post_ids = array_column( $rows, 'review' );
             if ( empty( $post_ids ) ) return '';
             $query_args['posts_per_page'] = 10;
             $query_args['post__in']       = $post_ids;
