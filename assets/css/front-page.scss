@@ -50,6 +50,12 @@
 
 .icon-nav__heading {
   font-size: clamp(28px, 4vw, 46px);
+
+  > span {
+    gap: 1ch;
+    display: flex;
+    flex-wrap: wrap;
+  }
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: var(--color-primary-700);
