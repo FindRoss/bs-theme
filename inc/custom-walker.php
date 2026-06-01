@@ -156,7 +156,8 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
             ob_start();
             while ( $query->have_posts() ) {
                 $query->the_post();
-                get_template_part( $template );
+                $pill_args = $post_type === 'review' ? [ 'show_bonus' => true ] : [];
+                get_template_part( $template, null, $pill_args );
             }
             $html .= ob_get_clean();
         } else {

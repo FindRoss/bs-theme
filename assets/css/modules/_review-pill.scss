@@ -1,3 +1,5 @@
+@use "_breakpoints" as *;
+
 .review-pill {
   display: grid;
   grid-template-columns: 96px 1fr auto;
@@ -28,6 +30,11 @@
     box-shadow: 0 4px 18px -10px rgba(15, 122, 79, 0.5);
 
     .review-pill__num { background: #0f7a4f; }
+
+    .review-pill__offer-icon {
+      background: rgba(15, 122, 79, 0.15);
+      svg { stroke: #0f7a4f; }
+    }
 
     .review-pill__actions .button {
       border-color: #3ec78a;
@@ -85,6 +92,42 @@
       height: 100%;
       object-fit: contain;
     }
+  }
+
+  &__offer {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+
+    @include breakpoint(medium) {
+      display: flex;
+    }
+  }
+
+  &__offer-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-primary-50);
+
+    svg {
+      width: 13px;
+      height: 13px;
+      stroke: var(--color-primary-600);
+    }
+  }
+
+  &__offer-text {
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__actions {

@@ -7,6 +7,9 @@ $review_link = get_the_permalink($id);
 $logo_url    = get_the_post_thumbnail_url($id, 'site-small-logo');
 $rank        = $args['rank'] ?? null;
 $is_top      = $args['is_top'] ?? false;
+$show_bonus  = $args['show_bonus'] ?? false;
+$bonus_group = $show_bonus ? get_field('bonus_group', $id) : null;
+$bonus_text  = $bonus_group['bonus'] ?? '';
 $pill_class  = 'review-pill'
   . ($rank !== null ? ' review-pill--ranked' : '')
   . ($is_top ? ' review-pill--top' : '');
@@ -21,6 +24,12 @@ $pill_class  = 'review-pill'
       <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($name . ' logo'); ?>" width="96" height="44">
     <?php endif; ?>
   </a>
+  <?php if ($bonus_text) : ?>
+  <span class="review-pill__offer">
+    <span class="review-pill__offer-icon"><?php echo get_svg_icon('present'); ?></span>
+    <span class="review-pill__offer-text"><?php echo esc_html($bonus_text); ?></span>
+  </span>
+  <?php endif; ?>
   <span class="review-pill__actions">
     <a class="button button__outline" href="<?php echo esc_url($review_link); ?>">Review</a>
     <?php if ($aff_link) : ?>
