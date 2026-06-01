@@ -1,6 +1,6 @@
 .review-pill {
   display: grid;
-  grid-template-columns: 96px 1fr 36px;
+  grid-template-columns: 96px 1fr auto;
   align-items: center;
   gap: 10px;
   background: #fff;
@@ -29,10 +29,10 @@
 
     .review-pill__num { background: #0f7a4f; }
 
-    .review-pill__offer-icon {
-      background: rgba(15, 122, 79, 0.15);
-      svg { stroke: #0f7a4f; }
+    .review-pill__actions .button {
+      border-color: #3ec78a;
     }
+
   }
 
   // Overlay link — covers the full card, activated on hover/focus
@@ -87,63 +87,12 @@
     }
   }
 
-  &__offer {
+  &__actions {
+    grid-column: 3;
     display: flex;
     align-items: center;
     gap: 8px;
-    min-width: 0;
-  }
-
-  &__offer-icon {
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--color-primary-50);
-
-    svg {
-      width: 13px;
-      height: 13px;
-      stroke: var(--color-primary-600);
-    }
-  }
-
-  &__offer-text {
-    font-size: 13px;
-    font-weight: 500;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__visit {
-    grid-column: 3;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: var(--color-primary-600);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    svg { width: 15px; height: 15px; }
-
-    // Affiliate link sits above the overlay
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      color: #fff;
-      text-decoration: none;
-      position: relative;
-      z-index: 2;
-    }
   }
 }
