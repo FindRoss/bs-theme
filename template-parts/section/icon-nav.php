@@ -12,7 +12,7 @@ if ( empty( $menu_items ) ) return;
       <p class="icon-nav__body">Bitcoin casinos, crypto betting guides, and exclusive bonuses — since 2013.</p>
     </div>
     <ul class="icon-nav__grid">
-      <?php foreach ( $menu_items as $item ) :
+      <?php foreach ( array_slice( $menu_items, 0, 4 ) as $item ) :
         $icon_url = null;
         if ( $item->type === 'taxonomy' ) {
           $icon = get_field( 'icon', 'term_' . $item->object_id );
