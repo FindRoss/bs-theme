@@ -120,7 +120,7 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
             $category = get_field( 'menu_panel_category', $parent_menu_item_id );
             if ( ! $category ) return '';
 
-            $featured_ids = get_field( 'featured', 'term_' . $category->term_id );
+            $featured_ids = get_field( 'featured_posts', 'term_' . $category->term_id );
             if ( ! empty( $featured_ids ) ) {
                 $query_args['post__in'] = $featured_ids;
                 $query_args['orderby']  = 'post__in';

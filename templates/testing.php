@@ -18,7 +18,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // ── 1. Taxonomy terms with 'casinos' (relationship field, returns IDs) ──────
   $taxonomy_names = [ 'cryptocurrency', 'game', 'provider', 'payment', 'country', 'review_type' ];
 
-  echo '<h2 style="margin-top:2rem">Taxonomy terms with <code>casinos</code> assigned</h2>';
+  echo '<h2 style="margin-top:2rem">Taxonomy terms with <code>featured_reviews</code> assigned</h2>';
   echo '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">';
   echo '<thead><tr><th>Taxonomy</th><th>Term</th><th>Casino IDs</th></tr></thead><tbody>';
 
@@ -27,7 +27,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     $terms = get_terms( [ 'taxonomy' => $tax, 'hide_empty' => false ] );
     if ( is_wp_error( $terms ) ) continue;
     foreach ( $terms as $term ) {
-      $casinos = get_field( 'casinos', $term );
+      $casinos = get_field( 'featured_reviews', $term );
       if ( ! empty( $casinos ) ) {
         $found_any = true;
         echo '<tr>';
@@ -47,7 +47,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
 
   // ── 2. Categories with 'featured' posts assigned ──────────────────────────
-  echo '<h2 style="margin-top:2rem">Categories with <code>featured</code> posts assigned</h2>';
+  echo '<h2 style="margin-top:2rem">Categories with <code>featured_posts</code> assigned</h2>';
   echo '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">';
   echo '<thead><tr><th>Category</th><th>Featured Post IDs</th></tr></thead><tbody>';
 
@@ -55,7 +55,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   $found_any  = false;
 
   foreach ( $categories as $cat ) {
-    $featured = get_field( 'featured', $cat );
+    $featured = get_field( 'featured_posts', $cat );
     if ( ! empty( $featured ) ) {
       $found_any = true;
       echo '<tr>';

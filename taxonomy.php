@@ -8,7 +8,7 @@
   $taxonomy  = $term->taxonomy;
   $term_name = $term->name;
 
-  $selected_casinos = get_field('casinos', $term);
+  $selected_casinos = get_field('featured_reviews', $term);
 
   $pinned_ids = !empty($selected_casinos)
     ? array_map(fn($p) => is_object($p) ? $p->ID : (int) $p, $selected_casinos)

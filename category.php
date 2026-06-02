@@ -10,7 +10,7 @@ $term     = get_queried_object();
 ?>
 
 <!-- FEATURED FROM ACF -->
-<?php $featured_posts = get_field('featured', $term); ?>
+<?php $featured_posts = get_field('featured_posts', $term); ?>
 
 <?php $args = array(
   'post_type'      => 'post',
