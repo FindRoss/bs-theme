@@ -1441,25 +1441,17 @@ section.articles-box {
   }
 }
 
-// ── Global section heading ────────────────────────────────────────────────────
-.group-heading {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--color-muted-900);
-  margin: 0 0 30px;
-}
-
 // ── Latest posts grid ─────────────────────────────────────────────────────────
 .latest-posts-grid {
   margin-top: 56px;
 
-  .group-heading {
+  .section-heading__title {
     font-size: 16px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--color-muted-200);
+    margin-bottom: var(--size-400);
   }
 
   &__grid {
