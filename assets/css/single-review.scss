@@ -42,6 +42,8 @@
     }
 
     &__main {
+      min-width: 0; // prevent wide content (tables, images) from blowing past grid column
+
       @include breakpoint(large) {
         grid-area: main;
       }
