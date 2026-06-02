@@ -1,57 +1,78 @@
-<?php 
-/* 
+<?php
+/*
 Template Name: Testing
 Template Post Type: page
-*/ 
+*/
+get_header();
+
+if ( ! current_user_can( 'manage_options' ) ) {
+  wp_die( 'Not allowed.' );
+}
 ?>
 
-<?php get_header(); ?>
+<div class="container" style="padding: 2rem 0 4rem;">
+  <h1>ACF Field Audit</h1>
 
-<div class="container py-5">
-  <?php 
-    global $wpdb;
+  <?php
 
-    $field_name = 'faqs';
+  // ── 1. Taxonomy terms with 'casinos' (relationship field, returns IDs) ──────
+  $taxonomy_names = [ 'cryptocurrency', 'game', 'provider', 'payment', 'country', 'review_type' ];
 
-    // Get posts where the field exists AND has a non-empty value
-    // $posts = $wpdb->get_results( $wpdb->prepare(
-    //     "SELECT p.ID, p.post_title
-    //      FROM {$wpdb->postmeta} pm
-    //      INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-    //      WHERE pm.meta_key = %s
-    //        AND pm.meta_value != ''
-    //        AND p.post_type = 'post'
-    //        AND p.post_status = 'publish'
-    //      ORDER BY p.post_date DESC",
-    //     $field_name
-    // ) );
+  echo '<h2 style="margin-top:2rem">Taxonomy terms with <code>casinos</code> assigned</h2>';
+  echo '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">';
+  echo '<thead><tr><th>Taxonomy</th><th>Term</th><th>Casino IDs</th></tr></thead><tbody>';
 
-
-    $posts = $wpdb->get_results( $wpdb->prepare(
-        "SELECT p.ID, p.post_title
-        FROM {$wpdb->postmeta} pm
-        INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-        WHERE pm.meta_key = %s
-          AND pm.meta_value > 0
-          AND p.post_type = 'post'
-          AND p.post_status = 'publish'
-        ORDER BY p.post_date DESC",
-        $field_name
-    ) );
-
-
-    if ( $posts ) {
-        echo '<ul>';
-        foreach ( $posts as $post ) {
-            $url = get_permalink( $post->ID );
-            echo '<li><a href="' . esc_url( $url ) . '">' . esc_html( $post->post_title ) . '</a></li>';
-        }
-        echo '</ul>';
-    } else {
-        echo "No posts have a value for this field yet.";
+  $found_any = false;
+  foreach ( $taxonomy_names as $tax ) {
+    $terms = get_terms( [ 'taxonomy' => $tax, 'hide_empty' => false ] );
+    if ( is_wp_error( $terms ) ) continue;
+    foreach ( $terms as $term ) {
+      $casinos = get_field( 'casinos', $term );
+      if ( ! empty( $casinos ) ) {
+        $found_any = true;
+        echo '<tr>';
+        echo '<td>' . esc_html( $tax ) . '</td>';
+        echo '<td><a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a> (ID: ' . $term->term_id . ')</td>';
+        echo '<td>' . esc_html( implode( ', ', (array) $casinos ) ) . ' <em>(' . count( (array) $casinos ) . ')</em></td>';
+        echo '</tr>';
+      }
     }
+  }
+
+  if ( ! $found_any ) {
+    echo '<tr><td colspan="3"><em>None found.</em></td></tr>';
+  }
+
+  echo '</tbody></table>';
+
+
+  // ── 2. Categories with 'featured' posts assigned ──────────────────────────
+  echo '<h2 style="margin-top:2rem">Categories with <code>featured</code> posts assigned</h2>';
+  echo '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">';
+  echo '<thead><tr><th>Category</th><th>Featured Post IDs</th></tr></thead><tbody>';
+
+  $categories = get_terms( [ 'taxonomy' => 'category', 'hide_empty' => false ] );
+  $found_any  = false;
+
+  foreach ( $categories as $cat ) {
+    $featured = get_field( 'featured', $cat );
+    if ( ! empty( $featured ) ) {
+      $found_any = true;
+      echo '<tr>';
+      echo '<td><a href="' . esc_url( get_term_link( $cat ) ) . '">' . esc_html( $cat->name ) . '</a> (ID: ' . $cat->term_id . ')</td>';
+      echo '<td>' . esc_html( implode( ', ', (array) $featured ) ) . ' <em>(' . count( (array) $featured ) . ')</em></td>';
+      echo '</tr>';
+    }
+  }
+
+  if ( ! $found_any ) {
+    echo '<tr><td colspan="2"><em>None found.</em></td></tr>';
+  }
+
+  echo '</tbody></table>';
+
   ?>
-  
-</div><!-- .container --> 
+
+</div>
 
 <?php get_footer(); ?>

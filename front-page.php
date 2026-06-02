@@ -14,10 +14,7 @@ $pills_per_section = 4; // Change to 4 to show 4 pills per section
 $pill_sections = array(
   array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '' ),
   array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '/anonymous-casinos/' ),
-  array( 'field' => 'vip_sites',            'title' => 'VIP Sites',            'link' => '/vip-casinos-for-high-rollers/' ),
   array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '/instant-withdrawal-crypto-casinos/' ),
-  array( 'field' => 'us_friendly_sites',    'title' => 'US-Friendly Sites',    'link' => '/country/united-states/'),
-  array( 'field' => 'crash_sites',          'title' => 'Crash Sites',          'link' => '/game/crash/' )
 );
 ?>
 
@@ -99,6 +96,17 @@ $pill_sections = array(
       <?php endif; ?>
     </div>
   </section>
+
+  <!-- VIP TOPIC SECTION -->
+  <?php
+  $vip_rows = get_field( 'vip_sites', 'options' ) ?: [];
+  get_template_part( 'template-parts/section/topic-section', null, [
+    'heading' => 'VIP Program Guides',
+    'link'    => [ 'url' => '/vip-casinos-for-high-rollers/', 'title' => 'View all', 'target' => '' ],
+    'rows'    => $vip_rows,
+    'posts'   => [ 119164, 106771 ],
+  ] );
+  ?>
 
 </div><!-- .container -->
 
