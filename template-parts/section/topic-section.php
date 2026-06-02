@@ -34,7 +34,7 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
     </h2>
   </div>
 
-  <div class="topic-section__body">
+  <div class="topic-section__body mt-3">
 
     <!-- Pills -->
     <?php if ( ! empty( $post_ids ) ) : ?>

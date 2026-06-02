@@ -99,13 +99,19 @@ $pill_sections = array(
 
   <!-- VIP TOPIC SECTION -->
   <?php
-  $vip_rows = get_field( 'vip_sites', 'options' ) ?: [];
-  get_template_part( 'template-parts/section/topic-section', null, [
-    'heading' => 'VIP Program Guides',
-    'link'    => [ 'url' => '/vip-casinos-for-high-rollers/', 'title' => 'View all', 'target' => '' ],
-    'rows'    => $vip_rows,
-    'posts'   => [ 119164, 106771 ],
-  ] );
+  $vip_term       = get_term_by( 'slug', 'vip', 'category' );
+  $vip_review_ids = $vip_term ? ( get_field( 'featured_reviews', $vip_term ) ?: [] ) : [];
+  $vip_posts      = $vip_term ? ( get_field( 'featured_posts',   $vip_term ) ?: [] ) : [];
+  $vip_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $vip_review_ids );
+
+  if ( $vip_rows || $vip_posts ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'VIP Programs',
+      'link'    => [ 'url' => get_term_link( $vip_term ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $vip_rows,
+      'posts'   => $vip_posts,
+    ] );
+  endif;
   ?>
 
 </div><!-- .container -->
@@ -212,14 +218,12 @@ $pill_sections = array(
   if ($homepage_streamers_query->have_posts()) : ?>
 <section class="review-streamers mt-5">
   <div class="container">
-    <div class="section-heading">
-      <h2 class="section-heading__title h4">Gambling Streamers</h2>
-    </div>
-    <div class="row mt-3">
+    <h2 class="section-heading__title h4">
+      <a href="https://bitcoinchaser.com/streamers/">Streamers <?php echo get_svg_icon('chevron-right'); ?></a>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
       <?php while ($homepage_streamers_query->have_posts()) : $homepage_streamers_query->the_post(); ?>
-        <div class="col-6 col-md-4 col-lg-3 mt-4">
-          <?php get_template_part('template-parts/card/card', 'streamer'); ?>
-        </div>
+        <?php get_template_part('template-parts/card/card', 'streamer'); ?>
       <?php endwhile; ?>
       <?php wp_reset_postdata(); ?>
     </div>

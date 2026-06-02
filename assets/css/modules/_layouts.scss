@@ -162,22 +162,30 @@
 	display: flex;
 	align-items: baseline;
 	justify-content: space-between;
+	padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-muted-200);
 
 	&__title {
 		margin: 0;
-		font-size: 22px;
-		font-weight: 700;
-		letter-spacing: -0.015em;
-		color: var(--color-muted-900);
+		font-size: 15px;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-muted-700);
 
 		a {
 			display: flex;
 			align-items: center;
 			text-decoration: none;
 			color: inherit;
+			transition: color 0.15s ease;
+
+			&:hover {
+				color: var(--color-primary-500);
+			}
 
 			svg {
-				stroke: var(--color-muted-900);
+				stroke: currentColor;
 			}
 		}
 	}

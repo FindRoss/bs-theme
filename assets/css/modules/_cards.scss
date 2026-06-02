@@ -1445,13 +1445,9 @@ section.articles-box {
 .latest-posts-grid {
   margin-top: 56px;
 
-  .section-heading__title {
-    font-size: 16px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--color-muted-200);
-    margin-bottom: var(--size-400);
+  .section-heading {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   &__grid {
