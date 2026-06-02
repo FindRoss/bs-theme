@@ -114,6 +114,60 @@ $pill_sections = array(
   endif;
   ?>
 
+  <!-- SPORTS TOPIC SECTION -->
+  <?php
+  $sports_term       = get_term_by( 'slug', 'sports', 'category' );
+  $sports_review_ids = $sports_term ? ( get_field( 'featured_reviews', $sports_term ) ?: [] ) : [];
+  $sports_posts      = $sports_term ? ( get_field( 'featured_posts',   $sports_term ) ?: [] ) : [];
+  $sports_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $sports_review_ids );
+
+  if ( empty( $sports_posts ) ) {
+    $sports_query = new WP_Query( [
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 2,
+      'category_name'  => 'sports',
+    ] );
+    $sports_posts = wp_list_pluck( $sports_query->posts, 'ID' );
+  }
+
+  if ( $sports_rows || $sports_posts ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'Sports',
+      'link'    => [ 'url' => home_url( '/category/sports/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $sports_rows,
+      'posts'   => $sports_posts,
+    ] );
+  endif;
+  ?>
+
+  <!-- PROMOTIONS TOPIC SECTION -->
+  <?php
+  $promos_term        = get_term_by( 'slug', 'promotions', 'category' );
+  $promos_review_ids  = $promos_term ? ( get_field( 'featured_reviews', $promos_term ) ?: [] ) : [];
+  $promos_posts       = $promos_term ? ( get_field( 'featured_posts',   $promos_term ) ?: [] ) : [];
+  $promos_rows        = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $promos_review_ids );
+
+  if ( empty( $promos_posts ) ) {
+    $promos_query = new WP_Query( [
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 2,
+      'category_name'  => 'promotions',
+    ] );
+    $promos_posts = wp_list_pluck( $promos_query->posts, 'ID' );
+  }
+
+  if ( $promos_posts || $promos_rows ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'Promotions',
+      'link'    => [ 'url' => get_term_link( $promos_term ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $promos_rows,
+      'posts'   => $promos_posts,
+    ] );
+  endif;
+  ?>
+
 </div><!-- .container -->
 
 <!-- BONUSES -->
