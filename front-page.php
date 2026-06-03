@@ -80,7 +80,7 @@ $pill_sections = array(
   </section>
 
   <!-- LATEST -->
-  <section class="mt-4">
+  <section class="hp-section">
     <div class="section-heading">
       <h2 class="section-heading__title h4">Latest</h2>
     </div>
@@ -123,10 +123,10 @@ $pill_sections = array(
   ] );
 
   if ( $news_query->have_posts() ) : ?>
-    <section class="mt-5 pt-4">
+    <section class="hp-section">
       <div class="section-heading">
         <h2 class="section-heading__title h4">
-          <a href="<?php echo esc_url( home_url( '/category/news/' ) ); ?>">News <?php echo get_svg_icon( 'chevron-right' ); ?></a>
+          <a href="<?php echo esc_url( home_url( '/category/news/' ) ); ?>">News <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span></a>
         </h2>
       </div>
       <div class="posts-row mt-4">
@@ -188,24 +188,22 @@ $pill_sections = array(
 $homepage_streamers_query = new WP_Query([
   'post_type'      => 'streamer',
   'posts_per_page' => 8,
-  'orderby'        => 'date',
-  'order'          => 'DESC',
+  'orderby'        => 'rand',
 ]);
 
 if ( $homepage_streamers_query->have_posts() ) : ?>
-<section class="review-streamers mt-5">
-  <div class="container">
+<div class="container mt-5">
+  <div class="section-heading">
     <h2 class="section-heading__title h4">
-      <a href="https://bitcoinchaser.com/streamers/">Streamers <?php echo get_svg_icon('chevron-right'); ?></a>
+      <a href="https://bitcoinchaser.com/streamers/">Streamers <span class="chev-pill"><?php echo get_svg_icon('chevron-right'); ?></span></a>
     </h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
-      <?php while ( $homepage_streamers_query->have_posts() ) : $homepage_streamers_query->the_post(); ?>
-        <?php get_template_part('template-parts/card/card', 'streamer'); ?>
-      <?php endwhile; ?>
-      <?php wp_reset_postdata(); ?>
-    </div>
   </div>
-</section>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
+    <?php while ( $homepage_streamers_query->have_posts() ) : $homepage_streamers_query->the_post(); ?>
+      <?php get_template_part('template-parts/card/card', 'streamer'); ?>
+    <?php endwhile; wp_reset_postdata(); ?>
+  </div>
+</div>
 <?php endif; ?>
 
 <div class="container">
@@ -260,6 +258,54 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
     ] );
   endif;
   ?>
+
+  <!-- STRATEGY -->
+  <?php
+  $strategy_query = new WP_Query( [
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => 4,
+    'category_name'  => 'strategy',
+  ] );
+
+  if ( $strategy_query->have_posts() ) : ?>
+    <section class="hp-section">
+      <div class="section-heading">
+        <h2 class="section-heading__title h4">
+          <a href="<?php echo esc_url( home_url( '/category/strategy/' ) ); ?>">Strategy <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span></a>
+        </h2>
+      </div>
+      <div class="posts-row mt-4">
+        <?php while ( $strategy_query->have_posts() ) : $strategy_query->the_post(); ?>
+          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
+        <?php endwhile; wp_reset_postdata(); ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
+  <!-- ALTERNATIVES -->
+  <?php
+  $alternatives_query = new WP_Query( [
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => 4,
+    'category_name'  => 'alternatives',
+  ] );
+
+  if ( $alternatives_query->have_posts() ) : ?>
+    <section class="hp-section">
+      <div class="section-heading">
+        <h2 class="section-heading__title h4">
+          <a href="<?php echo esc_url( home_url( '/category/alternatives/' ) ); ?>">Alternatives <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span></a>
+        </h2>
+      </div>
+      <div class="posts-row mt-4">
+        <?php while ( $alternatives_query->have_posts() ) : $alternatives_query->the_post(); ?>
+          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
+        <?php endwhile; wp_reset_postdata(); ?>
+      </div>
+    </section>
+  <?php endif; ?>
 
 </div><!-- .container -->
 <div style="margin-top:3rem"></div><!-- Spacer -->

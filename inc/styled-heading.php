@@ -12,7 +12,7 @@ function chaser_styled_sub_heading($args) {
     <?php 
       if ($link) { echo '<a href="' . $link . '">'; } 
         echo $heading; 
-      if ($link) { echo get_svg_icon('chevron-right') . '</a>'; } 
+      if ($link) { echo '<span class="chev-pill">' . get_svg_icon('chevron-right') . '</span></a>'; }
     ?>
   </h2>
   

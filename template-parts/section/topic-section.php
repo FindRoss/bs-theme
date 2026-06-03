@@ -28,7 +28,7 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
     <h2 class="section-heading__title h4">
       <?php if ( ! empty( $link['url'] ) ) : ?>
         <a href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $link['target'] ?: '_self' ); ?>">
-          <?php echo esc_html( $heading ); ?> <?php echo get_svg_icon( 'chevron-right' ); ?>
+          <?php echo esc_html( $heading ); ?> <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span>
         </a>
       <?php else : ?>
         <?php echo esc_html( $heading ); ?>

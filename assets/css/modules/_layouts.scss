@@ -188,8 +188,9 @@
 		color: var(--color-muted-700);
 
 		a {
-			display: flex;
+			display: inline-flex;
 			align-items: center;
+			gap: 8px;
 			text-decoration: none;
 			color: inherit;
 			transition: color 0.15s ease;
@@ -198,8 +199,39 @@
 				color: var(--color-primary-500);
 			}
 
-			svg {
-				stroke: currentColor;
+			.chev-pill {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				border: 1.5px solid var(--color-muted-300);
+				flex-shrink: 0;
+				transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+
+				svg {
+					width: 12px;
+					height: 12px;
+					stroke: currentColor;
+					transition: transform 0.22s cubic-bezier(0.3, 0.7, 0.3, 1);
+				}
+			}
+
+			&:hover .chev-pill {
+				background: var(--color-primary-500);
+				border-color: var(--color-primary-500);
+				color: #fff;
+
+				svg {
+					transform: translateX(2px);
+				}
+			}
+
+			&:focus-visible {
+				outline: 2px solid var(--color-primary-500);
+				outline-offset: 3px;
+				border-radius: 4px;
 			}
 		}
 	}

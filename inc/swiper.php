@@ -22,7 +22,7 @@ function outputNewSlideHTML($args) {
           <?php 
             if ($link) { echo '<a href="' . $link . '">'; } 
               echo $heading; 
-            if ($link) { echo get_svg_icon('chevron-right') . '</a>'; } 
+            if ($link) { echo '<span class="chev-pill">' . get_svg_icon('chevron-right') . '</span></a>'; }
           ?>
         </h2>
         <?php }; ?>
@@ -68,7 +68,7 @@ function outputNewSlideHTML($args) {
             <?php 
               if ($link) { echo '<a href="' . $link . '">'; } 
                 echo $heading; 
-              if ($link) { echo get_svg_icon('chevron-right') . '</a>'; } 
+              if ($link) { echo '<span class="chev-pill">' . get_svg_icon('chevron-right') . '</span></a>'; }
             ?>
           </h2>
         </div>

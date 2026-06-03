@@ -141,10 +141,16 @@
   }
 }
 
+// ── Homepage section spacing ──────────────────────────────────────────────────
+
+.hp-section,
+.topic-section {
+  margin-top: var(--size-800);
+}
+
 // ── Topic Section ─────────────────────────────────────────────────────────────
 
 .topic-section {
-  margin-top: var(--size-800);
 
   &__body {
     display: grid;
