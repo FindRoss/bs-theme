@@ -105,6 +105,12 @@
 	@include breakpoint(large) {
 		grid-template-columns: repeat(4, 1fr);
 	}
+
+	&--3 {
+		@include breakpoint(large) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
 }
 
 .angus-section {

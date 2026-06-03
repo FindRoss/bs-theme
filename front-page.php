@@ -121,7 +121,7 @@ if ( function_exists('geot_target') ) {
         </div>
       </div>
     </div>
-    <div class="posts-row mt-4">
+    <div class="posts-row posts-row--3 mt-4">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
           <?php get_template_part('template-parts/card/card', 'beijing', array('exclude_lazyload' => true)); ?>
