@@ -50,7 +50,7 @@ if ( function_exists('geot_target') ) {
 <div class="container">
 
   <!-- Review Pills Grid -->
-  <section class="pills-grid mt-4">
+  <section class="pills-grid">
     <div class="pills-grid__grid">
 
       <?php foreach ( $pill_sections as $section ) :
