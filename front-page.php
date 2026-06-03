@@ -131,14 +131,16 @@ $pill_sections = array(
     $sports_posts = wp_list_pluck( $sports_query->posts, 'ID' );
   }
 
-  if ( $sports_rows || $sports_posts ) :
-    get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'Sports',
-      'link'    => [ 'url' => home_url( '/category/sports/' ), 'title' => 'View all', 'target' => '' ],
-      'rows'    => $sports_rows,
-      'posts'   => $sports_posts,
-    ] );
-  endif;
+  if ( $sports_rows || $sports_posts ) : ?>
+    <div class="container">
+      <?php get_template_part( 'template-parts/section/topic-section', null, [
+        'heading' => 'Sports',
+        'link'    => [ 'url' => home_url( '/category/sports/' ), 'title' => 'View all', 'target' => '' ],
+        'rows'    => $sports_rows,
+        'posts'   => $sports_posts,
+      ] ); ?>
+    </div>
+  <?php endif;
   ?>
 
   <!-- PROMOTIONS TOPIC SECTION -->
@@ -233,32 +235,6 @@ $pill_sections = array(
   </div>
 <?php }; ?>
 
-<!-- PROMOTIONS -->
-<?php
-  $promotions_query = new WP_Query(array(
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 8,
-    'category_name'  => 'promotions',
-  ));
-
-  $promotions_foundPosts = $promotions_query->found_posts;
-
-  if ($promotions_foundPosts >= 8) { ?>
-
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php
-        outputNewSlideHTML(array(
-          'query'   => $promotions_query,
-          'heading' => 'Promotions',
-          'link'    => '/category/promotions/'
-        ));
-      ?>
-    </section>
-  </div>
-
-<?php }; ?>
 
 <!-- STREAMERS -->
 <?php
@@ -285,118 +261,101 @@ $pill_sections = array(
 </section>
 <?php endif; ?>
 
-<!-- SPORTS -->
-<?php
-  $latest_sports_query = new WP_Query(array(
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 8,
-    'category_name'  => 'sports',
-  ));
+<div class="container">
 
-  $latest_sports_foundPosts = $latest_sports_query->found_posts;
+  <!-- SPORTS -->
+  <?php
+    $latest_sports_term       = get_term_by( 'slug', 'sports', 'category' );
+    $latest_sports_review_ids = $latest_sports_term ? ( get_field( 'featured_reviews', $latest_sports_term ) ?: [] ) : [];
+    $latest_sports_posts      = $latest_sports_term ? ( get_field( 'featured_posts',   $latest_sports_term ) ?: [] ) : [];
+    $latest_sports_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $latest_sports_review_ids );
 
-  if ($latest_sports_foundPosts >= 8) { ?>
+    if ( empty( $latest_sports_posts ) ) {
+      $latest_sports_fallback = new WP_Query( [
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => 3,
+        'category_name'  => 'sports',
+      ] );
+      $latest_sports_posts = wp_list_pluck( $latest_sports_fallback->posts, 'ID' );
+    }
 
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php
-        outputNewSlideHTML(array(
-          'query' => $latest_sports_query,
-          'heading' => 'Sports',
-          'link' => '/category/sports/'
-        ))
-      ?>
-    </section>
-  </div>
-<?php }; ?>
+    if ( $latest_sports_rows || $latest_sports_posts ) :
+      get_template_part( 'template-parts/section/topic-section', null, [
+        'heading' => 'Sports',
+        'link'    => [ 'url' => home_url( '/category/sports/' ), 'title' => 'View all', 'target' => '' ],
+        'rows'    => $latest_sports_rows,
+        'posts'   => $latest_sports_posts,
+      ] );
+    endif;
+  ?>
 
-<!-- ALTERNATIVES -->
-<?php
-  $alternatives_query = new WP_Query(array(
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 8,
-    'category_name'  => 'alternatives'
-  ));
+  <!-- ALTERNATIVES -->
+  <?php
+    $alternatives_query = new WP_Query(array(
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 8,
+      'category_name'  => 'alternatives'
+    ));
 
-  $alternatives_foundPosts = $alternatives_query->found_posts;
+    $alternatives_foundPosts = $alternatives_query->found_posts;
 
-  if ($alternatives_foundPosts >= 8) { ?>
+    if ($alternatives_foundPosts >= 8) { ?>
 
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php
-        outputNewSlideHTML(array(
-          'query' => $alternatives_query,
-          'heading' => 'Alternatives',
-          'link' => '/category/alternatives/'
-        ));
-      ?>
-    </section>
-  </div>
+    <div class="container mt-5 pt-4">
+      <section>
+        <?php
+          outputNewSlideHTML(array(
+            'query' => $alternatives_query,
+            'heading' => 'Alternatives',
+            'link' => '/category/alternatives/'
+          ));
+        ?>
+      </section>
+    </div>
 
-<?php }; ?>
+  <?php }; ?>
+
+</div><!-- .container --> 
 
 <!-- BITCOIN CASINOS -->
 <?php
-  $top_sites_rows = get_field('sites', 'option') ?: [];
-  $top_sites = array_column( $top_sites_rows, 'review' );
+$bitcoin_term       = get_term_by( 'slug', 'bitcoin', 'cryptocurrency' );
+$bitcoin_review_ids = $bitcoin_term ? ( get_field( 'featured_reviews', $bitcoin_term ) ?: [] ) : [];
+$bitcoin_posts      = $bitcoin_term ? ( get_field( 'featured_posts',   $bitcoin_term ) ?: [] ) : [];
+$bitcoin_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $bitcoin_review_ids );
 
-  if ($top_sites) {
-    $bitcoin_casinos_query = new WP_Query(array(
-      'post_type'      => 'review',
-      'post_status'    => 'publish',
-      'posts_per_page' => 8,
-      'meta_key'       => 'rank',
-      'orderby'        => 'meta_value_num',
-      'order'          => 'ASC',
-    ));
+if ( empty( $bitcoin_rows ) && $bitcoin_term ) {
+  $bitcoin_fallback = new WP_Query( [
+    'post_type'      => 'review',
+    'post_status'    => 'publish',
+    'posts_per_page' => 4,
+    'orderby'        => 'meta_value_num',
+    'meta_key'       => 'rank',
+    'order'          => 'ASC',
+    'tax_query'      => [ [
+      'taxonomy' => 'cryptocurrency',
+      'field'    => 'term_id',
+      'terms'    => $bitcoin_term->term_id,
+    ] ],
+  ] );
+  $bitcoin_rows = array_map(
+    fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ],
+    wp_list_pluck( $bitcoin_fallback->posts, 'ID' )
+  );
+}
 
-    if ($bitcoin_casinos_query->have_posts()) { ?>
-
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php
-        outputNewSlideHTML(array(
-          'query'   => $bitcoin_casinos_query,
-          'heading' => 'Bitcoin Casinos',
-          'link'    => '/sites/casino/'
-        ));
-
-        $bitcoin_term = get_term_by('slug', 'bitcoin', 'cryptocurrency');
-        $exclude_ids  = $bitcoin_term ? array($bitcoin_term->term_id) : array();
-
-        $crypto_terms = get_terms(array(
-          'taxonomy'   => 'cryptocurrency',
-          'hide_empty' => true,
-          'orderby'    => 'count',
-          'order'      => 'DESC',
-          'number'     => 6,
-          'exclude'    => $exclude_ids,
-        ));
-
-        if (!empty($crypto_terms) && !is_wp_error($crypto_terms)) : ?>
-          <div class="coin-chips">
-            <span class="coin-chips__label">Browse by coin</span>
-            <?php foreach ($crypto_terms as $term) :
-              $icon     = get_field('icon', $term);
-              $icon_url = $icon['sizes']['thumbnail'] ?? null;
-            ?>
-              <a class="coin-chip" href="<?php echo esc_url(get_term_link($term)); ?>">
-                <?php if ($icon_url) : ?>
-                  <img src="<?php echo esc_url($icon_url); ?>" width="18" height="18" alt="" aria-hidden="true">
-                <?php endif; ?>
-                <?php echo esc_html($term->name); ?>
-              </a>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-    </section>
+if ( $bitcoin_rows || $bitcoin_posts ) : ?>
+  <div class="container">
+    <?php get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'Bitcoin Casinos',
+      'link'    => [ 'url' => home_url( '/crypto/bitcoin/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $bitcoin_rows,
+      'posts'   => $bitcoin_posts,
+    ] ); ?>
   </div>
-
-    <?php };
-  };
+<?php endif;
 ?>
 
 <!-- Spacer -->
