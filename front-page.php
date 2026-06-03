@@ -273,6 +273,16 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   endif;
   ?>
 
+  <!-- EDITOR'S PICK -->
+  <?php
+  $editors_pick_ids = get_field( 'articles', 'options' ) ?: [];
+  if ( ! empty( $editors_pick_ids ) ) :
+    get_template_part( 'template-parts/section/editors-pick', null, [
+      'post_ids' => $editors_pick_ids,
+    ] );
+  endif;
+  ?>
+
   <!-- ONLINE POKER -->
   <?php
   $poker_term       = get_term_by( 'slug', 'online-poker', 'review_type' );
