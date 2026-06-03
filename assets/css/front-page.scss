@@ -3,8 +3,13 @@
 
 // ── Homepage Icon Nav (V2 Split) ──────────────────────────────────────────────
 
+.icon-nav__accent {
+  color: var(--color-link);
+}
+
+
 .icon-nav-band {
-  background: var(--color-bg-300);
+  background: linear-gradient(120deg, #eef3fa 0%, #e6eef8 55%, #dce7f4 100%);
 }
 
 .icon-nav {
@@ -35,10 +40,18 @@
 }
 
 .icon-nav__heading-break {
-  display: none;
+  display: inline;
+
+  &::before {
+    content: ' ';
+  }
 
   @include breakpoint(large) {
     display: block;
+
+    &::before {
+      content: none;
+    }
   }
 }
 
