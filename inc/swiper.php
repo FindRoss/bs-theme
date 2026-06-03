@@ -16,17 +16,15 @@ function outputNewSlideHTML($args) {
   if ($query->have_posts() AND $postCount > 3): ?>
     <div class="swiper swiper-primary" aria-label="Carousel of <?php echo esc_attr($postType); ?> posts">
       
-      <div class="section-heading">
+      <div class="sec-head">
         <?php if ($heading) { ?>
-        <h2 class="section-heading__title h4">
-          <?php 
-            if ($link) { echo '<a href="' . $link . '">'; } 
-              echo $heading; 
-            if ($link) { echo '<span class="chev-pill">' . get_svg_icon('chevron-right') . '</span></a>'; }
-          ?>
-        </h2>
+        <div class="sec-head__l">
+          <span class="sec-head__bar"></span>
+          <div class="sec-head__titles">
+            <h2 class="sec-head__title"><?php echo esc_html($heading); ?></h2>
+          </div>
+        </div>
         <?php }; ?>
-
         <div class="swiper-controls">
           <button class="button button__icon swiper-button-prev" aria-label="Previous slide">
             <?php echo get_svg_icon('chevron-left') ?>
@@ -35,7 +33,6 @@ function outputNewSlideHTML($args) {
             <?php echo get_svg_icon('chevron-right') ?>
           </button>
         </div>
-
       </div>
 
       <div class="swiper-wrapper">
@@ -63,14 +60,19 @@ function outputNewSlideHTML($args) {
   <?php elseif ($query->have_posts() AND $postCount <= 3) :  ?>
       
       <?php if ($heading) { ?>
-        <div class="section-heading">
-          <h2 class="section-heading__title h4">
-            <?php 
-              if ($link) { echo '<a href="' . $link . '">'; } 
-                echo $heading; 
-              if ($link) { echo '<span class="chev-pill">' . get_svg_icon('chevron-right') . '</span></a>'; }
-            ?>
-          </h2>
+        <div class="sec-head">
+          <div class="sec-head__l">
+            <span class="sec-head__bar"></span>
+            <div class="sec-head__titles">
+              <h2 class="sec-head__title"><?php echo esc_html($heading); ?></h2>
+            </div>
+          </div>
+          <?php if ($link) { ?>
+            <a class="sec-head__link" href="<?php echo esc_url($link); ?>">
+              <span>View all</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+          <?php } ?>
         </div>
       <?php }; ?>  
 

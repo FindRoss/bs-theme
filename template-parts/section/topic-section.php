@@ -1,5 +1,6 @@
 <?php
 $heading        = $args['heading'] ?? '';
+$kicker         = $args['kicker'] ?? '';
 $link           = $args['link'] ?? null;
 $rows           = array_slice( $args['rows'] ?? [], 0, 4 );
 $posts          = $args['posts'] ?? [];
@@ -24,16 +25,20 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
 
 <section class="topic-section">
 
-  <div class="section-heading">
-    <h2 class="section-heading__title h4">
-      <?php if ( ! empty( $link['url'] ) ) : ?>
-        <a href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $link['target'] ?: '_self' ); ?>">
-          <?php echo esc_html( $heading ); ?> <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span>
-        </a>
-      <?php else : ?>
-        <?php echo esc_html( $heading ); ?>
-      <?php endif; ?>
-    </h2>
+  <div class="sec-head">
+    <div class="sec-head__l">
+      <span class="sec-head__bar"></span>
+      <div class="sec-head__titles">
+        <?php if ( $kicker ) : ?><span class="sec-head__kicker"><?php echo esc_html( $kicker ); ?></span><?php endif; ?>
+        <h2 class="sec-head__title"><?php echo esc_html( $heading ); ?></h2>
+      </div>
+    </div>
+    <?php if ( ! empty( $link['url'] ) ) : ?>
+      <a class="sec-head__link" href="<?php echo esc_url( $link['url'] ); ?>" target="<?php echo esc_attr( $link['target'] ?: '_self' ); ?>">
+        <span>View all</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
+    <?php endif; ?>
   </div>
 
   <div class="topic-section__body mt-3">

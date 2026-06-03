@@ -1437,9 +1437,8 @@ section.articles-box {
 .latest-posts-grid {
   margin-top: 56px;
 
-  .section-heading {
-    border-bottom: none;
-    padding-bottom: 0;
+  .sec-head {
+    margin-bottom: var(--size-400);
   }
 
   &__grid {

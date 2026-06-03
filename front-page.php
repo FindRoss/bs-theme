@@ -4,7 +4,7 @@ $used_posts = array();
 
 $featured_post_args = array(
   'post_type'      => 'post',
-  'posts_per_page' => 4,
+  'posts_per_page' => 3,
 );
 $featured_post_query = new WP_Query( $featured_post_args );
 
@@ -112,8 +112,14 @@ if ( function_exists('geot_target') ) {
 
   <!-- LATEST -->
   <section class="hp-section">
-    <div class="section-heading">
-      <h2 class="section-heading__title h4">Latest</h2>
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <span class="sec-head__bar"></span>
+        <div class="sec-head__titles">
+          <span class="sec-head__kicker">Hot off the press</span>
+          <h2 class="sec-head__title">Latest</h2>
+        </div>
+      </div>
     </div>
     <div class="posts-row mt-4">
       <?php if ( $featured_post_query->have_posts() ) : ?>
@@ -155,10 +161,18 @@ if ( function_exists('geot_target') ) {
 
   if ( $news_query->have_posts() ) : ?>
     <section class="hp-section">
-      <div class="section-heading">
-        <h2 class="section-heading__title h4">
-          <a href="<?php echo esc_url( home_url( '/category/news/' ) ); ?>">News <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span></a>
-        </h2>
+      <div class="sec-head">
+        <div class="sec-head__l">
+          <span class="sec-head__bar"></span>
+          <div class="sec-head__titles">
+            <span class="sec-head__kicker">Casino & Gambling</span>
+            <h2 class="sec-head__title">News</h2>
+          </div>
+        </div>
+        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/news/' ) ); ?>">
+          <span>View all</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
       </div>
       <div class="posts-row mt-4">
         <?php while ( $news_query->have_posts() ) : $news_query->the_post(); ?>
@@ -188,6 +202,7 @@ if ( function_exists('geot_target') ) {
   if ( $promos_rows || $promos_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Promotions',
+      'kicker'  => 'Bonuses and More', 
       'link'    => [ 'url' => get_term_link( $promos_term ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $promos_rows,
       'posts'   => $promos_posts,
@@ -204,7 +219,8 @@ if ( function_exists('geot_target') ) {
 
   if ( $sports_rows || $sports_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'Sports',
+      'heading' => 'Sports Betting',
+      'kicker'  => 'Sportsbooks Ranked', 
       'link'    => [ 'url' => $sports_term ? get_term_link( $sports_term ) : home_url( '/review-type/sports/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $sports_rows,
       'posts'   => $sports_posts,
@@ -224,10 +240,18 @@ $homepage_streamers_query = new WP_Query([
 
 if ( $homepage_streamers_query->have_posts() ) : ?>
 <div class="container mt-5">
-  <div class="section-heading">
-    <h2 class="section-heading__title h4">
-      <a href="https://bitcoinchaser.com/streamers/">Streamers <span class="chev-pill"><?php echo get_svg_icon('chevron-right'); ?></span></a>
-    </h2>
+  <div class="sec-head">
+    <div class="sec-head__l">
+      <span class="sec-head__bar"></span>
+      <div class="sec-head__titles">
+        <span class="sec-head__kicker">Gambling Live</span>
+        <h2 class="sec-head__title">Streamers</h2>
+      </div>
+    </div>
+    <a class="sec-head__link" href="https://bitcoinchaser.com/streamers/">
+      <span>View all</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+    </a>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
     <?php while ( $homepage_streamers_query->have_posts() ) : $homepage_streamers_query->the_post(); ?>
@@ -249,6 +273,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   if ( $vip_rows || $vip_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'VIP Programs',
+      'kicker'  => 'Loyalty & Rewards',  
       'link'    => [ 'url' => get_term_link( $vip_term ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $vip_rows,
       'posts'   => $vip_posts,
@@ -266,6 +291,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   if ( $crash_rows || $crash_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Crash Sites',
+      'kicker'  => 'To The Moon', 
       'link'    => [ 'url' => $crash_term ? get_term_link( $crash_term ) : home_url( '/game/crash/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $crash_rows,
       'posts'   => $crash_posts,
@@ -293,6 +319,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   if ( $poker_rows || $poker_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Online Poker',
+      'kicker'  => 'Poker with Bitcoin', 
       'link'    => [ 'url' => $poker_term ? get_term_link( $poker_term ) : home_url( '/review-type/online-poker/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $poker_rows,
       'posts'   => $poker_posts,
@@ -311,10 +338,18 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
 
   if ( $strategy_query->have_posts() ) : ?>
     <section class="hp-section">
-      <div class="section-heading">
-        <h2 class="section-heading__title h4">
-          <a href="<?php echo esc_url( home_url( '/category/strategy/' ) ); ?>">Strategy <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span></a>
-        </h2>
+      <div class="sec-head">
+        <div class="sec-head__l">
+          <span class="sec-head__bar"></span>
+          <div class="sec-head__titles">
+            <span class="sec-head__kicker">Gambling Live</span>
+            <h2 class="sec-head__title">Strategy</h2>
+          </div>
+        </div>
+        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/strategy/' ) ); ?>">
+          <span>View all</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
       </div>
       <div class="posts-row mt-4">
         <?php while ( $strategy_query->have_posts() ) : $strategy_query->the_post(); ?>
@@ -335,10 +370,18 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
 
   if ( $alternatives_query->have_posts() ) : ?>
     <section class="hp-section">
-      <div class="section-heading">
-        <h2 class="section-heading__title h4">
-          <a href="<?php echo esc_url( home_url( '/category/alternatives/' ) ); ?>">Alternatives <span class="chev-pill"><?php echo get_svg_icon( 'chevron-right' ); ?></span></a>
-        </h2>
+      <div class="sec-head">
+        <div class="sec-head__l">
+          <span class="sec-head__bar"></span>
+          <div class="sec-head__titles">
+            <span class="sec-head__kicker">Discover Somewhere New</span>
+            <h2 class="sec-head__title">Alternatives</h2>
+          </div>
+        </div>
+        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/alternatives/' ) ); ?>">
+          <span>View all</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
       </div>
       <div class="posts-row mt-4">
         <?php while ( $alternatives_query->have_posts() ) : $alternatives_query->the_post(); ?>

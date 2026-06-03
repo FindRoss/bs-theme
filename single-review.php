@@ -376,7 +376,14 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 </div><!-- .container (closed for full-width streamers band) -->
 <section class="review-streamers">
   <div class="container">
-    <div class="section-heading"><h2 class="section-heading__title"><?php echo esc_html($name); ?> Streamers</h2></div>
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <span class="sec-head__bar"></span>
+        <div class="sec-head__titles">
+          <h2 class="sec-head__title"><?php echo esc_html($name); ?> Streamers</h2>
+        </div>
+      </div>
+    </div>
     <div class="row mt-3">
       <?php while ($streamers_query->have_posts()) : $streamers_query->the_post(); ?>
         <div class="col-6 col-md-4 col-lg-3 mt-4">
@@ -392,7 +399,14 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 
   <?php if ($site_posts_query->have_posts()) : ?>
   <section class="review-read-more" id="review-end-sentinel">
-    <div class="section-heading"><h2 class="section-heading__title">Read more about <?php echo esc_html($name); ?></h2></div>
+    <div class="sec-head">
+      <div class="sec-head__l">
+        <span class="sec-head__bar"></span>
+        <div class="sec-head__titles">
+          <h2 class="sec-head__title">Read more about <?php echo esc_html($name); ?></h2>
+        </div>
+      </div>
+    </div>
     <div class="review-read-more__grid">
       <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); ?>
         <?php get_template_part('template-parts/card/card', 'guangzhou'); ?>

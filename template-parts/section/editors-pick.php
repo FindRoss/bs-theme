@@ -22,8 +22,13 @@ $category_label = function( $post ) {
 
 <section class="editors-pick hp-section">
 
-  <div class="section-heading">
-    <h2 class="section-heading__title h4">Editor's Pick</h2>
+  <div class="sec-head">
+    <div class="sec-head__l">
+      <span class="sec-head__bar"></span>
+      <div class="sec-head__titles">
+        <h2 class="sec-head__title">Editor's Pick</h2>
+      </div>
+    </div>
   </div>
 
   <div class="ep">
