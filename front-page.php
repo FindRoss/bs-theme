@@ -9,13 +9,40 @@ $featured_post_args = array(
 $featured_post_query = new WP_Query( $featured_post_args );
 
 // ── Pills grid config ──────────────────────────────────────────────────────
-$pills_per_section = 4; // Change to 4 to show 4 pills per section
+$pills_per_section = 4;
 
 $pill_sections = array(
   array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '' ),
   array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '/anonymous-casinos/' ),
   array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '/instant-withdrawal-crypto-casinos/' ),
 );
+
+// ── Geo-targeted first section ─────────────────────────────────────────────
+$geo_country_map = [
+  'US' => [ 'slug' => 'united-states',  'title' => 'Top US Sites',       'link' => '/country/united-states/' ],
+  'GB' => [ 'slug' => 'united-kingdom', 'title' => 'Top UK Sites',       'link' => '/country/united-kingdom/' ],
+  'CA' => [ 'slug' => 'canada',         'title' => 'Top Canadian Sites', 'link' => '/country/canada/' ],
+];
+
+if ( function_exists('geot_target') ) {
+  foreach ( $geo_country_map as $iso => $config ) {
+    if ( geot_target( $iso ) ) {
+      $country_term = get_term_by( 'slug', $config['slug'], 'country' );
+      if ( $country_term ) {
+        $geo_ids = get_field( 'featured_reviews', $country_term ) ?: [];
+        if ( ! empty( $geo_ids ) ) {
+          $geo_section = [
+            'title'    => $config['title'],
+            'link'     => $config['link'],
+            'post_ids' => array_slice( array_map( 'intval', $geo_ids ), 0, $pills_per_section ),
+          ];
+          $pill_sections = array_merge( [ $geo_section ], array_slice( $pill_sections, 1 ) );
+        }
+      }
+      break;
+    }
+  }
+}
 ?>
 
 <?php get_template_part( 'template-parts/section/icon-nav' ); ?>
@@ -27,12 +54,24 @@ $pill_sections = array(
     <div class="pills-grid__grid">
 
       <?php foreach ( $pill_sections as $section ) :
-        $rows = get_field( $section['field'], 'options' );
-        if ( empty( $rows ) ) continue;
+        if ( ! empty( $section['post_ids'] ) ) {
+          $post_ids     = $section['post_ids'];
+          $aff_link_map = [];
+        } else {
+          $rows = get_field( $section['field'], 'options' );
+          if ( empty( $rows ) ) continue;
 
-        $rows = array_slice( $rows, 0, $pills_per_section );
-        $post_ids = array_column( $rows, 'review' );
-        if ( empty( $post_ids ) ) continue;
+          $rows     = array_slice( $rows, 0, $pills_per_section );
+          $post_ids = array_column( $rows, 'review' );
+          if ( empty( $post_ids ) ) continue;
+
+          $aff_link_map = [];
+          foreach ( $rows as $row ) {
+            if ( ! empty( $row['review'] ) ) {
+              $aff_link_map[ $row['review'] ] = $row['affiliate_link'] ?? '';
+            }
+          }
+        }
 
         $section_query = new WP_Query( array(
           'post_type'      => 'review',
@@ -42,14 +81,6 @@ $pill_sections = array(
         ) );
 
         if ( ! $section_query->have_posts() ) continue;
-
-        // Build a map of post ID → affiliate link for quick lookup
-        $aff_link_map = [];
-        foreach ( $rows as $row ) {
-          if ( ! empty( $row['review'] ) ) {
-            $aff_link_map[ $row['review'] ] = $row['affiliate_link'] ?? '';
-          }
-        }
       ?>
         <div class="pills-grid__section">
           <header class="pills-grid__header">
