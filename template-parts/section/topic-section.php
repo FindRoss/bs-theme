@@ -1,8 +1,10 @@
 <?php
-$heading  = $args['heading'] ?? '';
-$link     = $args['link'] ?? null;
-$rows     = array_slice( $args['rows'] ?? [], 0, 4 );
-$posts    = $args['posts'] ?? [];
+$heading        = $args['heading'] ?? '';
+$link           = $args['link'] ?? null;
+$rows           = array_slice( $args['rows'] ?? [], 0, 4 );
+$posts          = $args['posts'] ?? [];
+$pill_post_type = $args['pill_post_type'] ?? 'review';
+$pill_template  = $args['pill_template'] ?? 'template-parts/card/review-pill';
 
 // Normalise link: accept plain string or array with url/title/target
 if ( is_string( $link ) && $link ) {
@@ -41,7 +43,7 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
       <div class="topic-section__pills">
         <?php
         $pills_query = new WP_Query( [
-          'post_type'      => 'review',
+          'post_type'      => $pill_post_type,
           'post__in'       => $post_ids,
           'orderby'        => 'post__in',
           'posts_per_page' => 4,
@@ -50,7 +52,7 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
         while ( $pills_query->have_posts() ) :
           $pills_query->the_post();
           $rank++;
-          get_template_part( 'template-parts/card/review-pill', null, [
+          get_template_part( $pill_template, null, [
             'rank'     => $rank,
             'is_top'   => $rank === 1,
             'aff_link' => $aff_link_map[ get_the_ID() ] ?? '',

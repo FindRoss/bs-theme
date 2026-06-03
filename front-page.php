@@ -4,7 +4,7 @@ $used_posts = array();
 
 $featured_post_args = array(
   'post_type'      => 'post',
-  'posts_per_page' => 2,
+  'posts_per_page' => 4,
 );
 $featured_post_query = new WP_Query( $featured_post_args );
 
@@ -79,17 +79,15 @@ $pill_sections = array(
     </div>
   </section>
 
-  <!-- Two lead posts -->
+  <!-- LATEST -->
   <section class="mt-4">
     <div class="section-heading">
       <h2 class="section-heading__title h4">Latest</h2>
     </div>
-    <div class="dirplus-posts mt-4">
+    <div class="posts-row mt-4">
       <?php if ( $featured_post_query->have_posts() ) : ?>
         <?php while ( $featured_post_query->have_posts() ) : $featured_post_query->the_post() ?>
-          <div>
-            <?php get_template_part('template-parts/card/card', 'beijing', array('exclude_lazyload' => true)); ?>
-          </div>
+          <?php get_template_part('template-parts/card/card', 'beijing', array('exclude_lazyload' => true)); ?>
           <?php $used_posts[] = get_the_ID(); ?>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
@@ -97,7 +95,122 @@ $pill_sections = array(
     </div>
   </section>
 
-  <!-- VIP TOPIC SECTION -->
+  <!-- BONUSES -->
+  <?php
+  $bonus_ids   = get_field( 'bonuses', 'options' ) ?: [];
+  $bonus_posts = [ 123822, 122577 ];
+  $bonus_rows  = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $bonus_ids );
+
+  if ( $bonus_rows || $bonus_posts ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading'        => 'Bonuses',
+      'link'           => [ 'url' => home_url( '/bonuses/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'           => $bonus_rows,
+      'posts'          => $bonus_posts,
+      'pill_post_type' => 'bonus',
+      'pill_template'  => 'template-parts/card/bonus-pill',
+    ] );
+  endif;
+  ?>
+
+  <!-- NEWS -->
+  <?php
+  $news_query = new WP_Query( [
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => 4,
+    'category_name'  => 'news',
+  ] );
+
+  if ( $news_query->have_posts() ) : ?>
+    <section class="mt-5 pt-4">
+      <div class="section-heading">
+        <h2 class="section-heading__title h4">
+          <a href="<?php echo esc_url( home_url( '/category/news/' ) ); ?>">News <?php echo get_svg_icon( 'chevron-right' ); ?></a>
+        </h2>
+      </div>
+      <div class="posts-row mt-4">
+        <?php while ( $news_query->have_posts() ) : $news_query->the_post(); ?>
+          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
+        <?php endwhile; wp_reset_postdata(); ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
+  <!-- PROMOTIONS -->
+  <?php
+  $promos_term       = get_term_by( 'slug', 'promotions', 'category' );
+  $promos_review_ids = $promos_term ? ( get_field( 'featured_reviews', $promos_term ) ?: [] ) : [];
+  $promos_posts      = $promos_term ? ( get_field( 'featured_posts',   $promos_term ) ?: [] ) : [];
+  $promos_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $promos_review_ids );
+
+  if ( empty( $promos_posts ) ) {
+    $promos_query = new WP_Query( [
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 2,
+      'category_name'  => 'promotions',
+    ] );
+    $promos_posts = wp_list_pluck( $promos_query->posts, 'ID' );
+  }
+
+  if ( $promos_rows || $promos_posts ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'Promotions',
+      'link'    => [ 'url' => get_term_link( $promos_term ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $promos_rows,
+      'posts'   => $promos_posts,
+    ] );
+  endif;
+  ?>
+
+  <!-- SPORTS -->
+  <?php
+  $sports_term       = get_term_by( 'slug', 'sports', 'review_type' );
+  $sports_review_ids = $sports_term ? ( get_field( 'featured_reviews', $sports_term ) ?: [] ) : [];
+  $sports_posts      = $sports_term ? ( get_field( 'featured_posts',   $sports_term ) ?: [] ) : [];
+  $sports_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $sports_review_ids );
+
+  if ( $sports_rows || $sports_posts ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'Sports',
+      'link'    => [ 'url' => $sports_term ? get_term_link( $sports_term ) : home_url( '/review-type/sports/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $sports_rows,
+      'posts'   => $sports_posts,
+    ] );
+  endif;
+  ?>
+
+</div><!-- .container -->
+
+<!-- STREAMERS -->
+<?php
+$homepage_streamers_query = new WP_Query([
+  'post_type'      => 'streamer',
+  'posts_per_page' => 8,
+  'orderby'        => 'date',
+  'order'          => 'DESC',
+]);
+
+if ( $homepage_streamers_query->have_posts() ) : ?>
+<section class="review-streamers mt-5">
+  <div class="container">
+    <h2 class="section-heading__title h4">
+      <a href="https://bitcoinchaser.com/streamers/">Streamers <?php echo get_svg_icon('chevron-right'); ?></a>
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
+      <?php while ( $homepage_streamers_query->have_posts() ) : $homepage_streamers_query->the_post(); ?>
+        <?php get_template_part('template-parts/card/card', 'streamer'); ?>
+      <?php endwhile; ?>
+      <?php wp_reset_postdata(); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<div class="container">
+
+  <!-- VIP -->
   <?php
   $vip_term       = get_term_by( 'slug', 'vip', 'category' );
   $vip_review_ids = $vip_term ? ( get_field( 'featured_reviews', $vip_term ) ?: [] ) : [];
@@ -114,251 +227,41 @@ $pill_sections = array(
   endif;
   ?>
 
-  <!-- SPORTS TOPIC SECTION -->
+  <!-- CRASH SITES -->
   <?php
-  $sports_term       = get_term_by( 'slug', 'sports', 'category' );
-  $sports_review_ids = $sports_term ? ( get_field( 'featured_reviews', $sports_term ) ?: [] ) : [];
-  $sports_posts      = $sports_term ? ( get_field( 'featured_posts',   $sports_term ) ?: [] ) : [];
-  $sports_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $sports_review_ids );
+  $crash_term       = get_term_by( 'slug', 'crash', 'game' );
+  $crash_review_ids = $crash_term ? ( get_field( 'featured_reviews', $crash_term ) ?: [] ) : [];
+  $crash_posts      = $crash_term ? ( get_field( 'featured_posts',   $crash_term ) ?: [] ) : [];
+  $crash_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $crash_review_ids );
 
-  if ( empty( $sports_posts ) ) {
-    $sports_query = new WP_Query( [
-      'post_type'      => 'post',
-      'post_status'    => 'publish',
-      'posts_per_page' => 2,
-      'category_name'  => 'sports',
+  if ( $crash_rows || $crash_posts ) :
+    get_template_part( 'template-parts/section/topic-section', null, [
+      'heading' => 'Crash Sites',
+      'link'    => [ 'url' => $crash_term ? get_term_link( $crash_term ) : home_url( '/game/crash/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $crash_rows,
+      'posts'   => $crash_posts,
     ] );
-    $sports_posts = wp_list_pluck( $sports_query->posts, 'ID' );
-  }
-
-  if ( $sports_rows || $sports_posts ) : ?>
-    <div class="container">
-      <?php get_template_part( 'template-parts/section/topic-section', null, [
-        'heading' => 'Sports',
-        'link'    => [ 'url' => home_url( '/category/sports/' ), 'title' => 'View all', 'target' => '' ],
-        'rows'    => $sports_rows,
-        'posts'   => $sports_posts,
-      ] ); ?>
-    </div>
-  <?php endif;
+  endif;
   ?>
 
-  <!-- PROMOTIONS TOPIC SECTION -->
+  <!-- ONLINE POKER -->
   <?php
-  $promos_term        = get_term_by( 'slug', 'promotions', 'category' );
-  $promos_review_ids  = $promos_term ? ( get_field( 'featured_reviews', $promos_term ) ?: [] ) : [];
-  $promos_posts       = $promos_term ? ( get_field( 'featured_posts',   $promos_term ) ?: [] ) : [];
-  $promos_rows        = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $promos_review_ids );
+  $poker_term       = get_term_by( 'slug', 'online-poker', 'review_type' );
+  $poker_review_ids = $poker_term ? ( get_field( 'featured_reviews', $poker_term ) ?: [] ) : [];
+  $poker_posts      = $poker_term ? ( get_field( 'featured_posts',   $poker_term ) ?: [] ) : [];
+  $poker_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $poker_review_ids );
 
-  if ( empty( $promos_posts ) ) {
-    $promos_query = new WP_Query( [
-      'post_type'      => 'post',
-      'post_status'    => 'publish',
-      'posts_per_page' => 2,
-      'category_name'  => 'promotions',
-    ] );
-    $promos_posts = wp_list_pluck( $promos_query->posts, 'ID' );
-  }
-
-  if ( $promos_posts || $promos_rows ) :
+  if ( $poker_rows || $poker_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'Promotions',
-      'link'    => [ 'url' => get_term_link( $promos_term ), 'title' => 'View all', 'target' => '' ],
-      'rows'    => $promos_rows,
-      'posts'   => $promos_posts,
+      'heading' => 'Online Poker',
+      'link'    => [ 'url' => $poker_term ? get_term_link( $poker_term ) : home_url( '/review-type/online-poker/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $poker_rows,
+      'posts'   => $poker_posts,
     ] );
   endif;
   ?>
 
 </div><!-- .container -->
-
-<!-- BONUSES -->
-<?php
-  $bonus_ids_to_include = get_field('bonuses', 'options');
-
-  $featured_bonus_args = array(
-    'post_type'      => 'bonus',
-    'post_status'    => 'publish',
-    'posts_per_page' => 6,
-  );
-
-  if ($bonus_ids_to_include) {
-    $featured_bonus_args['post__in'] = $bonus_ids_to_include;
-    $featured_bonus_args['orderby']  = 'post__in';
-  };
-
-  $featured_bonus_query = new WP_Query($featured_bonus_args);
-
-  if ($featured_bonus_query->have_posts()) : ?>
-
-<div class="container mt-5 pt-4">
-  <section>
-    <div class="section-heading">
-      <h2 class="section-heading__title h4">
-        <a href="https://bitcoinchaser.com/bonuses/">Bonuses <?php echo get_svg_icon('chevron-right'); ?></a>
-      </h2>
-    </div>
-    <div class="bonus-cards-grid">
-      <?php while ($featured_bonus_query->have_posts()) : $featured_bonus_query->the_post(); ?>
-        <?php get_template_part('template-parts/card/card', 'shanghai'); ?>
-      <?php endwhile; ?>
-      <?php wp_reset_postdata(); ?>
-    </div>
-  </section>
-</div>
-
-<?php endif; ?>
-
-<!-- NEWS -->
-<?php
-  $latest_casino_news_query = new WP_Query(array(
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 8,
-    'category_name'  => 'news',
-  ));
-
-  $latest_casino_news_foundPosts = $latest_casino_news_query->found_posts;
-
-  if ($latest_casino_news_foundPosts >= 8) { ?>
-
-  <div class="container mt-5 pt-4">
-    <section>
-      <?php
-         outputNewSlideHTML(array(
-          'query' => $latest_casino_news_query,
-          'heading' => 'News',
-          'link' => '/category/news/'
-        ));
-      ?>
-    </section>
-  </div>
-<?php }; ?>
-
-
-<!-- STREAMERS -->
-<?php
-  $homepage_streamers_query = new WP_Query([
-    'post_type'      => 'streamer',
-    'posts_per_page' => 8,
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-  ]);
-
-  if ($homepage_streamers_query->have_posts()) : ?>
-<section class="review-streamers mt-5">
-  <div class="container">
-    <h2 class="section-heading__title h4">
-      <a href="https://bitcoinchaser.com/streamers/">Streamers <?php echo get_svg_icon('chevron-right'); ?></a>
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
-      <?php while ($homepage_streamers_query->have_posts()) : $homepage_streamers_query->the_post(); ?>
-        <?php get_template_part('template-parts/card/card', 'streamer'); ?>
-      <?php endwhile; ?>
-      <?php wp_reset_postdata(); ?>
-    </div>
-  </div>
-</section>
-<?php endif; ?>
-
-<div class="container">
-
-  <!-- SPORTS -->
-  <?php
-    $latest_sports_term       = get_term_by( 'slug', 'sports', 'category' );
-    $latest_sports_review_ids = $latest_sports_term ? ( get_field( 'featured_reviews', $latest_sports_term ) ?: [] ) : [];
-    $latest_sports_posts      = $latest_sports_term ? ( get_field( 'featured_posts',   $latest_sports_term ) ?: [] ) : [];
-    $latest_sports_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $latest_sports_review_ids );
-
-    if ( empty( $latest_sports_posts ) ) {
-      $latest_sports_fallback = new WP_Query( [
-        'post_type'      => 'post',
-        'post_status'    => 'publish',
-        'posts_per_page' => 3,
-        'category_name'  => 'sports',
-      ] );
-      $latest_sports_posts = wp_list_pluck( $latest_sports_fallback->posts, 'ID' );
-    }
-
-    if ( $latest_sports_rows || $latest_sports_posts ) :
-      get_template_part( 'template-parts/section/topic-section', null, [
-        'heading' => 'Sports',
-        'link'    => [ 'url' => home_url( '/category/sports/' ), 'title' => 'View all', 'target' => '' ],
-        'rows'    => $latest_sports_rows,
-        'posts'   => $latest_sports_posts,
-      ] );
-    endif;
-  ?>
-
-  <!-- ALTERNATIVES -->
-  <?php
-    $alternatives_query = new WP_Query(array(
-      'post_type'      => 'post',
-      'post_status'    => 'publish',
-      'posts_per_page' => 8,
-      'category_name'  => 'alternatives'
-    ));
-
-    $alternatives_foundPosts = $alternatives_query->found_posts;
-
-    if ($alternatives_foundPosts >= 8) { ?>
-
-    <div class="container mt-5 pt-4">
-      <section>
-        <?php
-          outputNewSlideHTML(array(
-            'query' => $alternatives_query,
-            'heading' => 'Alternatives',
-            'link' => '/category/alternatives/'
-          ));
-        ?>
-      </section>
-    </div>
-
-  <?php }; ?>
-
-</div><!-- .container --> 
-
-<!-- BITCOIN CASINOS -->
-<?php
-$bitcoin_term       = get_term_by( 'slug', 'bitcoin', 'cryptocurrency' );
-$bitcoin_review_ids = $bitcoin_term ? ( get_field( 'featured_reviews', $bitcoin_term ) ?: [] ) : [];
-$bitcoin_posts      = $bitcoin_term ? ( get_field( 'featured_posts',   $bitcoin_term ) ?: [] ) : [];
-$bitcoin_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $bitcoin_review_ids );
-
-if ( empty( $bitcoin_rows ) && $bitcoin_term ) {
-  $bitcoin_fallback = new WP_Query( [
-    'post_type'      => 'review',
-    'post_status'    => 'publish',
-    'posts_per_page' => 4,
-    'orderby'        => 'meta_value_num',
-    'meta_key'       => 'rank',
-    'order'          => 'ASC',
-    'tax_query'      => [ [
-      'taxonomy' => 'cryptocurrency',
-      'field'    => 'term_id',
-      'terms'    => $bitcoin_term->term_id,
-    ] ],
-  ] );
-  $bitcoin_rows = array_map(
-    fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ],
-    wp_list_pluck( $bitcoin_fallback->posts, 'ID' )
-  );
-}
-
-if ( $bitcoin_rows || $bitcoin_posts ) : ?>
-  <div class="container">
-    <?php get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'Bitcoin Casinos',
-      'link'    => [ 'url' => home_url( '/crypto/bitcoin/' ), 'title' => 'View all', 'target' => '' ],
-      'rows'    => $bitcoin_rows,
-      'posts'   => $bitcoin_posts,
-    ] ); ?>
-  </div>
-<?php endif;
-?>
-
-<!-- Spacer -->
-<div style="margin-top:3rem"></div>
+<div style="margin-top:3rem"></div><!-- Spacer -->
 
 <?php get_footer(); ?>
