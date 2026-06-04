@@ -18,7 +18,7 @@ function taxonomy_main_query($query, $term): void {
     <?php if ( $query->have_posts() ) :
       $counter = 1;
       while ( $query->have_posts() ) : $query->the_post() ?>
-        <?php get_template_part('template-parts/card/card', 'kunming', array('exclude_lazyload' => $counter <= 2)); ?>
+        <?php get_template_part('template-parts/card/card', 'kunming', array('exclude_lazyload' => $counter <= 2, 'is_top' => $counter === 1)); ?>
         <?php $counter++; ?>
       <?php endwhile; ?>
       <?php wp_reset_postdata(); ?>

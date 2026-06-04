@@ -71,7 +71,7 @@
   if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
   if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
   if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
-  if ($taxonomy == 'country') $title_output = 'Best Crypto Casino ' . $term_name . ' 2026';
+  if ($taxonomy == 'country') $title_output = 'Bitcoin and Crypto Casinos in ' . $term_name . ' 2026';
   if ($taxonomy == 'license') $title_output = 'Top ' . $term_name . ' Licensed Crypto Casinos of 2026'; 
   if ($taxonomy == 'game') {
   $title_output = $term_name == 'Live Casino'
@@ -105,8 +105,10 @@
 
     <?php $main_content = get_field('main_content', $term); ?>
 
+    
     <section class="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div class="col-span-1 md:col-span-9 main--content">
+        <hr>
         <?php echo $main_content; ?>
         <?php if (get_field('faqs', $term)) {
           get_template_part('template-parts/content/content', 'faqs');

@@ -1,6 +1,7 @@
 <?php
   $review_id = get_the_ID();
   $exclude_lazyload = $args['exclude_lazyload'] ?? false;
+  $is_top           = $args['is_top'] ?? false;
 
   $details_group = get_field('details_group');
   $name          = $details_group['name'];
@@ -20,7 +21,7 @@
   $pros = $review_id ? get_field('pros', $review_id) : [];
 ?>
 
-<div class="card card-kunming">
+<div class="card card-kunming<?php echo $is_top ? ' card-kunming--top' : ''; ?>">
 
   <div class="card-kunming__main">
 

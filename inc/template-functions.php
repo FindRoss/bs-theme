@@ -1,4 +1,42 @@
-<?php 
+<?php
+
+function bs_get_geo_top_sites(): array {
+  $geo_country_map = [
+    'US' => [ 'slug' => 'united-states',  'title' => 'Top US Sites',       'link' => '/country/united-states/' ],
+    'GB' => [ 'slug' => 'united-kingdom', 'title' => 'Top UK Sites',       'link' => '/country/united-kingdom/' ],
+    'CA' => [ 'slug' => 'canada',         'title' => 'Top Canadian Sites', 'link' => '/country/canada/' ],
+  ];
+
+  if ( function_exists( 'geot_target' ) ) {
+    foreach ( $geo_country_map as $iso => $config ) {
+      if ( geot_target( $iso ) ) {
+        $country_term = get_term_by( 'slug', $config['slug'], 'country' );
+        if ( $country_term ) {
+          $geo_ids = get_field( 'featured_reviews', $country_term ) ?: [];
+          if ( ! empty( $geo_ids ) ) {
+            return [
+              'title'    => $config['title'],
+              'link'     => $config['link'],
+              'post_ids' => array_slice( array_map( 'intval', $geo_ids ), 0, 4 ),
+            ];
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  // Fallback: generic sites from ACF options
+  $rows    = get_field( 'sites', 'options' ) ?: [];
+  $post_ids = array_slice( array_column( $rows, 'review' ), 0, 4 );
+
+  return [
+    'title'    => 'Top Sites',
+    'link'     => '',
+    'post_ids' => array_map( 'intval', $post_ids ),
+  ];
+}
+
 function terms_to_box($terms, $title, $with_links = false, $current_page_url = ''): string  {
 
   if (!is_array($terms) || count($terms) === 0) return '';

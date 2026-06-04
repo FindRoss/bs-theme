@@ -1129,6 +1129,8 @@ section.articles-box {
   &__info-boxes {
     border-top: 1px solid var(--color-muted-100);
     background-color: var(--color-bg-50);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
   }
 
   &__details-toggle {
@@ -1173,6 +1175,7 @@ section.articles-box {
     height: 0;
     overflow: hidden;
 
+
     &.expanded {
       height: auto;
       padding: 0 var(--size-400) var(--size-200);
@@ -1188,6 +1191,51 @@ section.articles-box {
 
     .review-info-boxes__value {
       font-size: 13px;
+    }
+  }
+
+  &--top {
+    position: relative;
+    overflow: visible;
+    margin-top: 28px;
+    background: linear-gradient(180deg, #f1fbf5 0%, #e2f4ea 100%);
+    border-color: #3ec78a;
+    box-shadow: 0 4px 18px -10px rgba(15, 122, 79, 0.5);
+
+    &::before {
+      content: "⭐ Top Pick";
+      position: absolute;
+      top: -13px;
+      left: 16px;
+      background: #16a06a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .card-kunming__bonus-icon {
+      background-color: rgba(15, 122, 79, 0.12);
+      svg { stroke: #0f7a4f; }
+    }
+
+    .card-kunming__ctas {
+      .button__outline {
+        border-color: rgba(62, 199, 138, 0.5);
+        color: #0f7a4f;
+      }
+      .button__primary {
+        background: #16a06a;
+        border-color: #16a06a;
+        &:hover {
+          background: #0f8a5b;
+          border-color: #0f8a5b;
+        }
+      }
     }
   }
 }

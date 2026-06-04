@@ -12,37 +12,10 @@ $featured_post_query = new WP_Query( $featured_post_args );
 $pills_per_section = 4;
 
 $pill_sections = array(
-  array( 'field' => 'sites',                'title' => 'Top Sites',            'link' => '' ),
+  bs_get_geo_top_sites(),
   array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '/anonymous-casinos/' ),
   array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '/instant-withdrawal-crypto-casinos/' ),
 );
-
-// ── Geo-targeted first section ─────────────────────────────────────────────
-$geo_country_map = [
-  'US' => [ 'slug' => 'united-states',  'title' => 'Top US Sites',       'link' => '/country/united-states/' ],
-  'GB' => [ 'slug' => 'united-kingdom', 'title' => 'Top UK Sites',       'link' => '/country/united-kingdom/' ],
-  'CA' => [ 'slug' => 'canada',         'title' => 'Top Canadian Sites', 'link' => '/country/canada/' ],
-];
-
-if ( function_exists('geot_target') ) {
-  foreach ( $geo_country_map as $iso => $config ) {
-    if ( geot_target( $iso ) ) {
-      $country_term = get_term_by( 'slug', $config['slug'], 'country' );
-      if ( $country_term ) {
-        $geo_ids = get_field( 'featured_reviews', $country_term ) ?: [];
-        if ( ! empty( $geo_ids ) ) {
-          $geo_section = [
-            'title'    => $config['title'],
-            'link'     => $config['link'],
-            'post_ids' => array_slice( array_map( 'intval', $geo_ids ), 0, $pills_per_section ),
-          ];
-          $pill_sections = array_merge( [ $geo_section ], array_slice( $pill_sections, 1 ) );
-        }
-      }
-      break;
-    }
-  }
-}
 ?>
 
 <?php get_template_part( 'template-parts/section/icon-nav' ); ?>

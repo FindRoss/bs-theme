@@ -20,6 +20,11 @@
     background: linear-gradient(180deg, #f1fbf5 0%, #e2f4ea 100%);
     border-color: #3ec78a;
     box-shadow: 0 4px 18px -10px rgba(15, 122, 79, 0.5);
+
+    .bonus-pill__visit {
+      background: #16a06a;
+      &:hover { background: #0f8a5b; }
+    }
   }
 
   // Overlay link — full pill hit area, sits above the grid but below interactive children

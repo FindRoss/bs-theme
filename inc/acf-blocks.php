@@ -26,7 +26,7 @@ function my_acf_init_block_types() {
       'icon'              =>  'book'
     ));
     /**
-    * Casino Card 
+    * Casino Card
     */
     acf_register_block_type(array(
       'name'              => 'Casino card',
@@ -42,7 +42,7 @@ function my_acf_init_block_types() {
       'icon'              => 'media-text'
     ));
     /**
-    * Casino CTA 
+    * Casino CTA
     */
     acf_register_block_type(array(
       'name'              => 'Casino Call to Action',
@@ -58,7 +58,7 @@ function my_acf_init_block_types() {
       'icon'              => 'button'
     ));
     /**
-    * Casino CTA 
+    * Casino CTA
     */
     acf_register_block_type(array(
       'name'              => 'Review Call to Action',
