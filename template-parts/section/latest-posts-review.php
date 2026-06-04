@@ -16,7 +16,7 @@ $latest_posts_query = new WP_Query(array(
     <div class="sec-head__l">
       <span class="sec-head__bar"></span>
       <div class="sec-head__titles">
-        <h2 class="sec-head__title">Latest Posts</h2>
+        <h2 class="sec-head__title">Latest</h2>
       </div>
     </div>
   </div>
