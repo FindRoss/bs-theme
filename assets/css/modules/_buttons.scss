@@ -59,11 +59,13 @@ button.round-icon {
   &__primary {
     background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-600));
     color: #ffffff;
+    transition: box-shadow 0.15s ease, background 0.15s ease;
 
     &:hover,
     &:focus {
       background: linear-gradient(to right, var(--color-primary-600), var(--color-primary-700));
       color: #ffffff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
   }
 
