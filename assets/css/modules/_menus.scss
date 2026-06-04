@@ -285,9 +285,9 @@ body.no-scroll {
 
       &:hover,
       &:focus {
-        background-color: var(--color-muted-100);
-        border-left-color: var(--color-primary-400);
-        color: var(--color-primary-900);
+        background-color: #fff;
+        border-left-color: var(--color-primary-500);
+        color: var(--color-primary-500);
       }
     }
   }
@@ -422,7 +422,7 @@ body.no-scroll {
 
       &:hover,
       &:focus {
-        background-color: var(--color-muted-100);
+        background-color: #fff;
       }
     }
 
@@ -471,7 +471,7 @@ body.no-scroll {
 
         &:hover,
         &:focus {
-          background-color: var(--color-muted-100);
+          background-color: #fff;
         }
 
         .chevron {
