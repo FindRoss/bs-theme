@@ -348,7 +348,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
         <div class="sec-head__l">
           <span class="sec-head__bar"></span>
           <div class="sec-head__titles">
-            <span class="sec-head__kicker">Beyond Bitcoin</span>
+            <span class="sec-head__kicker">Similar Sites</span>
             <h2 class="sec-head__title">Alternatives</h2>
           </div>
         </div>
