@@ -88,15 +88,18 @@ body.no-scroll {
 }
 
 .nav-item__title {
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
 }
 
 .nav-item__subheading {
-  font-size: 0.75rem;
-  font-weight: 400;
+  font-size: 0.65rem;
+  font-weight: 600;
   color: var(--color-muted-500);
   line-height: 1.3;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }
 
 // This should be global for desktop and mobile menu;
