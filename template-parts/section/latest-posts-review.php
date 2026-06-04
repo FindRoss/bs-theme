@@ -12,7 +12,14 @@ $latest_posts_query = new WP_Query(array(
 
 <?php if ($latest_posts_query->have_posts()) : ?>
 <section class="latest-posts-grid">
-  <h2 class="group-heading">Latest Posts</h2>
+  <div class="sec-head">
+    <div class="sec-head__l">
+      <span class="sec-head__bar"></span>
+      <div class="sec-head__titles">
+        <h2 class="sec-head__title">Latest Posts</h2>
+      </div>
+    </div>
+  </div>
   <div class="latest-posts-grid__grid">
     <?php while ($latest_posts_query->have_posts()) : $latest_posts_query->the_post(); ?>
       <a class="card-nanjing" href="<?php the_permalink(); ?>">

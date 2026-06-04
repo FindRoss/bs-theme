@@ -36,8 +36,17 @@
       svg { stroke: #0f7a4f; }
     }
 
-    .review-pill__actions .button {
-      border-color: #3ec78a;
+    .review-pill__actions .button__outline {
+      background: transparent;
+      border-color: rgba(62, 199, 138, 0.5);
+      color: #0f7a4f;
+    }
+
+    .review-pill__actions .button__primary {
+      background: #16a06a;
+      border-color: #16a06a;
+
+      &:hover { background: #0f8a5b; border-color: #0f8a5b; }
     }
 
   }
@@ -137,5 +146,19 @@
     gap: 8px;
     flex-shrink: 0;
     white-space: nowrap;
+
+    .button__outline {
+      background: #e9eef4;
+      border-color: transparent;
+      color: #1c3d61;
+
+      &:hover { background: #dde6f0; border-color: transparent; }
+    }
+
+    .button__primary {
+      border-color: transparent;
+
+      &:hover { border-color: transparent; }
+    }
   }
 }

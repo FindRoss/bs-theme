@@ -117,13 +117,11 @@ add_action('admin_enqueue_scripts', 'themebs_enqueue_admin_script');
 * Filter IP if you are for example in local host
 */
 
-// TW
-// 192.192.192.192
-// US
-// 100.255.255.255
-// add_filter( 'geot/user_ip', 'geot_ip');
+// add_filter( 'geot/user_ip', 'geot_ip' );
 // function geot_ip( $ip ) {
-//   return '100.255.255.255';
+//   return '206.167.233.1';   // Canada (Rogers)
+//   return '81.2.69.142';    // UK
+//   return '100.255.255.255'; // US
 // }
 
 
