@@ -243,7 +243,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   $vip_posts      = $vip_term ? ( get_field( 'featured_posts',   $vip_term ) ?: [] ) : [];
   $vip_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $vip_review_ids );
 
-  if ( $vip_rows || $vip_posts ) :
+  if ( $vip_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'VIP Programs',
       'kicker'  => 'Loyalty & Rewards',  
@@ -261,7 +261,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   $crash_posts      = $crash_term ? ( get_field( 'featured_posts',   $crash_term ) ?: [] ) : [];
   $crash_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $crash_review_ids );
 
-  if ( $crash_rows || $crash_posts ) :
+  if ( $crash_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Crash Sites',
       'kicker'  => 'To The Moon', 
@@ -289,7 +289,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   $poker_posts      = $poker_term ? ( get_field( 'featured_posts',   $poker_term ) ?: [] ) : [];
   $poker_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $poker_review_ids );
 
-  if ( $poker_rows || $poker_posts ) :
+  if ( $poker_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Online Poker',
       'kicker'  => 'Poker with Bitcoin', 
