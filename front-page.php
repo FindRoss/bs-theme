@@ -89,7 +89,7 @@ $pill_sections = array(
       <div class="sec-head__l">
         <span class="sec-head__bar"></span>
         <div class="sec-head__titles">
-          <span class="sec-head__kicker">Hot off the press</span>
+          <span class="sec-head__kicker">Fresh Today</span>
           <h2 class="sec-head__title">Latest</h2>
         </div>
       </div>
@@ -114,6 +114,7 @@ $pill_sections = array(
   if ( $bonus_rows || $bonus_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading'        => 'Bonuses',
+      'kicker'         => 'Top Picks',
       'link'           => [ 'url' => home_url( '/bonuses/' ), 'title' => 'View all', 'target' => '' ],
       'rows'           => $bonus_rows,
       'posts'          => $bonus_posts,
@@ -138,7 +139,7 @@ $pill_sections = array(
         <div class="sec-head__l">
           <span class="sec-head__bar"></span>
           <div class="sec-head__titles">
-            <span class="sec-head__kicker">Casino & Gambling</span>
+            <span class="sec-head__kicker">Breaking Stories</span>
             <h2 class="sec-head__title">News</h2>
           </div>
         </div>
@@ -175,7 +176,7 @@ $pill_sections = array(
   if ( $promos_rows || $promos_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Promotions',
-      'kicker'  => 'Bonuses and More', 
+      'kicker'  => 'Claim Your Edge',
       'link'    => [ 'url' => get_term_link( $promos_term ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $promos_rows,
       'posts'   => $promos_posts,
@@ -193,7 +194,7 @@ $pill_sections = array(
   if ( $sports_rows || $sports_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Sports Betting',
-      'kicker'  => 'Sportsbooks Ranked', 
+      'kicker'  => 'Bet on It',
       'link'    => [ 'url' => $sports_term ? get_term_link( $sports_term ) : home_url( '/review-type/sports/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $sports_rows,
       'posts'   => $sports_posts,
@@ -217,7 +218,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
     <div class="sec-head__l">
       <span class="sec-head__bar"></span>
       <div class="sec-head__titles">
-        <span class="sec-head__kicker">Gambling Live</span>
+        <span class="sec-head__kicker">Watch Live</span>
         <h2 class="sec-head__title">Streamers</h2>
       </div>
     </div>
@@ -292,7 +293,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   if ( $poker_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Online Poker',
-      'kicker'  => 'Poker with Bitcoin', 
+      'kicker'  => 'Cards & Crypto',
       'link'    => [ 'url' => $poker_term ? get_term_link( $poker_term ) : home_url( '/review-type/online-poker/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $poker_rows,
       'posts'   => $poker_posts,
@@ -315,7 +316,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
         <div class="sec-head__l">
           <span class="sec-head__bar"></span>
           <div class="sec-head__titles">
-            <span class="sec-head__kicker">Gambling Live</span>
+            <span class="sec-head__kicker">Play Smarter</span>
             <h2 class="sec-head__title">Strategy</h2>
           </div>
         </div>
@@ -347,7 +348,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
         <div class="sec-head__l">
           <span class="sec-head__bar"></span>
           <div class="sec-head__titles">
-            <span class="sec-head__kicker">Discover Somewhere New</span>
+            <span class="sec-head__kicker">Beyond Bitcoin</span>
             <h2 class="sec-head__title">Alternatives</h2>
           </div>
         </div>
