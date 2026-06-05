@@ -815,185 +815,81 @@
 
 .card-shanghai {
   height: 100%;
+  padding: var(--size-200);
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  gap: var(--size-200);
+  background-color: #ffffff;
   border: 1px solid var(--color-muted-200);
   border-radius: var(--border-radius);
   overflow: hidden;
 
-  &__head {
+  &__body {
     display: flex;
-    align-items: center;
-    gap: var(--size-300);
-    padding: var(--size-400) var(--size-400) var(--size-300);
+    align-items: flex-start;
+    gap: var(--size-200);
   }
 
   &__logo {
     flex-shrink: 0;
-    width: 54px;
-    height: 54px;
-    border-radius: 10px;
+    width: 120px;
+    height: 90px;
+    border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--size-100);
+    padding: var(--size-200);
 
     img {
       width: 100%;
       height: auto;
-      display: block;
     }
   }
 
-  &__casino {
+  &__content {
+    flex: 1;
     min-width: 0;
-  }
-
-  &__name {
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--color-primary-900);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__tags {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--size-100);
-    padding: 0 var(--size-400) var(--size-300);
-  }
-
-  &__amount {
-    padding: 0 var(--size-400) var(--size-300);
     color: inherit;
     text-decoration: none;
 
-    &:hover { text-decoration: none; }
-
-    .bonus {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--color-primary-800);
-      line-height: 1.1;
-      letter-spacing: -.01em;
-    }
-
-    .plus {
-      font-size: 13px;
-      font-weight: 700;
-      color: #0f7a4f;
-      margin-top: 4px;
-    }
-  }
-
-  &__specs {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    border-top: 1px dashed var(--color-muted-200);
-    margin: 0 var(--size-400);
-    padding: var(--size-300) 0;
-
-    .spec {
+    h3 {
+      margin: 0;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12.5px;
-      padding: 3px 0;
+      flex-direction: column;
+      gap: var(--size-100);
 
-      &__k {
-        color: var(--color-muted-400);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .spec__icon {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        background-color: var(--color-primary-50);
-        border-radius: 50%;
-
-        svg {
-          width: 12px;
-          height: 12px;
-          stroke: var(--color-primary-700);
-        }
-      }
-
-      &__v {
+      .bonus {
+        font-size: 17px;
         font-weight: 700;
-        color: var(--color-muted-700);
-        text-align: right;
+        color: var(--color-primary-800);
+      }
+
+      .subtitle {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-muted-500);
       }
     }
   }
 
-  &__foot {
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-100);
+  }
+
+  &__ctas {
     margin-top: auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: var(--size-200);
-    padding: var(--size-300) var(--size-400) var(--size-400);
+    flex-wrap: wrap;
 
-    .bonus-code {
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--size-200);
-      padding: var(--size-200) var(--size-300);
-      border: 1px dashed #b9c2d2;
-      border-radius: var(--border-radius);
-      background: #f4f7fb;
-      font-family: ui-monospace, Menlo, monospace;
-      font-size: 12.5px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      color: var(--color-primary-800);
-      cursor: pointer;
-      transition: all .15s ease-in-out;
-
-      &__label {
-        font-family: inherit;
-        font-size: 11.5px;
-        font-weight: 600;
-        letter-spacing: 0;
-        color: var(--color-muted-400);
-      }
-
-      &:hover {
-        border-color: var(--color-primary-500);
-        background: #fff;
-      }
-
-      &--none {
-        border-style: solid;
-        background: var(--color-muted-100);
-        color: var(--color-muted-400);
-        cursor: default;
-        font-family: var(--font-body, sans-serif);
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0;
-
-        &:hover {
-          border-color: var(--color-muted-200);
-          background: var(--color-muted-100);
-        }
-      }
-    }
-
-    .button__primary {
-      width: 100%;
-      justify-content: center;
+    .button {
+      flex: 1;
     }
   }
 
