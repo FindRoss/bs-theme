@@ -2,6 +2,46 @@
 
 // I love this site: https://www.justetf.com/en/how-to/sp-500-etfs.html
 
+function build_taxonomy_main_query( WP_Term $term, int $paged = 1 ): WP_Query {
+  $selected   = get_field( 'featured_reviews', $term );
+  $pinned_ids = ! empty( $selected )
+    ? array_map( fn( $p ) => is_object( $p ) ? $p->ID : (int) $p, $selected )
+    : [];
+
+  $closed_meta = array(
+    'relation' => 'OR',
+    array( 'key' => 'details_group_closed', 'compare' => 'NOT EXISTS' ),
+    array( 'key' => 'details_group_closed', 'value' => '1', 'compare' => '!=' ),
+  );
+
+  if ( ! empty( $pinned_ids ) ) {
+    return new WP_Query( array(
+      'post_type'      => 'review',
+      'posts_per_page' => count( $pinned_ids ),
+      'post__in'       => $pinned_ids,
+      'orderby'        => 'post__in',
+      'meta_query'     => $closed_meta,
+    ) );
+  }
+
+  return new WP_Query( array(
+    'post_type'      => 'review',
+    'posts_per_page' => 5,
+    'paged'          => $paged,
+    'orderby'        => 'meta_value_num',
+    'meta_key'       => 'rank',
+    'order'          => 'ASC',
+    'tax_query'      => array(
+      array(
+        'taxonomy' => $term->taxonomy,
+        'field'    => 'term_id',
+        'terms'    => $term->term_id,
+      ),
+    ),
+    'meta_query'     => $closed_meta,
+  ) );
+}
+
 function taxonomy_main_query($query, $term): void {
 
   if (!$query->have_posts()) return;

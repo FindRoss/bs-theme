@@ -58,35 +58,7 @@ if ($icon && is_array($icon)) {
 }
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-$query = new WP_Query( 
-  array( 
-    'post_type'      => 'review', 
-    'posts_per_page' => 5,
-    'paged'          => $paged,
-    'orderby'        => 'meta_value_num',
-    'meta_key'       => 'rank',
-    'order'          => 'ASC',
-    'tax_query'      => array(
-      array(
-        'taxonomy' => $taxonomy,
-        'field'    => 'term_id',
-        'terms'    => $term_id
-      )
-    ),
-    'meta_query' => array(
-      array(
-        'key' => 'details_group_closed', 
-        'value' => '1',  
-        'compare' => '!=' 
-      ),
-    )
-  ) 
-);
-
-// Pagination fix
-$temp_query = $wp_query;
-$wp_query   = NULL;
-$wp_query   = $query;
+$query = build_taxonomy_main_query( $term, $paged );
 ?>
 
 <?php get_template_part('template-parts/breadcrumbs/breadcrumbs'); ?> 
