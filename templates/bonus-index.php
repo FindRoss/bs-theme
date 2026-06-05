@@ -16,78 +16,96 @@ Template Post Type: page
     </div>
   </div><!-- .container --> 
 
-  <?php 
+  <?php
   $bonus_types = array(
     array(
       'id' => 25693,
-      'title' => 'Bitcoin', 
+      'title' => 'Bitcoin',
       'permalink' => site_url('/bonuses/bitcoin/')
     ),
     array(
       'id' => 25488,
-      'title' => 'Welcome', 
+      'title' => 'Welcome',
       'permalink' => site_url('/bonuses/welcome/')
     ),
     array(
       'id' => 25491,
-      'title' => 'No Deposit', 
+      'title' => 'No Deposit',
       'permalink' => site_url('/bonuses/no-deposit/')
     ),
     array(
       'id' => 25490,
-      'title' => 'Wager-Free', 
+      'title' => 'Wager-Free',
       'permalink' => site_url('/bonuses/wager-free/')
     ),
     array(
       'id' => 25489,
-      'title' => 'Cashback', 
+      'title' => 'Cashback',
       'permalink' => site_url('/bonuses/cashback/')
     ),
-     array(
+    array(
       'id' => 25486,
-      'title' => 'Free Spins', 
+      'title' => 'Free Spins',
       'permalink' => site_url('/bonuses/free-spins/')
     ),
     array(
       'id' => 25501,
-      'title' => 'Crypto', 
+      'title' => 'Crypto',
       'permalink' => site_url('/bonuses/crypto/')
     ),
     array(
       'id' => 25487,
-      'title' => 'Deposit', 
+      'title' => 'Deposit',
       'permalink' => site_url('/bonuses/deposit/')
     ),
     array(
       'id' => 25496,
-      'title' => 'Reload', 
+      'title' => 'Reload',
       'permalink' => site_url('/bonuses/reload/')
     ),
     array(
       'id' => 25494,
-      'title' => 'Sports Betting', 
+      'title' => 'Sports Betting',
       'permalink' => site_url('/bonuses/sports/')
     ),
     array(
       'id' => 25494,
-      'title' => 'Esports Betting', 
+      'title' => 'Esports Betting',
       'permalink' => site_url('/bonuses/esports/')
     ),
     array(
       'id' => 25492,
-      'title' => 'VIP', 
+      'title' => 'VIP',
       'permalink' => site_url('/bonuses/vip/')
     )
   );
+  ?>
 
-  // Not actually using this right now
-  $postsNotIn = array(); 
+  <div class="container mt-5">
+    <section>
+      <div class="sec-head">
+        <div class="sec-head__l">
+          <span class="sec-head__bar"></span>
+          <div class="sec-head__titles">
+            <h2 class="sec-head__title">Bonus Types</h2>
+          </div>
+        </div>
+      </div>
+      <div class="bonus-type-links mt-4">
+        <?php foreach ($bonus_types as $type) : ?>
+          <a class="bonus-type-links__item" href="<?php echo esc_url($type['permalink']); ?>">
+            <span><?php echo esc_html($type['title']); ?> Bonuses</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  </div>
 
-  foreach ($bonus_types as $type) {
+  <?php foreach ($bonus_types as $type) :
     $args = array(
       'post_type' => 'bonus',
-      'posts_per_page' => 8, 
-      'post__not_in' => $postsNotIn,
+      'posts_per_page' => 3,
       'tax_query' => array(
         array(
           'taxonomy' => 'bonus_type',
@@ -96,23 +114,31 @@ Template Post Type: page
         ),
       ),
     );
-
     $bonus_query = new WP_Query($args);
-    ?>
-
-    <div class="container mt-5"> 
+    if ( ! $bonus_query->have_posts() ) { wp_reset_postdata(); continue; }
+  ?>
+    <div class="container mt-5">
       <section>
-        <?php 
-          outputNewSlideHTML(array(
-            'query'   => $bonus_query,
-            'heading' => $type['title'] . ' Bonuses',
-            'link'    => $type['permalink']
-          ));
-        ?> 
-      </section> 
+        <div class="sec-head">
+          <div class="sec-head__l">
+            <span class="sec-head__bar"></span>
+            <div class="sec-head__titles">
+              <h2 class="sec-head__title"><?php echo esc_html($type['title']); ?> Bonuses</h2>
+            </div>
+          </div>
+          <a class="sec-head__link" href="<?php echo esc_url($type['permalink']); ?>">
+            <span>View all</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <?php while ($bonus_query->have_posts()) : $bonus_query->the_post(); ?>
+            <?php get_template_part('template-parts/card/card', 'shanghai'); ?>
+          <?php endwhile; wp_reset_postdata(); ?>
+        </div>
+      </section>
     </div>
-
-  <?php }; ?>
+  <?php endforeach; ?>
 
     <!-- Main content -->
     <div class="container mt-5">
