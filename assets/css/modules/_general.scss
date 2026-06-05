@@ -129,6 +129,8 @@ blockquote {
 }
 
 .main--content {
+  min-width: 0;
+
   .wp-caption {
     max-width: 100%;
   }
@@ -146,6 +148,17 @@ blockquote {
     height: auto;
     margin-top: 1rem;
     border-radius: var(--border-radius);
+  }
+
+  table {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+  }
+
+  pre {
+    overflow-x: auto;
   }
 
   p,
