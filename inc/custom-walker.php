@@ -198,3 +198,34 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
         return null;
     }
 }
+
+class BS_RG_Icons_Walker extends Walker_Nav_Menu {
+    public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+        $url   = esc_url( $item->url );
+        $title = esc_attr( $item->title );
+        $img   = get_field( 'footer_icon', $item );
+
+        if ( $img && is_array( $img ) ) {
+            $src = esc_url( $img['url'] );
+        } else {
+            $src = '';
+        }
+
+        if ( ! $src ) {
+            return;
+        }
+
+        $alt     = esc_attr( $img['alt'] ?: $title );
+        $img_tag = '<img src="' . $src . '" alt="' . $alt . '" style="height:30px;width:auto;display:block;">';
+
+        if ( $url && $url !== '#' ) {
+            $output .= '<a href="' . $url . '" target="_blank" rel="noopener noreferrer" aria-label="' . $title . '">' . $img_tag . '</a>';
+        } else {
+            $output .= $img_tag;
+        }
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = null ) {}
+    public function start_lvl( &$output, $depth = 0, $args = null ) {}
+    public function end_lvl( &$output, $depth = 0, $args = null ) {}
+}

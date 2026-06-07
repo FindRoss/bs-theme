@@ -9,4 +9,5 @@ register_nav_menus( array(
   'footer_articles'  => __( 'Footer — Articles', 'bs-theme' ),
   'footer_site'      => __( 'Footer — Site', 'bs-theme' ),
   'footer_crypto'    => __( 'Footer — Crypto', 'bs-theme' ),
+  'footer_rg_icons'  => __( 'Footer — Responsible Gambling Icons', 'bs-theme' ),
 ));

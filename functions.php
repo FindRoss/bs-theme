@@ -117,12 +117,15 @@ add_action('admin_enqueue_scripts', 'themebs_enqueue_admin_script');
 * Filter IP if you are for example in local host
 */
 
+// if ( defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'local' ) {
 // add_filter( 'geot/user_ip', 'geot_ip' );
-// function geot_ip( $ip ) {
-//   return '206.167.233.1';   // Canada (Rogers)
-//   return '81.2.69.142';    // UK
-//   return '100.255.255.255'; // US
-// }
+//   function geot_ip( $ip ) {
+    // return '206.167.233.1';   // Canada (Rogers)
+    // return '81.2.69.142';    // UK
+    // return '100.255.255.255'; // US
+    // return '217.0.0.1';   
+//   }
+// };
 
 
 

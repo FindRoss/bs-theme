@@ -103,21 +103,18 @@
           </div>
         </div>
 
-        <div class="footer-gambling-resources flex flex-nowrap items-center justify-between border-t py-4" style="border-color: var(--color-muted-200);">
-          <img src="<?php echo esc_url( content_url( 'uploads/2026/05/18-logo.webp' ) ); ?>" alt="18+ only" class="max-h-[30px] w-auto">
-          <a href="https://www.ncpgambling.org/" target="_blank" rel="noopener noreferrer" aria-label="National Council on Problem Gambling">
-            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/ncpg-logo.webp' ) ); ?>" alt="NCPG" class="max-h-[30px] w-auto">
-          </a>
-          <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer" aria-label="GambleAware">
-            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/gamble-aware-logo.webp' ) ); ?>" alt="GambleAware" class="max-h-[30px] w-auto">
-          </a>
-          <a href="https://www.gamstop.co.uk/" target="_blank" rel="noopener noreferrer" aria-label="GamStop">
-            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/gamstop-logo__.webp' ) ); ?>" alt="GamStop" class="max-h-[30px] w-auto">
-          </a>
-          <a href="https://www.gamcare.org.uk/" target="_blank" rel="noopener noreferrer" aria-label="GamCare">
-            <img src="<?php echo esc_url( content_url( 'uploads/2026/05/gamcare-logo.webp' ) ); ?>" alt="GamCare" class="max-h-[30px] w-auto">
-          </a>
+        <?php if ( has_nav_menu( 'footer_rg_icons' ) ) : ?>
+        <div class="footer-gambling-resources flex flex-nowrap items-center border-t py-4" style="justify-content: space-around; border-color: var(--color-muted-200);">
+          <?php
+          wp_nav_menu( array(
+            'theme_location' => 'footer_rg_icons',
+            'container'      => false,
+            'items_wrap'     => '%3$s',
+            'walker'         => new BS_RG_Icons_Walker(),
+          ) );
+          ?>
         </div>
+        <?php endif; ?>
       </div>
     </div>
 
