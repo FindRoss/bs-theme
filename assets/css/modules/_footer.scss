@@ -59,5 +59,13 @@ footer {
       border-bottom: 1px dashed var(--color-muted-200);
       padding-bottom: var(--size-400);
     }
+
+    .footer-gambling-resources {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-items: center;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 }
