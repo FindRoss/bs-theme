@@ -1,0 +1,107 @@
+/* ============================================================================
+   PROS & CONS BLOCK (.bc-pc)
+   Variant: --cols (side-by-side)
+   ========================================================================== */
+.bc-pc, .bc-pc * { box-sizing: border-box; }
+
+.bc-ico {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -.125em;
+  fill: currentColor;
+  flex: none;
+}
+
+.bc-blockhead {
+  margin: 0 0 16px;
+}
+.bc-blockhead__title {
+  margin: 0;
+}
+.bc-blockhead__content {
+  margin-top: var(--size-300);
+}
+.bc-pc {
+  --bc-green:        #18a05e;
+  --bc-green-ink:    #15633c;
+  --bc-green-tint:   #ecf9f1;
+  --bc-green-border: #c2e9d2;
+
+  --bc-red:        #e2495c;
+  --bc-red-ink:    #b02f3f;
+  --bc-red-tint:   #fdedef;
+  --bc-red-border: #f6ccd2;
+
+  --bc-radius:    14px;
+  --bc-shadow-sm: 0 1px 2px rgba(16,35,63,.06);
+}
+
+.bc-pc ul { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.bc-pc li {
+  position: relative;
+  padding-left: 34px;
+  margin: 0 0 13px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--bc-ink, #2b3a52);
+}
+.bc-pc li:last-child { margin-bottom: 0; }
+.bc-pc li .bc-mark {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.bc-pc__panel--pros .bc-mark { background: var(--bc-green-tint); color: var(--bc-green); }
+.bc-pc__panel--cons .bc-mark { background: var(--bc-red-tint);   color: var(--bc-red); }
+
+.bc-pc__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -.01em;
+}
+.bc-pc__label .bc-chip {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+}
+.bc-pc__panel--pros .bc-pc__label { color: var(--bc-green-ink); }
+.bc-pc__panel--pros .bc-chip { background: var(--bc-green); }
+.bc-pc__panel--cons .bc-pc__label { color: var(--bc-red-ink); }
+.bc-pc__panel--cons .bc-chip { background: var(--bc-red); }
+
+/* variant: side-by-side columns */
+.bc-pc--cols .bc-pc__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.bc-pc--cols .bc-pc__panel {
+  border-radius: var(--bc-radius);
+  padding: 24px 24px 26px;
+  box-shadow: var(--bc-shadow-sm);
+}
+.bc-pc--cols .bc-pc__panel--pros { background: var(--bc-green-tint); border: 1px solid var(--bc-green-border); }
+.bc-pc--cols .bc-pc__panel--cons { background: var(--bc-red-tint);   border: 1px solid var(--bc-red-border); }
+
+@media (max-width: 640px) {
+  .bc-pc--cols .bc-pc__grid {
+    grid-template-columns: 1fr;
+  }
+}

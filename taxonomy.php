@@ -45,6 +45,40 @@
 <!-- MAIN QUERY -->
 <?php taxonomy_main_query($query, $term); ?>
 
+<?php if (have_rows('flexible_content', $term)) : ?>
+<div class="container">
+  <div class="main--content">
+    <?php while (have_rows('flexible_content', $term)) : the_row(); ?>
+      <?php if (get_row_layout() === 'content') : ?>
+        <?php echo wp_kses_post(get_sub_field('content')); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'pros_and_cons') : ?>
+        <?php
+          $pac_heading = get_sub_field('pac_heading');
+          $pac_content = get_sub_field('pac_content');
+          $pac_pros    = get_sub_field('pac_pros') ?: [];
+          $pac_cons    = get_sub_field('pac_cons') ?: [];
+        ?>
+        <?php get_template_part('template-parts/content/content', 'pros-and-cons', array(
+          'pac_heading' => $pac_heading,
+          'pac_content' => $pac_content,
+          'pac_pros'    => $pac_pros,
+          'pac_cons'    => $pac_cons,
+        )); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'image') : ?>
+        <?php $image = get_sub_field('image'); ?>
+        <?php if ($image) : ?>
+          <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" width="<?php echo esc_attr($image['width']); ?>" height="<?php echo esc_attr($image['height']); ?>">
+        <?php endif; ?>
+      <?php endif; ?>
+    <?php endwhile; ?>
+  </div>
+</div>
+<?php endif; ?>
+
 <!--MAIN CONTENT-->
 <div class="container">
   <?php if ($paged == 1) : ?>

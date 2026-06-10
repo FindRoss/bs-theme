@@ -216,5 +216,20 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * Pros and Cons
+    */
+    acf_register_block_type(array(
+      'name'              => 'pros-and-cons',
+      'title'             => __('Pros and Cons'),
+      'description'       => __('A custom block displaying a list of pros and cons.'),
+      'render_template'   => 'blocks/pros-and-cons/pros-and-cons.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'pros', 'cons' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'star-filled'
+    ));
   }
 };
