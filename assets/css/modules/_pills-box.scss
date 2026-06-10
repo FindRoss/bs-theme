@@ -1,28 +1,30 @@
 @use "_breakpoints" as *;
 
-.pills-grid {
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+.pills-grid__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
 
-    @include breakpoint(medium) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    @include breakpoint(large) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  @include breakpoint(medium) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  &__section {
-    background: #f4f6fa;
-    border: 1px solid #e7ebf2;
-    border-radius: 14px;
-    padding: 14px 16px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  @include breakpoint(large) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.pills-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f4f6fa;
+  border: 1px solid #e7ebf2;
+  border-radius: 14px;
+  padding: 14px 16px 16px;
+
+  @media screen and (max-width: 575px) {
+    padding: 10px 8px 12px;
   }
 
   &__header {
@@ -56,12 +58,5 @@
     &:hover { background: #e3e8f0; }
 
     svg { width: 12px; height: 12px; }
-  }
-
-  &__pills {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-top: 4px;
   }
 }

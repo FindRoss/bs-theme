@@ -45,7 +45,7 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
 
     <!-- Pills -->
     <?php if ( ! empty( $post_ids ) ) : ?>
-      <div class="topic-section__pills">
+      <div class="pills-box">
         <?php
         $pills_query = new WP_Query( [
           'post_type'      => $pill_post_type,

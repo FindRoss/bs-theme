@@ -370,3 +370,29 @@
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
+
+.topic-section {
+  max-width: 100%;
+  overflow: hidden;
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-500);
+
+    @include breakpoint(large) {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+  }
+
+  &__articles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-400);
+
+    @include breakpoint(medium) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}

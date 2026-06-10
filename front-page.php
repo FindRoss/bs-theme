@@ -24,7 +24,7 @@ $pill_sections = array(
 
   <!-- Review Pills Grid -->
   <section class="pills-grid">
-    <div class="pills-grid__grid">
+    <div class="pills-grid__list">
 
       <?php foreach ( $pill_sections as $section ) :
         if ( ! empty( $section['post_ids'] ) ) {
@@ -55,28 +55,26 @@ $pill_sections = array(
 
         if ( ! $section_query->have_posts() ) continue;
       ?>
-        <div class="pills-grid__section">
-          <header class="pills-grid__header">
-            <h2 class="pills-grid__title"><?php echo esc_html( $section['title'] ); ?></h2>
+        <div class="pills-box">
+          <header class="pills-box__header">
+            <h2 class="pills-box__title"><?php echo esc_html( $section['title'] ); ?></h2>
             <?php if ( ! empty( $section['link'] ) ) : ?>
-              <a class="pills-grid__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <?php echo get_svg_icon('arrow-right'); ?></a>
+              <a class="pills-box__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <?php echo get_svg_icon('arrow-right'); ?></a>
             <?php endif; ?>
           </header>
-          <div class="pills-grid__pills">
-            <?php
-            $rank = 0;
-            while ( $section_query->have_posts() ) :
-              $section_query->the_post();
-              $rank++;
-              get_template_part( 'template-parts/card/review-pill', null, [
-                'rank'     => $rank,
-                'is_top'   => $rank === 1,
-                'aff_link' => $aff_link_map[ get_the_ID() ] ?? '',
-              ] );
-            endwhile;
-            wp_reset_postdata();
-            ?>
-          </div>
+          <?php
+          $rank = 0;
+          while ( $section_query->have_posts() ) :
+            $section_query->the_post();
+            $rank++;
+            get_template_part( 'template-parts/card/review-pill', null, [
+              'rank'     => $rank,
+              'is_top'   => $rank === 1,
+              'aff_link' => $aff_link_map[ get_the_ID() ] ?? '',
+            ] );
+          endwhile;
+          wp_reset_postdata();
+          ?>
         </div>
       <?php endforeach; ?>
 
