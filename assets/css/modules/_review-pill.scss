@@ -10,6 +10,11 @@
   border-radius: 10px;
   padding: 7px 8px 7px 8px;
 
+  @media screen and (max-width: 375px) {
+    padding: 7px 6px;
+    gap: 8px;
+  }
+
   &--ranked {
     padding-left: 14px;
   }

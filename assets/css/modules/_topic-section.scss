@@ -1,0 +1,41 @@
+@use "_breakpoints" as *;
+
+.topic-section {
+  max-width: 100%;
+  overflow: hidden;
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-500);
+
+    @include breakpoint(large) {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+  }
+
+  &__pills {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #f4f6fa;
+    border: 1px solid #e7ebf2;
+    border-radius: 14px;
+    padding: 14px 16px 16px;
+
+    @media screen and (max-width: 575px) {
+      padding: 10px 8px 12px;
+    }
+  }
+
+  &__articles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-400);
+
+    @include breakpoint(medium) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}

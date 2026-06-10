@@ -1,6 +1,7 @@
 .bonus-pill {
   display: grid;
-  grid-template-columns: 96px 1fr auto 36px;
+  grid-template-columns: 96px 1fr minmax(0, auto) 36px;
+  min-width: 0;
   align-items: center;
   gap: 12px;
   background: #fff;
@@ -9,6 +10,11 @@
   padding: 7px 8px;
   position: relative;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+
+  @media screen and (max-width: 375px) {
+    padding: 7px 6px;
+    gap: 8px;
+  }
 
   &:hover {
     transform: translateY(-1px);

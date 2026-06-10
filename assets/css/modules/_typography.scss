@@ -208,3 +208,22 @@ h6 {
 .fs-xsmall {
   font-size: var(--size-200);
 }
+
+.big-comment {
+  font-size: 24px !important;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 1rem !important;
+
+  @include breakpoint(medium) {
+    font-size: unset !important;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1rem 1.75em !important;
+  }
+
+  @include breakpoint(large) {
+    padding: 1.25em 2.375em !important;
+    font-size: 38px !important; 
+  }
+}
