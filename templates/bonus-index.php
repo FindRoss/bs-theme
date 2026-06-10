@@ -21,61 +21,73 @@ Template Post Type: page
     array(
       'id' => 25693,
       'title' => 'Bitcoin',
+      'kicker' => 'Crypto Friendly',
       'permalink' => site_url('/bonuses/bitcoin/')
     ),
     array(
       'id' => 25488,
       'title' => 'Welcome',
+      'kicker' => 'New Player Offers',
       'permalink' => site_url('/bonuses/welcome/')
     ),
     array(
       'id' => 25491,
       'title' => 'No Deposit',
+      'kicker' => 'Free To Try',
       'permalink' => site_url('/bonuses/no-deposit/')
     ),
     array(
       'id' => 25490,
       'title' => 'Wager-Free',
+      'kicker' => 'No Strings Attached',
       'permalink' => site_url('/bonuses/wager-free/')
     ),
     array(
       'id' => 25489,
       'title' => 'Cashback',
+      'kicker' => 'Get Some Back',
       'permalink' => site_url('/bonuses/cashback/')
     ),
     array(
       'id' => 25486,
       'title' => 'Free Spins',
+      'kicker' => 'Extra Spins',
       'permalink' => site_url('/bonuses/free-spins/')
     ),
     array(
       'id' => 25501,
       'title' => 'Crypto',
+      'kicker' => 'Beyond Bitcoin',
       'permalink' => site_url('/bonuses/crypto/')
     ),
     array(
       'id' => 25487,
       'title' => 'Deposit',
+      'kicker' => 'Boost Your Bankroll',
       'permalink' => site_url('/bonuses/deposit/')
     ),
     array(
       'id' => 25496,
       'title' => 'Reload',
+      'kicker' => 'Keep It Going',
       'permalink' => site_url('/bonuses/reload/')
     ),
     array(
       'id' => 25494,
       'title' => 'Sports Betting',
+      'kicker' => 'Back Your Team',
       'permalink' => site_url('/bonuses/sports/')
     ),
     array(
       'id' => 25494,
       'title' => 'Esports Betting',
+      'kicker' => 'Game On',
       'permalink' => site_url('/bonuses/esports/')
     ),
     array(
       'id' => 25492,
       'title' => 'VIP',
+      'kicker' => 'Exclusive Rewards',
       'permalink' => site_url('/bonuses/vip/')
     )
   );
@@ -139,6 +151,7 @@ Template Post Type: page
           <div class="sec-head__l">
             <span class="sec-head__bar"></span>
             <div class="sec-head__titles">
+              <?php if (!empty($type['kicker'])) : ?><span class="sec-head__kicker"><?php echo esc_html($type['kicker']); ?></span><?php endif; ?>
               <h2 class="sec-head__title"><?php echo esc_html($type['title']); ?> Bonuses</h2>
             </div>
           </div>
