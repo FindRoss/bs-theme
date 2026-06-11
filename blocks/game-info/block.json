@@ -1,5 +1,5 @@
 {
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "acf/game-info",
   "title": "Game Info",
   "description": "Displays game information including heading, image, content and linked casino site.",
