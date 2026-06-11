@@ -193,7 +193,7 @@ $pill_sections = array(
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Sports Betting',
       'kicker'  => 'Bet on It',
-      'link'    => [ 'url' => $sports_term ? get_term_link( $sports_term ) : home_url( '/review-type/sports/' ), 'title' => 'View all', 'target' => '' ],
+      'link'    => [ 'url' => $sports_term ? get_term_link( $sports_term ) : home_url( '/sites/sports/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $sports_rows,
       'posts'   => $sports_posts,
     ] );
@@ -292,7 +292,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
     get_template_part( 'template-parts/section/topic-section', null, [
       'heading' => 'Online Poker',
       'kicker'  => 'Cards & Crypto',
-      'link'    => [ 'url' => $poker_term ? get_term_link( $poker_term ) : home_url( '/review-type/online-poker/' ), 'title' => 'View all', 'target' => '' ],
+      'link'    => [ 'url' => $poker_term ? get_term_link( $poker_term ) : home_url( '/sites/online-poker/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $poker_rows,
       'posts'   => $poker_posts,
     ] );
@@ -318,7 +318,7 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
             <h2 class="sec-head__title">Strategy</h2>
           </div>
         </div>
-        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/strategy/' ) ); ?>">
+        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/guides/strategy/' ) ); ?>">
           <span>View all</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
         </a>
@@ -350,13 +350,45 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
             <h2 class="sec-head__title">Alternatives</h2>
           </div>
         </div>
-        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/alternatives/' ) ); ?>">
+        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/guides/alternatives/' ) ); ?>">
           <span>View all</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
         </a>
       </div>
       <div class="posts-row mt-4">
         <?php while ( $alternatives_query->have_posts() ) : $alternatives_query->the_post(); ?>
+          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
+        <?php endwhile; wp_reset_postdata(); ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
+  <!-- WALLETS -->
+  <?php
+  $wallets_query = new WP_Query( [
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => 4,
+    'category_name'  => 'wallets',
+  ] );
+
+  if ( $wallets_query->have_posts() ) : ?>
+    <section class="hp-section">
+      <div class="sec-head">
+        <div class="sec-head__l">
+          <span class="sec-head__bar"></span>
+          <div class="sec-head__titles">
+            <span class="sec-head__kicker">Gamble Securely</span>
+            <h2 class="sec-head__title">Wallets</h2>
+          </div>
+        </div>
+        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/guides/wallets/' ) ); ?>">
+          <span>View all</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="posts-row mt-4">
+        <?php while ( $wallets_query->have_posts() ) : $wallets_query->the_post(); ?>
           <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
         <?php endwhile; wp_reset_postdata(); ?>
       </div>
