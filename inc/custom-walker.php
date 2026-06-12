@@ -152,7 +152,9 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
         $html = '<div class="mega-menu__posts">';
 
         if ( in_array( $post_type, [ 'review', 'bonus' ], true ) ) {
-            $template = 'template-parts/card/' . $post_type . '-pill';
+            $template = $post_type === 'bonus'
+                ? 'template-parts/card/nav-bonus-pill'
+                : 'template-parts/card/' . $post_type . '-pill';
             ob_start();
             while ( $query->have_posts() ) {
                 $query->the_post();
