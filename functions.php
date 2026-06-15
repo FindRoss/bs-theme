@@ -86,6 +86,18 @@ add_action('admin_head', function () {
 	</style>';
 });
 
+// Widen the ACF fields area on the taxonomy term edit screen
+add_action('admin_head-term.php', function () {
+	echo '<style>
+		.acf-postbox.acf-term-meta-fields {
+				max-width: none;
+		}
+		.acf-postbox.acf-term-meta-fields .acf-field {
+				max-width: none;
+		}
+	</style>';
+});
+
 // Include SVG icons
 include get_template_directory() . '/assets/svg-icons.php';
 

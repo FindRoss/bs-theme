@@ -68,6 +68,45 @@
         )); ?>
       <?php endif; ?>
 
+      <?php if (get_row_layout() === 'steps') : ?>
+        <?php
+          $steps_heading  = get_sub_field('steps_heading');
+          $steps_repeater = get_sub_field('steps_repeater') ?: [];
+        ?>
+        <?php get_template_part('template-parts/content/content', 'steps', array(
+          'steps_heading'  => $steps_heading,
+          'steps_repeater' => $steps_repeater,
+        )); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'check_list') : ?>
+        <?php
+          $check_list_heading  = get_sub_field('check_list_heading');
+          $check_list_repeater = get_sub_field('check_list_repeater') ?: [];
+          $check_list_layout   = get_sub_field('check_list_layout') ?: 'row';
+        ?>
+        <?php get_template_part('template-parts/content/content', 'check-list', array(
+          'check_list_heading'  => $check_list_heading,
+          'check_list_repeater' => $check_list_repeater,
+          'check_list_layout'   => $check_list_layout,
+        )); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'topic_section') : ?>
+        <?php
+          $ts_fields = bc_get_topic_section_fields('get_sub_field');
+          $ts_args   = bc_topic_section_args_from_term_fields(
+            $ts_fields['heading'],
+            $ts_fields['kicker'],
+            $ts_fields['taxonomy'],
+            $ts_fields['term']
+          );
+        ?>
+        <?php if ($ts_args) : ?>
+          <?php get_template_part('template-parts/section/topic-section', null, $ts_args); ?>
+        <?php endif; ?>
+      <?php endif; ?>
+
       <?php if (get_row_layout() === 'image') : ?>
         <?php $image = get_sub_field('image'); ?>
         <?php if ($image) : ?>

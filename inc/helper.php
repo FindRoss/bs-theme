@@ -107,6 +107,87 @@ function display_review_type($types) {
     return $output;
 }
 
+/**
+ * Build args for template-parts/section/topic-section.php from
+ * topic_section_* ACF fields, given the already-fetched raw field values.
+ *
+ * @param string $heading
+ * @param string $kicker
+ * @param string $taxonomy        One of: cryptocurrency, game, category
+ * @param mixed  $term_field_value Raw value of the matching topic_section_term_* field (term ID, array, or WP_Term)
+ * @return array|null
+ */
+function bc_topic_section_args_from_term_fields($heading, $kicker, $taxonomy, $term_field_value) {
+  if (empty($term_field_value)) return null;
+
+  if ($term_field_value instanceof WP_Term) {
+    $term = $term_field_value;
+  } elseif (is_array($term_field_value)) {
+    $term = get_term($term_field_value['term_id'] ?? 0);
+  } elseif (is_numeric($term_field_value)) {
+    $term = get_term($term_field_value);
+  } else {
+    $term = get_term_by('slug', $term_field_value, $taxonomy);
+  }
+
+  if (!$term || is_wp_error($term)) return null;
+
+  $review_ids = get_field('featured_reviews', $term) ?: [];
+  $rows       = array_map(fn($id) => ['review' => $id, 'affiliate_link' => ''], $review_ids);
+
+  $posts = get_field('featured_posts', $term) ?: [];
+
+  if (empty($posts)) {
+    $posts_query = new WP_Query([
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 2,
+      'tax_query'      => [[
+        'taxonomy' => $term->taxonomy,
+        'field'    => 'term_id',
+        'terms'    => $term->term_id,
+      ]],
+    ]);
+    $posts = wp_list_pluck($posts_query->posts, 'ID');
+  }
+
+  if (empty($rows) && empty($posts)) return null;
+
+  return [
+    'heading' => $heading,
+    'kicker'  => $kicker,
+    'link'    => ['url' => get_term_link($term), 'title' => 'View all', 'target' => ''],
+    'rows'    => $rows,
+    'posts'   => $posts,
+  ];
+}
+
+/**
+ * Fetch the four raw topic_section_* field values, picking the right
+ * topic_section_term_* field based on topic_section_taxonomy.
+ *
+ * @param callable $get_field_fn fn(string $key) -> mixed — get_field or get_sub_field
+ * @return array{heading: string, kicker: string, taxonomy: string, term: mixed}
+ */
+function bc_get_topic_section_fields($get_field_fn) {
+  $taxonomy = $get_field_fn('topic_section_taxonomy');
+
+  $term_field_map = [
+    'cryptocurrency' => 'topic_section_term_cryptocurrency',
+    'game'           => 'topic_section_term_game',
+    'category'       => 'topic_section_term_category',
+  ];
+
+  $term_field = $term_field_map[$taxonomy] ?? null;
+
+  return [
+    'heading'  => $get_field_fn('topic_section_heading'),
+    'kicker'   => $get_field_fn('topic_section_kicker'),
+    'taxonomy' => $taxonomy,
+    'term'     => $term_field ? $get_field_fn($term_field) : null,
+  ];
+}
+
 function display_licenses($terms) {
   if (empty($terms)) return;   
   

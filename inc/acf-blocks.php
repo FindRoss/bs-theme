@@ -231,5 +231,50 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * Steps
+    */
+    acf_register_block_type(array(
+      'name'              => 'steps',
+      'title'             => __('Steps'),
+      'description'       => __('A custom block displaying a numbered sequence of steps.'),
+      'render_template'   => 'blocks/steps/steps.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'steps', 'numbered', 'list', 'guide' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'editor-ol'
+    ));
+    /**
+    * Check List
+    */
+    acf_register_block_type(array(
+      'name'              => 'check-list',
+      'title'             => __('Check List'),
+      'description'       => __('A custom block displaying a grid of checklist items.'),
+      'render_template'   => 'blocks/check-list/check-list.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'check', 'list', 'checklist', 'grid' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'yes'
+    ));
+    /**
+    * Topic Section
+    */
+    acf_register_block_type(array(
+      'name'              => 'topic-section',
+      'title'             => __('Topic Section'),
+      'description'       => __('A custom block displaying a topic section with featured reviews and articles.'),
+      'render_template'   => 'blocks/topic-section/topic-section.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'topic', 'section', 'featured', 'reviews', 'posts' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'layout'
+    ));
   }
 };
