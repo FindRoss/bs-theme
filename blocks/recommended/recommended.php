@@ -1,5 +1,10 @@
-<?php 
+<?php
   $recommended_article = get_field('recommended_article');
+
+  if ( empty( $recommended_article ) ) {
+    return;
+  }
+
   $recommended_query = new WP_Query(
     array(
       'post_type' => ["post", "bonus", "page", "glossary"],

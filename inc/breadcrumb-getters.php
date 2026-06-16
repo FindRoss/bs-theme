@@ -150,6 +150,14 @@ function get_taxonomy_breadcrumbs($term) {
       break;
   }
 
+  $ancestors = array_reverse( get_ancestors( $term->term_id, $taxonomy, 'taxonomy' ) );
+  foreach ( $ancestors as $ancestor_id ) {
+    $ancestor_term = get_term( $ancestor_id, $taxonomy );
+    if ( $ancestor_term && ! is_wp_error( $ancestor_term ) ) {
+      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( get_term_link( $ancestor_term ) ) . '">' . esc_html( $ancestor_term->name ) . '</a></span>';
+    }
+  }
+
   $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
 
   return $breadcrumb_html;

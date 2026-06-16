@@ -1,5 +1,5 @@
 {
-  "apiVersion": 3,
+  "apiVersion": 2,
   "name": "acf/recommended",
   "title": "Recommend Articles",
   "description": "A custom block to display posts and bonuses on BitcoinChaser.",
