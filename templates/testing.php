@@ -119,6 +119,50 @@ if ( ! current_user_can( 'manage_options' ) ) {
   echo '</tbody></table>';
   echo '<p style="margin-top:0.5rem;font-size:0.85em;color:#666">Yellow = published. Grey = draft/other. Red = post not found in DB.</p>';
 
+
+  // ── 4. Posts/pages with 'faqs' or 'faqs_heading' ACF fields populated ──────
+  echo '<h2 style="margin-top:2rem">Posts / pages with <code>faqs</code> block fields populated</h2>';
+  echo '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;width:100%">';
+  echo '<thead><tr><th>ID</th><th>Title</th><th>Type</th><th>Status</th><th>faqs_heading</th><th>faqs (count)</th><th>Actions</th></tr></thead><tbody>';
+
+  $faqs_query = new WP_Query( [
+    'post_type'      => 'any',
+    'post_status'    => [ 'publish', 'draft', 'private', 'pending' ],
+    'posts_per_page' => -1,
+    'meta_query'     => [
+      'relation' => 'OR',
+      [ 'key' => 'faqs', 'compare' => 'EXISTS' ],
+      [ 'key' => 'faqs_heading', 'compare' => 'EXISTS' ],
+    ],
+  ] );
+
+  if ( $faqs_query->have_posts() ) {
+    while ( $faqs_query->have_posts() ) {
+      $faqs_query->the_post();
+      $pid     = get_the_ID();
+      $heading = get_field( 'faqs_heading', $pid );
+      $faqs    = get_field( 'faqs', $pid );
+      $count   = is_array( $faqs ) ? count( $faqs ) : 0;
+      if ( ! $heading && ! $count ) continue;
+      $bg = get_post_status() === 'publish' ? '#ffd' : '#eee';
+      echo '<tr style="background:' . $bg . '">';
+      echo '<td>' . $pid . '</td>';
+      echo '<td><a href="' . esc_url( get_permalink() ) . '" target="_blank">' . esc_html( get_the_title() ) . '</a></td>';
+      echo '<td>' . esc_html( get_post_type() ) . '</td>';
+      echo '<td>' . esc_html( get_post_status() ) . '</td>';
+      echo '<td>' . esc_html( $heading ?: '—' ) . '</td>';
+      echo '<td>' . $count . '</td>';
+      echo '<td><a href="' . esc_url( get_edit_post_link( $pid ) ) . '">Edit</a></td>';
+      echo '</tr>';
+    }
+    wp_reset_postdata();
+  } else {
+    echo '<tr><td colspan="7"><em>None found.</em></td></tr>';
+  }
+
+  echo '</tbody></table>';
+  echo '<p style="margin-top:0.5rem;font-size:0.85em;color:#666">Yellow = published. Grey = draft/other.</p>';
+
   ?>
 
 </div>
