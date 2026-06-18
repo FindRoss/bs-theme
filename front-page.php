@@ -301,99 +301,69 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
 
   <!-- STRATEGY -->
   <?php
-  $strategy_query = new WP_Query( [
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 4,
-    'category_name'  => 'strategy',
-  ] );
-
-  if ( $strategy_query->have_posts() ) : ?>
-    <section class="hp-section">
-      <div class="sec-head">
-        <div class="sec-head__l">
-          <span class="sec-head__bar"></span>
-          <div class="sec-head__titles">
-            <span class="sec-head__kicker">Play Smarter</span>
-            <h2 class="sec-head__title">Strategy</h2>
-          </div>
-        </div>
-        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/guides/strategy/' ) ); ?>">
-          <span>View all</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </a>
-      </div>
-      <div class="posts-row mt-4">
-        <?php while ( $strategy_query->have_posts() ) : $strategy_query->the_post(); ?>
-          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
-        <?php endwhile; wp_reset_postdata(); ?>
-      </div>
-    </section>
-  <?php endif; ?>
+  $strategy_term = get_term_by('slug', 'strategy', 'category');
+  if ($strategy_term) :
+    $strategy_q = new WP_Query([
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 4,
+      'cat'            => $strategy_term->term_id,
+    ]);
+    if ($strategy_q->have_posts()) :
+      get_template_part('template-parts/section/posts-section', null, [
+        'heading' => 'Strategy',
+        'kicker'  => 'Play Smarter',
+        'link'    => get_term_link($strategy_term),
+        'posts'   => $strategy_q->posts,
+      ]);
+    endif;
+    wp_reset_postdata();
+  endif;
+  ?>
 
   <!-- ALTERNATIVES -->
   <?php
-  $alternatives_query = new WP_Query( [
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 4,
-    'category_name'  => 'alternatives',
-  ] );
-
-  if ( $alternatives_query->have_posts() ) : ?>
-    <section class="hp-section">
-      <div class="sec-head">
-        <div class="sec-head__l">
-          <span class="sec-head__bar"></span>
-          <div class="sec-head__titles">
-            <span class="sec-head__kicker">Similar Sites</span>
-            <h2 class="sec-head__title">Alternatives</h2>
-          </div>
-        </div>
-        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/guides/alternatives/' ) ); ?>">
-          <span>View all</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </a>
-      </div>
-      <div class="posts-row mt-4">
-        <?php while ( $alternatives_query->have_posts() ) : $alternatives_query->the_post(); ?>
-          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
-        <?php endwhile; wp_reset_postdata(); ?>
-      </div>
-    </section>
-  <?php endif; ?>
+  $alternatives_term = get_term_by('slug', 'alternatives', 'category');
+  if ($alternatives_term) :
+    $alternatives_q = new WP_Query([
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 4,
+      'cat'            => $alternatives_term->term_id,
+    ]);
+    if ($alternatives_q->have_posts()) :
+      get_template_part('template-parts/section/posts-section', null, [
+        'heading' => 'Alternatives',
+        'kicker'  => 'Similar Sites',
+        'link'    => get_term_link($alternatives_term),
+        'posts'   => $alternatives_q->posts,
+      ]);
+    endif;
+    wp_reset_postdata();
+  endif;
+  ?>
 
   <!-- WALLETS -->
   <?php
-  $wallets_query = new WP_Query( [
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 4,
-    'category_name'  => 'wallets',
-  ] );
-
-  if ( $wallets_query->have_posts() ) : ?>
-    <section class="hp-section">
-      <div class="sec-head">
-        <div class="sec-head__l">
-          <span class="sec-head__bar"></span>
-          <div class="sec-head__titles">
-            <span class="sec-head__kicker">Gamble Securely</span>
-            <h2 class="sec-head__title">Wallets</h2>
-          </div>
-        </div>
-        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/guides/wallets/' ) ); ?>">
-          <span>View all</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </a>
-      </div>
-      <div class="posts-row mt-4">
-        <?php while ( $wallets_query->have_posts() ) : $wallets_query->the_post(); ?>
-          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
-        <?php endwhile; wp_reset_postdata(); ?>
-      </div>
-    </section>
-  <?php endif; ?>
+  $wallets_term = get_term_by('slug', 'wallets', 'category');
+  if ($wallets_term) :
+    $wallets_q = new WP_Query([
+      'post_type'      => 'post',
+      'post_status'    => 'publish',
+      'posts_per_page' => 4,
+      'cat'            => $wallets_term->term_id,
+    ]);
+    if ($wallets_q->have_posts()) :
+      get_template_part('template-parts/section/posts-section', null, [
+        'heading' => 'Wallets',
+        'kicker'  => 'Gamble Securely',
+        'link'    => get_term_link($wallets_term),
+        'posts'   => $wallets_q->posts,
+      ]);
+    endif;
+    wp_reset_postdata();
+  endif;
+  ?>
 
 </div><!-- .container -->
 <div style="margin-top:3rem"></div><!-- Spacer -->

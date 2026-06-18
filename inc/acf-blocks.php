@@ -276,5 +276,35 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'layout'
     ));
+    /**
+    * Posts Section
+    */
+    acf_register_block_type(array(
+      'name'              => 'posts-section',
+      'title'             => __('Posts Section'),
+      'description'       => __('Displays a section of posts from a selected category.'),
+      'render_template'   => 'blocks/posts-section/posts-section.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'posts', 'section', 'category', 'articles' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'editor-ul'
+    ));
+    /**
+    * Bonus Section
+    */
+    acf_register_block_type(array(
+      'name'              => 'bonus-section',
+      'title'             => __('Bonus Section'),
+      'description'       => __('A custom block displaying bonuses for a selected bonus type.'),
+      'render_template'   => 'blocks/bonus-section/bonus-section.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'bonus', 'section', 'type' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'star-filled'
+    ));
   }
 };

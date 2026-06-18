@@ -106,6 +106,12 @@
 		grid-template-columns: repeat(4, 1fr);
 	}
 
+	&--2 {
+		@include breakpoint(large) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
 	&--3 {
 		@include breakpoint(large) {
 			grid-template-columns: repeat(3, 1fr);
@@ -370,6 +376,12 @@
 	@include breakpoint(large) {
 		grid-template-columns: repeat(3, 1fr);
 	}
+}
+
+.topic-section,
+.bonus-section,
+.hp-section {
+  margin-top: var(--size-900);
 }
 
 .topic-section {

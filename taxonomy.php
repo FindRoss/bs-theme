@@ -107,6 +107,70 @@
         <?php endif; ?>
       <?php endif; ?>
 
+      <?php if (get_row_layout() === 'bonus_section') : ?>
+        <?php
+          $bs_term_obj = get_sub_field('bonus_section_type');
+          if ($bs_term_obj) :
+            $bs_heading = get_sub_field('bonus_section_heading') ?: $bs_term_obj->name . ' Bonuses';
+            $bs_kicker  = get_sub_field('bonus_section_kicker') ?: '';
+            $bs_link    = get_term_link($bs_term_obj);
+        ?>
+          <?php get_template_part('template-parts/section/bonus-section', null, [
+            'term'    => $bs_term_obj,
+            'heading' => $bs_heading,
+            'kicker'  => $bs_kicker,
+            'link'    => $bs_link,
+          ]); ?>
+        <?php endif; ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'post_section') : ?>
+        <?php
+          $ps_term_raw = get_sub_field('post_section_category');
+          if (is_array($ps_term_raw)) $ps_term_raw = reset($ps_term_raw);
+          $ps_term_obj = is_object($ps_term_raw) ? $ps_term_raw : (is_numeric($ps_term_raw) ? get_term($ps_term_raw) : null);
+          $ps_heading      = get_sub_field('post_section_heading') ?: ($ps_term_obj ? $ps_term_obj->name : '');
+          $ps_kicker       = get_sub_field('post_section_kicker') ?: '';
+          $ps_manual_posts = get_sub_field('post_section_posts') ?: [];
+          $ps_count        = intval(get_sub_field('post_section_count') ?: 4);
+
+          if (!empty($ps_manual_posts)) {
+            $ps_posts = $ps_manual_posts;
+          } elseif ($ps_term_obj) {
+            $ps_featured_ids = get_field('featured_posts', $ps_term_obj) ?: [];
+            if (!empty($ps_featured_ids)) {
+              $ps_q = new WP_Query([
+                'post_type'      => 'post',
+                'posts_per_page' => $ps_count,
+                'post__in'       => $ps_featured_ids,
+                'orderby'        => 'post__in',
+              ]);
+            } else {
+              $ps_q = new WP_Query([
+                'post_type'      => 'post',
+                'posts_per_page' => $ps_count,
+                'cat'            => $ps_term_obj->term_id,
+              ]);
+            }
+            $ps_posts = $ps_q->posts;
+            wp_reset_postdata();
+          } else {
+            $ps_posts = [];
+          }
+
+          $ps_link = $ps_term_obj ? get_term_link($ps_term_obj) : '';
+        ?>
+        <?php if (!empty($ps_posts)) : ?>
+          <?php get_template_part('template-parts/section/posts-section', null, [
+            'heading' => $ps_heading,
+            'kicker'  => $ps_kicker,
+            'link'    => $ps_link,
+            'posts'   => $ps_posts,
+            'count'   => $ps_count,
+          ]); ?>
+        <?php endif; ?>
+      <?php endif; ?>
+
       <?php if (get_row_layout() === 'image') : ?>
         <?php $image = get_sub_field('image'); ?>
         <?php if ($image) : ?>
