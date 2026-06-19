@@ -177,6 +177,32 @@
           <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" width="<?php echo esc_attr($image['width']); ?>" height="<?php echo esc_attr($image['height']); ?>">
         <?php endif; ?>
       <?php endif; ?>
+
+      <?php if (get_row_layout() === 'review_info') : ?>
+        <?php get_template_part('template-parts/review/review-info', null, [
+          'review_id'        => get_sub_field('review_info'),
+          'review_info_type' => get_sub_field('review_info_type') ?? 0,
+        ]); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'review_pros_cons') : ?>
+        <?php get_template_part('template-parts/review/review-pros-cons', null, [
+          'review_id' => get_sub_field('pros_cons_review'),
+        ]); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'review_cta') : ?>
+        <?php get_template_part('template-parts/review/review-cta', null, [
+          'review_id' => get_sub_field('review'),
+        ]); ?>
+      <?php endif; ?>
+
+      <?php if (get_row_layout() === 'review_bonus') : ?>
+        <?php get_template_part('template-parts/review/review-bonus', null, [
+          'review_ids'        => get_sub_field('review_bonus') ?: [],
+          'review_bonus_type' => get_sub_field('review_bonus_type') ?? 0,
+        ]); ?>
+      <?php endif; ?>
     <?php endwhile; ?>
   </div>
 </div>
