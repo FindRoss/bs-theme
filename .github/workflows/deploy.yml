@@ -19,4 +19,4 @@ jobs:
           server: ${{ secrets.SSH_HOST }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           local_path: './*'
-          remote_path: '/wp-content/themes/bs-theme' 
+          remote_path: '/jamworx/bitcoin-chaser-clone-1/wp-content/themes/bs-theme' 
