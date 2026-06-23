@@ -17,6 +17,7 @@ import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
 import { kunmingCard } from "./modules/KunmingCard";
 import tableToggle from "./modules/TableToggle";
+import Faqs from "./modules/Faqs";
 
 // const cardFocus = new CardFocus()
 const sidebarMenu = new SidebarMenu()
@@ -41,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('.pattern')) {
     const patterns = new Patterns();
+  }
+
+  if (document.querySelector('.faq__toggle')) {
+    new Faqs();
   }
 
   if (document.querySelector('body.single-review')) {

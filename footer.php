@@ -119,6 +119,11 @@
     </div>
 
   </footer>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M9.55 17.6 4.4 12.45l1.67-1.66 3.48 3.48 8.38-8.38 1.67 1.66z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.3 5.71 12 12.01l-6.3-6.3-1.4 1.41 6.29 6.3-6.3 6.3 1.41 1.4 6.3-6.29 6.3 6.3 1.4-1.41-6.29-6.3 6.3-6.3z"/></symbol>
+  </svg>
   <!-- disabled Google fonts and Font Awesome from loading with OptinMonster -->
   <script type="text/javascript">
   document.addEventListener('om.Scripts.init', function(event) {

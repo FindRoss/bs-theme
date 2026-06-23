@@ -76,7 +76,7 @@ if ( empty( $post_ids ) && empty( $posts ) ) return;
           'post_type'      => 'post',
           'post__in'       => $posts,
           'orderby'        => 'post__in',
-          'posts_per_page' => 3,
+          'posts_per_page' => 2,
         ] );
         while ( $articles_query->have_posts() ) :
           $articles_query->the_post();

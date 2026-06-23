@@ -22,7 +22,9 @@
     "mode": "edit",
     "renderTemplate": "game-info.php",
     "postTypes": [
-      "post"
+      "post",
+      "page",
+      "review"
     ]
   }
 }

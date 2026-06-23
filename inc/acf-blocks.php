@@ -216,5 +216,95 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * Pros and Cons
+    */
+    acf_register_block_type(array(
+      'name'              => 'pros-and-cons',
+      'title'             => __('Pros and Cons'),
+      'description'       => __('A custom block displaying a list of pros and cons.'),
+      'render_template'   => 'blocks/pros-and-cons/pros-and-cons.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'pros', 'cons' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'star-filled'
+    ));
+    /**
+    * Steps
+    */
+    acf_register_block_type(array(
+      'name'              => 'steps',
+      'title'             => __('Steps'),
+      'description'       => __('A custom block displaying a numbered sequence of steps.'),
+      'render_template'   => 'blocks/steps/steps.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'steps', 'numbered', 'list', 'guide' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'editor-ol'
+    ));
+    /**
+    * Check List
+    */
+    acf_register_block_type(array(
+      'name'              => 'check-list',
+      'title'             => __('Check List'),
+      'description'       => __('A custom block displaying a grid of checklist items.'),
+      'render_template'   => 'blocks/check-list/check-list.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'check', 'list', 'checklist', 'grid' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'yes'
+    ));
+    /**
+    * Topic Section
+    */
+    acf_register_block_type(array(
+      'name'              => 'topic-section',
+      'title'             => __('Topic Section'),
+      'description'       => __('A custom block displaying a topic section with featured reviews and articles.'),
+      'render_template'   => 'blocks/topic-section/topic-section.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'topic', 'section', 'featured', 'reviews', 'posts' ),
+      'post_types'        => array( 'post', 'page', 'review', 'bonus' ),
+      'icon'              => 'layout'
+    ));
+    /**
+    * Posts Section
+    */
+    acf_register_block_type(array(
+      'name'              => 'posts-section',
+      'title'             => __('Posts Section'),
+      'description'       => __('Displays a section of posts from a selected category.'),
+      'render_template'   => 'blocks/posts-section/posts-section.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'posts', 'section', 'category', 'articles' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'editor-ul'
+    ));
+    /**
+    * Bonus Section
+    */
+    acf_register_block_type(array(
+      'name'              => 'bonus-section',
+      'title'             => __('Bonus Section'),
+      'description'       => __('A custom block displaying bonuses for a selected bonus type.'),
+      'render_template'   => 'blocks/bonus-section/bonus-section.php',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'bonus', 'section', 'type' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'star-filled'
+    ));
   }
 };

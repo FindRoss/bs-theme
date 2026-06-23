@@ -48,6 +48,13 @@ function themebs_enqueue_styles() {
   if (is_front_page()) {
     wp_enqueue_style( 'front-page-styles', get_template_directory_uri() . '/build/front-page.css', array(), wp_get_theme()->get('Version'));
   }
+
+  if (is_tax()) {
+    wp_enqueue_style('review-info-styles',      get_template_directory_uri() . '/blocks/review-info/review-info.css');
+    wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css');
+    wp_enqueue_style('review-cta-styles',       get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css');
+    wp_enqueue_style('review-bonus-styles',     get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css');
+  }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
 
@@ -82,6 +89,18 @@ add_action('admin_head', function () {
 	echo '<style>
 		#custom-permalinks-edit-box {
 				display: none !important;
+		}
+	</style>';
+});
+
+// Widen the ACF fields area on the taxonomy term edit screen
+add_action('admin_head-term.php', function () {
+	echo '<style>
+		.acf-postbox.acf-term-meta-fields {
+				max-width: none;
+		}
+		.acf-postbox.acf-term-meta-fields .acf-field {
+				max-width: none;
 		}
 	</style>';
 });

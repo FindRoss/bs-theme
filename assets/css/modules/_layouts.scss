@@ -105,6 +105,12 @@
 		grid-template-columns: repeat(4, 1fr);
 	}
 
+	&--2 {
+		@include breakpoint(large) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
 	&--3 {
 		@include breakpoint(large) {
 			grid-template-columns: repeat(3, 1fr);
@@ -182,6 +188,7 @@
 	justify-content: space-between;
 	gap: 16px;
 	margin-bottom: 1.33rem;
+	margin-top: var(--size-600);
 
 	&__l {
 		display: flex;
@@ -222,7 +229,7 @@
 		line-height: 1.1;
 		letter-spacing: -.02em;
 		color: var(--color-primary-900);
-		margin: 0;
+		margin: 0!important;
 
 		@media (max-width: 620px) {
 			font-size: 19px;
@@ -249,7 +256,7 @@
 		&:hover {
 			background: var(--color-primary-500);
 			border-color: var(--color-primary-500);
-			color: #fff;
+			color: #fff!important;
 		}
 
 		svg {
@@ -368,6 +375,12 @@
 	@include breakpoint(large) {
 		grid-template-columns: repeat(3, 1fr);
 	}
+}
+
+.topic-section,
+.bonus-section,
+.hp-section {
+  margin-top: var(--size-900);
 }
 
 .topic-section {
