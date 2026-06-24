@@ -76,28 +76,28 @@ $metric_labels = [
         <!-- Trust Index Comparison Table -->
         <?php if ($review_count > 0) : ?>
         <div class="trust-index-table mt-5 mb-5">
-          <table class="main--table">
+          <table style="width: 100%; border-collapse: collapse;">
             <thead>
-              <tr>
-                <th>Review</th>
+              <tr style="border-bottom: 2px solid var(--color-muted-300);">
+                <th style="text-align: left; padding: 12px; font-weight: 600;">Review</th>
                 <?php foreach ($trust_metrics as $metric) : ?>
-                <th><?php echo esc_html($metric_labels[$metric]); ?> (/ 5)</th>
+                <th style="text-align: center; padding: 12px; font-weight: 600;"><?php echo esc_html($metric_labels[$metric]); ?> (/ 5)</th>
                 <?php endforeach; ?>
-                <th>Total (/ 100)</th>
+                <th style="text-align: center; padding: 12px; font-weight: 600;">Total (/ 100)</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($reviews_data as $review) : ?>
-              <tr>
-                <td>
-                  <a href="<?php echo esc_url($review['url']); ?>">
+              <tr style="border-bottom: 1px solid var(--color-muted-200);">
+                <td style="padding: 12px;">
+                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none;">
                     <?php echo esc_html($review['title']); ?>
                   </a>
                 </td>
                 <?php foreach ($trust_metrics as $metric) : ?>
-                <td><?php echo esc_html($review['metrics'][$metric]); ?></td>
+                <td style="text-align: center; padding: 12px;"><?php echo esc_html($review['metrics'][$metric]); ?></td>
                 <?php endforeach; ?>
-                <td><?php echo esc_html($review['total']); ?></td>
+                <td style="text-align: center; padding: 12px; font-weight: 600;"><?php echo esc_html($review['total']); ?></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
