@@ -9,63 +9,65 @@ if (!function_exists('get_field')) {
 $trust_metrics = ['fairness', 'track_record', 'security', 'responsible', 'community', 'customer_service'];
 $trust_weights = ['fairness'=>25, 'track_record'=>15, 'security'=>10, 'responsible'=>10, 'community'=>15, 'customer_service'=>25];
 
-// Query all published reviews
-$reviews_query = new WP_Query([
-  'post_type'      => 'review',
-  'posts_per_page' => -1,
-  'post_status'    => 'publish',
-  'no_found_rows'  => false,
-]);
+// Initialize reviews data
+$reviews_data = array();
+$review_count = 0;
 
-// Build review data with trust scores
-$reviews_data = [];
+// Safely query reviews
+try {
+  $reviews_query = new WP_Query(array(
+    'post_type'      => 'review',
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+  ));
 
-if ($reviews_query && $reviews_query->have_posts()) {
-  while ($reviews_query->have_posts()) {
-    $reviews_query->the_post();
-    $review_id = get_the_ID();
+  // Build review data with trust scores
+  if ($reviews_query->have_posts()) {
+    while ($reviews_query->have_posts()) {
+      $reviews_query->the_post();
+      $review_id = get_the_ID();
 
-    $review_entry = [
-      'id' => $review_id,
-      'title' => get_the_title(),
-      'url' => get_permalink(),
-      'metrics' => []
-    ];
+      $review_entry = array(
+        'id' => $review_id,
+        'title' => get_the_title(),
+        'url' => get_permalink(),
+        'metrics' => array()
+      );
 
-    // Calculate weighted score for this review
-    $weighted_sum = 0;
-    $has_scores = false;
-    foreach ($trust_metrics as $metric) {
-      $value = (int) get_field("trust_index_{$metric}", $review_id);
-      $review_entry['metrics'][$metric] = $value;
-      if ($value > 0) {
-        $has_scores = true;
+      // Calculate weighted score for this review
+      $weighted_sum = 0;
+      $has_scores = false;
+      foreach ($trust_metrics as $metric) {
+        $value = (int) get_field("trust_index_{$metric}", $review_id);
+        $review_entry['metrics'][$metric] = $value;
+        if ($value > 0) {
+          $has_scores = true;
+        }
+        $weighted_sum += (($value / 5) * $trust_weights[$metric]);
       }
-      $weighted_sum += (($value / 5) * $trust_weights[$metric]);
-    }
-    $review_entry['total'] = round($weighted_sum);
+      $review_entry['total'] = round($weighted_sum);
 
-    // Only include if this review has at least one score assigned
-    if ($has_scores) {
-      $reviews_data[] = $review_entry;
+      // Only include if this review has at least one score assigned
+      if ($has_scores) {
+        $reviews_data[] = $review_entry;
+      }
     }
   }
-}
-wp_reset_postdata();
+  wp_reset_postdata();
 
-// Ensure $reviews_data is always an array
-if (!is_array($reviews_data)) {
-  $reviews_data = [];
-}
+  // Sort by total score (descending)
+  if (!empty($reviews_data)) {
+    usort($reviews_data, function($a, $b) {
+      return $b['total'] <=> $a['total'];
+    });
+  }
 
-// Sort by total score (descending)
-if (is_array($reviews_data) && !empty($reviews_data)) {
-  usort($reviews_data, function($a, $b) {
-    return $b['total'] <=> $a['total'];
-  });
+  $review_count = count($reviews_data);
+} catch (Exception $e) {
+  // Silent fail - page will show "No reviews available yet"
+  $reviews_data = array();
+  $review_count = 0;
 }
-
-$review_count = count($reviews_data);
 
 // Format metric names for display
 $metric_labels = [
@@ -195,11 +197,10 @@ $metric_labels = [
         <?php endif; ?>
 
         <!-- Flexible Content -->
-        
-        <!-- get_template_part('template-parts/content/flexible-content', null, [
+        <?php get_template_part('template-parts/content/flexible-content', null, [
           'post_id' => get_the_ID(),
           'type'    => 'page',
-        ]);  -->
+        ]); ?>
 
       </div>
     </div><!-- .row -->
