@@ -19,6 +19,8 @@ if (!$acf_context) return;
 if (!have_rows('flexible_content', $acf_context)) return;
 ?>
 
+<section class="main--content">
+
 <hr>
 
 <?php while (have_rows('flexible_content', $acf_context)) : the_row(); ?>
@@ -189,3 +191,5 @@ if (!have_rows('flexible_content', $acf_context)) return;
   <?php endif; ?>
 
 <?php endwhile; ?>
+
+</section>
