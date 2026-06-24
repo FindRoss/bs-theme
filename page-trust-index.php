@@ -76,28 +76,28 @@ $metric_labels = [
         <!-- Trust Index Comparison Table -->
         <?php if ($review_count > 0) : ?>
         <div class="trust-index-table mt-5 mb-5">
-          <table style="width: 100%; border-collapse: collapse;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
             <thead>
-              <tr style="border-bottom: 2px solid var(--color-muted-300);">
-                <th style="text-align: left; padding: 12px; font-weight: 600;">Review</th>
+              <tr style="border-bottom: 2px solid var(--color-muted-300); background-color: var(--color-muted-50);">
+                <th style="text-align: left; padding: 10px 12px; font-weight: 600; color: var(--color-muted-700);">Review</th>
                 <?php foreach ($trust_metrics as $metric) : ?>
-                <th style="text-align: center; padding: 12px; font-weight: 600;"><?php echo esc_html($metric_labels[$metric]); ?> (/ 5)</th>
+                <th style="text-align: center; padding: 10px 8px; font-weight: 600; color: var(--color-muted-700);"><?php echo esc_html($metric_labels[$metric]); ?></th>
                 <?php endforeach; ?>
-                <th style="text-align: center; padding: 12px; font-weight: 600;">Total (/ 100)</th>
+                <th style="text-align: center; padding: 10px 12px; font-weight: 600; color: var(--color-muted-700);">Score</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($reviews_data as $review) : ?>
               <tr style="border-bottom: 1px solid var(--color-muted-200);">
-                <td style="padding: 12px;">
-                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none;">
+                <td style="padding: 10px 12px;">
+                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none; font-weight: 500;">
                     <?php echo esc_html($review['title']); ?>
                   </a>
                 </td>
                 <?php foreach ($trust_metrics as $metric) : ?>
-                <td style="text-align: center; padding: 12px;"><?php echo esc_html($review['metrics'][$metric]); ?></td>
+                <td style="text-align: center; padding: 10px 8px; color: var(--color-muted-700);"><?php echo esc_html($review['metrics'][$metric]); ?></td>
                 <?php endforeach; ?>
-                <td style="text-align: center; padding: 12px; font-weight: 600;"><?php echo esc_html($review['total']); ?></td>
+                <td style="text-align: center; padding: 10px 12px; font-weight: 600; color: var(--color-muted-800);"><?php echo esc_html($review['total']); ?></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
