@@ -73,6 +73,12 @@ $metric_labels = [
 
         <h1 class="main--title"><?php the_title(); ?></h1>
 
+        <?php if (has_post_thumbnail()) : ?>
+        <div style="margin: 20px -12px 0 -12px;">
+          <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>" width="900" height="600" style="width: 100%; height: auto; display: block;">
+        </div>
+        <?php endif; ?>
+
         <div class="main--content mt-5">
           <?php the_content(); ?>
         </div>
