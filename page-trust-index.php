@@ -76,38 +76,32 @@ $metric_labels = [
         <!-- Trust Index Comparison Table -->
         <?php if ($review_count > 0) : ?>
         <div class="trust-index-table mt-5 mb-5">
-          <div class="overflow-x-auto">
-            <table class="w-full border-collapse text-sm" style="border: 1px solid var(--color-muted-200);">
-              <thead style="background-color: var(--color-muted-50, #fafafa);">
-                <tr>
-                  <th class="text-left p-3 border-b font-semibold" style="border-color: var(--color-muted-200); min-width: 180px;">Review</th>
-                  <?php foreach ($trust_metrics as $metric) : ?>
-                  <th class="text-center p-3 border-b border-l font-semibold" style="border-color: var(--color-muted-200);"><?php echo esc_html($metric_labels[$metric]); ?></th>
-                  <?php endforeach; ?>
-                  <th class="text-center p-3 border-b border-l font-semibold" style="border-color: var(--color-muted-200);">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($reviews_data as $review) : ?>
-                <tr style="border-bottom: 1px solid var(--color-muted-200);">
-                  <td class="p-3 text-left">
-                    <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none; font-weight: 500;">
-                      <?php echo esc_html($review['title']); ?>
-                    </a>
-                  </td>
-                  <?php foreach ($trust_metrics as $metric) : ?>
-                  <td class="p-3 text-center border-l" style="border-color: var(--color-muted-200);">
-                    <?php echo esc_html($review['metrics'][$metric]); ?> / 5
-                  </td>
-                  <?php endforeach; ?>
-                  <td class="p-3 text-center border-l font-semibold" style="border-color: var(--color-muted-200); background-color: var(--color-primary-50, #f0f7ff);">
-                    <?php echo esc_html($review['total']); ?> / 100
-                  </td>
-                </tr>
+          <table class="main--table">
+            <thead>
+              <tr>
+                <th>Review</th>
+                <?php foreach ($trust_metrics as $metric) : ?>
+                <th><?php echo esc_html($metric_labels[$metric]); ?> (/ 5)</th>
                 <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
+                <th>Total (/ 100)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($reviews_data as $review) : ?>
+              <tr>
+                <td>
+                  <a href="<?php echo esc_url($review['url']); ?>">
+                    <?php echo esc_html($review['title']); ?>
+                  </a>
+                </td>
+                <?php foreach ($trust_metrics as $metric) : ?>
+                <td><?php echo esc_html($review['metrics'][$metric]); ?></td>
+                <?php endforeach; ?>
+                <td><?php echo esc_html($review['total']); ?></td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
         <?php else : ?>
         <div class="alert alert-info mt-5 mb-5 p-4 border rounded" style="border-color: var(--color-info-300); background-color: var(--color-info-50, #f0f7ff);">
