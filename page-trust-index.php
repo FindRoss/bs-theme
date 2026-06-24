@@ -13,12 +13,51 @@ $trust_weights = ['fairness'=>25, 'track_record'=>15, 'security'=>10, 'responsib
 $reviews_data = array();
 $review_count = 0;
 
-// Safely query reviews
+// Safely query reviews - only ones with at least one trust index score
 try {
   $reviews_query = new WP_Query(array(
     'post_type'      => 'review',
     'posts_per_page' => -1,
     'post_status'    => 'publish',
+    'meta_query'     => array(
+      'relation' => 'OR',
+      array(
+        'key'     => 'trust_index_fairness',
+        'value'   => 0,
+        'compare' => '>',
+        'type'    => 'NUMERIC',
+      ),
+      array(
+        'key'     => 'trust_index_track_record',
+        'value'   => 0,
+        'compare' => '>',
+        'type'    => 'NUMERIC',
+      ),
+      array(
+        'key'     => 'trust_index_security',
+        'value'   => 0,
+        'compare' => '>',
+        'type'    => 'NUMERIC',
+      ),
+      array(
+        'key'     => 'trust_index_responsible',
+        'value'   => 0,
+        'compare' => '>',
+        'type'    => 'NUMERIC',
+      ),
+      array(
+        'key'     => 'trust_index_community',
+        'value'   => 0,
+        'compare' => '>',
+        'type'    => 'NUMERIC',
+      ),
+      array(
+        'key'     => 'trust_index_customer_service',
+        'value'   => 0,
+        'compare' => '>',
+        'type'    => 'NUMERIC',
+      ),
+    ),
   ));
 
   // Build review data with trust scores
@@ -36,21 +75,15 @@ try {
 
       // Calculate weighted score for this review
       $weighted_sum = 0;
-      $has_scores = false;
       foreach ($trust_metrics as $metric) {
         $value = (int) get_field("trust_index_{$metric}", $review_id);
         $review_entry['metrics'][$metric] = $value;
-        if ($value > 0) {
-          $has_scores = true;
-        }
         $weighted_sum += (($value / 5) * $trust_weights[$metric]);
       }
       $review_entry['total'] = round($weighted_sum);
 
-      // Only include if this review has at least one score assigned
-      if ($has_scores) {
-        $reviews_data[] = $review_entry;
-      }
+      // Add to results (all results already have scores from the query)
+      $reviews_data[] = $review_entry;
     }
   }
   wp_reset_postdata();
