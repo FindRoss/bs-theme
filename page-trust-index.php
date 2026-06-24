@@ -149,7 +149,7 @@ $metric_labels = [
               <?php foreach ($reviews_data as $review) : ?>
               <tr style="border-bottom: 1px solid var(--color-muted-200);">
                 <td style="padding: 10px 12px;" data-sort-value="<?php echo esc_attr($review['title']); ?>">
-                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none;">
+                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none; font-weight: 600;">
                     <?php echo esc_html($review['title']); ?>
                   </a>
                 </td>
