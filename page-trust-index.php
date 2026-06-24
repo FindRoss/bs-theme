@@ -79,34 +79,95 @@ $metric_labels = [
 
         <!-- Trust Index Comparison Table -->
         <?php if ($review_count > 0) : ?>
-        <div class="trust-index-table mt-5 mb-5">
-          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <div class="trust-index-table chaser-table mt-5 mb-5">
+          <table class="sortable-table" style="width: 100%; border-collapse: collapse; font-size: 13px;">
             <thead>
               <tr style="border-bottom: 2px solid var(--color-muted-300); background-color: var(--color-muted-50);">
-                <th style="text-align: left; padding: 10px 12px; font-weight: 600; color: var(--color-muted-700);">Review</th>
+                <th style="text-align: left; padding: 10px 12px; font-weight: 600; color: var(--color-muted-700); cursor: pointer;">Review</th>
                 <?php foreach ($trust_metrics as $metric) : ?>
-                <th style="text-align: center; padding: 10px 8px; font-weight: 600; color: var(--color-muted-700);"><?php echo esc_html($metric_labels[$metric]); ?></th>
+                <th style="text-align: center; padding: 10px 8px; font-weight: 600; color: var(--color-muted-700); cursor: pointer;"><?php echo esc_html($metric_labels[$metric]); ?></th>
                 <?php endforeach; ?>
-                <th style="text-align: center; padding: 10px 12px; font-weight: 600; color: var(--color-muted-700);">Score</th>
+                <th class="sortable-default" style="text-align: center; padding: 10px 12px; font-weight: 600; color: var(--color-muted-700); cursor: pointer;">Score <span class="sort-indicator">↓</span></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($reviews_data as $review) : ?>
               <tr style="border-bottom: 1px solid var(--color-muted-200);">
-                <td style="padding: 10px 12px;">
+                <td style="padding: 10px 12px;" data-sort-value="<?php echo esc_attr($review['title']); ?>">
                   <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none; font-weight: 500;">
                     <?php echo esc_html($review['title']); ?>
                   </a>
                 </td>
                 <?php foreach ($trust_metrics as $metric) : ?>
-                <td style="text-align: center; padding: 10px 8px; color: var(--color-muted-700);"><?php echo esc_html($review['metrics'][$metric]); ?></td>
+                <td style="text-align: center; padding: 10px 8px; color: var(--color-muted-700);" data-sort-value="<?php echo esc_attr($review['metrics'][$metric]); ?>"><?php echo esc_html($review['metrics'][$metric]); ?></td>
                 <?php endforeach; ?>
-                <td style="text-align: center; padding: 10px 12px; font-weight: 600; color: var(--color-muted-800);"><?php echo esc_html($review['total']); ?></td>
+                <td style="text-align: center; padding: 10px 12px; font-weight: 600; color: var(--color-muted-800);" data-sort-value="<?php echo esc_attr($review['total']); ?>"><?php echo esc_html($review['total']); ?></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
           </table>
         </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const table = document.querySelector('.sortable-table');
+          if (!table) return;
+
+          const headers = table.querySelectorAll('thead th');
+          let currentSort = { col: null, dir: 'asc' };
+
+          headers.forEach((header, index) => {
+            header.addEventListener('click', function() {
+              const tbody = table.querySelector('tbody');
+              const rows = Array.from(tbody.querySelectorAll('tr'));
+
+              // Reset all sort indicators
+              headers.forEach(h => {
+                h.querySelector('.sort-indicator')?.remove();
+              });
+
+              // Determine sort direction
+              if (currentSort.col === index) {
+                currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+              } else {
+                currentSort.col = index;
+                currentSort.dir = 'asc';
+              }
+
+              // Sort rows
+              rows.sort((a, b) => {
+                const aVal = a.children[index].getAttribute('data-sort-value') || a.children[index].textContent.trim();
+                const bVal = b.children[index].getAttribute('data-sort-value') || b.children[index].textContent.trim();
+
+                // Try numeric sort first
+                const aNum = parseFloat(aVal);
+                const bNum = parseFloat(bVal);
+
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                  return currentSort.dir === 'asc' ? aNum - bNum : bNum - aNum;
+                }
+
+                // Fall back to string sort
+                return currentSort.dir === 'asc'
+                  ? aVal.localeCompare(bVal)
+                  : bVal.localeCompare(aVal);
+              });
+
+              // Re-attach sorted rows
+              rows.forEach(row => tbody.appendChild(row));
+
+              // Add sort indicator to current header
+              const indicator = document.createElement('span');
+              indicator.className = 'sort-indicator';
+              indicator.textContent = currentSort.dir === 'asc' ? '↑' : '↓';
+              this.appendChild(indicator);
+            });
+          });
+
+          // Trigger default sort on page load (last column - Score)
+          headers[headers.length - 1].click();
+        });
+        </script>
         <?php else : ?>
         <div class="alert alert-info mt-5 mb-5 p-4 border rounded" style="border-color: var(--color-info-300); background-color: var(--color-info-50, #f0f7ff);">
           <p class="m-0">No reviews available yet.</p>
