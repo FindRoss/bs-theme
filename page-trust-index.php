@@ -73,6 +73,10 @@ $metric_labels = [
 
         <h1 class="main--title"><?php the_title(); ?></h1>
 
+        <div class="main--content mt-5">
+          <?php the_content(); ?>
+        </div>
+
         <!-- Trust Index Comparison Table -->
         <?php if ($review_count > 0) : ?>
         <div class="trust-index-table mt-5 mb-5">
@@ -108,10 +112,6 @@ $metric_labels = [
           <p class="m-0">No reviews available yet.</p>
         </div>
         <?php endif; ?>
-
-        <div class="main--content mt-5">
-          <?php the_content(); ?>
-        </div>
 
       </div>
     </div><!-- .row -->
