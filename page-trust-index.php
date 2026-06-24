@@ -134,7 +134,7 @@ $metric_labels = [
 
         <!-- Trust Index Comparison Table -->
         <?php if ($review_count > 0) : ?>
-        <div class="trust-index-table chaser-table mt-5 mb-5">
+        <div class="trust-index-table chaser-table custom-table-scroll mt-5 mb-5">
           <table class="sortable-table" style="width: 100%; border-collapse: collapse; font-size: 13px;">
             <thead>
               <tr style="border-bottom: 2px solid var(--color-muted-300); background-color: var(--color-muted-50);">
@@ -149,7 +149,7 @@ $metric_labels = [
               <?php foreach ($reviews_data as $review) : ?>
               <tr style="border-bottom: 1px solid var(--color-muted-200);">
                 <td style="padding: 10px 12px;" data-sort-value="<?php echo esc_attr($review['title']); ?>">
-                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none; font-weight: 500;">
+                  <a href="<?php echo esc_url($review['url']); ?>" style="color: var(--color-primary-500); text-decoration: none;">
                     <?php echo esc_html($review['title']); ?>
                   </a>
                 </td>
@@ -219,7 +219,8 @@ $metric_labels = [
             });
           });
 
-          // Trigger default sort on page load (last column - Score)
+          // Trigger default sort on page load (last column - Score, descending for highest first)
+          headers[headers.length - 1].click();
           headers[headers.length - 1].click();
         });
         </script>
