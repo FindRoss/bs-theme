@@ -14,11 +14,13 @@ $reviews_query = new WP_Query([
   'post_type'      => 'review',
   'posts_per_page' => -1,
   'post_status'    => 'publish',
+  'no_found_rows'  => false,
 ]);
 
 // Build review data with trust scores
 $reviews_data = [];
-if ($reviews_query->have_posts()) {
+
+if ($reviews_query && $reviews_query->have_posts()) {
   while ($reviews_query->have_posts()) {
     $reviews_query->the_post();
     $review_id = get_the_ID();
@@ -50,6 +52,11 @@ if ($reviews_query->have_posts()) {
   }
 }
 wp_reset_postdata();
+
+// Ensure $reviews_data is always an array
+if (!is_array($reviews_data)) {
+  $reviews_data = [];
+}
 
 // Sort by total score (descending)
 if (is_array($reviews_data) && !empty($reviews_data)) {
