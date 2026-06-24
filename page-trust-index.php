@@ -113,6 +113,12 @@ $metric_labels = [
         </div>
         <?php endif; ?>
 
+        <!-- Flexible Content -->
+        <?php get_template_part('template-parts/content/flexible-content', null, [
+          'post_id' => get_the_ID(),
+          'type'    => 'page',
+        ]); ?>
+
       </div>
     </div><!-- .row -->
   </div><!-- .container -->
