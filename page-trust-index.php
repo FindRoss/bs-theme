@@ -27,14 +27,21 @@ if ($reviews_query->have_posts()) {
 
     // Calculate weighted score for this review
     $weighted_sum = 0;
+    $has_scores = false;
     foreach ($trust_metrics as $metric) {
       $value = (int) get_field("trust_index_{$metric}", $review_id);
       $review_entry['metrics'][$metric] = $value;
+      if ($value > 0) {
+        $has_scores = true;
+      }
       $weighted_sum += (($value / 5) * $trust_weights[$metric]);
     }
     $review_entry['total'] = round($weighted_sum);
 
-    $reviews_data[] = $review_entry;
+    // Only include if this review has at least one score assigned
+    if ($has_scores) {
+      $reviews_data[] = $review_entry;
+    }
   }
 }
 wp_reset_postdata();
