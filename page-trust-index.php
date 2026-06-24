@@ -1,6 +1,11 @@
 <?php get_header(); ?>
 
 <?php
+// Safety check for ACF - required for this page template
+if (!function_exists('get_field')) {
+  wp_die('Advanced Custom Fields Pro is required for this page.');
+}
+
 $trust_metrics = ['fairness', 'track_record', 'security', 'responsible', 'community', 'customer_service'];
 $trust_weights = ['fairness'=>25, 'track_record'=>15, 'security'=>10, 'responsible'=>10, 'community'=>15, 'customer_service'=>25];
 
