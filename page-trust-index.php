@@ -52,9 +52,11 @@ if ($reviews_query->have_posts()) {
 wp_reset_postdata();
 
 // Sort by total score (descending)
-usort($reviews_data, function($a, $b) {
-  return $b['total'] <=> $a['total'];
-});
+if (is_array($reviews_data) && !empty($reviews_data)) {
+  usort($reviews_data, function($a, $b) {
+    return $b['total'] <=> $a['total'];
+  });
+}
 
 $review_count = count($reviews_data);
 
@@ -186,10 +188,11 @@ $metric_labels = [
         <?php endif; ?>
 
         <!-- Flexible Content -->
-        <?php get_template_part('template-parts/content/flexible-content', null, [
+        
+        <!-- get_template_part('template-parts/content/flexible-content', null, [
           'post_id' => get_the_ID(),
           'type'    => 'page',
-        ]); ?>
+        ]);  -->
 
       </div>
     </div><!-- .row -->
