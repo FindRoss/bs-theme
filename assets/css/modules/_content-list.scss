@@ -1,0 +1,272 @@
+/* ============================================================================
+   CONTENT LIST BLOCK (.bc-content-list)
+   Flexible list with multiple icon styles: numbered, arrow, check
+   ========================================================================== */
+
+.bc-content-list, .bc-content-list * { box-sizing: border-box; }
+
+.bc-content-list {
+  margin-top: 32px;
+}
+
+.bc-ico {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -.125em;
+  fill: currentColor;
+  flex: none;
+}
+
+.bc-content-list {
+  --bc-list-ink:           #2b3a52;
+  --bc-list-border:        #e6ecf3;
+  --bc-list-shadow:        0 1px 2px rgba(16, 35, 63, .06);
+
+  /* Numbered list colors */
+  --bc-list-numbered:      #0085cc;
+  --bc-list-numbered-tint: #f0f5fa;
+
+  /* Arrow list colors */
+  --bc-list-arrow:         #0085cc;
+  --bc-list-arrow-tint:    #f0f5fa;
+
+  /* Check list colors */
+  --bc-list-check:         #18a05e;
+  --bc-list-check-tint:    #ecf9f1;
+}
+
+.bc-content-list__list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.bc-content-list__item {
+  position: relative;
+  padding-left: 44px;
+  margin: 0 0 13px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--bc-list-ink);
+  display: flex;
+  align-items: flex-start;
+}
+
+.bc-content-list__item:last-child {
+  margin-bottom: 0;
+}
+
+/* Icon badge styles */
+.bc-content-list__icon {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  flex: none;
+}
+
+.bc-content-list__icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Numbered list icon style */
+.bc-content-list--numbered .bc-content-list__icon {
+  background: var(--bc-list-numbered-tint);
+  color: var(--bc-list-numbered);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* Arrow list icon style */
+.bc-content-list--arrow .bc-content-list__icon {
+  background: var(--bc-list-arrow-tint);
+  color: var(--bc-list-arrow);
+}
+
+/* Check list icon style */
+.bc-content-list--check .bc-content-list__icon {
+  background: var(--bc-list-check-tint);
+  color: var(--bc-list-check);
+}
+
+/* Steps list styles - matching .bc-steps block */
+.bc-content-list--steps {
+  --bc-steps-navy:   #16233f;
+  --bc-steps-ink:    #2b3a52;
+  --bc-steps-border: #e6ecf3;
+}
+
+.bc-content-list--steps .bc-content-list__list {
+  gap: 0;
+}
+
+.bc-content-list--steps .bc-content-list__item {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 0 0 24px;
+  padding-left: 0;
+  margin: 0;
+  border: none;
+}
+
+.bc-content-list--steps .bc-content-list__item:last-child {
+  padding-bottom: 0;
+}
+
+/* Connector line between step numbers */
+.bc-content-list--steps .bc-content-list__item::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 34px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--bc-steps-border);
+}
+
+.bc-content-list--steps .bc-content-list__item:last-child::before {
+  display: none;
+}
+
+.bc-content-list--steps .bc-content-list__num {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bc-steps-navy);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.bc-content-list--steps .bc-content-list__body {
+  padding-top: 5px;
+  color: var(--bc-steps-ink);
+
+  > p:first-child,
+  > img:first-child,
+  > figure:first-child {
+    margin-top: 0;
+  }
+
+  strong {
+    color: var(--bc-steps-navy);
+  }
+}
+
+/* Number badge with counter */
+.bc-content-list__number {
+  &::before {
+    content: attr(data-number);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--bc-list-numbered);
+  }
+
+  svg {
+    opacity: 0.2;
+    stroke: #b8c9d9;
+  }
+}
+
+.bc-content-list__body {
+  flex: 1;
+  line-height: 1.5;
+  word-break: break-word;
+
+  > p:first-child,
+  > img:first-child,
+  > figure:first-child {
+    margin-top: 0;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+  }
+
+  p + p {
+    margin-top: 8px;
+  }
+
+  > p > img {
+    margin-top: 0;
+  }
+
+  strong {
+    color: var(--bc-list-ink);
+    font-weight: 600;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  a {
+    color: #0085cc;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+/* Heading styles */
+.bc-blockhead {
+  margin: 0 0 16px;
+}
+
+.bc-blockhead__title {
+  margin: 0;
+}
+
+.bc-blockhead__content {
+  margin-top: var(--size-300);
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .bc-content-list__item {
+    padding-left: 40px;
+    font-size: 14.5px;
+  }
+
+  .bc-content-list__icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .bc-content-list__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .bc-content-list__number::before {
+    font-size: 13px;
+  }
+}

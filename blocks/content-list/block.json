@@ -1,0 +1,26 @@
+{
+  "apiVersion": 3,
+  "name": "acf/content-list",
+  "title": "Content List",
+  "description": "A custom block displaying a list with different styles (numbered, arrow, check).",
+  "category": "layout",
+  "icon": "list-view",
+  "keywords": [
+    "list",
+    "numbered",
+    "arrow",
+    "check"
+  ],
+  "acf": {
+    "blockVersion": 2,
+    "mode": "edit",
+    "renderTemplate": "content-list.php",
+    "postTypes": [
+      "post",
+      "page",
+      "review",
+      "bonus",
+      "glossary"
+    ]
+  }
+}
