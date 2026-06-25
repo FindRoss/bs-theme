@@ -78,6 +78,19 @@ if (!have_rows('flexible_content', $acf_context)) return;
     )); ?>
   <?php endif; ?>
 
+  <?php if (get_row_layout() === 'content_list') : ?>
+    <?php
+      $list_heading  = get_sub_field('bc_list_heading');
+      $list_repeater = get_sub_field('bc_list') ?: [];
+      $list_type     = get_sub_field('bc_list_type') ?: 'arrow';
+    ?>
+    <?php get_template_part('template-parts/content/content', 'list', array(
+      'list_heading'  => $list_heading,
+      'list_repeater' => $list_repeater,
+      'list_type'     => $list_type,
+    )); ?>
+  <?php endif; ?>
+
   <?php if (get_row_layout() === 'topic_section') : ?>
     <?php
       $ts_fields = bc_get_topic_section_fields('get_sub_field');
