@@ -200,6 +200,9 @@
   word-break: break-word;
 
   > p:first-child,
+  > h2:first-child,
+  > h3:first-child,
+  > h4:first-child,
   > img:first-child,
   > figure:first-child {
     margin-top: 0;
