@@ -41,16 +41,12 @@ if (!have_rows('flexible_content', $acf_context)) return;
 
   <?php if (get_row_layout() === 'pros_and_cons') : ?>
     <?php
-      $pac_heading = get_sub_field('pac_heading');
-      $pac_content = get_sub_field('pac_content');
-      $pac_pros    = get_sub_field('pac_pros') ?: [];
-      $pac_cons    = get_sub_field('pac_cons') ?: [];
+      $pac_pros = get_sub_field('pac_pros') ?: [];
+      $pac_cons = get_sub_field('pac_cons') ?: [];
     ?>
     <?php get_template_part('template-parts/content/content', 'pros-and-cons', array(
-      'pac_heading' => $pac_heading,
-      'pac_content' => $pac_content,
-      'pac_pros'    => $pac_pros,
-      'pac_cons'    => $pac_cons,
+      'pac_pros' => $pac_pros,
+      'pac_cons' => $pac_cons,
     )); ?>
   <?php endif; ?>
 
@@ -80,12 +76,10 @@ if (!have_rows('flexible_content', $acf_context)) return;
 
   <?php if (get_row_layout() === 'content_list') : ?>
     <?php
-      $list_heading  = get_sub_field('bc_list_heading');
       $list_repeater = get_sub_field('bc_list') ?: [];
       $list_type     = get_sub_field('bc_list_type') ?: 'arrow';
     ?>
     <?php get_template_part('template-parts/content/content', 'list', array(
-      'list_heading'  => $list_heading,
       'list_repeater' => $list_repeater,
       'list_type'     => $list_type,
     )); ?>

@@ -1,22 +1,9 @@
 <?php
-$heading = $args['pac_heading'] ?? '';
-$content = $args['pac_content'] ?? '';
-$pros    = $args['pac_pros'] ?? [];
-$cons    = $args['pac_cons'] ?? [];
+$pros = $args['pac_pros'] ?? [];
+$cons = $args['pac_cons'] ?? [];
 
 if ($pros || $cons) : ?>
   <div class="bc-pc bc-pc--cols">
-
-    <?php if ($heading || $content) : ?>
-      <div class="bc-blockhead">
-        <?php if ($heading) : ?>
-          <h2 class="bc-blockhead__title"><?php echo esc_html($heading); ?></h2>
-        <?php endif; ?>
-        <?php if ($content) : ?>
-          <div class="bc-blockhead__content"><?php echo wp_kses_post($content); ?></div>
-        <?php endif; ?>
-      </div>
-    <?php endif; ?>
 
     <div class="bc-pc__grid">
 

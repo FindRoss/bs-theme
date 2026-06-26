@@ -1,16 +1,9 @@
 <?php
-$heading = $args['list_heading'] ?? '';
-$rows    = $args['list_repeater'] ?? [];
-$type    = $args['list_type'] ?? 'arrow';
+$rows = $args['list_repeater'] ?? [];
+$type = $args['list_type'] ?? 'arrow';
 
 if ($rows) : ?>
   <div class="bc-content-list bc-content-list--<?php echo esc_attr($type); ?>">
-
-    <?php if ($heading) : ?>
-      <div class="bc-blockhead">
-        <h2 class="bc-blockhead__title"><?php echo esc_html($heading); ?></h2>
-      </div>
-    <?php endif; ?>
 
     <ul class="bc-content-list__list">
       <?php foreach ($rows as $index => $row) : ?>
