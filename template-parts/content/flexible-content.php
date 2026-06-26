@@ -50,18 +50,7 @@ if (!have_rows('flexible_content', $acf_context)) return;
     )); ?>
   <?php endif; ?>
 
-  <?php if (get_row_layout() === 'steps') : ?>
-    <?php
-      $steps_heading  = get_sub_field('steps_heading');
-      $steps_repeater = get_sub_field('steps_repeater') ?: [];
-    ?>
-    <?php get_template_part('template-parts/content/content', 'steps', array(
-      'steps_heading'  => $steps_heading,
-      'steps_repeater' => $steps_repeater,
-    )); ?>
-  <?php endif; ?>
-
-  <?php if (get_row_layout() === 'check_list') : ?>
+<?php if (get_row_layout() === 'check_list') : ?>
     <?php
       $check_list_heading  = get_sub_field('check_list_heading');
       $check_list_repeater = get_sub_field('check_list_repeater') ?: [];
