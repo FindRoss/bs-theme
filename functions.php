@@ -94,6 +94,21 @@ add_action('admin_head', function () {
 	</style>';
 });
 
+// Prevent ACF WYSIWYG (TinyMCE) fields from stealing focus on page load
+add_action('admin_footer', function () {
+	echo '<script>
+		(function () {
+			if (typeof tinymce === "undefined") return;
+			tinymce.on("AddEditor", function (e) {
+				e.editor.on("init", function () {
+					this.selection.collapse();
+				});
+			});
+			window.scrollTo(0, 0);
+		})();
+	</script>';
+});
+
 // Widen the ACF fields area on the taxonomy term edit screen
 add_action('admin_head-term.php', function () {
 	echo '<style>
