@@ -288,6 +288,9 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
         <?php get_template_part('template-parts/review/review-trust-index', null, [
           'review_id' => $review_id,
         ]); ?>
+        <?php get_template_part('template-parts/review/review-trust-index-details', null, [
+          'review_id' => $review_id,
+        ]); ?>
       </div>
 
       <?php if ($homepageImg) : ?>

@@ -211,19 +211,22 @@ h6 {
 
 .big-comment {
   font-size: 24px !important;
+  font-weight: 800;
+  color: #FFF;
   margin-left: -1rem;
   margin-right: -1rem;
-  padding: 1rem !important;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgb(209, 0, 0) 0%, rgb(209, 0, 0) 50%, rgb(68, 33, 33) 88%, rgb(71, 45, 60) 100%);
 
   @include breakpoint(medium) {
-    font-size: unset !important;
+    font-size: 28px !important;
     margin-left: 0;
     margin-right: 0;
-    padding: 1rem 1.75em !important;
+    padding: 1rem 1.75em;
   }
 
   @include breakpoint(large) {
-    padding: 1.25em 2.375em !important;
-    font-size: 38px !important; 
+    font-size: 38px !important;
+    padding: 1.25em 2.375em;
   }
 }

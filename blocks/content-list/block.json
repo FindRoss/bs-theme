@@ -1,5 +1,5 @@
 {
-  "apiVersion": 3,
+  "apiVersion": 2,
   "name": "acf/content-list",
   "title": "Content List",
   "description": "A custom block displaying a list with different styles (numbered, arrow, check).",
