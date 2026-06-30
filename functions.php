@@ -99,12 +99,13 @@ add_action('admin_footer', function () {
 	echo '<script>
 		(function () {
 			if (typeof tinymce === "undefined") return;
-			tinymce.on("AddEditor", function (e) {
-				e.editor.on("init", function () {
-					this.selection.collapse();
-				});
-			});
-			window.scrollTo(0, 0);
+			var pageReady = false;
+			setTimeout(function () { pageReady = true; }, 3000);
+			var origFocus = tinymce.Editor.prototype.focus;
+			tinymce.Editor.prototype.focus = function (skipFocus) {
+				if (!pageReady) return;
+				return origFocus.apply(this, arguments);
+			};
 		})();
 	</script>';
 });
