@@ -528,6 +528,64 @@
     }
   }
 
+  .review-trust-index-details {
+    margin-top: var(--size-600);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-200);
+
+    @include breakpoint(medium) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include breakpoint(large) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .trust-index-section {
+    border: 1px solid var(--color-muted-200);
+    border-radius: var(--border-radius);
+    padding: var(--size-400);
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--size-200);
+    }
+
+    &__label {
+      margin: 0;
+    }
+
+    &__score {
+      background-color: var(--color-primary-50);
+      color: var(--color-primary-500);
+      font-weight: 700;
+      padding: var(--size-100) var(--size-300);
+      border-radius: var(--border-radius);
+    }
+
+    &__comments {
+      margin-top: var(--size-300);
+
+      ul {
+        list-style: disc;
+        padding-left: 1.25em;
+        margin: 0;
+      }
+
+      li {
+        margin-top: var(--size-200);
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
   .skye-section {
     margin-top: var(--size-700);
     display: block; // remove sidebar grid; content fills full width
