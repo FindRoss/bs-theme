@@ -1,0 +1,167 @@
+/* ============================================================================
+   LIST STYLE UTILITY CLASSES
+   Apply directly to a normal WordPress List block via "Additional CSS
+   Class(es)" (Advanced panel) to get the same look as the content-list
+   block's icon variants, without needing the block/ACF fields.
+
+   Usage: add one of the following classes to a core List block (ul/ol):
+     bc-list-arrow, bc-list-numbered, bc-list-check, bc-list-steps
+   ========================================================================== */
+
+.bc-list-arrow,
+.bc-list-numbered,
+.bc-list-check,
+.bc-list-steps {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  > li {
+    position: relative;
+    padding-left: 44px;
+    margin: 0 0 13px;
+    font-size: 15.5px;
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+/* Arrow */
+.bc-list-arrow > li::before {
+  background-color: #f0f5fa;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230085cc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3Cpolyline points='12 5 19 12 12 19'/%3E%3C/svg%3E");
+}
+
+/* Check */
+.bc-list-check > li::before {
+  background-color: #ecf9f1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2318a05e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/%3E%3Cpolyline points='22 4 12 14.01 9 11.01'/%3E%3C/svg%3E");
+}
+
+/* Numbered */
+.bc-list-numbered {
+  counter-reset: bc-list-item;
+
+  > li {
+    counter-increment: bc-list-item;
+
+    &::before {
+      background-color: #f0f5fa;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 18px 18px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8c9d9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='4' y1='9' x2='20' y2='9'/%3E%3Cline x1='4' y1='15' x2='20' y2='15'/%3E%3Cline x1='10' y1='3' x2='8' y2='21'/%3E%3Cline x1='16' y1='3' x2='14' y2='21'/%3E%3C/svg%3E");
+    }
+
+    &::after {
+      content: counter(bc-list-item);
+      position: absolute;
+      left: 17px;
+      top: 18px;
+      transform: translate(-50%, -50%);
+      font-weight: 700;
+      font-size: 15px;
+      color: #0085cc;
+    }
+  }
+}
+
+/* Steps */
+.bc-list-steps {
+  counter-reset: bc-list-item;
+
+  > li {
+    counter-increment: bc-list-item;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding-left: 0;
+    padding-bottom: 24px;
+    margin-bottom: 0;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    &::before {
+      content: counter(bc-list-item);
+      position: static;
+      background-color: #16233f;
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      flex: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: 34px;
+      bottom: -2px;
+      width: 2px;
+      background: #e6ecf3;
+    }
+
+    &:last-child::after {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+
+  .bc-list-arrow,
+  .bc-list-numbered,
+  .bc-list-check,
+  .bc-list-steps {
+    > li {
+      padding-left: 40px;
+      font-size: 14.5px;
+
+      &::before {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .bc-list-arrow > li::before,
+  .bc-list-check > li::before,
+  .bc-list-numbered > li::before {
+    background-size: 16px 16px;
+  }
+
+  .bc-list-numbered > li::after {
+    font-size: 13px;
+  }
+
+  .bc-list-steps > li::before {
+    font-size: 13px;
+  }
+}
