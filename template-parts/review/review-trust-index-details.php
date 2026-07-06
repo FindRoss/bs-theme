@@ -15,19 +15,26 @@ $categories = [
 <div class="review-trust-index-details">
   <?php foreach ($categories as $key => $cat) :
     $score = (int) get_field("trust_index_{$key}", $review_id);
-    $comments = get_field("trust_index_{$key}_comments", $review_id);
+    $points = get_field("trust_index_{$key}_points", $review_id);
 
-    if (!$score && !$comments) continue;
+    if (!$score && !$points) continue;
   ?>
     <div class="trust-index-section">
       <div class="trust-index-section__header">
         <h4 class="trust-index-section__label"><?php echo esc_html($cat['label']); ?></h4>
         <span class="trust-index-section__score"><?php echo esc_html($score); ?></span>
       </div>
-      <?php if ($comments) : ?>
-        <div class="trust-index-section__comments">
-          <?php echo wp_kses_post($comments); ?>
-        </div>
+      <?php if ($points) : ?>
+        <ul class="trust-index-section__points">
+          <?php foreach ($points as $row) :
+            if (empty($row['point'])) continue;
+            $is_positive = !empty($row['position_negative']);
+          ?>
+            <li class="trust-index-section__point trust-index-section__point--<?php echo $is_positive ? 'positive' : 'negative'; ?>">
+              <?php echo esc_html($row['point']); ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       <?php endif; ?>
     </div>
   <?php endforeach; ?>
