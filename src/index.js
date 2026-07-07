@@ -18,6 +18,7 @@ import { singleReview } from "./modules/SingleReview";
 import { kunmingCard } from "./modules/KunmingCard";
 import tableToggle from "./modules/TableToggle";
 import Faqs from "./modules/Faqs";
+import USMap from "./modules/USMap";
 
 // const cardFocus = new CardFocus()
 const sidebarMenu = new SidebarMenu()
@@ -46,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('.faq__toggle')) {
     new Faqs();
+  }
+
+  if (document.querySelector('.us-map')) {
+    new USMap();
   }
 
   if (document.querySelector('body.single-review')) {

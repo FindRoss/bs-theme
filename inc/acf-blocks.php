@@ -306,5 +306,21 @@ function my_acf_init_block_types() {
       'post_types'        => array( 'post', 'page' ),
       'icon'              => 'star-filled'
     ));
+    /**
+    * US Map
+    */
+    acf_register_block_type(array(
+      'name'              => 'us-map',
+      'title'             => __('US Map'),
+      'description'       => __('An interactive map of US states, colour-coded by status.'),
+      'render_template'   => 'blocks/us-map/us-map.php',
+      'enqueue_style'     => get_template_directory_uri() . '/blocks/us-map/us-map-main.css',
+      'mode'              => 'edit',
+      'category'          => 'layout',
+      'align'             => 'full',
+      'keywords'          => array( 'map', 'states', 'us', 'usa', 'interactive' ),
+      'post_types'        => array( 'post', 'page' ),
+      'icon'              => 'location-alt'
+    ));
   }
 };

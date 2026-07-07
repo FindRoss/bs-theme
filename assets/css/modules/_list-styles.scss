@@ -13,7 +13,7 @@
 .bc-list-check,
 .bc-list-steps {
   list-style: none !important;
-  margin: 0 !important;
+  margin: 1rem 0 0 0 !important;
   padding: 0 !important;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,6 @@
     position: relative;
     padding-left: 44px;
     margin: 0 0 13px;
-    font-size: 15.5px;
     line-height: 1.5;
 
     &:last-child {
@@ -97,10 +96,6 @@
 
   > li {
     counter-increment: bc-list-item;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding-left: 0;
     padding-bottom: 24px;
     margin-bottom: 0;
 
@@ -110,19 +105,17 @@
 
     &::before {
       content: counter(bc-list-item);
-      position: static;
       background-color: #16233f;
       color: #fff;
       font-weight: 700;
       font-size: 15px;
-      flex: none;
     }
 
     &::after {
       content: "";
       position: absolute;
       left: 16px;
-      top: 34px;
+      top: 35px;
       bottom: -2px;
       width: 2px;
       background: #e6ecf3;
@@ -163,5 +156,10 @@
 
   .bc-list-steps > li::before {
     font-size: 13px;
+  }
+
+  .bc-list-steps > li::after {
+    left: 15px;
+    top: 31px;
   }
 }
