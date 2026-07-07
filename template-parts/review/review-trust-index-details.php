@@ -22,7 +22,7 @@ $categories = [
     <div class="trust-index-section">
       <div class="trust-index-section__header">
         <h4 class="trust-index-section__label"><?php echo esc_html($cat['label']); ?></h4>
-        <span class="trust-index-section__score"><?php echo esc_html($score); ?></span>
+        <span class="trust-index-section__score"><?php echo esc_html($score); ?><span class="trust-index-section__score-max">/5</span></span>
       </div>
       <?php if ($points) : ?>
         <ul class="trust-index-section__points">
