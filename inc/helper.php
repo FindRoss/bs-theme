@@ -43,6 +43,33 @@ function get_review_faqs($id = null) {
 };
 
 /**
+ * Calculate the weighted Trust Score (0-100) for a review.
+ * Single source of truth for the visible template and schema markup.
+ */
+function get_review_trust_score($id = null) {
+  if (!$id) return null;
+
+  $weights = [
+    'fairness'         => 25,
+    'track_record'     => 15,
+    'security'         => 10,
+    'responsible'      => 10,
+    'community'        => 15,
+    'customer_service' => 25,
+  ];
+
+  $weighted_sum = 0;
+  foreach ($weights as $key => $weight) {
+    $value = (int) get_field("trust_index_{$key}", $id);
+    $weighted_sum += ($value / 5) * $weight;
+  }
+
+  if ($weighted_sum <= 0) return null;
+
+  return (int) round($weighted_sum);
+}
+
+/**
  * Truncate Text
  */
 function truncate_text($text, $max_length = 100) {

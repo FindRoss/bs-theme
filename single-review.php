@@ -163,12 +163,7 @@ foreach ($faqs as $faq) {
 };
 
 // Trust score total (for rail CTA display)
-$_trust_weights = ['fairness'=>25,'track_record'=>15,'security'=>10,'responsible'=>10,'community'=>15,'customer_service'=>25];
-$_trust_sum = 0;
-foreach ($_trust_weights as $_k => $_w) {
-  $_trust_sum += ((int) get_field("trust_index_{$_k}", $review_id) / 5) * $_w;
-}
-$trust_total = round($_trust_sum);
+$trust_total = get_review_trust_score($review_id) ?? 0;
 
 // Build Table of Contents
 $toc = [];

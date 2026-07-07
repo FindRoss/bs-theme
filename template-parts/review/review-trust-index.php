@@ -2,25 +2,21 @@
 $review_id = $args['review_id'] ?? get_the_ID();
 
 $categories = [
-  'fairness'         => ['label' => 'Fairness',         'weight' => 25, 'tooltip' => 'Evaluates fair game odds, RTP transparency, and dispute resolution processes.'],
-  'track_record'     => ['label' => 'Track Record',     'weight' => 15, 'tooltip' => 'Assesses operational history, past incidents, and long-term reputation.'],
-  'security'         => ['label' => 'Security',         'weight' => 10, 'tooltip' => 'Reviews encryption standards, two-factor authentication, and data protection practices.'],
-  'responsible'      => ['label' => 'Responsible',      'weight' => 10, 'tooltip' => 'Examines responsible gambling tools, self-exclusion options, and harm reduction measures.'],
-  'community'        => ['label' => 'Community',        'weight' => 15, 'tooltip' => 'Gauges user trust, community sentiment, and peer-reviewed ratings.'],
-  'customer_service' => ['label' => 'Customer Service', 'weight' => 25, 'tooltip' => 'Rates support availability, response times, and issue resolution quality.'],
+  'fairness'         => ['label' => 'Transparency & Fairness', 'weight' => 25, 'tooltip' => 'Evaluates fair game odds, RTP transparency, and dispute resolution processes.'],
+  'track_record'     => ['label' => 'Track Record',            'weight' => 15, 'tooltip' => 'Assesses operational history, past incidents, and long-term reputation.'],
+  'security'         => ['label' => 'Account Security',        'weight' => 10, 'tooltip' => 'Reviews encryption standards, two-factor authentication, and data protection practices.'],
+  'responsible'      => ['label' => 'Responsible',             'weight' => 10, 'tooltip' => 'Examines responsible gambling tools, self-exclusion options, and harm reduction measures.'],
+  'community'        => ['label' => 'Community',               'weight' => 15, 'tooltip' => 'Gauges user trust, community sentiment, and peer-reviewed ratings.'],
+  'customer_service' => ['label' => 'Customer Service',        'weight' => 25, 'tooltip' => 'Rates support availability, response times, and issue resolution quality.'],
 ];
 
-$weighted_sum = 0;
-
 foreach ($categories as $key => $cat) {
-  $value = (int) get_field("trust_index_{$key}", $review_id);
-  $categories[$key]['value'] = $value;
-  $weighted_sum += ($value / 5) * $cat['weight'];
+  $categories[$key]['value'] = (int) get_field("trust_index_{$key}", $review_id);
 }
 
-if ($weighted_sum <= 0) return;
+$total = get_review_trust_score($review_id);
 
-$total = round($weighted_sum);
+if ($total === null) return;
 
 $modifier = 'low';
 if ($total >= 80)     $modifier = 'high';
