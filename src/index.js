@@ -19,6 +19,7 @@ import { kunmingCard } from "./modules/KunmingCard";
 import tableToggle from "./modules/TableToggle";
 import Faqs from "./modules/Faqs";
 import USMap from "./modules/USMap";
+import CryptoRegulationsTracker from "./modules/CryptoRegulationsTracker";
 
 // const cardFocus = new CardFocus()
 const sidebarMenu = new SidebarMenu()
@@ -63,6 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('.post-template-power-index')) {
     tableToggle();
+  }
+
+  if (document.querySelector('#crypto-regs-tracker')) {
+    new CryptoRegulationsTracker();
   }
 
   desktopMenu();

@@ -66,6 +66,27 @@
   background: #ecfeff;
 }
 
+.info-pill--banned,
+.result-pill--banned {
+  color: #a6362a;
+  border: 1px solid #e4b3ac;
+  background: #f4e3e0;
+}
+
+.info-pill--grey,
+.result-pill--grey {
+  color: #9a6b18;
+  border: 1px solid #e0c284;
+  background: #f5ebd6;
+}
+
+.info-pill--legal,
+.result-pill--legal {
+  color: #2c6b4f;
+  border: 1px solid #9dcab3;
+  background: #e1eee6;
+}
+
 // ── info-pill specific modifiers ───────────────────────────────────────────────
 
 .info-pill {

@@ -29,6 +29,10 @@ function themebs_enqueue_styles() {
     wp_enqueue_style( 'apps-styles', get_template_directory_uri() . '/build/template-apps.css', array(), wp_get_theme()->get('Version'));
   }
 
+	if (is_page_template('templates/crypto-gambling-regulations.php')) {
+    wp_enqueue_style( 'crypto-regs-styles', get_template_directory_uri() . '/build/crypto-gambling-regulations.css', array(), wp_get_theme()->get('Version'));
+  }
+
 	if ($post_type === 'review' || $post_type === 'post' || $post_type === 'page') {
     wp_enqueue_style( 'heading-toggle-styles', get_template_directory_uri() . '/build/heading-toggle.css', array(), wp_get_theme()->get('Version'));
   }

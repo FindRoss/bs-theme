@@ -2,7 +2,7 @@
 $review_id = $args['review_id'] ?? get_the_ID();
 
 $categories = [
-  'fairness'         => ['label' => 'Transparency & Fairness'],
+  'fairness'         => ['label' => 'Fairness'],
   'track_record'     => ['label' => 'Track Record'],
   'security'         => ['label' => 'Account Security'],
   'responsible'      => ['label' => 'Responsible Gambling'],
