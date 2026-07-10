@@ -6,47 +6,6 @@ $term_id  = $term->term_id;
 $taxonomy = $term->taxonomy;
 $term_name = $term->name;
 
-$array_of_terms = array();
-
-if ($term_name == 'Casino') { 
-  $terms_to_push = array(
-    array(
-      'taxonomy' => 'cryptocurrency',
-      'field'    => 'slug',
-      'terms'    => 'bitcoin'
-    ),
-    array(
-      'taxonomy' => 'cryptocurrency',
-      'field'    => 'slug',
-      'terms'    => 'litecoin'
-    ),
-    array(
-      'taxonomy' => 'game',
-      'field'    => 'slug',
-      'terms'    => 'slots'
-    ),
-    array(
-      'taxonomy' => 'game',
-      'field'    => 'slug',
-      'terms'    => 'crash'
-    ),
-    array(
-      'taxonomy' => 'provider',
-      'field'    => 'slug',
-      'terms'    => 'bgaming'
-    ),
-    array(
-      'taxonomy' => 'provider',
-      'field'    => 'slug',
-      'terms'    => 'netent'
-    )
-  );
-
-  foreach ($terms_to_push as $t) {
-      array_push($array_of_terms, $t);
-  };
-}
-
 $icon = get_field('icon', $term);
 // Check if the icon is an array
 if ($icon && is_array($icon)) {
@@ -65,8 +24,8 @@ $query = build_taxonomy_main_query( $term, $paged );
 
 <div class="container">
   <header class="taxonomy-header">
-    <?php $heading = get_field('heading', $term); ?>
-    <h1><?php echo $heading ? esc_html($heading) : 'Crypto ' . esc_html($term_name); ?></h1>
+    <?php $acf_heading = trim((string) get_field('heading', $term)); ?>
+    <h1><?php echo $acf_heading !== '' ? esc_html($acf_heading) : 'Crypto ' . esc_html($term_name); ?></h1>
 
     <?php
       if (term_description()) {
@@ -113,51 +72,6 @@ $query = build_taxonomy_main_query( $term, $paged );
   </header>
 </div>
 
-<!-- LOOP THROUGH TAXONOMIES -->
-<?php 
-if ($paged == 1) {
-  foreach ($array_of_terms as $terms) {
-    $setup_args = array(
-      'post_type'      => 'review', 
-      'posts_per_page' => 8,
-      'tax_query'      => array(
-          array(
-          'taxonomy' => $taxonomy,
-          'field'    => 'term_id',
-          'terms'    => $term_id
-          )
-        ),
-      );
-      array_push($setup_args['tax_query'], $terms); 
-      
-      $setup_query = new WP_Query($setup_args);
-      $setup_foundPosts = $setup_query->found_posts;
-
-      if ($setup_foundPosts >= 8) {
-        $current_term = get_term_by('slug', $terms['terms'], $terms['taxonomy']);
-      ?> 
-
-      <section class="mt-5">
-        <div class="container">
-          
-
-          <?php 
-            $capitalized_slug = ucwords(str_replace('-', ' ', $terms['terms']));
-          
-            outputNewSlideHTML(array(
-              'query'   => $setup_query,
-              'heading' => $capitalized_slug . ' Casinos',
-              'link'    => get_term_link($current_term)
-            ))
-          ?>
-
-        </div>
-      </section>
-
-    <?php }; ?>
-  <?php }; ?>
-<?php };  ?>
-
 <!-- MAIN QUERY -->
 <?php taxonomy_main_query($query, $term); ?>
 
@@ -166,12 +80,24 @@ if ($paged == 1) {
 <?php if ($paged == 1) : ?>
   <div class="container">
     <section class="aberdeenshire-section">
-      <?php $main_content = get_field('main_content', $term); ?>
 
-      <div class="main--content">
-        <?php echo $main_content; ?>
-        <!-- FAQS -->
-        <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
+      <div class="taxonomy-main-content">
+        <!-- Flexible Content -->
+        <?php get_template_part('template-parts/content/flexible-content', null, [
+          'post_id' => $term_id,
+          'type'    => 'term',
+        ]); ?>
+
+        <?php $main_content = get_field('main_content', $term); ?>
+
+        <div class="main--content">
+          <?php if ($main_content) : ?>
+            <hr />
+            <?php echo $main_content; ?>
+          <?php endif; ?>
+          <!-- FAQS -->
+          <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/content', 'faqs' ); }; ?>
+        </div>
       </div>
 
 

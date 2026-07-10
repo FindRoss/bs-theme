@@ -1,6 +1,6 @@
 <?php
 /**
- * Data source for the US Map block.
+ * Data source for the US Map section.
  *
  * !! PLACEHOLDER DATA !!
  * The 'status' values below are dummy placeholders so the map has something
@@ -11,7 +11,7 @@
 
 /**
  * The 3 colour-coded rules/categories used by the map + legend.
- * Colours are set in blocks/us-map/us-map-main.css, keyed by these same slugs.
+ * Colours are set in template-parts/section/us-map/us-map-main.css, keyed by these same slugs.
  * Rename the keys/labels to whatever the real 3 rules should be.
  */
 function bs_theme_us_map_statuses() {

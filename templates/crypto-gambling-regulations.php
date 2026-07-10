@@ -25,6 +25,7 @@ if ( have_rows( 'jurisdictions' ) ) {
 			'status_key'   => get_sub_field( 'status_key' ),
 			'status_label' => get_sub_field( 'status_label' ),
 			'detail'       => get_sub_field( 'detail' ),
+			'country_term' => get_sub_field( 'country_term' ),
 		];
 	}
 }
@@ -165,6 +166,13 @@ foreach ( $jurisdictions as $j ) {
 											<span><span class="crypto-regs__metalabel">Region</span> <?php echo esc_html( $region ); ?></span>
 											<span><span class="crypto-regs__metalabel">Status</span> <?php echo esc_html( $status_label ); ?></span>
 										</div>
+										<?php if ( ! empty( $row['country_term'] ) && ! is_wp_error( $row['country_term'] ) ) :
+											$country_term_link = get_term_link( $row['country_term'] );
+											if ( ! is_wp_error( $country_term_link ) ) :
+												?>
+												<a href="<?php echo esc_url( $country_term_link ); ?>" class="crypto-regs__readmore">Read more <?php echo get_svg_icon( 'chevron-right' ); ?></a>
+											<?php endif; ?>
+										<?php endif; ?>
 									</div>
 								</div>
 							<?php endforeach; ?>

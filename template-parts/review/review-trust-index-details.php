@@ -14,7 +14,8 @@ $categories = [
 
 <div class="review-trust-index-details">
   <?php foreach ($categories as $key => $cat) :
-    $score = (int) get_field("trust_index_{$key}", $review_id);
+    $score = (float) get_field("trust_index_{$key}", $review_id);
+    $score_display = $score == (int) $score ? (string) (int) $score : rtrim(rtrim(number_format($score, 1), '0'), '.');
     $points = get_field("trust_index_{$key}_points", $review_id);
 
     if (!$score && !$points) continue;
@@ -22,7 +23,7 @@ $categories = [
     <div class="trust-index-section">
       <div class="trust-index-section__header">
         <h4 class="trust-index-section__label"><?php echo esc_html($cat['label']); ?></h4>
-        <span class="trust-index-section__score"><?php echo esc_html($score); ?><span class="trust-index-section__score-max">/5</span></span>
+        <span class="trust-index-section__score"><?php echo esc_html($score_display); ?><span class="trust-index-section__score-max">/5</span></span>
       </div>
       <?php if ($points) : ?>
         <ul class="trust-index-section__points">

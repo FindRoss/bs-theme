@@ -9,6 +9,12 @@
   margin: 0 auto;
 }
 
+.us-map__intro {
+  max-width: 55ch;
+  margin: var(--size-200) 0 var(--size-400);
+  color: var(--color-muted-500);
+}
+
 .us-map__figure {
   position: relative;
 }

@@ -5,10 +5,23 @@ $states   = $args['states'] ?? array();
 if ( empty( $statuses ) || empty( $states ) ) return;
 ?>
 
+<hr />
+
 <div class="us-map">
 
+  <div class="sec-head">
+    <div class="sec-head__l">
+      <span class="sec-head__bar"></span>
+      <div class="sec-head__titles">
+        <h2 class="sec-head__title">State Gambling Regulations</h2>
+      </div>
+    </div>
+  </div>
+
+  <p class="us-map__intro">An interactive map of the US states, showing where online casino gambling and online sports betting are legal. Hover or tap a state to see its current status.</p>
+
   <div class="us-map__figure">
-    <?php include get_theme_file_path( '/blocks/us-map/us-map-shape.svg' ); ?>
+    <?php include get_theme_file_path( '/template-parts/section/us-map/us-map-shape.svg' ); ?>
     <div class="us-map__tooltip" role="tooltip" hidden></div>
   </div>
 
@@ -26,3 +39,5 @@ if ( empty( $statuses ) || empty( $states ) ) return;
   </script>
 
 </div>
+
+<hr />

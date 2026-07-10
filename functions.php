@@ -58,7 +58,7 @@ function themebs_enqueue_styles() {
     wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css');
     wp_enqueue_style('review-cta-styles',       get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css');
     wp_enqueue_style('review-bonus-styles',     get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css');
-    wp_enqueue_style('us-map-styles',           get_template_directory_uri() . '/blocks/us-map/us-map-main.css');
+    wp_enqueue_style('us-map-styles',           get_template_directory_uri() . '/template-parts/section/us-map/us-map-main.css');
   }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');

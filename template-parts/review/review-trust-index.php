@@ -2,7 +2,7 @@
 $review_id = $args['review_id'] ?? get_the_ID();
 
 $categories = [
-  'fairness'         => ['label' => 'Transparency',            'weight' => 25, 'tooltip' => 'Assesses site ownership, launch date, licensing, and crypto foundation membership..'],
+  'fairness'         => ['label' => 'Transparency',            'weight' => 25, 'tooltip' => 'Assesses site ownership, launch date, licensing, and crypto foundation membership.'],
   'track_record'     => ['label' => 'Track Record',            'weight' => 15, 'tooltip' => 'Assesses operational history, past incidents, and long-term reputation.'],
   'security'         => ['label' => 'Account Security',        'weight' => 10, 'tooltip' => 'Reviews encryption standards, two-factor authentication, and data protection practices.'],
   'responsible'      => ['label' => 'Responsible',             'weight' => 10, 'tooltip' => 'Examines responsible gambling tools, self-exclusion options, and harm reduction measures.'],

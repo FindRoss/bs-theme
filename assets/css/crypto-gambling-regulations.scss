@@ -373,6 +373,26 @@
     color: var(--color-muted-300);
   }
 
+  &__readmore {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-100);
+    margin-top: var(--size-300);
+    font-size: .85rem;
+    font-weight: var(--fw-bold);
+    color: var(--color-link);
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    &:hover {
+      color: var(--color-link-hover);
+      text-decoration: underline;
+    }
+  }
+
   // ── Empty state ─────────────────────────────────────────────
   &__empty {
     text-align: center;
