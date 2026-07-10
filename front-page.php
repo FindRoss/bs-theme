@@ -1,5 +1,18 @@
 <?php get_header();
 
+$bs_use_homepage_cache   = ! is_user_logged_in();
+$bs_cached_homepage_html = $bs_use_homepage_cache ? get_transient( BS_HOMEPAGE_CACHE_KEY ) : false;
+
+if ( $bs_cached_homepage_html !== false ) {
+  echo $bs_cached_homepage_html;
+  get_footer();
+  return;
+}
+
+if ( $bs_use_homepage_cache ) {
+  ob_start();
+}
+
 $used_posts = array();
 
 $featured_post_args = array(
@@ -129,7 +142,9 @@ $pill_sections = array(
     'post_status'    => 'publish',
     'posts_per_page' => 4,
     'category_name'  => 'news',
+    'post__not_in'   => $used_posts,
   ] );
+  $used_posts = array_merge( $used_posts, wp_list_pluck( $news_query->posts, 'ID' ) );
 
   if ( $news_query->have_posts() ) : ?>
     <section class="hp-section">
@@ -161,15 +176,22 @@ $pill_sections = array(
   $promos_posts      = $promos_term ? ( get_field( 'featured_posts',   $promos_term ) ?: [] ) : [];
   $promos_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $promos_review_ids );
 
+  if ( ! empty( $promos_posts ) ) {
+    $promos_posts = array_diff( $promos_posts, $used_posts );
+  }
+
   if ( empty( $promos_posts ) ) {
     $promos_query = new WP_Query( [
       'post_type'      => 'post',
       'post_status'    => 'publish',
       'posts_per_page' => 2,
       'category_name'  => 'promotions',
+      'post__not_in'   => $used_posts,
     ] );
     $promos_posts = wp_list_pluck( $promos_query->posts, 'ID' );
   }
+
+  $used_posts = array_merge( $used_posts, $promos_posts );
 
   if ( $promos_rows || $promos_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
@@ -186,8 +208,9 @@ $pill_sections = array(
   <?php
   $sports_term       = get_term_by( 'slug', 'sports', 'review_type' );
   $sports_review_ids = $sports_term ? ( get_field( 'featured_reviews', $sports_term ) ?: [] ) : [];
-  $sports_posts      = $sports_term ? ( get_field( 'featured_posts',   $sports_term ) ?: [] ) : [];
+  $sports_posts      = $sports_term ? array_diff( get_field( 'featured_posts', $sports_term ) ?: [], $used_posts ) : [];
   $sports_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $sports_review_ids );
+  $used_posts        = array_merge( $used_posts, $sports_posts );
 
   if ( $sports_rows || $sports_posts ) :
     get_template_part( 'template-parts/section/topic-section', null, [
@@ -239,8 +262,9 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   <?php
   $vip_term       = get_term_by( 'slug', 'vip', 'category' );
   $vip_review_ids = $vip_term ? ( get_field( 'featured_reviews', $vip_term ) ?: [] ) : [];
-  $vip_posts      = $vip_term ? ( get_field( 'featured_posts',   $vip_term ) ?: [] ) : [];
+  $vip_posts      = $vip_term ? array_diff( get_field( 'featured_posts', $vip_term ) ?: [], $used_posts ) : [];
   $vip_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $vip_review_ids );
+  $used_posts     = array_merge( $used_posts, $vip_posts );
 
   if ( $vip_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
@@ -257,8 +281,9 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   <?php
   $crash_term       = get_term_by( 'slug', 'crash', 'game' );
   $crash_review_ids = $crash_term ? ( get_field( 'featured_reviews', $crash_term ) ?: [] ) : [];
-  $crash_posts      = $crash_term ? ( get_field( 'featured_posts',   $crash_term ) ?: [] ) : [];
+  $crash_posts      = $crash_term ? array_diff( get_field( 'featured_posts', $crash_term ) ?: [], $used_posts ) : [];
   $crash_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $crash_review_ids );
+  $used_posts       = array_merge( $used_posts, $crash_posts );
 
   if ( $crash_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
@@ -273,7 +298,8 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
 
   <!-- EDITOR'S PICK -->
   <?php
-  $editors_pick_ids = get_field( 'articles', 'options' ) ?: [];
+  $editors_pick_ids = array_diff( get_field( 'articles', 'options' ) ?: [], $used_posts );
+  $used_posts       = array_merge( $used_posts, $editors_pick_ids );
   if ( ! empty( $editors_pick_ids ) ) :
     get_template_part( 'template-parts/section/editors-pick', null, [
       'post_ids' => $editors_pick_ids,
@@ -285,8 +311,9 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   <?php
   $poker_term       = get_term_by( 'slug', 'online-poker', 'review_type' );
   $poker_review_ids = $poker_term ? ( get_field( 'featured_reviews', $poker_term ) ?: [] ) : [];
-  $poker_posts      = $poker_term ? ( get_field( 'featured_posts',   $poker_term ) ?: [] ) : [];
+  $poker_posts      = $poker_term ? array_diff( get_field( 'featured_posts', $poker_term ) ?: [], $used_posts ) : [];
   $poker_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $poker_review_ids );
+  $used_posts       = array_merge( $used_posts, $poker_posts );
 
   if ( $poker_rows ) :
     get_template_part( 'template-parts/section/topic-section', null, [
@@ -308,7 +335,9 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
       'post_status'    => 'publish',
       'posts_per_page' => 4,
       'cat'            => $strategy_term->term_id,
+      'post__not_in'   => $used_posts,
     ]);
+    $used_posts = array_merge( $used_posts, wp_list_pluck( $strategy_q->posts, 'ID' ) );
     if ($strategy_q->have_posts()) :
       get_template_part('template-parts/section/posts-section', null, [
         'heading' => 'Strategy',
@@ -330,7 +359,9 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
       'post_status'    => 'publish',
       'posts_per_page' => 4,
       'cat'            => $alternatives_term->term_id,
+      'post__not_in'   => $used_posts,
     ]);
+    $used_posts = array_merge( $used_posts, wp_list_pluck( $alternatives_q->posts, 'ID' ) );
     if ($alternatives_q->have_posts()) :
       get_template_part('template-parts/section/posts-section', null, [
         'heading' => 'Alternatives',
@@ -352,7 +383,9 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
       'post_status'    => 'publish',
       'posts_per_page' => 4,
       'cat'            => $wallets_term->term_id,
+      'post__not_in'   => $used_posts,
     ]);
+    $used_posts = array_merge( $used_posts, wp_list_pluck( $wallets_q->posts, 'ID' ) );
     if ($wallets_q->have_posts()) :
       get_template_part('template-parts/section/posts-section', null, [
         'heading' => 'Wallets',
@@ -368,4 +401,10 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
 </div><!-- .container -->
 <div style="margin-top:3rem"></div><!-- Spacer -->
 
-<?php get_footer(); ?>
+<?php
+if ( $bs_use_homepage_cache ) {
+  $bs_homepage_html = ob_get_clean();
+  set_transient( BS_HOMEPAGE_CACHE_KEY, $bs_homepage_html, 12 * HOUR_IN_SECONDS );
+  echo $bs_homepage_html;
+}
+get_footer(); ?>

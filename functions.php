@@ -54,11 +54,11 @@ function themebs_enqueue_styles() {
   }
 
   if (is_tax() || is_page()) {
-    wp_enqueue_style('review-info-styles',      get_template_directory_uri() . '/blocks/review-info/review-info.css');
-    wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css');
-    wp_enqueue_style('review-cta-styles',       get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css');
-    wp_enqueue_style('review-bonus-styles',     get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css');
-    wp_enqueue_style('us-map-styles',           get_template_directory_uri() . '/template-parts/section/us-map/us-map-main.css');
+    wp_enqueue_style('review-info-styles',      get_template_directory_uri() . '/blocks/review-info/review-info.css', array(), wp_get_theme()->get('Version'));
+    wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css', array(), wp_get_theme()->get('Version'));
+    wp_enqueue_style('review-cta-styles',       get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css', array(), wp_get_theme()->get('Version'));
+    wp_enqueue_style('review-bonus-styles',     get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css', array(), wp_get_theme()->get('Version'));
+    wp_enqueue_style('us-map-styles',           get_template_directory_uri() . '/template-parts/section/us-map/us-map-main.css', array(), wp_get_theme()->get('Version'));
   }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
@@ -196,6 +196,12 @@ require get_theme_file_path('/inc/template-functions.php');
  */
 require get_theme_file_path('/inc/search-endpoint.php');
 require get_theme_file_path('/inc/load-more-endpoint.php');
+
+/**
+ * Homepage Cache
+ * - bs_clear_homepage_cache()
+ */
+require get_theme_file_path('/inc/homepage-cache.php');
 
 /**
  * Bradcrumbs

@@ -1,8 +1,8 @@
 <?php
 
-function get_post_breadcrumbs() {
+function get_post_breadcrumbs(): array {
   if (!is_singular('post')) {
-      return '';
+      return [];
   }
 
   $primary_category = null;
@@ -18,7 +18,7 @@ function get_post_breadcrumbs() {
 
   // Early return if no valid primary category
   if (!isset($primary_category->term_id) || $primary_category->term_id <= 1) {
-      return '';
+      return [];
   }
 
   $primary_id = $primary_category->term_id;
@@ -49,104 +49,92 @@ function get_post_breadcrumbs() {
       $breadcrumb_path = $deepest_path;
   }
 
-  $breadcrumb_html = '';
+  $items = [];
   foreach ($breadcrumb_path as $cat) {
-      $cat_link = get_category_link($cat->term_id);
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url($cat_link) . '">' . esc_html($cat->name) . '</a></span>';
+      $items[] = ['name' => $cat->name, 'url' => get_category_link($cat->term_id)];
   }
 
-  return $breadcrumb_html; // always return a string
+  return $items;
 }
- 
-function get_category_breadcrumbs(): string {
-	if (!is_category()) return '';
+
+function get_category_breadcrumbs(): array {
+	if (!is_category()) return [];
 
 	$term = get_queried_object();
 
-	$breadcrumb_html = '';
-
-  if ($term->parent !== 0) {
-    $parent_category = get_category($term->parent);
-
-    $parent_cat_name = $parent_category->name;
-    $parent_cat_link = get_category_link($parent_category->term_id);
-
- 
-    if ($parent_category->parent !== 0) {
-      $grandparent_category = get_category($parent_category->parent);
-
-      $grandparent_cat_name = $grandparent_category->name;
-      $grandparent_cat_link = get_category_link($grandparent_category->term_id);
-
-      // Add this one first - the grandparent category link to the output
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url($grandparent_cat_link) . '">' . esc_html($grandparent_cat_name) . '</a></span>';
-    }
-
-    // The parent category link to the output
-    $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url($parent_cat_link) . '">' . esc_html($parent_cat_name) . '</a></span>';
-
-    $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
+  if ($term->parent === 0) {
+    return [];
   }
 
-	return $breadcrumb_html;
+  $items = [];
 
+  $parent_category = get_category($term->parent);
+
+  if ($parent_category->parent !== 0) {
+    $grandparent_category = get_category($parent_category->parent);
+    $items[] = ['name' => $grandparent_category->name, 'url' => get_category_link($grandparent_category->term_id)];
+  }
+
+  $items[] = ['name' => $parent_category->name, 'url' => get_category_link($parent_category->term_id)];
+  $items[] = ['name' => $term->name, 'url' => ''];
+
+	return $items;
 }
 
-function get_review_breadcrumbs(): string {
-  
-    if (!is_singular('review')) return '';
+function get_review_breadcrumbs(): array {
+
+    if (!is_singular('review')) return [];
 
     $primary_id = get_post_meta( get_the_ID(), '_yoast_wpseo_primary_review_type', true );
-  
-    $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
+
+    $items = [
+      ['name' => 'Reviews', 'url' => home_url('/reviews/')],
+    ];
 
     if ($primary_id) {
       $term_link = get_term_link( (int) $primary_id, 'review_type' );
       if (!is_wp_error( $term_link )) {
-        $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( $term_link ) . '">' . esc_html( get_term( $primary_id )->name ) . '</a></span>';
+        $items[] = ['name' => get_term( $primary_id )->name, 'url' => $term_link];
       }
     }
 
-    $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . get_the_title(get_the_ID()) . '</span>';
+    $items[] = ['name' => get_the_title(get_the_ID()), 'url' => ''];
 
-    return $breadcrumb_html;
+    return $items;
 }
 
-function get_taxonomy_breadcrumbs($term) {
-  if (!$term) return '';
+function get_taxonomy_breadcrumbs($term): array {
+  if (!$term) return [];
 
   $taxonomy = $term->taxonomy;
-  $name = $term->name;
-  
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
+
+  $items = [
+    ['name' => 'Reviews', 'url' => home_url('/reviews/')],
+  ];
 
   switch ( $taxonomy ) {
     case 'cryptocurrency':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/crypto/') ) . '">Crypto</a></span>';
+      $items[] = ['name' => 'Crypto', 'url' => home_url('/crypto/')];
       break;
 
     case 'game':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/online-casino-games/') ) . '">Games</a></span>';
+      $items[] = ['name' => 'Games', 'url' => home_url('/online-casino-games/')];
       break;
 
     case 'provider':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/providers/') ) . '">Providers</a></span>';
+      $items[] = ['name' => 'Providers', 'url' => home_url('/providers/')];
       break;
 
     case 'country':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/countries/') ) . '">Countries</a></span>';
+      $items[] = ['name' => 'Countries', 'url' => home_url('/countries/')];
       break;
 
     case 'payment':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/payments/') ) . '">Payments</a></span>';
+      $items[] = ['name' => 'Payments', 'url' => home_url('/payments/')];
       break;
 
     case 'license':
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/licenses/') ) . '">Licenses</a></span>';
-      break;
-
-    default:
-      echo "...";
+      $items[] = ['name' => 'Licenses', 'url' => home_url('/licenses/')];
       break;
   }
 
@@ -154,50 +142,78 @@ function get_taxonomy_breadcrumbs($term) {
   foreach ( $ancestors as $ancestor_id ) {
     $ancestor_term = get_term( $ancestor_id, $taxonomy );
     if ( $ancestor_term && ! is_wp_error( $ancestor_term ) ) {
-      $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( get_term_link( $ancestor_term ) ) . '">' . esc_html( $ancestor_term->name ) . '</a></span>';
+      $items[] = ['name' => $ancestor_term->name, 'url' => get_term_link( $ancestor_term )];
     }
   }
 
-  $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
+  $items[] = ['name' => $term->name, 'url' => ''];
 
-  return $breadcrumb_html;
+  return $items;
 }
 
-function get_taxonomy_index_breadcrumbs() {
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
-  $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . get_the_title(get_the_ID()) . '</span>';
-
-  return $breadcrumb_html;
+function get_taxonomy_index_breadcrumbs(): array {
+  return [
+    ['name' => 'Reviews', 'url' => home_url('/reviews/')],
+    ['name' => get_the_title(get_the_ID()), 'url' => ''],
+  ];
 }
 
-function get_review_type_breadcrumbs($term) {
-
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/reviews/') ) . '">Reviews</a></span>';
-  $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . $term->name . '</span>';
-
-  return $breadcrumb_html;
+function get_review_type_breadcrumbs($term): array {
+  return [
+    ['name' => 'Reviews', 'url' => home_url('/reviews/')],
+    ['name' => $term->name, 'url' => ''],
+  ];
 }
 
-function get_bonus_type_breadcrumbs($term) {
-  if (!$term) return '';
+function get_bonus_type_breadcrumbs($term): array {
+  if (!$term) return [];
 
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/bonuses/') ) . '">Bonuses</a></span>';
-  $breadcrumb_html .= '<span class="breadcrumbs__layout--item">' . esc_html( $term->name ) . '</span>';
-
-  return $breadcrumb_html;
+  return [
+    ['name' => 'Bonuses', 'url' => home_url('/bonuses/')],
+    ['name' => $term->name, 'url' => ''],
+  ];
 }
 
-function get_bonus_breadcrumbs() {
+function get_bonus_breadcrumbs(): array {
   $primary_id = get_post_meta( get_the_ID(), '_yoast_wpseo_primary_bonus_type', true );
 
-  if (!$primary_id) return '';
+  if (!$primary_id) return [];
 
-  $breadcrumb_html = '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( home_url('/bonuses/') ) . '">Bonuses</a></span>';
+  $items = [
+    ['name' => 'Bonuses', 'url' => home_url('/bonuses/')],
+  ];
 
   $term_link = get_term_link( (int) $primary_id, 'bonus_type' );
   if ( ! is_wp_error( $term_link ) ) {
-    $breadcrumb_html .= '<span class="breadcrumbs__layout--item"><a class="cat-pill" href="' . esc_url( $term_link ) . '">' . esc_html( get_term( $primary_id )->name ) . '</a></span>';
+    $items[] = ['name' => get_term( $primary_id )->name, 'url' => $term_link];
   }
 
-  return $breadcrumb_html;
+  return $items;
+}
+
+/**
+ * Single dispatcher used by both the visual breadcrumb template
+ * (template-parts/breadcrumbs/breadcrumbs.php) and breadcrumbListSchema()
+ * in inc/schemas.php, so both stay in sync from one source of truth.
+ */
+function get_breadcrumb_items(): array {
+  if (is_singular('post')) {
+    return get_post_breadcrumbs();
+  } else if (is_singular('review')) {
+    return get_review_breadcrumbs();
+  } else if (is_category()) {
+    return get_category_breadcrumbs();
+  } else if (is_tax( ['cryptocurrency', 'game', 'provider', 'payment', 'country', 'license'] )) {
+    return get_taxonomy_breadcrumbs(get_queried_object());
+  } else if (is_tax('review_type')) {
+    return get_review_type_breadcrumbs(get_queried_object());
+  } else if (is_tax('bonus_type')) {
+    return get_bonus_type_breadcrumbs(get_queried_object());
+  } else if (is_singular('bonus')) {
+    return get_bonus_breadcrumbs();
+  } else if (is_page_template( 'templates/taxonomy-index.php' )) {
+    return get_taxonomy_index_breadcrumbs();
+  }
+
+  return [];
 }
