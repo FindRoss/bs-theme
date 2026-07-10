@@ -204,6 +204,12 @@ require get_theme_file_path('/inc/load-more-endpoint.php');
 require get_theme_file_path('/inc/homepage-cache.php');
 
 /**
+ * Mega Menu Cache
+ * - bs_clear_mega_menu_cache()
+ */
+require get_theme_file_path('/inc/mega-menu-cache.php');
+
+/**
  * Bradcrumbs
  * get_review_breadcrumbs()
  * get_post_breadcrumbs()
