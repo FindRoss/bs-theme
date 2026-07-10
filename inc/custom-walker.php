@@ -108,6 +108,26 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
     private function get_posts_panel( $parent_menu_item_id ) {
         if ( ! $parent_menu_item_id ) return '';
 
+        $use_cache = ! is_user_logged_in();
+        $cache_key = 'bs_mega_menu_panel_' . $parent_menu_item_id;
+
+        if ( $use_cache ) {
+            $cached = get_transient( $cache_key );
+            if ( $cached !== false ) {
+                return $cached;
+            }
+        }
+
+        $html = $this->build_posts_panel_html( $parent_menu_item_id );
+
+        if ( $use_cache ) {
+            set_transient( $cache_key, $html, 24 * HOUR_IN_SECONDS );
+        }
+
+        return $html;
+    }
+
+    private function build_posts_panel_html( $parent_menu_item_id ) {
         $post_type = get_field( 'menu_panel_post_type', $parent_menu_item_id ) ?: 'post';
 
         $query_args = [
