@@ -101,15 +101,10 @@ function km_load_more_callback($data) {
       ),
     ),
     'meta_query' => array(
-      'relation' => 'OR',
       array(
-        'key'     => 'closed',
+        'key'     => 'details_group_closed',
         'value'   => '1',
-        'compare' => '!=',
-      ),
-      array(
-        'key'     => 'closed',
-        'compare' => 'NOT EXISTS',
+        'compare' => 'NOT LIKE',
       ),
     ),
   );
