@@ -58,6 +58,7 @@ function themebs_enqueue_styles() {
     wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css', array(), wp_get_theme()->get('Version'));
     wp_enqueue_style('review-cta-styles',       get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css', array(), wp_get_theme()->get('Version'));
     wp_enqueue_style('review-bonus-styles',     get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css', array(), wp_get_theme()->get('Version'));
+    wp_enqueue_style('game-info-styles',        get_template_directory_uri() . '/blocks/game-info/game-info-main.css', array(), wp_get_theme()->get('Version'));
     wp_enqueue_style('us-map-styles',           get_template_directory_uri() . '/template-parts/section/us-map/us-map-main.css', array(), wp_get_theme()->get('Version'));
   }
 }
