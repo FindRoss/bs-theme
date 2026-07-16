@@ -74,6 +74,57 @@ if (!have_rows('flexible_content', $acf_context)) return;
     )); ?>
   <?php endif; ?>
 
+  <?php if (get_row_layout() === 'flexible_table') : ?>
+    <?php
+      $flexible_table_rows   = get_sub_field('flexible_table_rows') ?: [];
+      $flexible_table_scroll = get_sub_field('flexible_table_scroll');
+
+      $flexible_table_header_rows = [];
+      $flexible_table_body_rows   = [];
+      foreach ($flexible_table_rows as $flexible_table_row) {
+        if (!empty($flexible_table_row['flexible_table_is_header'])) {
+          $flexible_table_header_rows[] = $flexible_table_row;
+        } else {
+          $flexible_table_body_rows[] = $flexible_table_row;
+        }
+      }
+    ?>
+    <?php if ($flexible_table_rows) : ?>
+      <div class="main--table<?php echo $flexible_table_scroll ? ' custom-table-scroll' : ''; ?>">
+        <table>
+          <?php if ($flexible_table_header_rows) : ?>
+            <thead>
+              <?php foreach ($flexible_table_header_rows as $flexible_table_row) : ?>
+                <?php $flexible_table_cells = $flexible_table_row['flexible_table_row_cells'] ?? []; ?>
+                <?php if ($flexible_table_cells) : ?>
+                  <tr>
+                    <?php foreach ($flexible_table_cells as $flexible_table_cell) : ?>
+                      <th><?php echo wp_kses_post($flexible_table_cell['flexible_table_cell_value'] ?? ''); ?></th>
+                    <?php endforeach; ?>
+                  </tr>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </thead>
+          <?php endif; ?>
+          <?php if ($flexible_table_body_rows) : ?>
+            <tbody>
+              <?php foreach ($flexible_table_body_rows as $flexible_table_row) : ?>
+                <?php $flexible_table_cells = $flexible_table_row['flexible_table_row_cells'] ?? []; ?>
+                <?php if ($flexible_table_cells) : ?>
+                  <tr>
+                    <?php foreach ($flexible_table_cells as $flexible_table_cell) : ?>
+                      <td><?php echo wp_kses_post($flexible_table_cell['flexible_table_cell_value'] ?? ''); ?></td>
+                    <?php endforeach; ?>
+                  </tr>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          <?php endif; ?>
+        </table>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+
   <?php if (get_row_layout() === 'topic_section') : ?>
     <?php
       $ts_fields = bc_get_topic_section_fields('get_sub_field');
@@ -183,6 +234,16 @@ if (!have_rows('flexible_content', $acf_context)) return;
     <?php get_template_part('template-parts/review/review-bonus', null, [
       'review_ids'        => get_sub_field('review_bonus') ?: [],
       'review_bonus_type' => get_sub_field('review_bonus_type') ?? 0,
+    ]); ?>
+  <?php endif; ?>
+
+  <?php if (get_row_layout() === 'game_info') : ?>
+    <?php get_template_part('template-parts/game-info/game-info', null, [
+      'heading'  => get_sub_field('game_info_heading'),
+      'image'    => get_sub_field('game_info_image'),
+      'content'  => get_sub_field('game_info_content'),
+      'repeater' => get_sub_field('game_info_repeater') ?: [],
+      'site_ids' => get_sub_field('game_info_site') ?: [],
     ]); ?>
   <?php endif; ?>
 
