@@ -33,6 +33,14 @@ function themebs_enqueue_styles() {
     wp_enqueue_style( 'crypto-regs-styles', get_template_directory_uri() . '/build/crypto-gambling-regulations.css', array(), wp_get_theme()->get('Version'));
   }
 
+	if (is_page_template('templates/about-us.php')) {
+    wp_enqueue_style( 'about-us-styles', get_template_directory_uri() . '/build/about-us.css', array(), wp_get_theme()->get('Version'));
+  }
+
+	if (is_author()) {
+    wp_enqueue_style( 'author-styles', get_template_directory_uri() . '/build/author.css', array(), wp_get_theme()->get('Version'));
+  }
+
 	if ($post_type === 'review' || $post_type === 'post' || $post_type === 'page') {
     wp_enqueue_style( 'heading-toggle-styles', get_template_directory_uri() . '/build/heading-toggle.css', array(), wp_get_theme()->get('Version'));
   }

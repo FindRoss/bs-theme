@@ -1,0 +1,15 @@
+@use "modules/_breakpoints" as *;
+
+.author-page {
+  &__heading {
+    padding-top: var(--size-800);
+  }
+
+  &__bio {
+    margin-top: var(--size-500);
+  }
+
+  &__articles-heading {
+    margin-top: var(--size-800);
+  }
+}

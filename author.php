@@ -19,17 +19,17 @@ $query = new WP_Query(array(
 
 <div class="container">
 
-  <h1><?php echo $author_name; ?></h1>
+  <h1 class="author-page__heading"><?php echo $author_name; ?></h1>
 
   <?php if ($author_description) : ?>
-    <div class="fs-large mb-4"><?php echo $author_description; ?></div>
+    <div class="author-page__bio main--content mb-4"><?php echo wp_kses_post( wpautop( $author_description ) ); ?></div>
   <?php endif; ?>
-  
+
   <?php if ($query->have_posts()) : ?>
 
     <section class="author-posts">
       <div class="author-posts__layout">
-        <h2 class="h4">Articles by <?php echo $author_name; ?></h2>
+        <h2 class="author-page__articles-heading">Articles by <?php echo $author_name; ?></h2>
         <?php while ($query->have_posts()) : $query->the_post(); 
           get_template_part('template-parts/card/card', 'chengdu'); 
         endwhile; ?>
