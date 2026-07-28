@@ -112,7 +112,7 @@ switch($term_name) {
         <div class="main--content">
           <?php echo $main_content; ?>
           <!-- FAQS -->
-          <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/conent', 'faqs' ); }; ?>
+          <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/content', 'faqs' ); }; ?>
         </div>
 
         <aside class="sidebar">
