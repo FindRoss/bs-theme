@@ -87,7 +87,7 @@ Template Post Type: page
       <div class="about-us__stats-grid">
         <?php
         $about_us_stats = [
-          [ 'value' => '2014', 'label' => 'Founded' ],
+          [ 'value' => '2013', 'label' => 'Founded' ],
           [ 'value' => '3,000+', 'label' => 'Articles published' ],
           [ 'value' => '1,000+', 'label' => 'Casinos reviewed' ],
           [ 'value' => '1,700+', 'label' => 'Bonuses tracked' ],
