@@ -23,17 +23,9 @@
   --bc-list-border:        #e6ecf3;
   --bc-list-shadow:        0 1px 2px rgba(16, 35, 63, .06);
 
-  /* Numbered list colors */
-  --bc-list-numbered:      #0085cc;
-  --bc-list-numbered-tint: #f0f5fa;
-
-  /* Arrow list colors */
-  --bc-list-arrow:         #0085cc;
-  --bc-list-arrow-tint:    #f0f5fa;
-
-  /* Check list colors */
-  --bc-list-check:         #18a05e;
-  --bc-list-check-tint:    #ecf9f1;
+  /* Icon badge colors - dark, matching the steps style */
+  --bc-list-icon-bg:       #16233f;
+  --bc-list-icon-color:    #fff;
 }
 
 .bc-content-list__list {
@@ -86,29 +78,29 @@
 
 /* Numbered list icon style */
 .bc-content-list--numbered .bc-content-list__icon {
-  background: var(--bc-list-numbered-tint);
-  color: var(--bc-list-numbered);
+  background: var(--bc-list-icon-bg);
+  color: var(--bc-list-icon-color);
   font-weight: 700;
   font-size: 15px;
 }
 
 /* Arrow list icon style */
 .bc-content-list--arrow .bc-content-list__icon {
-  background: var(--bc-list-arrow-tint);
-  color: var(--bc-list-arrow);
+  background: var(--bc-list-icon-bg);
+  color: var(--bc-list-icon-color);
 }
 
 /* Check list icon style */
 .bc-content-list--check .bc-content-list__icon {
-  background: var(--bc-list-check-tint);
-  color: var(--bc-list-check);
+  background: var(--bc-list-icon-bg);
+  color: var(--bc-list-icon-color);
 }
 
 /* Steps list styles - matching .bc-steps block */
 .bc-content-list--steps {
   --bc-steps-navy:   #16233f;
   --bc-steps-ink:    #2b3a52;
-  --bc-steps-border: #e6ecf3;
+  --bc-steps-border: #c3cdda;
 }
 
 .bc-content-list--steps .bc-content-list__list {
@@ -185,12 +177,12 @@
     transform: translate(-50%, -50%);
     font-weight: 700;
     font-size: 15px;
-    color: var(--bc-list-numbered);
+    color: var(--bc-list-icon-color);
   }
 
   svg {
-    opacity: 0.2;
-    stroke: #b8c9d9;
+    opacity: 0.25;
+    stroke: rgba(255, 255, 255, 0.6);
   }
 }
 

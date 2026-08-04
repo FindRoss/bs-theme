@@ -38,7 +38,13 @@ $query = build_taxonomy_main_query( $term, $paged );
 
     <?php
     $icon_menu_items = get_field('icon_menu', $term);
+    echo gettype($icon_menu_items); 
+
     if ($icon_menu_items) :
+
+      print_r($icon_menu_items);
+
+    
     ?>
     <div class="taxonomy-header__icon-menu">
       <?php
