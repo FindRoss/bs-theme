@@ -12,6 +12,7 @@ import BonusCode from "./modules/BonusCode";
 import ShowMore from "./modules/ShowMore";
 import SearchResults from "./modules/SearchResults";
 import TaxonomyLoadMore from "./modules/TaxonomyLoadMore";
+import AzIndex from "./modules/AzIndex";
 import Patterns from "./modules/Patterns";
 import { desktopMenu } from './modules/DesktopMenu';
 import { singleReview } from "./modules/SingleReview";
@@ -78,6 +79,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.querySelector('#review-search')) {
     new ArchiveReview();
+  }
+
+  if (document.querySelector('.az-index')) {
+    new AzIndex(document.querySelector('.az-index'));
   }
 
   const swiper = new Swiper('.swiper-primary', {

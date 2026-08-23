@@ -61,6 +61,10 @@ function themebs_enqueue_styles() {
     wp_enqueue_style( 'front-page-styles', get_template_directory_uri() . '/build/front-page.css', array(), wp_get_theme()->get('Version'));
   }
 
+  if (is_page_template('templates/taxonomy-index.php')) {
+    wp_enqueue_style( 'taxonomy-az-index-styles', get_template_directory_uri() . '/build/taxonomy-az-index.css', array(), wp_get_theme()->get('Version'));
+  }
+
   if (is_tax() || is_page()) {
     wp_enqueue_style('review-info-styles',      get_template_directory_uri() . '/blocks/review-info/review-info.css', array(), wp_get_theme()->get('Version'));
     wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css', array(), wp_get_theme()->get('Version'));
@@ -297,6 +301,12 @@ require get_template_directory() . '/inc/acf-menu-fields.php';
  * - noindex, follow = "Don't index this page, but still follow the links on it."
  */
 require get_template_directory() . '/inc/taxonomy-paginated-noindex.php';
+
+/**
+ * A-Z Index helpers
+ * - Powers the "All [Taxonomy] A-Z" directory section on templates/taxonomy-index.php
+ */
+require get_template_directory() . '/inc/taxonomy-az-index.php';
 
 
 // Change time of time picker on bonuses and posts to be in UTC format

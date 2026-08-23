@@ -7,6 +7,7 @@
   $page_id = get_queried_object_id();
 
   $taxonomy_name = get_field('taxonomy_name') ?: '';
+
   $terms = [];
 
   if ($taxonomy_name) {
@@ -59,6 +60,10 @@
       <?php echo apply_filters('the_content', $page_content); ?>
     </div>
   <?php } ?>
+
+  <?php if ($taxonomy_name) : ?>
+    <?php get_template_part('template-parts/section/az-index', null, ['taxonomy' => $taxonomy_name]); ?>
+  <?php endif; ?>
 
 </div><!-- .container -->
 
