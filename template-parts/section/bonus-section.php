@@ -1,29 +1,41 @@
 <?php
-$term    = $args['term'];
+$term    = $args['term'] ?? null;
+$ids     = $args['ids'] ?? [];
 $heading = $args['heading'] ?? '';
 $kicker  = $args['kicker'] ?? '';
 $link    = $args['link'] ?? '';
 
-$featured_ids = get_field('featured_bonuses', $term);
-$featured_ids = is_array($featured_ids) ? array_slice($featured_ids, 0, 3) : [];
-
-if (!empty($featured_ids)) {
+if (!empty($ids)) {
   $query = new WP_Query([
     'post_type'      => 'bonus',
     'posts_per_page' => 3,
-    'post__in'       => $featured_ids,
+    'post__in'       => array_slice($ids, 0, 3),
     'orderby'        => 'post__in',
   ]);
+} elseif ($term) {
+  $featured_ids = get_field('featured_bonuses', $term);
+  $featured_ids = is_array($featured_ids) ? array_slice($featured_ids, 0, 3) : [];
+
+  if (!empty($featured_ids)) {
+    $query = new WP_Query([
+      'post_type'      => 'bonus',
+      'posts_per_page' => 3,
+      'post__in'       => $featured_ids,
+      'orderby'        => 'post__in',
+    ]);
+  } else {
+    $query = new WP_Query([
+      'post_type'      => 'bonus',
+      'posts_per_page' => 3,
+      'tax_query'      => [[
+        'taxonomy' => 'bonus_type',
+        'field'    => 'term_id',
+        'terms'    => $term->term_id,
+      ]],
+    ]);
+  }
 } else {
-  $query = new WP_Query([
-    'post_type'      => 'bonus',
-    'posts_per_page' => 3,
-    'tax_query'      => [[
-      'taxonomy' => 'bonus_type',
-      'field'    => 'term_id',
-      'terms'    => $term->term_id,
-    ]],
-  ]);
+  return;
 }
 
 if (!$query->have_posts()) { wp_reset_postdata(); return; }

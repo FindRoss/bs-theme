@@ -118,88 +118,14 @@ $pill_sections = array(
 
   <!-- BONUSES -->
   <?php
-  $bonus_ids   = get_field( 'bonuses', 'options' ) ?: [];
-  $bonus_posts = [ 123822, 122577 ];
-  $bonus_rows  = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $bonus_ids );
+  $bonus_ids = get_field( 'bonuses', 'options' ) ?: [];
 
-  if ( $bonus_rows || $bonus_posts ) :
-    get_template_part( 'template-parts/section/topic-section', null, [
-      'heading'        => 'Bonuses',
-      'kicker'         => 'Top Picks',
-      'link'           => [ 'url' => home_url( '/bonuses/' ), 'title' => 'View all', 'target' => '' ],
-      'rows'           => $bonus_rows,
-      'posts'          => $bonus_posts,
-      'pill_post_type' => 'bonus',
-      'pill_template'  => 'template-parts/card/bonus-pill',
-    ] );
-  endif;
-  ?>
-
-  <!-- NEWS -->
-  <?php
-  $news_query = new WP_Query( [
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 4,
-    'category_name'  => 'news',
-    'post__not_in'   => $used_posts,
-  ] );
-  $used_posts = array_merge( $used_posts, wp_list_pluck( $news_query->posts, 'ID' ) );
-
-  if ( $news_query->have_posts() ) : ?>
-    <section class="hp-section">
-      <div class="sec-head">
-        <div class="sec-head__l">
-          <span class="sec-head__bar"></span>
-          <div class="sec-head__titles">
-            <span class="sec-head__kicker">Breaking Stories</span>
-            <h2 class="sec-head__title">News</h2>
-          </div>
-        </div>
-        <a class="sec-head__link" href="<?php echo esc_url( home_url( '/category/news/' ) ); ?>">
-          <span>View all</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </a>
-      </div>
-      <div class="posts-row mt-4">
-        <?php while ( $news_query->have_posts() ) : $news_query->the_post(); ?>
-          <?php get_template_part( 'template-parts/card/card', 'beijing' ); ?>
-        <?php endwhile; wp_reset_postdata(); ?>
-      </div>
-    </section>
-  <?php endif; ?>
-
-  <!-- PROMOTIONS -->
-  <?php
-  $promos_term       = get_term_by( 'slug', 'promotions', 'category' );
-  $promos_review_ids = $promos_term ? ( get_field( 'featured_reviews', $promos_term ) ?: [] ) : [];
-  $promos_posts      = $promos_term ? ( get_field( 'featured_posts',   $promos_term ) ?: [] ) : [];
-  $promos_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $promos_review_ids );
-
-  if ( ! empty( $promos_posts ) ) {
-    $promos_posts = array_diff( $promos_posts, $used_posts );
-  }
-
-  if ( empty( $promos_posts ) ) {
-    $promos_query = new WP_Query( [
-      'post_type'      => 'post',
-      'post_status'    => 'publish',
-      'posts_per_page' => 2,
-      'category_name'  => 'promotions',
-      'post__not_in'   => $used_posts,
-    ] );
-    $promos_posts = wp_list_pluck( $promos_query->posts, 'ID' );
-  }
-
-  $used_posts = array_merge( $used_posts, $promos_posts );
-
-  if ( $promos_rows || $promos_posts ) :
-    get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'Promotions',
-      'kicker'  => 'Claim Your Edge',
-      'link'    => [ 'url' => get_term_link( $promos_term ), 'title' => 'View all', 'target' => '' ],
-      'rows'    => $promos_rows,
-      'posts'   => $promos_posts,
+  if ( $bonus_ids ) :
+    get_template_part( 'template-parts/section/bonus-section', null, [
+      'ids'     => $bonus_ids,
+      'heading' => 'Bonuses',
+      'kicker'  => 'Top Picks',
+      'link'    => home_url( '/bonuses/' ),
     ] );
   endif;
   ?>
@@ -316,12 +242,11 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
   $used_posts       = array_merge( $used_posts, $poker_posts );
 
   if ( $poker_rows ) :
-    get_template_part( 'template-parts/section/topic-section', null, [
+    get_template_part( 'template-parts/section/review-cards-section', null, [
       'heading' => 'Online Poker',
       'kicker'  => 'Cards & Crypto',
       'link'    => [ 'url' => $poker_term ? get_term_link( $poker_term ) : home_url( '/sites/online-poker/' ), 'title' => 'View all', 'target' => '' ],
       'rows'    => $poker_rows,
-      'posts'   => $poker_posts,
     ] );
   endif;
   ?>
