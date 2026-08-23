@@ -46,6 +46,15 @@ $review_thumb_alt = get_post_meta(get_post_thumbnail_id($review_id), '_wp_attach
 $bonus         = $details_group['bonus'];
 $closed        = $details_group['closed']; // nothing or 1
 
+/* Articles Group */
+$articles_group = $fields['articles_group'] ?? [];
+$featured_guides = array_filter([
+  $articles_group['vip_guide'] ?? null,
+  $articles_group['alternative_guide'] ?? null,
+  $articles_group['best_games_guide'] ?? null,
+  $articles_group['who_owns_guide'] ?? null,
+]);
+
 
 
 // Bonus Group
@@ -287,6 +296,31 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
           'review_id' => $review_id,
         ]); ?>
       </div>
+
+      <?php if (!empty($featured_guides)) : ?>
+      <section class="review-featured-guides">
+        <div class="sec-head">
+          <div class="sec-head__l">
+            <span class="sec-head__bar"></span>
+            <div class="sec-head__titles">
+              <h2 class="sec-head__title">Guides for <?php echo esc_html($name); ?></h2>
+            </div>
+          </div>
+        </div>
+        <div class="review-featured-guides__list">
+          <?php
+          global $post;
+          foreach ($featured_guides as $guide_id) :
+            $post = get_post($guide_id);
+            if (!$post) continue;
+            setup_postdata($post);
+            get_template_part('template-parts/card/card', 'guangzhou');
+          endforeach;
+          wp_reset_postdata();
+          ?>
+        </div>
+      </section>
+      <?php endif; ?>
 
       <?php if ($homepageImg) : ?>
         <figure class="homepage-image">

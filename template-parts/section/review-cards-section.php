@@ -10,12 +10,6 @@ if (is_string($link) && $link) {
   $link = ['url' => $link, 'title' => 'View all', 'target' => ''];
 }
 
-$aff_link_map = [];
-foreach ($rows as $row) {
-  if (!empty($row['review'])) {
-    $aff_link_map[$row['review']] = $row['affiliate_link'] ?? '';
-  }
-}
 $post_ids = array_column($rows, 'review');
 
 if (empty($post_ids)) return;
@@ -49,9 +43,7 @@ if (empty($post_ids)) return;
     ]);
     while ($reviews_query->have_posts()) :
       $reviews_query->the_post();
-      get_template_part('template-parts/card/review-card', null, [
-        'aff_link' => $aff_link_map[get_the_ID()] ?? '',
-      ]);
+      get_template_part('template-parts/card/card', 'hong-kong');
     endwhile;
     wp_reset_postdata();
     ?>
