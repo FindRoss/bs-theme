@@ -88,6 +88,47 @@
       )); ?>
     <?php endif; ?>
 
+    <!-- RELATED -->
+    <?php
+      $related_config = [
+        'provider'       => ['field' => 'related_provider', 'heading' => 'Related Providers'],
+        'cryptocurrency' => ['field' => 'related_crypto',    'heading' => 'Related Cryptocurrencies'],
+        'game'           => ['field' => 'related_game',      'heading' => 'Related Games'],
+      ];
+
+      $related_terms   = [];
+      $related_heading = '';
+
+      if (isset($related_config[$taxonomy])) {
+        $related_terms   = get_field($related_config[$taxonomy]['field'], $term) ?: [];
+        $related_heading = $related_config[$taxonomy]['heading'];
+      }
+    ?>
+
+    <?php if (!empty($related_terms)) : ?>
+      <section class="angus-section mt-5">
+        <div class="sec-head">
+          <div class="sec-head__l">
+            <span class="sec-head__bar"></span>
+            <div class="sec-head__titles">
+              <h2 class="sec-head__title"><?php echo esc_html($related_heading); ?></h2>
+            </div>
+          </div>
+        </div>
+        <div class="layout">
+          <?php
+            // card-chongqing.php reads an ambient $term, so stash/restore the
+            // current term around the loop instead of duplicating the card markup.
+            $current_term = $term;
+            foreach ($related_terms as $term) {
+              include locate_template('template-parts/card/card-chongqing.php');
+            }
+            $term = $current_term;
+          ?>
+        </div>
+      </section>
+    <?php endif; ?>
+
     <?php get_template_part('template-parts/section/latest-posts-review', null, array(
       'exclude' => array()
     )); ?>

@@ -16,7 +16,7 @@
       'hide_empty' => true,
       'orderby'    => 'count',
       'order'      => 'DESC',  
-      'number'     => 24,
+      'number'     => 12,
     ]);
   }
 
