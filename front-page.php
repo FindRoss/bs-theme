@@ -21,78 +21,103 @@ $featured_post_args = array(
 );
 $featured_post_query = new WP_Query( $featured_post_args );
 
-// ── Pills grid config ──────────────────────────────────────────────────────
-$pills_per_section = 4;
-
-$pill_sections = array(
-  bs_get_geo_top_sites(),
-  array( 'field' => 'no_kyc_sites',         'title' => 'No-KYC Sites',         'link' => '/anonymous-casinos/' ),
-  array( 'field' => 'instant_payout_sites', 'title' => 'Instant Payout Sites', 'link' => '/instant-withdrawal-crypto-casinos/' ),
-);
 ?>
 
 <?php get_template_part( 'template-parts/section/icon-nav' ); ?>
 
 <div class="container">
 
-  <!-- Review Pills Grid -->
-  <section class="pills-grid">
-    <div class="pills-grid__list">
+  <!-- TOP SITES -->
+  <?php
+  $top_sites = bs_get_geo_top_sites();
+  $top_rows  = array_map( fn( $id ) => [ 'review' => $id ], $top_sites['post_ids'] );
 
-      <?php foreach ( $pill_sections as $section ) :
-        if ( ! empty( $section['post_ids'] ) ) {
-          $post_ids     = $section['post_ids'];
-          $aff_link_map = [];
-        } else {
-          $rows = get_field( $section['field'], 'options' );
-          if ( empty( $rows ) ) continue;
+  if ( $top_rows ) :
+    get_template_part( 'template-parts/section/review-cards-section', null, [
+      'heading' => $top_sites['title'],
+      'kicker'  => "Editor's Choice",
+      'rows'    => $top_rows,
+    ] );
+  endif;
+  ?>
 
-          $rows     = array_slice( $rows, 0, $pills_per_section );
-          $post_ids = array_column( $rows, 'review' );
-          if ( empty( $post_ids ) ) continue;
+  <!-- How We Actually Review These Sites -->
+  <section class="hp-section review-process">
+    <div class="review-process__grid">
 
-          $aff_link_map = [];
-          foreach ( $rows as $row ) {
-            if ( ! empty( $row['review'] ) ) {
-              $aff_link_map[ $row['review'] ] = $row['affiliate_link'] ?? '';
-            }
-          }
-        }
-
-        $section_query = new WP_Query( array(
-          'post_type'      => 'review',
-          'orderby'        => 'post__in',
-          'post__in'       => $post_ids,
-          'posts_per_page' => $pills_per_section,
-        ) );
-
-        if ( ! $section_query->have_posts() ) continue;
-      ?>
-        <div class="pills-box">
-          <header class="pills-box__header">
-            <h2 class="pills-box__title"><?php echo esc_html( $section['title'] ); ?></h2>
-            <?php if ( ! empty( $section['link'] ) ) : ?>
-              <a class="pills-box__link" href="<?php echo esc_url( $section['link'] ); ?>">View all <?php echo get_svg_icon('arrow-right'); ?></a>
-            <?php endif; ?>
-          </header>
-          <?php
-          $rank = 0;
-          while ( $section_query->have_posts() ) :
-            $section_query->the_post();
-            $rank++;
-            get_template_part( 'template-parts/card/review-pill', null, [
-              'rank'     => $rank,
-              'is_top'   => $rank === 1,
-              'aff_link' => $aff_link_map[ get_the_ID() ] ?? '',
-            ] );
-          endwhile;
-          wp_reset_postdata();
-          ?>
+      <div class="review-process__content">
+        <div class="sec-head">
+          <div class="sec-head__l">
+            <span class="sec-head__bar"></span>
+            <div class="sec-head__titles">
+              <span class="sec-head__kicker">Our Standards</span>
+              <h2 class="sec-head__title">How We Review Crypto Gambling Sites</h2>
+            </div>
+          </div>
         </div>
-      <?php endforeach; ?>
+
+        <div class="review-process__body">
+          <p class="review-process__intro">We test every casino and sportsbook ourselves before we write a word about it — signing up, depositing real crypto, chasing down a withdrawal, and sitting in the support queue like any other player. No sponsored scores, no fluff: if licensing is unclear or a bonus buries you in wagering requirements, we say so.</p>
+          <a class="review-process__link" href="<?php echo esc_url( home_url( '/how-we-review/' ) ); ?>">
+            Read our full methodology
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="review-process__badges">
+        <?php
+        $review_process_badges = [
+          '800+ Sites Reviewed',
+          '140+ Crypto Tracked',
+          'Licensing Checked',
+          'Withdrawals Tested',
+          'Support Tested',
+          'Bonus T&Cs Checked',
+        ];
+        foreach ( $review_process_badges as $badge ) :
+        ?>
+          <div class="review-process__badge">
+            <span class="review-process__badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            <?php echo esc_html( $badge ); ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
 
     </div>
   </section>
+
+  <!-- NO-KYC SITES -->
+  <?php
+  $nokyc_rows = get_field( 'no_kyc_sites', 'options' ) ?: [];
+
+  if ( $nokyc_rows ) :
+    get_template_part( 'template-parts/section/review-cards-section', null, [
+      'heading' => 'No-KYC Sites',
+      'kicker'  => 'Play Anonymously',
+      'link'    => [ 'url' => home_url( '/anonymous-casinos/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $nokyc_rows,
+    ] );
+  endif;
+  ?>
+
+  <!-- INSTANT PAYOUT SITES -->
+  <?php
+  $instant_rows = get_field( 'instant_payout_sites', 'options' ) ?: [];
+
+  if ( $instant_rows ) :
+    get_template_part( 'template-parts/section/review-cards-section', null, [
+      'heading' => 'Instant Payout Sites',
+      'kicker'  => 'Fast Withdrawals',
+      'link'    => [ 'url' => home_url( '/instant-withdrawal-crypto-casinos/' ), 'title' => 'View all', 'target' => '' ],
+      'rows'    => $instant_rows,
+    ] );
+  endif;
+  ?>
+
+  
 
   <!-- LATEST -->
   <section class="hp-section">
@@ -183,45 +208,6 @@ if ( $homepage_streamers_query->have_posts() ) : ?>
 <?php endif; ?>
 
 <div class="container">
-
-  <!-- VIP -->
-  <?php
-  $vip_term       = get_term_by( 'slug', 'vip', 'category' );
-  $vip_review_ids = $vip_term ? ( get_field( 'featured_reviews', $vip_term ) ?: [] ) : [];
-  $vip_posts      = $vip_term ? array_diff( get_field( 'featured_posts', $vip_term ) ?: [], $used_posts ) : [];
-  $vip_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $vip_review_ids );
-  $used_posts     = array_merge( $used_posts, $vip_posts );
-
-  if ( $vip_rows ) :
-    get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'VIP Programs',
-      'kicker'  => 'Loyalty & Rewards',  
-      'link'    => [ 'url' => get_term_link( $vip_term ), 'title' => 'View all', 'target' => '' ],
-      'rows'    => $vip_rows,
-      'posts'   => $vip_posts,
-    ] );
-  endif;
-  ?>
-
-  <!-- CRASH SITES -->
-  <?php
-  $crash_term       = get_term_by( 'slug', 'crash', 'game' );
-  $crash_review_ids = $crash_term ? ( get_field( 'featured_reviews', $crash_term ) ?: [] ) : [];
-  $crash_posts      = $crash_term ? array_diff( get_field( 'featured_posts', $crash_term ) ?: [], $used_posts ) : [];
-  $crash_rows       = array_map( fn( $id ) => [ 'review' => $id, 'affiliate_link' => '' ], $crash_review_ids );
-  $used_posts       = array_merge( $used_posts, $crash_posts );
-
-  if ( $crash_rows ) :
-    get_template_part( 'template-parts/section/topic-section', null, [
-      'heading' => 'Crash Sites',
-      'kicker'  => 'To The Moon', 
-      'link'    => [ 'url' => $crash_term ? get_term_link( $crash_term ) : home_url( '/game/crash/' ), 'title' => 'View all', 'target' => '' ],
-      'rows'    => $crash_rows,
-      'posts'   => $crash_posts,
-    ] );
-  endif;
-  ?>
-
   <!-- EDITOR'S PICK -->
   <?php
   $editors_pick_ids = array_diff( get_field( 'articles', 'options' ) ?: [], $used_posts );

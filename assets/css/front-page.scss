@@ -171,6 +171,87 @@
 }
 
 
+// ── How We Actually Review These Sites ─────────────────────────────────────
+
+.review-process__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--size-600);
+  align-items: center;
+
+  @include breakpoint(large) {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-800);
+  }
+}
+
+.review-process__body {
+  margin-top: var(--size-400);
+}
+
+.review-process__intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-muted-500);
+  margin: 0 0 var(--size-300);
+  max-width: 60ch;
+}
+
+.review-process__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary-500);
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    color: var(--color-primary-700);
+  }
+}
+
+.review-process__badges {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.review-process__badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary-700);
+  background: #fff;
+  border-radius: var(--border-radius);
+  padding: 12px 16px;
+}
+
+.review-process__badge-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary-50);
+  color: var(--color-primary-500);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+
 // ── Editor's Pick ─────────────────────────────────────────────────────────────
 
 .ep {
