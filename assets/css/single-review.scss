@@ -756,14 +756,8 @@
     }
   }
 
-  // ── Read more ────────────────────────────────────────────────────────────────
-  .review-read-more {
-    margin-top: 56px;
-
-    // Match the width of .review-layout__main above (container minus the 340px CTA rail + gap)
-    @include breakpoint(large) {
-      max-width: calc(100% - 340px - var(--size-600));
-    }
+  .review-featured-guides {
+    margin-top: var(--size-700);
   }
 
 }

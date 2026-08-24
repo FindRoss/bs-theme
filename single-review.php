@@ -7,21 +7,6 @@ $review_id = get_the_ID();
 $content = array();
 $images = array();
 
-// Post From Same Site Query
-$site_posts_query = new WP_Query(
-   array(
-    'post_type'      => 'post',
-    'posts_per_page' => 5,
-    'meta_query'     => array(
-      array(
-        'key'     => 'post-review-relationship',
-        'value'   => '"' . $review_id . '"',
-        'compare' => 'LIKE'
-      ),
-    ),
-  ),
-);
-
 // More Sites Query
 $topSitesRows = get_field('sites', 'option') ?: [];
 $topSites = array_column( $topSitesRows, 'review' );
@@ -54,6 +39,30 @@ $featured_guides = array_filter([
   $articles_group['best_games_guide'] ?? null,
   $articles_group['who_owns_guide'] ?? null,
 ]);
+
+/* Guides module: curated guides first, then posts tagged as related to this review, deduped and capped */
+$related_post_ids = get_posts(array(
+  'post_type'      => 'post',
+  'posts_per_page' => -1,
+  'fields'         => 'ids',
+  'meta_query'     => array(
+    array(
+      'key'     => 'post-review-relationship',
+      'value'   => '"' . $review_id . '"',
+      'compare' => 'LIKE'
+    ),
+  ),
+));
+$guide_module_ids = array_slice(array_unique(array_merge($featured_guides, $related_post_ids)), 0, 6);
+$guide_module_query = null;
+if (!empty($guide_module_ids)) {
+  $guide_module_query = new WP_Query(array(
+    'post_type'      => 'post',
+    'post__in'       => $guide_module_ids,
+    'orderby'        => 'post__in',
+    'posts_per_page' => count($guide_module_ids),
+  ));
+}
 
 
 
@@ -208,7 +217,7 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
   <!-- Review layout: main content (left) + sticky CTA (right) -->
   <div class="review-layout">
 
-    <div class="review-layout__main">
+    <article class="review-layout__main">
 
       <!-- Header -->
       <header class="review-header">
@@ -297,31 +306,6 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
         ]); ?>
       </div>
 
-      <?php if (!empty($featured_guides)) : ?>
-      <section class="review-featured-guides">
-        <div class="sec-head">
-          <div class="sec-head__l">
-            <span class="sec-head__bar"></span>
-            <div class="sec-head__titles">
-              <h2 class="sec-head__title">Guides for <?php echo esc_html($name); ?></h2>
-            </div>
-          </div>
-        </div>
-        <div class="review-featured-guides__list">
-          <?php
-          global $post;
-          foreach ($featured_guides as $guide_id) :
-            $post = get_post($guide_id);
-            if (!$post) continue;
-            setup_postdata($post);
-            get_template_part('template-parts/card/card', 'guangzhou');
-          endforeach;
-          wp_reset_postdata();
-          ?>
-        </div>
-      </section>
-      <?php endif; ?>
-
       <?php if ($homepageImg) : ?>
         <figure class="homepage-image">
           <a href="<?php echo esc_url($link); ?>" target="_blank" rel="sponsored noopener" aria-label="<?php echo esc_attr('Visit ' . $name . ($bonus ? ' - ' . $bonus : '')); ?>">
@@ -361,12 +345,29 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
         </section>
         <?php } ?>
 
+        <?php if ($guide_module_query) : ?>
+        <section class="review-featured-guides" id="review-end-sentinel">
+          <div class="sec-head">
+            <div class="sec-head__l">
+              <span class="sec-head__bar"></span>
+              <div class="sec-head__titles">
+                <h2 class="sec-head__title"><?php echo esc_html($name); ?> guides</h2>
+              </div>
+            </div>
+          </div>
+          <div class="review-featured-guides__list">
+            <?php while ($guide_module_query->have_posts()) : $guide_module_query->the_post(); ?>
+              <?php get_template_part('template-parts/card/card', 'guangzhou'); ?>
+            <?php endwhile; ?>
+          </div>
+        </section>
+        <?php wp_reset_postdata(); endif; ?>
 
         </main>
       </section>
 
 
-    </div><!-- .review-layout__main -->
+    </article><!-- .review-layout__main -->
 
     <!-- Desktop sticky CTA column — hidden on mobile -->
     <aside class="review-layout__cta" id="rail-cta">
@@ -429,40 +430,26 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 <div class="container"><!-- .container (reopened after streamers band) -->
   <?php endif; ?>
 
-  <?php if ($site_posts_query->have_posts()) : ?>
-  <section class="review-read-more" id="review-end-sentinel">
-    <div class="sec-head">
-      <div class="sec-head__l">
-        <span class="sec-head__bar"></span>
-        <div class="sec-head__titles">
-          <h2 class="sec-head__title">Read more about <?php echo esc_html($name); ?></h2>
-        </div>
-      </div>
-    </div>
-    <div class="review-read-more__grid">
-      <?php while ($site_posts_query->have_posts()) : $site_posts_query->the_post(); ?>
-        <?php get_template_part('template-parts/card/card', 'guangzhou'); ?>
-      <?php endwhile; ?>
-    </div>
-  </section>
-  <?php endif; ?>
-  
   <!-- MORE SITES -->
   <?php
     if ($more_sites->have_posts()) : ?>
-      <section class="section">
-        <?php
-        outputNewSlideHTML(array(
-          'query'   => $more_sites,
-          'heading' => 'Top Sites'
-        ));
-        ?>
-      </section>
+      <aside aria-label="Top sites">
+        <section class="section">
+          <?php
+          outputNewSlideHTML(array(
+            'query'   => $more_sites,
+            'heading' => 'Top Sites'
+          ));
+          ?>
+        </section>
+      </aside>
   <?php endif; ?>
 
-  <?php get_template_part('template-parts/section/latest-posts-review', null, array(
-    'exclude' => array($review_id)
-  )); ?>
+  <aside aria-label="Latest">
+    <?php get_template_part('template-parts/section/latest-posts-review', null, array(
+      'exclude' => array($review_id)
+    )); ?>
+  </aside>
 
 </div><!-- .container -->
 
