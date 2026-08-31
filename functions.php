@@ -267,6 +267,11 @@ require get_theme_file_path('/inc/acf-blocks.php');
  */
 require get_theme_file_path('/inc/bonuses-by-review.php');
 
+/**
+ * Sync provider/cryptocurrency terms from a review onto its linked bonuses
+ */
+require get_theme_file_path('/inc/bonus-taxonomy-sync.php');
+
 
 /**
  * Slider HTML Output

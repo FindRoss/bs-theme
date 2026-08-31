@@ -28,7 +28,7 @@ if (!empty($ids)) {
       'post_type'      => 'bonus',
       'posts_per_page' => 3,
       'tax_query'      => [[
-        'taxonomy' => 'bonus_type',
+        'taxonomy' => $term->taxonomy,
         'field'    => 'term_id',
         'terms'    => $term->term_id,
       ]],
