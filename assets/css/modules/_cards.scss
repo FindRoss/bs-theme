@@ -1365,7 +1365,7 @@ section.articles-box {
     gap: var(--size-200);
     padding: var(--size-400);
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       flex-direction: row;
       align-items: center;
       text-align: left;
@@ -1389,6 +1389,7 @@ section.articles-box {
         width: 90px;
         height: auto;
         border: none;
+        margin-top: 0px;
       }
     }
   }
@@ -1400,7 +1401,7 @@ section.articles-box {
     align-items: center;
     gap: var(--size-100);
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       width: 180px;
       align-items: flex-start;
     }
@@ -1421,7 +1422,7 @@ section.articles-box {
     gap: var(--size-100);
     margin-top: var(--size-400);
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       margin-top: 0;
     }
   }
@@ -1449,10 +1450,10 @@ section.articles-box {
   &__code {
     display: flex;
     align-items: center;
+    justify-content: center;
 
-    @include breakpoint(medium) {
-      flex-shrink: 0;
-      justify-content: center;
+    @include breakpoint(large) {
+      justify-content: flex-start;
     }
 
     .bonus-code {
@@ -1508,7 +1509,7 @@ section.articles-box {
     align-items: center;
     flex-wrap: wrap;
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
       flex-direction: column;
       flex-shrink: 0;
       width: 160px;

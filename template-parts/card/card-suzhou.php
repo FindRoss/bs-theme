@@ -63,21 +63,21 @@
     <?php if ($plus) : ?>
       <div class="card-suzhou__bonus-plus"><?php echo esc_html($plus); ?></div>
     <?php endif; ?>
-  </div>
 
-  <?php if ($code) : ?>
-  <div class="card-suzhou__code">
-    <button class="bonus-code" type="button" aria-label="Copy bonus code to clipboard">
-      <span class="bonus-code__label">Code</span>
-      <span class="bonus-code__code"><?php echo esc_html($code); ?></span>
-      <span class="bonus-code__icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-        </svg>
-      </span>
-    </button>
+    <?php if ($code) : ?>
+    <div class="card-suzhou__code">
+      <button class="bonus-code" type="button" aria-label="Copy bonus code to clipboard">
+        <span class="bonus-code__label">Code</span>
+        <span class="bonus-code__code"><?php echo esc_html($code); ?></span>
+        <span class="bonus-code__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+    <?php endif; ?>
   </div>
-  <?php endif; ?>
 
   <div class="card-suzhou__ctas">
     <a href="<?php echo esc_url(get_permalink($bonus_id)); ?>" class="button button__outline" aria-label="View <?php echo esc_attr($siteName); ?> bonus">Learn more</a>
