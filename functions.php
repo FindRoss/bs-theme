@@ -279,6 +279,11 @@ require get_theme_file_path('/inc/swiper.php');
 require get_theme_file_path('/inc/taxonomy-query.php');
 
 /**
+ * Track which user last saved a taxonomy term's ACF fields
+ */
+require get_theme_file_path('/inc/term-author-tracking.php');
+
+/**
  * Render Filter Overlay
  */
 require get_theme_file_path('/inc/render-filter-overlay.php');

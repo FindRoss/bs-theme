@@ -12,6 +12,9 @@
   $icon    = get_field('icon', $term);
   $hasIcon = $icon && is_array($icon);
 
+  $term_updated_by = get_term_meta($term_id, '_bs_term_updated_by', true);
+  $term_updated_at = get_term_meta($term_id, '_bs_term_updated_at', true);
+
   $query = build_taxonomy_main_query( $term, $paged );
   
   if ($acf_heading !== '') {
@@ -37,6 +40,13 @@
 <div class="container">
   <header class="taxonomy-header">
     <h1><?php echo esc_html($title_output); ?></h1>
+
+    <?php if ($term_updated_by) : ?>
+      <?php get_template_part('template-parts/content/content-author', null, [
+        'author_id'  => (int) $term_updated_by,
+        'updated_at' => $term_updated_at,
+      ]); ?>
+    <?php endif; ?>
 
     <?php if (term_description()) { ?>
       <div class="taxonomy-header__description main--content">
