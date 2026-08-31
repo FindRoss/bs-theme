@@ -31,6 +31,9 @@ $merged_bonuses = array_merge($featured_bonuses, $additional_bonuses);
 $icon    = get_field('icon', $term);
 $hasIcon = $icon && is_array($icon);
 
+$term_updated_by = get_term_meta($term_id, '_bs_term_updated_by', true);
+$term_updated_at = get_term_meta($term_id, '_bs_term_updated_at', true);
+
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
 if (empty($merged_bonuses)) {
@@ -67,6 +70,13 @@ switch($term_name) {
     <!-- INTRODUCTION -->
     <header class="taxonomy-header">
       <h1><?php echo esc_html($title_output); ?></h1>
+
+      <?php if ($term_updated_by) : ?>
+        <?php get_template_part('template-parts/content/content-author', null, [
+          'author_id'  => (int) $term_updated_by,
+          'updated_at' => $term_updated_at,
+        ]); ?>
+      <?php endif; ?>
 
       <?php if (term_description($term)) { ?>
         <div class="taxonomy-header__description main--content"><?php echo term_description($term); ?></div>

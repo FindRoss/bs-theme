@@ -16,6 +16,9 @@ if ($icon && is_array($icon)) {
   $hasIcon = false;
 }
 
+$term_updated_by = get_term_meta($term_id, '_bs_term_updated_by', true);
+$term_updated_at = get_term_meta($term_id, '_bs_term_updated_at', true);
+
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 $query = build_taxonomy_main_query( $term, $paged );
 ?>
@@ -26,6 +29,13 @@ $query = build_taxonomy_main_query( $term, $paged );
   <header class="taxonomy-header">
     <?php $acf_heading = trim((string) get_field('heading', $term)); ?>
     <h1><?php echo $acf_heading !== '' ? esc_html($acf_heading) : 'Crypto ' . esc_html($term_name); ?></h1>
+
+    <?php if ($term_updated_by) : ?>
+      <?php get_template_part('template-parts/content/content-author', null, [
+        'author_id'  => (int) $term_updated_by,
+        'updated_at' => $term_updated_at,
+      ]); ?>
+    <?php endif; ?>
 
     <?php
       if (term_description()) {
@@ -38,13 +48,8 @@ $query = build_taxonomy_main_query( $term, $paged );
 
     <?php
     $icon_menu_items = get_field('icon_menu', $term);
-    echo gettype($icon_menu_items); 
 
     if ($icon_menu_items) :
-
-      print_r($icon_menu_items);
-
-    
     ?>
     <div class="taxonomy-header__icon-menu">
       <?php
