@@ -267,6 +267,11 @@ require get_theme_file_path('/inc/acf-blocks.php');
  */
 require get_theme_file_path('/inc/bonuses-by-review.php');
 
+/**
+ * Sync provider/cryptocurrency terms from a review onto its linked bonuses
+ */
+require get_theme_file_path('/inc/bonus-taxonomy-sync.php');
+
 
 /**
  * Slider HTML Output
@@ -277,6 +282,11 @@ require get_theme_file_path('/inc/swiper.php');
  * Slider HTML Output
  */
 require get_theme_file_path('/inc/taxonomy-query.php');
+
+/**
+ * Track which user last saved a taxonomy term's ACF fields
+ */
+require get_theme_file_path('/inc/term-author-tracking.php');
 
 /**
  * Render Filter Overlay

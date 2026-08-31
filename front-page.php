@@ -57,34 +57,35 @@ $featured_post_query = new WP_Query( $featured_post_args );
         </div>
 
         <div class="review-process__body">
-          <p class="review-process__intro">We test every casino and sportsbook ourselves before we write a word about it — signing up, depositing real crypto, chasing down a withdrawal, and sitting in the support queue like any other player. No sponsored scores, no fluff: if licensing is unclear or a bonus buries you in wagering requirements, we say so.</p>
-          <a class="review-process__link" href="<?php echo esc_url( home_url( '/how-we-review/' ) ); ?>">
-            Read our full methodology
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </a>
+          <p class="review-process__intro">We test every casino and sportsbook ourselves — signing up, depositing real crypto, and chasing down a withdrawal like any other player. No sponsored scores: if licensing is unclear or a bonus buries you in wagering requirements, we say so.</p>
         </div>
       </div>
 
       <div class="review-process__badges">
         <?php
         $review_process_badges = [
-          '800+ Sites Reviewed',
-          '140+ Crypto Tracked',
-          'Licensing Checked',
-          'Withdrawals Tested',
-          'Support Tested',
-          'Bonus T&Cs Checked',
+          '800+ Sites Reviewed'  => '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+          '140+ Crypto Tracked'  => '<circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/>',
+          'Licensing Checked'    => '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+          'Withdrawals Tested'   => '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>',
+          'Support Tested'       => '<path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1v-6a9 9 0 0 1 18 0v6a1 1 0 0 1-1 1h-2a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>',
+          'Bonus T&Cs Checked'   => '<path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m3 15 2 2 4-4"/>',
         ];
-        foreach ( $review_process_badges as $badge ) :
+        foreach ( $review_process_badges as $badge => $icon_svg ) :
         ?>
           <div class="review-process__badge">
             <span class="review-process__badge-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><?php echo $icon_svg; ?></svg>
             </span>
             <?php echo esc_html( $badge ); ?>
           </div>
         <?php endforeach; ?>
       </div>
+
+      <a class="review-process__link" href="<?php echo esc_url( home_url( '/how-we-review/' ) ); ?>">
+        Read our full methodology
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
 
     </div>
   </section>
