@@ -101,9 +101,9 @@
     <!-- RELATED -->
     <?php
       $related_config = [
-        'provider'       => ['field' => 'related_provider', 'heading' => 'Related Providers'],
-        'cryptocurrency' => ['field' => 'related_crypto',    'heading' => 'Related Cryptocurrencies'],
-        'game'           => ['field' => 'related_game',      'heading' => 'Related Games'],
+        'provider'       => ['field' => 'related_provider', 'heading' => 'Providers Like ' . $term_name],
+        'cryptocurrency' => ['field' => 'related_crypto',    'heading' => 'Cryptocurrency Like ' . $term_name],
+        'game'           => ['field' => 'related_game',      'heading' => 'Games Like ' . $term_name],
       ];
 
       $related_terms   = [];
