@@ -162,12 +162,8 @@ if (!have_rows('flexible_content', $acf_context)) return;
 
   <?php if (get_row_layout() === 'bonus_list') : ?>
     <?php
-      $bl_term_id  = get_sub_field('bonus_list_type_crypto') ?: get_sub_field('bonus_list_type_providers');
-      $bl_term_obj = $bl_term_id ? get_term((int) $bl_term_id) : null;
-      if ((!$bl_term_obj || is_wp_error($bl_term_obj)) && get_queried_object() instanceof WP_Term) {
-        $bl_term_obj = get_queried_object();
-      }
-      if ($bl_term_obj && !is_wp_error($bl_term_obj)) :
+      $bl_term_obj = get_queried_object() instanceof WP_Term ? get_queried_object() : null;
+      if ($bl_term_obj) :
         $bl_count = get_sub_field('bonus_list_count') ?: 6;
     ?>
       <?php get_template_part('template-parts/section/bonus-list', null, [

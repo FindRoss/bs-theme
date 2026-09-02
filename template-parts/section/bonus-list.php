@@ -22,19 +22,21 @@ $additional_bonuses = is_array($additional_bonuses) ? $additional_bonuses : [];
 
 $bonus_ids = array_slice(array_merge($featured_bonuses, $additional_bonuses), 0, $count);
 
-if (empty($bonus_ids)) return;
-
-$query = new WP_Query([
+$query = !empty($bonus_ids) ? new WP_Query([
   'post_type'      => 'bonus',
   'posts_per_page' => $count,
   'post__in'       => $bonus_ids,
   'orderby'        => 'post__in',
-]);
-
-if (!$query->have_posts()) { wp_reset_postdata(); return; }
+]) : null;
 ?>
-<div class="bonus-list flex flex-col gap-3">
-  <?php while ($query->have_posts()) : $query->the_post(); ?>
-    <?php get_template_part('template-parts/card/card', 'suzhou'); ?>
-  <?php endwhile; wp_reset_postdata(); ?>
-</div>
+<?php if ($query && $query->have_posts()) : ?>
+  <div class="bonus-list flex flex-col gap-3">
+    <?php while ($query->have_posts()) : $query->the_post(); ?>
+      <?php get_template_part('template-parts/card/card', 'suzhou'); ?>
+    <?php endwhile; wp_reset_postdata(); ?>
+  </div>
+<?php else : ?>
+  <div class="alert alert-info mt-3 mb-3 p-4 border rounded" style="border-color: var(--color-info-300); background-color: var(--color-info-50, #f0f7ff);">
+    <p class="m-0">No bonuses available currently.</p>
+  </div>
+<?php endif; ?>
