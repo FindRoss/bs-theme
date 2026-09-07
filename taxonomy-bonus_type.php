@@ -120,6 +120,12 @@ switch($term_name) {
         <?php $main_content = get_field('main_content', $term); ?>
 
         <div class="main--content">
+          <!-- Flexible Content -->
+          <?php get_template_part('template-parts/content/flexible-content', null, [
+            'post_id' => $term_id,
+            'type'    => 'term',
+          ]); ?>
+
           <?php echo $main_content; ?>
           <!-- FAQS -->
           <?php if (get_field('faqs', $term)) { get_template_part( 'template-parts/content/content', 'faqs' ); }; ?>

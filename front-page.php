@@ -57,7 +57,7 @@ $featured_post_query = new WP_Query( $featured_post_args );
         </div>
 
         <div class="review-process__body">
-          <p class="review-process__intro">We test every casino and sportsbook ourselves — signing up, depositing real crypto, and chasing down a withdrawal like any other player. No sponsored scores: if licensing is unclear or a bonus buries you in wagering requirements, we say so.</p>
+          <p class="review-process__intro">We test every casino and sportsbook ourselves: going through sign-up and KYC, checking game providers and payment options, and seeing how support actually responds when we ask for help. When licensing is murky or a bonus comes with brutal wagering requirements, we call it out.</p>
         </div>
       </div>
 

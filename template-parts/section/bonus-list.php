@@ -4,8 +4,12 @@ $count = intval($args['count'] ?? 6);
 
 if (!$term) return;
 
-$featured_bonuses = get_field('featured_bonuses', $term);
-$featured_bonuses = is_array($featured_bonuses) ? $featured_bonuses : [];
+$options_bonuses = get_field('bonuses', 'options');
+$options_bonuses = is_array($options_bonuses) ? $options_bonuses : [];
+
+$featured_bonuses = array_values(array_filter($options_bonuses, function ($bonus_id) use ($term) {
+  return has_term($term->term_id, $term->taxonomy, $bonus_id);
+}));
 
 $additional_bonuses = get_posts([
   'post_type'      => 'bonus',
