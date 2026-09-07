@@ -1,6 +1,7 @@
 <?php
 
-$heading      = $args['heading'] ?? null;
+$heading       = $args['heading'] ?? null;
+$heading_level = $args['heading_level'] ?? 'h2';
 $image        = $args['image'] ?? null;
 $content      = $args['content'] ?? null;
 $repeater     = $args['repeater'] ?? [];
@@ -30,7 +31,7 @@ if ($site_ids) {
 <div class="game-info">
 
   <?php if ( $heading ) : ?>
-    <h2 class="game-info__heading"><?php echo esc_html($heading); ?></h2>
+    <<?php echo esc_attr($heading_level); ?> class="game-info__heading"><?php echo esc_html($heading); ?></<?php echo esc_attr($heading_level); ?>>
   <?php endif; ?>
 
   <div class="game-info__top<?php echo $is_landscape ? ' game-info__top--landscape' : ''; ?>">
