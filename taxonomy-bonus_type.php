@@ -48,18 +48,22 @@ if (empty($merged_bonuses)) {
   ));
 };
 
-$title_output = '';
-switch($term_name) {
-  case 'Crypto': 
-    $title_output = 'Crypto Casino Bonuses';
-    break;
-  case 'Bitcoin':
-    $title_output = 'Bitcoin Casino Bonuses';
-    break;
-  default: 
-    $title_output = $term_name . ' Bonuses';
-};
-
+$title_overrides = [
+    'bitcoin'     => 'Bitcoin Casino Bonuses',       
+    'crypto'      => 'Crypto Casino Bonuses',
+    'welcome'     => 'Bitcoin Welcome Bonuses',       
+    'high-roller' => 'Bitcoin High Roller Bonuses',    
+    'sports'      => 'Bitcoin Sports Betting Bonuses', 
+    'cashback'    => 'Crypto Cashback Bonuses',        
+    'bonus-codes' => 'Crypto Bonus Codes',             
+    'rakeback'    => 'Crypto Rakeback',                
+    'free-spins'  => 'Crypto Free Spins Bonuses',      
+    'esports'     => 'Esports Betting Bonuses',
+    'deposit'     => 'Bitcoin Deposit Bonuses',
+    'reload'      => 'Bitcoin Reload Bonuses',
+    'wager-free'  => 'Crypto Wager-Free Bonuses'
+];
+$title_output = $title_overrides[$term_slug] ?? $term_name . ' Bonuses';
 
 ?>
 
