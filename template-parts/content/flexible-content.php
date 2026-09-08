@@ -223,7 +223,14 @@ if (!have_rows('flexible_content', $acf_context)) return;
   <?php if (get_row_layout() === 'image') : ?>
     <?php $image = get_sub_field('image'); ?>
     <?php if ($image) : ?>
-      <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" width="<?php echo esc_attr($image['width']); ?>" height="<?php echo esc_attr($image['height']); ?>">
+      <?php if ($image['caption']) : ?>
+        <figure class="wp-block-image">
+          <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" width="<?php echo esc_attr($image['width']); ?>" height="<?php echo esc_attr($image['height']); ?>">
+          <figcaption><?php echo wp_kses_post($image['caption']); ?></figcaption>
+        </figure>
+      <?php else : ?>
+        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" width="<?php echo esc_attr($image['width']); ?>" height="<?php echo esc_attr($image['height']); ?>">
+      <?php endif; ?>
     <?php endif; ?>
   <?php endif; ?>
 
