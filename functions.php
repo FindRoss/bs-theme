@@ -10,17 +10,22 @@ function themebs_enqueue_styles() {
   // it as a stylesheet was a wasted render-blocking request. The file still
   // exists on disk for WP's theme identification.
 
-	$post_type = get_post_type();
-  
-  if ($post_type === 'bonus') {
+	// Use is_singular() rather than a bare get_post_type() here - WordPress
+	// sets the global $post to the first result of ANY main query
+	// (wp-includes/class-wp.php's $GLOBALS['post'] = $wp_query->post),
+	// including archives. On a taxonomy archive, get_post_type() would
+	// silently return the post type of whichever post happens to be first
+	// in that archive's results, not "are we viewing a single post of this
+	// type" - is_singular() checks the latter correctly.
+	if ( is_singular( 'bonus' ) ) {
     wp_enqueue_style( 'single-bonus-styles', get_template_directory_uri() . '/build/single-bonus.css', array(), wp_get_theme()->get('Version'));
   }
-  
-  if ($post_type === 'review' ) {
+
+  if ( is_singular( 'review' ) ) {
     wp_enqueue_style( 'single-review-styles', get_template_directory_uri() . '/build/single-review.css', array(), wp_get_theme()->get('Version'));
   }
-  
-  if ($post_type === 'streamer' OR $post_type === 'profile') {
+
+  if ( is_singular( array( 'streamer', 'profile' ) ) ) {
     wp_enqueue_style( 'streamer-styles', get_template_directory_uri() . '/build/single-streamer.css', array(), wp_get_theme()->get('Version'));
   }
 
@@ -44,11 +49,11 @@ function themebs_enqueue_styles() {
     wp_enqueue_style( 'author-styles', get_template_directory_uri() . '/build/author.css', array(), wp_get_theme()->get('Version'));
   }
 
-	if ($post_type === 'review' || $post_type === 'post' || $post_type === 'page') {
+	if ( is_singular( array( 'review', 'post', 'page' ) ) ) {
     wp_enqueue_style( 'heading-toggle-styles', get_template_directory_uri() . '/build/heading-toggle.css', array(), wp_get_theme()->get('Version'));
   }
 
-	if ($post_type === 'review' || $post_type === 'post' || $post_type === 'bonus') {
+	if ( is_singular( array( 'review', 'post', 'bonus' ) ) ) {
     wp_enqueue_style( 'message-styles', get_template_directory_uri() . '/build/message.css', array(), wp_get_theme()->get('Version'));
   }
 
