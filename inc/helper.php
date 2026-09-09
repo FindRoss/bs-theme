@@ -43,6 +43,39 @@ function get_review_faqs($id = null) {
 };
 
 /**
+ * Get the flexible_content row layouts present on the current taxonomy
+ * term or page, so callers (e.g. conditional style/script enqueues) can
+ * check whether a given layout will actually render without duplicating
+ * the loop in template-parts/content/flexible-content.php.
+ */
+function bs_theme_current_flexible_content_layouts() {
+  static $layouts = null;
+  if ( $layouts !== null ) {
+    return $layouts;
+  }
+  $layouts = array();
+
+  if ( is_tax() ) {
+    $acf_context = get_queried_object();
+  } elseif ( is_page() ) {
+    $acf_context = get_queried_object_id();
+  } else {
+    return $layouts;
+  }
+
+  if ( ! $acf_context || ! function_exists( 'have_rows' ) || ! have_rows( 'flexible_content', $acf_context ) ) {
+    return $layouts;
+  }
+
+  while ( have_rows( 'flexible_content', $acf_context ) ) {
+    the_row();
+    $layouts[] = get_row_layout();
+  }
+
+  return $layouts;
+}
+
+/**
  * Calculate the weighted Trust Score (0-100) for a review.
  * Single source of truth for the visible template and schema markup.
  */

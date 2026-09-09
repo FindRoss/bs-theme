@@ -222,7 +222,13 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
       <!-- Header -->
       <header class="review-header">
         <div class="review-header__logo"<?php if ($theme_color) echo ' style="background-color: ' . esc_attr($theme_color) . '"'; ?>>
-          <img src="<?php echo get_the_post_thumbnail_url(); ?>" class="exclude-lazyload" alt="<?php echo esc_attr($review_thumb_alt); ?>" width="500" height="250" fetchpriority="high">
+          <?php echo wp_get_attachment_image( get_post_thumbnail_id(), 'medium', false, array(
+            'class'         => 'exclude-lazyload',
+            'alt'           => $review_thumb_alt,
+            'width'         => '500',
+            'height'        => '250',
+            'fetchpriority' => 'high',
+          ) ); ?>
         </div>
         <div class="review-header__info">
           <h1><?php echo $name; ?> Review</h1>

@@ -3,9 +3,12 @@
 function themebs_enqueue_styles() {
 
 	wp_enqueue_style( 'tailwind-styles', get_template_directory_uri() . '/build/tailwind.css', array(), wp_get_theme()->get('Version'));
-  wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style-index.css', array(), wp_get_theme()->get('Version'));
+  wp_enqueue_style( 'build-styles', get_template_directory_uri() . '/build/style.css', array(), wp_get_theme()->get('Version'));
   wp_enqueue_style( 'index-styles', get_template_directory_uri() . '/build/index.css', array(), wp_get_theme()->get('Version'));
-  wp_enqueue_style( 'core', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get('Version'));
+  // Note: theme root style.css intentionally NOT enqueued here - it only
+  // contains the WordPress theme-header comment (no CSS rules), so loading
+  // it as a stylesheet was a wasted render-blocking request. The file still
+  // exists on disk for WP's theme identification.
 
 	$post_type = get_post_type();
   
@@ -65,13 +68,35 @@ function themebs_enqueue_styles() {
     wp_enqueue_style( 'taxonomy-az-index-styles', get_template_directory_uri() . '/build/taxonomy-az-index.css', array(), wp_get_theme()->get('Version'));
   }
 
-  if (is_tax() || is_page()) {
-    wp_enqueue_style('review-info-styles',      get_template_directory_uri() . '/blocks/review-info/review-info.css', array(), wp_get_theme()->get('Version'));
+  // These 5 are ACF blocks, but in practice they're almost never inserted
+  // as blocks - they render via the flexible_content field on taxonomy
+  // terms (template-parts/content/flexible-content.php). Only enqueue when
+  // the current term's flexible content actually contains that layout.
+  // (If one is ever inserted as an actual block instead, ACF/WP already
+  // auto-enqueue its style via acf_register_block_type()'s 'enqueue_style'
+  // param / block.json's "style" field - no manual check needed here.)
+  $flexible_layouts = bs_theme_current_flexible_content_layouts();
+
+  if ( in_array( 'review_info', $flexible_layouts, true ) ) {
+    wp_enqueue_style('review-info-styles', get_template_directory_uri() . '/blocks/review-info/review-info.css', array(), wp_get_theme()->get('Version'));
+  }
+  if ( in_array( 'review_pros_cons', $flexible_layouts, true ) ) {
     wp_enqueue_style('review-pros-cons-styles', get_template_directory_uri() . '/blocks/review-pros-cons/review-pros-cons-main.css', array(), wp_get_theme()->get('Version'));
-    wp_enqueue_style('review-cta-styles',       get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css', array(), wp_get_theme()->get('Version'));
-    wp_enqueue_style('review-bonus-styles',     get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css', array(), wp_get_theme()->get('Version'));
-    wp_enqueue_style('game-info-styles',        get_template_directory_uri() . '/blocks/game-info/game-info-main.css', array(), wp_get_theme()->get('Version'));
-    wp_enqueue_style('us-map-styles',           get_template_directory_uri() . '/template-parts/section/us-map/us-map-main.css', array(), wp_get_theme()->get('Version'));
+  }
+  if ( in_array( 'review_cta', $flexible_layouts, true ) ) {
+    wp_enqueue_style('review-cta-styles', get_template_directory_uri() . '/blocks/review-cta/review-cta-main.css', array(), wp_get_theme()->get('Version'));
+  }
+  if ( in_array( 'review_bonus', $flexible_layouts, true ) ) {
+    wp_enqueue_style('review-bonus-styles', get_template_directory_uri() . '/blocks/review-bonus/review-bonus.css', array(), wp_get_theme()->get('Version'));
+  }
+  if ( in_array( 'game_info', $flexible_layouts, true ) ) {
+    wp_enqueue_style('game-info-styles', get_template_directory_uri() . '/blocks/game-info/game-info-main.css', array(), wp_get_theme()->get('Version'));
+  }
+
+  // us-map isn't a block - it only renders on the country taxonomy for the
+  // US term and its state/city descendants (bs_theme_is_us_map_term()).
+  if ( is_tax() && bs_theme_is_us_map_term( get_queried_object() ) ) {
+    wp_enqueue_style('us-map-styles', get_template_directory_uri() . '/template-parts/section/us-map/us-map-main.css', array(), wp_get_theme()->get('Version'));
   }
 }
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_styles');
@@ -155,6 +180,48 @@ function themebs_enqueue_scripts() {
 
 };
 add_action( 'wp_enqueue_scripts', 'themebs_enqueue_scripts');
+
+// hreflang-manager's log-style.css only styles a debug overlay gated to
+// admins with the "show log" option enabled, but the plugin enqueues it
+// on every front-end request. Dequeue it for everyone else to cut a
+// render-blocking request that never renders anything.
+function themebs_dequeue_hreflang_log_style() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_dequeue_style( 'da_hm_log_style' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'themebs_dequeue_hreflang_log_style', 100 );
+
+// Load non-critical, below-the-fold plugin stylesheets asynchronously so
+// they don't block first paint (loadCSS pattern: media=print swapped to
+// all on load, with a <noscript> fallback for no-JS visitors).
+function themebs_defer_noncritical_styles( $html, $handle ) {
+	$deferred_handles = array(
+		'cookie-consent-client-style',
+		'geot-css',
+		'heading-toggle-styles',
+		'message-styles',
+		'review-cta-styles',
+		'review-bonus-styles',
+		'game-info-styles',
+		'us-map-styles',
+		'review-pros-cons-styles',
+		'review-info-styles',
+	);
+
+	if ( ! in_array( $handle, $deferred_handles, true ) ) {
+		return $html;
+	}
+
+	$deferred = preg_replace(
+		"/media=['\"]all['\"]/",
+		"media='print' onload=\"this.media='all'\"",
+		$html
+	);
+
+	return $deferred . '<noscript>' . $html . '</noscript>';
+}
+add_filter( 'style_loader_tag', 'themebs_defer_noncritical_styles', 10, 2 );
 
 // Enqueue admin script on admin pages for 'review' post type
 function themebs_enqueue_admin_script($hook) {
