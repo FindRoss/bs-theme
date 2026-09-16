@@ -280,6 +280,15 @@ iframe {
   justify-content: center;
   align-items: center;
 
+  // Reserve space for the ad creative before it loads, so it doesn't
+  // shift the sidebar content below it once it appears (CLS). Matches
+  // the 300x600 unit currently served here - update if that ad size
+  // changes. &.sidebar__widget matches the actual markup, where both
+  // classes are on the same <section> (see sidebar.php).
+  &.sidebar__widget {
+    min-height: 600px;
+  }
+
   img {
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);

@@ -237,8 +237,20 @@ class BS_RG_Icons_Walker extends Walker_Nav_Menu {
             return;
         }
 
-        $alt     = esc_attr( $img['alt'] ?: $title );
-        $img_tag = '<img src="' . $src . '" alt="' . $alt . '" style="height:30px;width:auto;display:block;">';
+        $alt = esc_attr( $img['alt'] ?: $title );
+
+        // Reserve the image's actual box before it loads (CLS): compute the
+        // width the browser will display at a fixed 30px height, using the
+        // real image dimensions ACF returns, and set it as an HTML attribute
+        // (width:auto in the style alone doesn't reserve space - the browser
+        // can't know the aspect ratio until the file downloads).
+        $display_height = 30;
+        $display_width  = $display_height;
+        if ( ! empty( $img['width'] ) && ! empty( $img['height'] ) ) {
+            $display_width = (int) round( $img['width'] * ( $display_height / $img['height'] ) );
+        }
+
+        $img_tag = '<img src="' . $src . '" alt="' . $alt . '" width="' . $display_width . '" height="' . $display_height . '" style="height:30px;width:auto;display:block;">';
 
         if ( $url && $url !== '#' ) {
             $output .= '<a href="' . $url . '" target="_blank" rel="noopener noreferrer" aria-label="' . $title . '">' . $img_tag . '</a>';
