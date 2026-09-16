@@ -77,16 +77,6 @@ export function singleReview() {
     }
   }
 
-  // Rail CTA — hide while the hero CTA is visible in the header
-  const heroCta = document.getElementById('hero-cta');
-  const railCta = document.getElementById('rail-cta');
-  if (heroCta && railCta) {
-    new IntersectionObserver(
-      ([entry]) => railCta.classList.toggle('is-hidden', entry.isIntersecting),
-      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
-    ).observe(heroCta);
-  }
-
   // Trust index info tooltips
   const infoBtns = document.querySelectorAll('.review-trust-index__info-btn');
   infoBtns.forEach(btn => {

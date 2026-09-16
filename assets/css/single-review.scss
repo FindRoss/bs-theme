@@ -157,8 +157,57 @@
     }
   }
 
+  // Bonus code pill — dashed border, floating CODE label (shared: rail CTA, mobile CTA)
+  .rail-cta,
+  .cta-box {
+    .bonus-code {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1px dashed var(--color-muted-300);
+      border-radius: var(--border-radius);
+      padding: 8px 10px 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-muted-500);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
 
-  // Header: logo + title (+ hero CTA on large)
+      &:hover {
+        border-color: var(--color-primary-400);
+        color: var(--color-primary-600);
+
+        .bonus-code__label { color: var(--color-primary-500); }
+      }
+
+      svg { flex-shrink: 0; opacity: 0.7; }
+    }
+
+    .bonus-code__label {
+      position: absolute;
+      top: -8px;
+      left: 8px;
+      background-color: var(--color-primary-50);
+      padding: 0 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--color-muted-400);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+  }
+
+  .rail-cta .bonus-code,
+  .cta-box .bonus-code {
+    margin: 8px 0;
+  }
+
+
+  // Header: logo + title
   .review-header {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -200,22 +249,6 @@
       .main--published {
         margin-top: var(--size-200);
       }
-    }
-
-    &__hero-cta {
-      display: none;
-    }
-  }
-
-  .hero-cta {
-    &__kicker {
-      font-size: 10.5px; color: var(--color-primary-600);
-      letter-spacing: .12em; font-weight: 700; text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    &__line {
-      font-size: 14px; color: var(--color-muted-900);
-      font-weight: 700; margin: 0 0 10px;
     }
   }
 
@@ -770,7 +803,6 @@
   bottom: 0;
   z-index: 500;
   background: var(--color-primary-50);
-  padding: 0.5rem 0;
   transform: translateY(110%);
   transition: transform 0.25s ease;
 
@@ -782,22 +814,83 @@
     transform: translateY(0);
   }
 
+  // full-bleed code strip above the bar
+  .bonus-code--strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
+    padding: 5px 1rem;
+    border: 0;
+    border-radius: 0;
+    background: var(--color-primary-100);
+    font-family: var(--font-family-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-primary-700);
+    cursor: pointer;
+
+    &:hover,
+    &.copied {
+      background: var(--color-primary-200);
+    }
+
+    .bonus-code__label {
+      position: static; // overrides the floating label used by the pill variant
+      padding: 0;
+      background: none;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary-600);
+      flex-shrink: 0;
+    }
+
+    .bonus-code__code {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bonus-code__icon {
+      display: flex;
+      flex-shrink: 0;
+      opacity: 0.75;
+    }
+  }
+
   &__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--size-400);
+    gap: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
   &__info {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 700;
+    line-height: 1.25;
     color: var(--color-muted-900);
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .button {
     white-space: nowrap;
     flex-shrink: 0;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 700;
   }
 }
 

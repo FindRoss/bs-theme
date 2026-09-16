@@ -71,6 +71,7 @@ $bonus_group = $fields['bonus_group'] ?? null;
 $bonus_title = $bonus_group['bonus_title'] ?? null;
 $bonus_info  = $bonus_group['bonus'] ?? null;
 $bonus_plus  = $bonus_group['bonus_plus'] ?? null;
+$bonus_code  = $bonus_group['bonus_code'] ?? null;
 
 /* Media Group */
 $media        = $fields['media_group'];
@@ -234,17 +235,6 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
           <h1><?php echo $name; ?> Review</h1>
           <?php get_template_part('template-parts/content/content-author'); ?>
         </div>
-        <?php if (!$closed && $link) : ?>
-        <aside class="review-header__hero-cta" id="hero-cta">
-          <?php if ($bonus_title) : ?>
-            <div class="hero-cta__kicker"><?php echo esc_html($bonus_title); ?></div>
-          <?php endif; ?>
-          <?php if ($bonus_info) : ?>
-            <div class="hero-cta__line"><?php echo esc_html($bonus_info); ?><?php echo $bonus_plus ? ' ' . esc_html($bonus_plus) : ''; ?></div>
-          <?php endif; ?>
-          <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
-        </aside>
-        <?php endif; ?>
       </header>
 
       <!-- Mobile CTA — shown below header on mobile, hidden on desktop -->
@@ -260,6 +250,21 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
               <?php if ($bonus_plus) { ?><span class="cta-box__plus"><?php echo esc_html($bonus_plus); ?></span><?php } ?>
             </p>
           <?php } ?>
+          <?php if ($bonus_info) : ?>
+            <?php if ($bonus_code) : ?>
+              <button class="bonus-code" type="button" aria-label="Copy bonus code to clipboard">
+                <span class="bonus-code__label">CODE</span>
+                <span class="bonus-code__code"><?php echo esc_html($bonus_code); ?></span>
+                <span class="bonus-code__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                  </svg>
+                </span>
+              </button>
+            <?php else : ?>
+              <div class="bonus-code bonus-code--none">No code needed</div>
+            <?php endif; ?>
+          <?php endif; ?>
           <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?></a>
         </div>
       </div>
@@ -386,6 +391,21 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
         <?php if ($bonus_info || $bonus_plus) : ?>
           <div class="rail-cta__line"><?php echo esc_html($bonus_info); ?><?php echo $bonus_plus ? ' ' . esc_html($bonus_plus) : ''; ?></div>
         <?php endif; ?>
+        <?php if ($bonus_info) : ?>
+          <?php if ($bonus_code) : ?>
+            <button class="bonus-code" type="button" aria-label="Copy bonus code to clipboard">
+              <span class="bonus-code__label">CODE</span>
+              <span class="bonus-code__code"><?php echo esc_html($bonus_code); ?></span>
+              <span class="bonus-code__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                </svg>
+              </span>
+            </button>
+          <?php else : ?>
+            <div class="bonus-code bonus-code--none">No code needed</div>
+          <?php endif; ?>
+        <?php endif; ?>
         <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">Visit <?php echo esc_attr($name); ?> &rarr;</a>
         <div class="rail-cta__micro">T&amp;Cs apply</div>
         <?php if ($trust_total > 0) : ?>
@@ -461,12 +481,26 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 
 <?php if (!$closed && $link) { ?>
 <div class="sticky-cta" aria-hidden="true">
+
+  <?php if ($bonus_info && $bonus_code) : ?>
+    <button class="bonus-code bonus-code--strip" type="button" aria-label="Copy bonus code to clipboard">
+      <span class="bonus-code__label">Bonus code</span>
+      <span class="bonus-code__code"><?php echo esc_html($bonus_code); ?></span>
+      <span class="bonus-code__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+        </svg>
+      </span>
+      <span class="sr-only" aria-live="polite"></span>
+    </button>
+  <?php endif; ?>
+
   <div class="sticky-cta__inner container">
     <div class="sticky-cta__info">
       <?php if ($bonus_info) echo '<span>' . esc_html($bonus_info) . '</span>'; ?>
     </div>
     <a href="<?php echo esc_url($link); ?>" class="button button__primary" target="_blank" rel="sponsored noopener" aria-label="Visit <?php echo esc_attr($name); ?>">
-      Visit <?php echo esc_attr($name); ?>
+      Get Bonus
     </a>
   </div>
 </div>
