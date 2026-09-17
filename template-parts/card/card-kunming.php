@@ -8,9 +8,8 @@
   $link          = $details_group['affiliate_link'];
 
   $bonus_group  = get_field('bonus_group');
-  $bonus_title  = $bonus_group['bonus_title'] ?? null;
   $bonus        = $bonus_group['bonus'] ?? null;
-  $bonus_plus   = $bonus_group['bonus_plus'] ?? null;
+  $bonus_code   = $bonus_group['bonus_code'] ?? null;
 
   $mediaGroup = get_field('media_group');
   $siteColor  = $mediaGroup['theme_color'];
@@ -85,15 +84,41 @@
     'size'      => 'small',
   ]);
   $info_boxes_html = ob_get_clean();
-  if (!empty(trim($info_boxes_html))) : ?>
+  $has_boxes = !empty(trim($info_boxes_html));
+
+  if ($has_boxes || $bonus_code) : ?>
   <div class="card-kunming__info-boxes">
-    <button class="card-kunming__details-toggle" aria-expanded="false" aria-label="Toggle details">
-      Details
-      <span class="toggle-icon"><?php echo get_svg_icon('chevron-down'); ?></span>
-    </button>
-    <div class="card-kunming__details-content">
-      <?php echo $info_boxes_html; ?>
+
+    <div class="card-kunming__info-boxes-header">
+      <?php if ($has_boxes) : ?>
+        <button class="card-kunming__details-toggle" aria-expanded="false" aria-label="Toggle details">
+          Details
+          <span class="toggle-icon"><?php echo get_svg_icon('chevron-down'); ?></span>
+        </button>
+      <?php else : ?>
+        <span></span>
+      <?php endif; ?>
+
+      <?php if ($bonus_code) : ?>
+        <button class="bonus-code bonus-code--bar" type="button" aria-label="Copy bonus code to clipboard">
+          <span class="bonus-code__label">Bonus code</span>
+          <span class="bonus-code__code"><?php echo esc_html($bonus_code); ?></span>
+          <span class="bonus-code__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+            </svg>
+          </span>
+          <span class="sr-only" aria-live="polite"></span>
+        </button>
+      <?php endif; ?>
     </div>
+
+    <?php if ($has_boxes) : ?>
+      <div class="card-kunming__details-content">
+        <?php echo $info_boxes_html; ?>
+      </div>
+    <?php endif; ?>
+
   </div>
   <?php endif; ?>
 
