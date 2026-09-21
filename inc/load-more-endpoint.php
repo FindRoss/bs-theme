@@ -81,6 +81,7 @@ function km_load_more_callback($data) {
   $term_slug = sanitize_text_field($data['term']);
   $page      = !empty($data['page']) ? absint($data['page']) : 1;
   $per_page  = !empty($data['per_page']) ? absint($data['per_page']) : 5;
+  $heading_level = in_array($data['heading_level'] ?? '', array('h2', 'h3'), true) ? $data['heading_level'] : 'h3';
 
   if (!$taxonomy || !$term_slug) {
     return new WP_Error('missing_params', 'taxonomy and term are required', array('status' => 400));
@@ -116,7 +117,7 @@ function km_load_more_callback($data) {
   if ($query->have_posts()) {
     while ($query->have_posts()) {
       $query->the_post();
-      get_template_part('template-parts/card/card', 'kunming');
+      get_template_part('template-parts/card/card', 'kunming', array('heading_level' => $heading_level));
     }
     wp_reset_postdata();
   }

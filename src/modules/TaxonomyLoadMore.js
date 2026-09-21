@@ -12,6 +12,7 @@ class TaxonomyLoadMore {
     this.term       = this.cardList.dataset.term;
     this.totalPages = parseInt(this.cardList.dataset.totalPages, 10);
     this.endpoint   = this.cardList.dataset.endpoint || 'chaser/v2/reviews';
+    this.headingLevel = this.cardList.dataset.headingLevel;
     this.origin     = window.location.origin;
 
     this.button.addEventListener('click', () => this.handleClick());
@@ -29,6 +30,7 @@ class TaxonomyLoadMore {
         term:     this.term,
         page,
       });
+      if (this.headingLevel) params.set('heading_level', this.headingLevel);
 
       const response = await fetch(`${this.origin}/wp-json/${this.endpoint}?${params.toString()}`);
       const data = await response.json();

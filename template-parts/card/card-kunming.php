@@ -2,6 +2,7 @@
   $review_id = get_the_ID();
   $exclude_lazyload = $args['exclude_lazyload'] ?? false;
   $is_top           = $args['is_top'] ?? false;
+  $heading_level    = in_array( $args['heading_level'] ?? 'h3', array( 'h2', 'h3', 'h4' ), true ) ? $args['heading_level'] : 'h3';
 
   $details_group = get_field('details_group');
   $name          = $details_group['name'];
@@ -42,7 +43,7 @@
     </div>
 
     <div class="card-kunming__bonus">
-      <h3><?php echo esc_html($name); ?></h3>
+      <<?php echo $heading_level; ?>><?php echo esc_html($name); ?></<?php echo $heading_level; ?>>
       <?php if ($bonus) : ?>
         <div class="card-kunming__bonus-pill">
           <span class="card-kunming__bonus-icon"><i data-feather="gift"></i></span>

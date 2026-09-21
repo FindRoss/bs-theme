@@ -57,7 +57,7 @@
 </div>
 
 <!-- MAIN QUERY -->
-<?php taxonomy_main_query($query, $term); ?>
+<?php taxonomy_main_query($query, $term, 'h2'); ?>
 
 
 

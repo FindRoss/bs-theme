@@ -42,7 +42,7 @@ function build_taxonomy_main_query( WP_Term $term, int $paged = 1 ): WP_Query {
   ) );
 }
 
-function taxonomy_main_query($query, $term): void {
+function taxonomy_main_query($query, $term, string $heading_level = 'h3'): void {
 
   if (!$query->have_posts()) return;
   ?>
@@ -54,11 +54,12 @@ function taxonomy_main_query($query, $term): void {
     data-term="<?php echo $term ? esc_attr($term->slug) : ''; ?>"
     data-taxonomy="<?php echo $term ? esc_attr($term->taxonomy) : ''; ?>"
     data-total-pages="<?php echo esc_attr($query->max_num_pages); ?>"
+    data-heading-level="<?php echo esc_attr($heading_level); ?>"
   >
     <?php if ( $query->have_posts() ) :
       $counter = 1;
       while ( $query->have_posts() ) : $query->the_post() ?>
-        <?php get_template_part('template-parts/card/card', 'kunming', array('exclude_lazyload' => $counter <= 2, 'is_top' => $counter === 1)); ?>
+        <?php get_template_part('template-parts/card/card', 'kunming', array('exclude_lazyload' => $counter <= 2, 'is_top' => $counter === 1, 'heading_level' => $heading_level)); ?>
         <?php $counter++; ?>
       <?php endwhile; ?>
       <?php wp_reset_postdata(); ?>
