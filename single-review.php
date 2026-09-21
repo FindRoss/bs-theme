@@ -480,7 +480,7 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 </div><!-- .container -->
 
 <?php if (!$closed && $link) { ?>
-<div class="sticky-cta" aria-hidden="true">
+<div class="sticky-cta">
 
   <?php if ($bonus_info && $bonus_code) : ?>
     <button class="bonus-code bonus-code--strip" type="button" aria-label="Copy bonus code to clipboard">

@@ -50,10 +50,8 @@ export function singleReview() {
     function updateStickyCta() {
       if (ctaOut && !reviewEndVisible) {
         stickyCta.classList.add('visible');
-        stickyCta.removeAttribute('aria-hidden');
       } else {
         stickyCta.classList.remove('visible');
-        stickyCta.setAttribute('aria-hidden', 'true');
       }
     }
 

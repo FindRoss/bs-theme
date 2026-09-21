@@ -804,7 +804,9 @@
   z-index: 500;
   background: var(--color-primary-50);
   transform: translateY(110%);
-  transition: transform 0.25s ease;
+  // visibility removes the hidden bar from the tab order and screen readers
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
 
   @include breakpoint(large) {
     display: none;
@@ -812,6 +814,8 @@
 
   &.visible {
     transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.25s ease, visibility 0s;
   }
 
   // full-bleed code strip above the bar
