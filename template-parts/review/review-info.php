@@ -33,7 +33,7 @@ $homepage_img = get_field('media_group', $review_id)['homepage'] ?? null;
       <?php endif; ?>
     </div>
     <div class="info">
-      <ul>
+      <ul class="review-info-block__list">
         <li>
           <span>Year Founded</span>
           <span><?php echo $founded; ?></span>
