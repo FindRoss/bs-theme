@@ -64,8 +64,8 @@
         $table_fields['Site'] = '<a href="' . esc_url(get_the_permalink($casino_id)) . '">' . $name . '</a>';
       }
 
-      if (!empty($bonus)) {
-          $table_fields['Bonus'] = $bonus;
+      if (!empty($bonus) || !empty($plus)) {
+          $table_fields['Bonus'] = trim($bonus . ' ' . esc_html($plus));
       }
 
       if (!empty($code_extended) || !empty($code)) {
