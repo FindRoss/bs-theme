@@ -21,6 +21,8 @@ $additional_bonuses = get_posts([
     'terms'    => $term->term_id,
   ]],
   'post__not_in'   => $featured_bonuses,
+  'orderby'        => 'modified',
+  'order'          => 'DESC',
 ]);
 $additional_bonuses = is_array($additional_bonuses) ? $additional_bonuses : [];
 
