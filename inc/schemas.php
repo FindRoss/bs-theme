@@ -51,6 +51,9 @@ function reviewFaqSchema() {
     return;
   }
 
+  $closed = get_field('details_group')['closed'];
+  if ($closed) return;
+
   $schema = array(
     "@context" => "https://schema.org",
     "@type" => "FAQPage",

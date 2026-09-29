@@ -194,7 +194,7 @@ $toc[] = ['id' => 'section-review', 'label' => 'Review'];
 foreach ($content as $key => $value) {
   $toc[] = ['id' => 'section-' . sanitize_title($key), 'label' => $key];
 }
-if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
+if ($faqs_has_answers && !$closed) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
 
 ?>
 
@@ -342,7 +342,7 @@ if ($faqs_has_answers) $toc[] = ['id' => 'section-faqs', 'label' => 'FAQs'];
         </section>
 
 
-        <?php if ($faqs_has_answers) { ?>
+        <?php if ($faqs_has_answers && !$closed) { ?>
         <section class="content main--content mt-5" id="section-faqs">
             <h2>FAQs</h2>
             <?php foreach ($faqs as $faq) { ?>
