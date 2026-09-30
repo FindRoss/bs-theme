@@ -25,6 +25,18 @@ Template Post Type: page
       'permalink' => site_url('/bonuses/bitcoin/')
     ),
     array(
+      'id' => 25494,
+      'title' => 'Sports Betting',
+      'kicker' => 'Back Your Team',
+      'permalink' => site_url('/bonuses/sports/')
+    ),
+    array(
+      'id' => 25495,
+      'title' => 'Esports Betting',
+      'kicker' => 'Game On',
+      'permalink' => site_url('/bonuses/esports/')
+    ),
+    array(
       'id' => 25488,
       'title' => 'Welcome',
       'kicker' => 'New Player Offers',
@@ -37,10 +49,10 @@ Template Post Type: page
       'permalink' => site_url('/bonuses/no-deposit/')
     ),
     array(
-      'id' => 25490,
-      'title' => 'Wager-Free',
-      'kicker' => 'No Strings Attached',
-      'permalink' => site_url('/bonuses/wager-free/')
+      'id' => 25568,
+      'title' => 'High Roller & VIP',
+      'kicker' => 'Exlcusive Rewards',
+      'permalink' => site_url('/bonuses/high-roller/')
     ),
     array(
       'id' => 25489,
@@ -49,22 +61,22 @@ Template Post Type: page
       'permalink' => site_url('/bonuses/cashback/')
     ),
     array(
+      'id' => 25514,
+      'title' => 'Bonus Codes',
+      'kicker' => 'Unlock Deals',
+      'permalink' => site_url('/bonuses/bonus-codes/')
+    ),
+    array(
+      'id' => 25490,
+      'title' => 'Wager-Free',
+      'kicker' => 'No Strings Attached',
+      'permalink' => site_url('/bonuses/wager-free/')
+    ),
+    array(
       'id' => 25486,
       'title' => 'Free Spins',
       'kicker' => 'Extra Spins',
       'permalink' => site_url('/bonuses/free-spins/')
-    ),
-    array(
-      'id' => 25501,
-      'title' => 'Crypto',
-      'kicker' => 'Beyond Bitcoin',
-      'permalink' => site_url('/bonuses/crypto/')
-    ),
-    array(
-      'id' => 25487,
-      'title' => 'Deposit',
-      'kicker' => 'Boost Your Bankroll',
-      'permalink' => site_url('/bonuses/deposit/')
     ),
     array(
       'id' => 25496,
@@ -73,22 +85,10 @@ Template Post Type: page
       'permalink' => site_url('/bonuses/reload/')
     ),
     array(
-      'id' => 25494,
-      'title' => 'Sports Betting',
-      'kicker' => 'Back Your Team',
-      'permalink' => site_url('/bonuses/sports/')
-    ),
-    array(
-      'id' => 25494,
-      'title' => 'Esports Betting',
-      'kicker' => 'Game On',
-      'permalink' => site_url('/bonuses/esports/')
-    ),
-    array(
-      'id' => 25492,
-      'title' => 'VIP',
-      'kicker' => 'Exclusive Rewards',
-      'permalink' => site_url('/bonuses/vip/')
+      'id' => 25493,
+      'title' => 'Rakeback',
+      'kicker' => 'Every Bet Counts',
+      'permalink' => site_url('/bonuses/rakeback/')
     )
   );
   ?>
@@ -145,7 +145,7 @@ Template Post Type: page
     $bonus_query = new WP_Query($args);
     if ( ! $bonus_query->have_posts() ) { wp_reset_postdata(); continue; }
   ?>
-    <div class="container mt-5">
+    <div class="container mt-5 pt-4">
       <section>
         <div class="sec-head">
           <div class="sec-head__l">
