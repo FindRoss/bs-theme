@@ -10,53 +10,31 @@ function km_load_more_endpoint() {
 
 add_action('rest_api_init', 'km_load_more_endpoint');
 
-function km_load_more_bonuses_endpoint() {
-  register_rest_route('chaser/v2', 'bonuses', array(
+function km_bonus_cards_endpoint() {
+  register_rest_route('chaser/v2', 'bonus-cards', array(
     'methods'             => 'GET',
-    'callback'            => 'km_load_more_bonuses_callback',
+    'callback'            => 'km_bonus_cards_callback',
     'permission_callback' => '__return_true',
   ));
 }
-add_action('rest_api_init', 'km_load_more_bonuses_endpoint');
+add_action('rest_api_init', 'km_bonus_cards_endpoint');
 
-function km_load_more_bonuses_callback($data) {
-  $taxonomy  = sanitize_key($data['taxonomy']);
-  $term_slug = sanitize_text_field($data['term']);
-  $page      = !empty($data['page']) ? absint($data['page']) : 1;
-  $per_page  = !empty($data['per_page']) ? absint($data['per_page']) : 6;
+// Renders cards for an ordered list of bonus IDs supplied by the page.
+function km_bonus_cards_callback($data) {
+  $ids = array_filter(array_map('absint', explode(',', (string) $data['ids'])));
+  $ids = array_slice(array_values(array_unique($ids)), 0, 12);
 
-  if (!$taxonomy || !$term_slug) {
-    return new WP_Error('missing_params', 'taxonomy and term are required', array('status' => 400));
-  }
-
-  $term     = get_term_by('slug', $term_slug, $taxonomy);
-  $featured = get_field('featured_bonuses', $term) ?: [];
-  $featured = array_map('intval', $featured);
-
-  $additional = get_posts(array(
-    'post_type'      => 'bonus',
-    'posts_per_page' => -1,
-    'fields'         => 'ids',
-    'tax_query'      => array(array(
-      'taxonomy' => $taxonomy,
-      'field'    => 'slug',
-      'terms'    => $term_slug,
-    )),
-    'post__not_in' => $featured,
-  ));
-
-  $merged = array_merge($featured, $additional);
-
-  if (empty($merged)) {
-    return array('html' => '', 'currentPage' => 1, 'totalPages' => 0);
+  if (empty($ids)) {
+    return array('html' => '');
   }
 
   $query = new WP_Query(array(
     'post_type'      => 'bonus',
-    'posts_per_page' => $per_page,
-    'paged'          => $page,
-    'post__in'       => $merged,
+    'post_status'    => 'publish',
+    'posts_per_page' => count($ids),
+    'post__in'       => $ids,
     'orderby'        => 'post__in',
+    'no_found_rows'  => true,
   ));
 
   ob_start();
@@ -69,11 +47,7 @@ function km_load_more_bonuses_callback($data) {
   }
   $html = ob_get_clean();
 
-  return array(
-    'html'        => $html,
-    'currentPage' => $page,
-    'totalPages'  => (int) $query->max_num_pages,
-  );
+  return array('html' => $html);
 }
 
 function km_load_more_callback($data) {

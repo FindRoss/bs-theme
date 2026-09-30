@@ -15,36 +15,26 @@ class TaxonomyLoadMore {
     this.headingLevel = this.cardList.dataset.headingLevel;
     this.origin     = window.location.origin;
 
+    // IDs mode: the page supplies the full ordered list, we request the next slice.
+    this.ids     = this.cardList.dataset.ids ? this.cardList.dataset.ids.split(',') : null;
+    this.shown   = parseInt(this.cardList.dataset.shown, 10) || 0;
+    this.perPage = parseInt(this.cardList.dataset.perPage, 10) || 6;
+
     this.button.addEventListener('click', () => this.handleClick());
   }
 
   async handleClick() {
-    const page = parseInt(this.button.dataset.page, 10);
-
     this.button.querySelector('span').textContent = 'Loading…';
     this.button.disabled = true;
 
     try {
-      const params = new URLSearchParams({
-        taxonomy: this.taxonomy,
-        term:     this.term,
-        page,
-      });
-      if (this.headingLevel) params.set('heading_level', this.headingLevel);
-
-      const response = await fetch(`${this.origin}/wp-json/${this.endpoint}?${params.toString()}`);
-      const data = await response.json();
-      const { html, currentPage, totalPages } = data;
-
-      const fragment = document.createRange().createContextualFragment(html);
-      this.cardList.appendChild(fragment);
+      const done = this.ids ? await this.loadNextIds() : await this.loadNextPage();
 
       feather.replace();
 
-      if (currentPage >= totalPages) {
+      if (done) {
         this.button.closest('.km-load-more-wrapper').remove();
       } else {
-        this.button.dataset.page = currentPage + 1;
         this.button.querySelector('span').textContent = 'Load More';
         this.button.disabled = false;
       }
@@ -52,6 +42,42 @@ class TaxonomyLoadMore {
       this.button.querySelector('span').textContent = 'Load More';
       this.button.disabled = false;
     }
+  }
+
+  async loadNextIds() {
+    const next = this.ids.slice(this.shown, this.shown + this.perPage);
+    const params = new URLSearchParams({ ids: next.join(',') });
+
+    const response = await fetch(`${this.origin}/wp-json/${this.endpoint}?${params.toString()}`);
+    const { html } = await response.json();
+
+    this.append(html);
+    this.shown += next.length;
+
+    return this.shown >= this.ids.length;
+  }
+
+  async loadNextPage() {
+    const page = parseInt(this.button.dataset.page, 10);
+    const params = new URLSearchParams({
+      taxonomy: this.taxonomy,
+      term:     this.term,
+      page,
+    });
+    if (this.headingLevel) params.set('heading_level', this.headingLevel);
+
+    const response = await fetch(`${this.origin}/wp-json/${this.endpoint}?${params.toString()}`);
+    const { html, currentPage, totalPages } = await response.json();
+
+    this.append(html);
+    this.button.dataset.page = currentPage + 1;
+
+    return currentPage >= totalPages;
+  }
+
+  append(html) {
+    const fragment = document.createRange().createContextualFragment(html);
+    this.cardList.appendChild(fragment);
   }
 }
 

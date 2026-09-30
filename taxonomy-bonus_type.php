@@ -10,6 +10,17 @@ $term_slug = $term->slug;
 $featured_bonuses = get_field('featured_bonuses', $term);
 $featured_bonuses = is_array($featured_bonuses) ? $featured_bonuses : [];
 
+// Keep only published featured bonuses so data-ids matches what actually renders
+if (!empty($featured_bonuses)) {
+  $featured_bonuses = get_posts(array(
+    'post_type'      => 'bonus',
+    'posts_per_page' => -1,
+    'fields'         => 'ids',
+    'post__in'       => $featured_bonuses,
+    'orderby'        => 'post__in',
+  ));
+}
+
 // Get additional bonuses excluding featured
 $additional_bonuses = get_posts(array(
   'post_type'      => 'bonus',
@@ -93,10 +104,10 @@ $title_output = $title_overrides[$term_slug] ?? $term_name . ' Bonuses';
     <section>
       <div id="km-card-list"
         class="mt-4 flex flex-col gap-3"
-        data-term="<?php echo esc_attr($term_slug); ?>"
-        data-taxonomy="<?php echo esc_attr($taxonomy); ?>"
-        data-total-pages="<?php echo esc_attr($query ? $query->max_num_pages : 0); ?>"
-        data-endpoint="chaser/v2/bonuses"
+        data-ids="<?php echo esc_attr(implode(',', $merged_bonuses)); ?>"
+        data-shown="<?php echo esc_attr($query ? min($paged * 6, $query->found_posts) : 0); ?>"
+        data-per-page="6"
+        data-endpoint="chaser/v2/bonus-cards"
       >
         <?php if ($query && $query->have_posts()) : ?>
           <?php while ($query->have_posts()) : $query->the_post(); ?>
