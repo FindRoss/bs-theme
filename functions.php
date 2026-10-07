@@ -134,13 +134,13 @@ add_action( 'after_setup_theme', 'my_theme_setup' );
 
 
 // Hide custom permalinks metabox from all post types
-add_action('admin_head', function () {
-	echo '<style>
-		#custom-permalinks-edit-box {
-				display: none !important;
-		}
-	</style>';
-});
+// add_action('admin_head', function () {
+// 	echo '<style>
+// 		#custom-permalinks-edit-box {
+// 				display: none !important;
+// 		}
+// 	</style>';
+// });
 
 // Prevent ACF WYSIWYG (TinyMCE) fields from stealing focus on page load
 add_action('admin_footer', function () {
