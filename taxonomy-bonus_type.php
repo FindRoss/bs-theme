@@ -62,19 +62,20 @@ if (empty($merged_bonuses)) {
 };
 
 $title_overrides = [
+    'welcome'     => 'Bitcoin Welcome Bonuses',       
+    'deposit'     => 'Bitcoin Casino Deposit Bonuses',
+    'reload'      => 'Bitcoin Casino Reload Bonuses',
+    'sports'      => 'Bitcoin Sports Betting Bonuses', 
+    'cashback'    => 'Crypto Casino Cashback Bonuses',        
+    'bonus-codes' => 'Crypto Casino Bonus Codes',             
+    'wager-free'  => 'Crypto Casino No Wager Bonuses',
     'bitcoin'     => 'Bitcoin Casino Bonuses',       
     'crypto'      => 'Crypto Casino Bonuses',
-    'welcome'     => 'Bitcoin Welcome Bonuses',       
-    'high-roller' => 'Bitcoin High Roller Bonuses',    
-    'sports'      => 'Bitcoin Sports Betting Bonuses', 
-    'cashback'    => 'Crypto Cashback Bonuses',        
-    'bonus-codes' => 'Crypto Bonus Codes',             
-    'rakeback'    => 'Crypto Rakeback',                
+    'high-roller' => 'VIP & High Roller Bitcoin Bonuses',    
+    'rakeback'    => 'Crypto Casino Rakeback',                
     'free-spins'  => 'Crypto Free Spins Bonuses',      
     'esports'     => 'Esports Betting Bonuses',
-    'deposit'     => 'Bitcoin Deposit Bonuses',
-    'reload'      => 'Bitcoin Reload Bonuses',
-    'wager-free'  => 'Crypto Wager-Free Bonuses'
+    'no-deposit'  => 'Crypto Casino No Deposit Bonuses'
 ];
 $title_output = $title_overrides[$term_slug] ?? $term_name . ' Bonuses';
 
@@ -153,11 +154,19 @@ $title_output = $title_overrides[$term_slug] ?? $term_name . ' Bonuses';
         </aside>
       </section>
 
+      <!-- MORE BONUS TYPES -->
+      <div class="mt-5 pt-4 pb-5">
+        <?php get_template_part('template-parts/section/bonus-type-links', null, [
+          'title'   => 'More Bonus Types',
+          'exclude' => [$term_id],
+        ]); ?>
+      </div>
+
       <?php get_template_part('template-parts/section/latest-posts-review', null, array(
         'exclude' => array()
       )); ?>
     <?php endif; ?>
 
-</div><!-- .container --> 
+</div><!-- .container -->
 
 <?php get_footer(); ?>

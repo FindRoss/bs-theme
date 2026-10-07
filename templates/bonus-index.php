@@ -17,117 +17,11 @@ Template Post Type: page
   </div><!-- .container --> 
 
   <?php
-  $bonus_types = array(
-    array(
-      'id' => 25693,
-      'title' => 'Bitcoin',
-      'kicker' => 'Crypto Friendly',
-      'permalink' => site_url('/bonuses/bitcoin/')
-    ),
-    array(
-      'id' => 25494,
-      'title' => 'Sports Betting',
-      'kicker' => 'Back Your Team',
-      'permalink' => site_url('/bonuses/sports/')
-    ),
-    array(
-      'id' => 25495,
-      'title' => 'Esports Betting',
-      'kicker' => 'Game On',
-      'permalink' => site_url('/bonuses/esports/')
-    ),
-    array(
-      'id' => 25488,
-      'title' => 'Welcome',
-      'kicker' => 'New Player Offers',
-      'permalink' => site_url('/bonuses/welcome/')
-    ),
-    array(
-      'id' => 25491,
-      'title' => 'No Deposit',
-      'kicker' => 'Free To Try',
-      'permalink' => site_url('/bonuses/no-deposit/')
-    ),
-    array(
-      'id' => 25568,
-      'title' => 'High Roller & VIP',
-      'kicker' => 'Exlcusive Rewards',
-      'permalink' => site_url('/bonuses/high-roller/')
-    ),
-    array(
-      'id' => 25489,
-      'title' => 'Cashback',
-      'kicker' => 'Get Some Back',
-      'permalink' => site_url('/bonuses/cashback/')
-    ),
-    array(
-      'id' => 25514,
-      'title' => 'Bonus Codes',
-      'kicker' => 'Unlock Deals',
-      'permalink' => site_url('/bonuses/bonus-codes/')
-    ),
-    array(
-      'id' => 25490,
-      'title' => 'Wager-Free',
-      'kicker' => 'No Strings Attached',
-      'permalink' => site_url('/bonuses/wager-free/')
-    ),
-    array(
-      'id' => 25486,
-      'title' => 'Free Spins',
-      'kicker' => 'Extra Spins',
-      'permalink' => site_url('/bonuses/free-spins/')
-    ),
-    array(
-      'id' => 25496,
-      'title' => 'Reload',
-      'kicker' => 'Keep It Going',
-      'permalink' => site_url('/bonuses/reload/')
-    ),
-    array(
-      'id' => 25493,
-      'title' => 'Rakeback',
-      'kicker' => 'Every Bet Counts',
-      'permalink' => site_url('/bonuses/rakeback/')
-    )
-  );
+  $bonus_types = bs_get_bonus_types();
   ?>
 
   <div class="container mt-5">
-    <section>
-      <div class="sec-head">
-        <div class="sec-head__l">
-          <span class="sec-head__bar"></span>
-          <div class="sec-head__titles">
-            <h2 class="sec-head__title">Browse All Bonus Types</h2>
-          </div>
-        </div>
-      </div>
-      <div class="bonus-type-links mt-4">
-        <?php foreach ($bonus_types as $type) :
-          $term  = get_term($type['id'], 'bonus_type');
-          $icon  = $term ? get_field('icon', $term) : null;
-          $count = $term ? (int) $term->count : 0;
-        ?>
-          <a class="bonus-type-links__item" href="<?php echo esc_url($type['permalink']); ?>">
-            <div class="bonus-type-links__top">
-              <?php if ($icon && is_array($icon)) : ?>
-                <div class="bonus-type-links__icon-wrap">
-                  <img class="bonus-type-links__icon" src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt'] ?: $type['title']); ?>" width="28" height="28">
-                </div>
-              <?php endif; ?>
-              <svg class="bonus-type-links__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-            </div>
-            <div class="bonus-type-links__body">
-              <span class="bonus-type-links__label"><?php echo esc_html($type['title']); ?> Bonuses</span>
-              <?php if ($count) : ?>
-                <span class="bonus-type-links__count"><?php echo $count; ?> bonuses</span>
-              <?php endif; ?>
-            </div>
-          </a>
-        <?php endforeach; ?>
-      </div>
-    </section>
+    <?php get_template_part('template-parts/section/bonus-type-links'); ?>
   </div>
 
   <?php foreach ($bonus_types as $type) :

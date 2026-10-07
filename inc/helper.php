@@ -274,3 +274,24 @@ function display_licenses($terms) {
 
     return $output;
 }
+
+/**
+ * Curated list of bonus types (order + display data) used on the bonus index
+ * and the "More Bonus Types" section on bonus_type taxonomy pages
+ */
+function bs_get_bonus_types() {
+    return array(
+        array('id' => 25693, 'title' => 'Bitcoin',           'kicker' => 'Crypto Friendly',     'permalink' => site_url('/bonuses/bitcoin/')),
+        array('id' => 25494, 'title' => 'Sports Betting',    'kicker' => 'Back Your Team',      'permalink' => site_url('/bonuses/sports/')),
+        array('id' => 25495, 'title' => 'Esports Betting',   'kicker' => 'Game On',             'permalink' => site_url('/bonuses/esports/')),
+        array('id' => 25488, 'title' => 'Welcome',           'kicker' => 'New Player Offers',   'permalink' => site_url('/bonuses/welcome/')),
+        array('id' => 25491, 'title' => 'No Deposit',        'kicker' => 'Free To Try',         'permalink' => site_url('/bonuses/no-deposit/')),
+        array('id' => 25568, 'title' => 'VIP & High Roller', 'kicker' => 'Exlcusive Rewards',   'permalink' => site_url('/bonuses/high-roller/')),
+        array('id' => 25489, 'title' => 'Cashback',          'kicker' => 'Get Some Back',       'permalink' => site_url('/bonuses/cashback/')),
+        array('id' => 25514, 'title' => 'Bonus Codes',       'kicker' => 'Unlock Deals',        'permalink' => site_url('/bonuses/bonus-codes/')),
+        array('id' => 25490, 'title' => 'Wager-Free',        'kicker' => 'No Strings Attached', 'permalink' => site_url('/bonuses/wager-free/')),
+        array('id' => 25486, 'title' => 'Free Spins',        'kicker' => 'Extra Spins',         'permalink' => site_url('/bonuses/free-spins/')),
+        array('id' => 25496, 'title' => 'Reload',            'kicker' => 'Keep It Going',       'permalink' => site_url('/bonuses/reload/')),
+        array('id' => 25493, 'title' => 'Rakeback',          'kicker' => 'Every Bet Counts',    'permalink' => site_url('/bonuses/rakeback/')),
+    );
+}
