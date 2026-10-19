@@ -24,22 +24,49 @@ function build_taxonomy_main_query( WP_Term $term, int $paged = 1 ): WP_Query {
     ) );
   }
 
-  return new WP_Query( array(
-    'post_type'      => 'review',
-    'posts_per_page' => 5,
-    'paged'          => $paged,
-    'orderby'        => 'meta_value_num',
-    'meta_key'       => 'rank',
-    'order'          => 'ASC',
-    'tax_query'      => array(
-      array(
-        'taxonomy' => $term->taxonomy,
-        'field'    => 'term_id',
-        'terms'    => $term->term_id,
+  $version = get_option( 'bs_tax_q_version', 1 );
+  $key     = 'bs_tax_q_' . $term->taxonomy . '_' . $term->term_id . '_' . $paged . '_v' . $version;
+  $cached  = get_transient( $key );
+
+  if ( false === $cached ) {
+    $ranked = new WP_Query( array(
+      'post_type'      => 'review',
+      'posts_per_page' => 5,
+      'paged'          => $paged,
+      'orderby'        => 'meta_value_num',
+      'meta_key'       => 'rank',
+      'order'          => 'ASC',
+      'fields'         => 'ids',
+      'tax_query'      => array(
+        array(
+          'taxonomy' => $term->taxonomy,
+          'field'    => 'term_id',
+          'terms'    => $term->term_id,
+        ),
       ),
-    ),
-    'meta_query'     => $closed_meta,
+      'meta_query'     => $closed_meta,
+    ) );
+
+    $cached = array(
+      'ids'       => array_map( 'intval', $ranked->posts ),
+      'max_pages' => (int) $ranked->max_num_pages,
+    );
+    set_transient( $key, $cached, DAY_IN_SECONDS );
+  }
+
+  // An empty post__in would match every post, so fall back to a non-existent ID.
+  $ids = $cached['ids'] ?: array( 0 );
+
+  $query = new WP_Query( array(
+    'post_type'      => 'review',
+    'post__in'       => $ids,
+    'orderby'        => 'post__in',
+    'posts_per_page' => count( $ids ),
+    'no_found_rows'  => true,
   ) );
+  $query->max_num_pages = $cached['max_pages'];
+
+  return $query;
 }
 
 function taxonomy_main_query($query, $term, string $heading_level = 'h3'): void {

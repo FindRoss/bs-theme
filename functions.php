@@ -354,6 +354,7 @@ require get_theme_file_path('/inc/swiper.php');
  * Slider HTML Output
  */
 require get_theme_file_path('/inc/taxonomy-query.php');
+require get_theme_file_path('/inc/taxonomy-query-cache.php');
 
 /**
  * Track which user last saved a taxonomy term's ACF fields
