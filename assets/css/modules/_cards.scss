@@ -1295,7 +1295,8 @@ section.articles-box {
 
   &__ctas {
     display: flex;
-    flex-direction: column;
+    // Visual order: Play Now on top, Review below (DOM order unchanged for a11y)
+    flex-direction: column-reverse;
     gap: var(--size-100);
     width: 100%;
 
@@ -1650,7 +1651,8 @@ section.articles-box {
     flex-wrap: wrap;
 
     @include breakpoint(large) {
-      flex-direction: column;
+      // Stacked: Get Bonus on top, Learn more below (DOM order unchanged for a11y)
+      flex-direction: column-reverse;
       flex-shrink: 0;
       width: 160px;
       flex-wrap: nowrap;

@@ -661,6 +661,11 @@ iframe {
 .faqs {
   margin-top: var(--size-600);
 
+  // Taxonomy pages: a bit more breathing room above the FAQs
+  .archive & {
+    margin-top: var(--size-800);
+  }
+
   &__heading {
     margin-top: 0px !important;
     margin-bottom: var(--size-400);
@@ -717,13 +722,6 @@ iframe {
   }
 
   .faq__answer {
-    height: 0;
-    overflow: hidden;
-
-    &.expanded {
-      height: auto;
-    }
-
     p {
       margin-top: var(--size-200);
     }
