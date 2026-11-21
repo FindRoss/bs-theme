@@ -6,40 +6,8 @@ $taxonomy = $term->taxonomy;
 $term_name = $term->name;
 $term_slug = $term->slug;
 
-// Field from taxonomy page
-$featured_bonuses = get_field('featured_bonuses', $term);
-$featured_bonuses = is_array($featured_bonuses) ? $featured_bonuses : [];
-
-// Keep only published featured bonuses so data-ids matches what actually renders
-if (!empty($featured_bonuses)) {
-  $featured_bonuses = get_posts(array(
-    'post_type'      => 'bonus',
-    'posts_per_page' => -1,
-    'fields'         => 'ids',
-    'post__in'       => $featured_bonuses,
-    'orderby'        => 'post__in',
-  ));
-}
-
-// Get additional bonuses excluding featured
-$additional_bonuses = get_posts(array(
-  'post_type'      => 'bonus',
-  'posts_per_page' => -1,
-  'fields'         => 'ids',
-  'tax_query' => array(
-    array(
-      'taxonomy' => $taxonomy,
-      'field'    => 'slug',
-      'terms'    => $term_slug,
-    ),
-  ),
-  'post__not_in' => $featured_bonuses,
-  'orderby'      => 'modified',
-  'order'        => 'DESC',
-));
-
-$additional_bonuses = is_array($additional_bonuses) ? $additional_bonuses : [];
-$merged_bonuses = array_merge($featured_bonuses, $additional_bonuses);
+// Featured bonuses first, then the rest (shared with the ItemList schema in inc/schemas.php)
+$merged_bonuses = get_bonus_type_ids($term);
 
 $icon    = get_field('icon', $term);
 $hasIcon = $icon && is_array($icon);

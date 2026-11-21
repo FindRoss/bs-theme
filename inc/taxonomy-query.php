@@ -105,3 +105,44 @@ function taxonomy_main_query($query, $term, string $heading_level = 'h3'): void 
 
 
 <?php }; ?>
+
+
+<?php
+/**
+ * Ordered bonus IDs for a bonus_type term: published featured bonuses first,
+ * then the remaining bonuses in the term (most recently modified first).
+ * Shared by taxonomy-bonus_type.php and the ItemList schema so they never drift.
+ */
+function get_bonus_type_ids( WP_Term $term ): array {
+  $featured = get_field( 'featured_bonuses', $term );
+  $featured = is_array( $featured ) ? $featured : [];
+
+  // Keep only published featured bonuses so data-ids matches what actually renders
+  if ( ! empty( $featured ) ) {
+    $featured = get_posts( array(
+      'post_type'      => 'bonus',
+      'posts_per_page' => -1,
+      'fields'         => 'ids',
+      'post__in'       => $featured,
+      'orderby'        => 'post__in',
+    ) );
+  }
+
+  $additional = get_posts( array(
+    'post_type'      => 'bonus',
+    'posts_per_page' => -1,
+    'fields'         => 'ids',
+    'tax_query'      => array(
+      array(
+        'taxonomy' => $term->taxonomy,
+        'field'    => 'slug',
+        'terms'    => $term->slug,
+      ),
+    ),
+    'post__not_in'   => $featured,
+    'orderby'        => 'modified',
+    'order'          => 'DESC',
+  ) );
+
+  return array_merge( $featured, is_array( $additional ) ? $additional : [] );
+}
