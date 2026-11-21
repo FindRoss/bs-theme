@@ -3,14 +3,16 @@
 * FAQ SCHEMA
 */
 
-add_action('wp_head', 'productFaqSchema');
+add_action('wp_head', 'pageFaqSchema');
 
-function productFaqSchema() {
+function pageFaqSchema() {
   if ( ! ( is_singular() || is_tax() ) ) {
     return;
   }
 
-  $faqs = get_field('faqs');
+  // Taxonomy archives need the term passed explicitly (same as content-faqs.php),
+  // otherwise ACF can't resolve the field in wp_head.
+  $faqs = is_tax() ? get_field('faqs', get_queried_object()) : get_field('faqs');
 
   if ( ! is_array( $faqs ) || empty( $faqs ) ) {
     return;
@@ -26,7 +28,7 @@ function productFaqSchema() {
     if ( ! empty( $faq['question'] ) && ! empty( $faq['answer'] ) ) {
       $faq_item = array(
         "@type" => "Question",
-        "name" => $faq['question'],
+        "name" => wp_strip_all_tags( $faq['question'] ),
         "acceptedAnswer" => array(
           "@type" => "Answer",
           "text" => wp_strip_all_tags( $faq['answer'] )
@@ -141,4 +143,68 @@ function reviewRatingSchema() {
   }
 
   echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>';
+}
+
+/**
+* COLLECTION PAGE ITEMLIST
+*
+* Adds an ItemList (position, name, url only) to Yoast's CollectionPage on
+* taxonomy archives. Uses build_taxonomy_main_query() so it matches the visible
+* casino listing, and links to the /review/ permalink (never /go/ affiliate URLs).
+*/
+add_filter('wpseo_schema_webpage', 'taxonomyItemListSchema');
+
+function taxonomyItemListSchema( $data ) {
+  if ( ! is_tax() ) {
+    return $data;
+  }
+
+  $types = (array) ( $data['@type'] ?? array() );
+  if ( ! in_array( 'CollectionPage', $types, true ) ) {
+    return $data;
+  }
+
+  $term = get_queried_object();
+  if ( ! $term instanceof WP_Term ) {
+    return $data;
+  }
+
+  $paged    = max( 1, (int) get_query_var( 'paged' ) );
+  $per_page = 5;
+
+  if ( 'bonus_type' === $term->taxonomy ) {
+    // Bonus type pages list bonus posts (card-suzhou). Same IDs and page size as the template.
+    $per_page = 6;
+    $post_ids = array_slice( get_bonus_type_ids( $term ), ( $paged - 1 ) * $per_page, $per_page );
+    // card-suzhou skips bonuses with no linked casino, so do the same here.
+    $post_ids = array_filter( $post_ids, fn( $id ) => ! empty( get_field( 'single_bonus_casino', $id ) ) );
+  } else {
+    $query    = build_taxonomy_main_query( $term, $paged );
+    $post_ids = array_map( fn( $p ) => is_object( $p ) ? $p->ID : (int) $p, $query->posts );
+  }
+
+  $items    = array();
+  $position = ( $paged - 1 ) * $per_page;
+
+  foreach ( $post_ids as $post_id ) {
+    if ( ! $post_id ) {
+      continue;
+    }
+    // get_permalink() gives the on-site /review/ or /bonus/ page, never the external/affiliate link.
+    $items[] = array(
+      '@type'    => 'ListItem',
+      'position' => ++$position,
+      'name'     => html_entity_decode( wp_strip_all_tags( get_the_title( $post_id ) ), ENT_QUOTES, 'UTF-8' ),
+      'url'      => get_permalink( $post_id ),
+    );
+  }
+
+  if ( ! empty( $items ) ) {
+    $data['mainEntity'] = array(
+      '@type'           => 'ItemList',
+      'itemListElement' => $items,
+    );
+  }
+
+  return $data;
 }
