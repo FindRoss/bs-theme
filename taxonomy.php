@@ -22,7 +22,7 @@
   } else {
       $title_output = $term_name . ' Casinos and Gambling Sites';
       if ($taxonomy == 'cryptocurrency') $title_output = 'Top ' . $term_name . ' Casinos of 2026';
-      if ($taxonomy == 'payment') $title_output = 'Top Crypto ' . $term_name . ' Casinos of 2026';
+      if ($taxonomy == 'payment') $title_output = 'Bitcoin and Crypto Casinos That Accept ' . $term_name . ' (2026)';
       if ($taxonomy == 'provider') $title_output = 'Top ' . $term_name . ' Crypto Casinos of 2026';
       if ($taxonomy == 'country') $title_output = 'Bitcoin and Crypto Casinos in ' . $term_name . ' 2026';
       if ($taxonomy == 'license') $title_output = 'Top ' . $term_name . ' Licensed Crypto Casinos of 2026';

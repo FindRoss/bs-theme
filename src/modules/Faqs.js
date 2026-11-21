@@ -10,8 +10,7 @@ class Faqs {
 				const expanded = btn.getAttribute('aria-expanded') === 'true';
 				btn.setAttribute('aria-expanded', String(!expanded));
 				const answer = document.getElementById(btn.getAttribute('aria-controls'));
-				answer.setAttribute('aria-hidden', String(expanded));
-				answer.classList.toggle('expanded');
+				answer.hidden = expanded;
 				btn.querySelector('.faq__icon').classList.toggle('rotated');
 			});
 		});
